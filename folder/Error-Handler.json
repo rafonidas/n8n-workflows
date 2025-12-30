@@ -1,0 +1,260 @@
+{
+  "active": false,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Specific Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generic Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Specific Notification": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-11-06T16:21:04.697Z",
+  "id": "h1TswfYCSmmTHJwB",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Error-Handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        -112
+      ],
+      "id": "a969e218-2ad8-47a8-a766-3ba76e47ff37",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst runData = response.data.resultData.runData;\nconst lastNode = response.data.resultData.lastNodeExecuted;\n\n// 1. Buscamos el error técnico\nconst technicalError = response.data.resultData.error || {};\n\n// 2. Buscamos el CONTEXTO REAL (País y Entorno del Credentials Loop)\nlet realContext = { pais: \"N/A\", entorno: \"N/A\" };\n\ntry {\n  // Accedemos al historial del nodo que itera las credenciales\n  const credsLoopExecs = runData[\"Credentials Loop\"];\n  // Tomamos la última vez que pasó por ese nodo\n  const lastCredsExecution = credsLoopExecs[credsLoopExecs.length - 1];\n  \n  // En un 'Split in Batches', el puerto 1 (índice 1) es el que saca el ítem actual\n  const currentCredsItem = lastCredsExecution.data.main[1][0].json;\n  \n  realContext.pais = currentCredsItem.country || \"N/A\";\n  realContext.entorno = currentCredsItem.entorno || \"N/A\";\n} catch (e) {\n  realContext = { pais: \"Error rastreo\", entorno: \"Error rastreo\" };\n}\n\n// 3. Buscamos los datos de la QUERY que falló\nlet lastInputData = {};\ntry {\n  const nodeExecutions = runData[lastNode];\n  const lastExecution = nodeExecutions[nodeExecutions.length - 1];\n  \n  if (lastExecution.source && lastExecution.source.length > 0) {\n    const sourceNodeName = lastExecution.source[0].previousNode;\n    const sourceNodeExecs = runData[sourceNodeName];\n    const lastSourceExec = sourceNodeExecs[sourceNodeExecs.length - 1];\n    \n    // El 'Query Loop' entrega los datos por el puerto 1\n    lastInputData = lastSourceExec.data.main[1][0].json;\n  }\n} catch (e) {\n  lastInputData = { info: \"No se pudo rastrear la query\" };\n}\n\nreturn {\n  json: {\n    alerta: {\n      error: technicalError.message,\n      stack: technicalError.stack,\n      nodo_fallido: lastNode,\n    },\n    contexto_negocio: {\n      queryId: lastInputData.queryId || \"N/A\",\n      // AHORA SI: Usamos los datos del contexto real de conexión\n      pais: realContext.pais,\n      entorno: realContext.entorno,\n    },\n    meta: {\n      executionId: response.id,\n      timestamp: response.stoppedAt\n    }\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16,
+        -128
+      ],
+      "id": "e3c81e12-2498-41d3-b3be-31a31b597f36",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "=http://192.168.108.42:5678/api/v1/executions/{{ $json.execution.id }}?includeData=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YjJhYzk3NS1kYzY2LTRiOGItYWU2My1lYzJkN2ZiYmU4MmYiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY2NTE1NzIyfQ.Etc2QuZhm9uRcnq7i3OFC6DtuvT-yG1MXfJlCcGsfN4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -304,
+        -128
+      ],
+      "id": "c0dde7c7-a10d-43cd-bbc7-a2237b04497f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "116f54f8-a623-4184-87f4-8bc362b99f01",
+              "leftValue": "={{ $json.workflow.name }}",
+              "rightValue": "COLOMBIA - Revisión de Entornos",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -576,
+        -112
+      ],
+      "id": "49be1152-e84a-4912-a37d-9aab65563722",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "content": "## Flujo de errores: \n## - Si detecta que un flujo en particular falló, va a recuperar los datos de su ejecución para mostrarlos en la notificación. \n## - Otros flujos envian notificacion normal",
+        "height": 256,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -784,
+        -480
+      ],
+      "typeVersion": 1,
+      "id": "c734e8a4-5817-4c01-9b0e-a1d7f9f5da62",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=<b>Workflow Error:</b> {{ $json.workflow.name }}<br>\n<br>\n<b>{{ $json.execution.lastNodeExecuted }}</b> at {{ $now.format('yyyy-MM-dd hh:mm') }}<br>\n<br>\n<b>See this execution at:</b> <a href=\"{{ $json.execution.url }}\">{{ $json.execution.url }}</a><br>\n<br>\n<b>The error message was:</b> {{ $json.execution.error.message }}<br>\n<br>\n<small><b>Technical Stack:</b> {{ $json.execution.error.stack }}</small>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        32
+      ],
+      "id": "27e698d0-d3ff-4a62-8eb3-6e263ce18b00",
+      "name": "Generic Notification",
+      "webhookId": "f2501279-44ce-46e3-9031-9d48e047cbb4",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $json.meta.timestamp.toDateTime().format('yyyy-MM-dd HH:mm') }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error }}<br>\n<br>\n<b>See this execution at:</b> <a href=\"{{ $node[\"Error Trigger\"].json.execution.url }}\">{{ $node[\"Error Trigger\"].json.execution.url }}</a>\n<br><br><small><b>Technical Stack:</b> {{ $json.alerta.stack }}...</small>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        304,
+        -128
+      ],
+      "id": "8d7f91a5-e57a-45ad-8933-8724923acffe",
+      "name": "Specific Notification",
+      "webhookId": "1b3f1c79-8ee3-4c8a-aa2a-db8ed12341a4",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-11-06T16:21:04.760Z",
+      "updatedAt": "2025-11-06T16:21:04.760Z",
+      "role": "workflow:owner",
+      "workflowId": "h1TswfYCSmmTHJwB",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-30T11:31:28.000Z",
+  "versionId": "653fa738-4cb8-422b-aba7-4e110636110e"
+}
