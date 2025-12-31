@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Config": {
       "main": [
@@ -129,7 +129,7 @@
       "main": [
         [
           {
-            "node": "Completed Notification",
+            "node": "Create message",
             "type": "main",
             "index": 0
           }
@@ -188,12 +188,18 @@
         ]
       ]
     },
-    "Schedule Trigger1": {
+    "When clicking ‘Execute workflow’": {
       "main": [
-        []
+        [
+          {
+            "node": "Starting Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "When clicking ‘Execute workflow’": {
+    "Schedule Trigger": {
       "main": [
         [
           {
@@ -243,7 +249,7 @@
       "type": "n8n-nodes-base.merge",
       "position": [
         1504,
-        368
+        384
       ],
       "typeVersion": 2
     },
@@ -256,7 +262,7 @@
       "type": "n8n-nodes-base.code",
       "position": [
         1712,
-        368
+        384
       ],
       "typeVersion": 1
     },
@@ -356,7 +362,7 @@
       "type": "n8n-nodes-base.filter",
       "position": [
         400,
-        368
+        384
       ],
       "typeVersion": 2.2
     },
@@ -461,13 +467,13 @@
       "type": "n8n-nodes-base.n8n",
       "position": [
         176,
-        368
+        384
       ],
       "typeVersion": 1,
       "credentials": {
         "n8nApi": {
-          "id": "y9PDEDAKrPqrNrgj",
-          "name": "n8n account"
+          "id": "I9e7wKcsSnlc40cq",
+          "name": "n8n base"
         }
       }
     },
@@ -509,7 +515,7 @@
       "type": "n8n-nodes-base.set",
       "position": [
         -48,
-        368
+        384
       ],
       "typeVersion": 3.4
     },
@@ -602,8 +608,8 @@
       "name": "Get File",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        1280,
-        176
+        1312,
+        160
       ],
       "typeVersion": 4.2
     },
@@ -625,32 +631,9 @@
       "type": "n8n-nodes-base.slack",
       "position": [
         -272,
-        368
+        384
       ],
       "webhookId": "c02eb407-5547-4aa0-9ebf-46dab67b63b6",
-      "typeVersion": 2.2,
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "select": "channel",
-        "channelId": {
-          "__rl": true,
-          "mode": "name",
-          "value": "#notifications"
-        },
-        "text": "=✅ Backup has completed - {{ $('Get Workflows').all().length }} workflows have been processed.",
-        "otherOptions": {}
-      },
-      "id": "0ed5ab52-29cc-4474-b19f-be04d5722ca3",
-      "name": "Completed Notification",
-      "type": "n8n-nodes-base.slack",
-      "position": [
-        832,
-        -32
-      ],
-      "webhookId": "a0c6e8c8-5d71-40fa-b02b-63a7ed5726c4",
-      "executeOnce": true,
       "typeVersion": 2.2,
       "disabled": true
     },
@@ -662,10 +645,21 @@
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        624,
-        368
+        640,
+        384
       ],
       "typeVersion": 3
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        192
+      ],
+      "id": "da99e7c2-a45e-456e-abcb-d13db723e7d3",
+      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
@@ -676,51 +670,59 @@
         }
       },
       "id": "e209ae02-dc20-48e8-a83e-d354be937c17",
-      "name": "Schedule Trigger1",
+      "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "position": [
-        -368,
-        96
+        -496,
+        384
       ],
       "typeVersion": 1.2
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -448,
-        368
-      ],
-      "id": "da99e7c2-a45e-456e-abcb-d13db723e7d3",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
       "parameters": {
-        "returnAll": false,
-        "limit": 2,
-        "filters": {},
-        "requestOptions": {}
-      },
-      "type": "n8n-nodes-base.n8n",
-      "typeVersion": 1,
-      "position": [
-        176,
-        32
-      ],
-      "id": "8274099e-f73f-407d-9513-2d48a93b80a5",
-      "name": "Get many workflows",
-      "credentials": {
-        "n8nApi": {
-          "id": "y9PDEDAKrPqrNrgj",
-          "name": "n8n account"
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "message": "=✅ Backup has completed - from {{ $('Get Workflows').all().length }} processed workflows {{ $('Filter').all().length }} have been saved.",
+        "options": {
+          "includeLinkToWorkflow": false
         }
-      }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        832,
+        -112
+      ],
+      "id": "e360ea09-4987-4fdd-87b2-5720e4708aef",
+      "name": "Create message",
+      "webhookId": "0ba5798f-49b8-4121-be7b-2ad9cd6e1d72",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "disabled": true
     }
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
@@ -731,9 +733,13 @@
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-12-30T12:11:17.000Z",
-  "versionId": "107df5b9-c499-441e-a374-b0969e36f3c1"
+  "triggerCount": 1,
+  "updatedAt": "2025-12-30T13:50:19.000Z",
+  "versionId": "917e3caa-9255-4386-911a-c614b938ff89"
 }
