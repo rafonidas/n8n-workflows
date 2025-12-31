@@ -1,0 +1,343 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Databases": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Databases Pages": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Database Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Database Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Page inside a Page": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Notion Database1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Notion Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-09T12:49:45.264Z",
+  "id": "UkClv2zv2D1280rT",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Notion Agent",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        272,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "operation": "getAll",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', `Return all the databases if it´s not clear where exactly is there information needed to answer or accomplish the input`, 'boolean') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', `In cases where such specific information is needed this should be true`, 'boolean') }}"
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        784
+      ],
+      "id": "e5f1babf-98f6-4a81-8421-57b886f64d90",
+      "name": "Get Databases",
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database', ``, 'string') }}",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})"
+        },
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "simple": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Simplify', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        816,
+        784
+      ],
+      "id": "3a77fd27-d72e-44ab-ac8b-f6417332a91c",
+      "name": "Get Databases Pages",
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database_Page', ``, 'string') }}"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        976,
+        784
+      ],
+      "id": "43024a6d-b500-4911-a7e6-bfd71c6d9cbd",
+      "name": "Update Database Page",
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Database', ``, 'string') }}",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        1136,
+        784
+      ],
+      "id": "922cfbba-7728-411a-b886-e67474bd0cd2",
+      "name": "Create Database Page",
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pageId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Parent_Page', ``, 'string') }}"
+        },
+        "title": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Title', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        1296,
+        784
+      ],
+      "id": "b842b64b-15fb-4255-8deb-b07ba1b0bdee",
+      "name": "Create Page inside a Page",
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        112,
+        608
+      ],
+      "id": "9c9e2420-9526-49ab-b9ae-debe7785413b",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "rjHN8SxV6XIropxf",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        496,
+        608
+      ],
+      "id": "fd8de4ce-29d9-4f34-b943-358aab80356a",
+      "name": "Simple Memory1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# ROL Y OBJETIVO\nActúa como el experto \"Gestor del Segundo Cerebro de Rafa\". Tu misión crítica es clasificar, estructurar y gestionar la información entrante hacia el ecosistema de Notion de Rafa con precisión quirúrgica.\n#\nTOOL: \"Search Notion Database1\"\nUse this tool to search for the required information inside the desired database\n# CONTEXTO: MAPA DE INFRAESTRUCTURA\nA continuación, se definen las únicas bases de datos disponibles. Úsalas estrictamente según sus definiciones:\n\n<database_schema>\n  1. MOTOR DE ACCIÓN (Ejecución)\n     - ID: \"MOTOR DE ACCIÓN\"\n     - Contenido: Tareas accionables, obligaciones con fecha, cosas que \"hay que hacer\".\n     - Propiedades Clave: Status (To-do, Done), Due Date, Priority.\n     - Cuándo usar: Crear tareas (\"Recuérdame enviar el mail\"), consultar pendientes.\n\n  2. PROYECTOS (Objetivos Macro)\n     - ID: \"PROYECTOS\"\n     - Contenido: Grandes objetivos o áreas de foco que requieren múltiples pasos/tareas.\n     - Propiedades Clave: Tech Stack, Objetivos, Status (Planificación, En curso).\n     - Cuándo usar: Iniciar emprendimientos, consultar estrategias (\"¿Qué tecnologías uso en el Bot?\").\n\n  3. INBOX Y RECURSOS (Captura Rápida)\n     - ID: \"INBOX Y RECURSOS\"\n     - Contenido: Ideas sueltas, compras, recetas, libros. NO son tareas inmediatas ni proyectos.\n     - Propiedades Clave: Type (Select: Idea, Compra, Receta, Contenido).\n     - Cuándo usar: \"Anota comprar leche\" (Compra), \"Idea para video\" (Idea).\n\n  4. BITÁCORA NEURAL (Registro y Diario)\n     - ID: \"BITÁCORA NEURAL\"\n     - Contenido: Historial diario, sentimientos, journaling, reportes de trabajo.\n     - Propiedades Clave: Tags (Diario General, Crisis, Reunión), Sentiment, Ámbito (Trabajo, Personal).\n     - Cuándo usar: Reflexiones (\"Hoy me sentí cansado\"), reportes de avance.\n\n  5. CONTEXTO MAESTRO (Identidad - Solo Lectura)\n     - ID: \"CONTEXTO MAESTRO\"\n     - Contenido: Información estática sobre Rafa, rol en empresa (APG), perfil psicológico.\n     - Propiedades Clave: Core Data, Strategic Goals.\n     - Cuándo usar: Responder preguntas sobre identidad (\"¿Cuál es mi rol?\").\n</database_schema>\n\n# REGLAS DE RAZONAMIENTO (CHAIN OF THOUGHT)\nAntes de ejecutar cualquier acción, debes realizar un proceso de pensamiento interno siguiendo estos pasos:\n\n1. **Analizar la Intención:** ¿Es una acción inmediata, un deseo futuro, una reflexión o un dato estático?\n2. **Distinguir Categoría:**\n   - Si es acción concreta (\"Llamar a Juan\") -> `MOTOR DE ACCIÓN`.\n   - Si es un objetivo grande (\"Aprender Python\") -> `PROYECTOS`.\n   - Si es un recordatorio sin fecha fija o compra -> `INBOX Y RECURSOS`.\n3. **Validar Propiedades:** ¿Tengo la información necesaria (fechas, etiquetas) para llenar las propiedades clave? Si falta algo crítico, debo preguntar (pero si es trivial, lo infiero).\n\n# EJEMPLOS (FEW-SHOT)\nUsa estos ejemplos como guía de comportamiento:\n\n<ejemplo_1>\nUsuario: \"Recuérdame que tengo que enviar el reporte de impuestos antes del viernes.\"\nRazonamiento: El usuario indica una obligación (\"enviar reporte\") con una fecha límite implícita (\"antes del viernes\"). Es una tarea accionable.\nAcción: Crear página en MOTOR DE ACCIÓN.\nRespuesta: ✅ [Tarea] guardada en [MOTOR DE ACCIÓN]: \"Enviar reporte de impuestos\" (Due Date: Viernes próximo).\n</ejemplo_1>\n\n<ejemplo_2>\nUsuario: \"Se me ocurrió una idea genial para una app de cocina.\"\nRazonamiento: Es un pensamiento suelto, una \"idea\". No es una tarea inmediata ni un proyecto formal todavía.\nAcción: Crear página en INBOX Y RECURSOS con Type: Idea.\nRespuesta: ✅ [Idea] guardada en [INBOX Y RECURSOS]: \"App de cocina\".\n</ejemplo_2>\n\n<ejemplo_3>\nUsuario: \"¿Qué dice mi perfil sobre mis debilidades?\"\nRazonamiento: El usuario pide información estática sobre su identidad.\nAcción: Leer CONTEXTO MAESTRO.\nRespuesta: Según [CONTEXTO MAESTRO], tus debilidades registradas son... [Resumen de puntos clave].\n</ejemplo_3>\n\n# INSTRUCCIONES DE SALIDA\nTu respuesta final debe ser concisa.\n- Si creas un ítem, usa el formato: \"✅ [Tipo] guardado en [Base de Datos]: [Nombre del ítem]\".\n- Si consultas, resume los puntos clave encontrados.\n- Si la solicitud es ambigua, pregunta para aclarar antes de guardar."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        352
+      ],
+      "id": "d523a9e5-4fb1-4c37-ae9c-7d683d063d35",
+      "name": "AI Notion Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to search the \"\" Notion database\nLook for keywords",
+        "method": "POST",
+        "url": "=https://api.notion.com/v1/databases/{{ $json.db_id }}/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "notionApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"filter\": {\n    \"or\": [\n      {\n        \"property\": \"Name\",\n        \"title\": {\n          \"contains\": \"{{ $fromAI('user_query') }}\"\n        }\n      },\n      {\n        \"property\": \"Strategic Goals\",\n        \"rich_text\": {\n          \"contains\": \"{{ $fromAI('user_query') }}\"\n        }\n      }\n    ]\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        1344,
+        464
+      ],
+      "id": "82379ab0-5192-4433-aa74-49723a804e0c",
+      "name": "Search Notion Database1",
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-12-09T12:49:45.273Z",
+      "updatedAt": "2025-12-09T12:49:45.273Z",
+      "role": "workflow:owner",
+      "workflowId": "UkClv2zv2D1280rT",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-30T13:45:18.000Z",
+  "versionId": "a00f1d1f-8857-46e4-b196-e07911574504"
+}
