@@ -126,7 +126,7 @@
             {
               "id": "116f54f8-a623-4184-87f4-8bc362b99f01",
               "leftValue": "={{ $json.workflow.name }}",
-              "rightValue": "COLOMBIA - Revisión de Entornos",
+              "rightValue": "Revisión de Entornos",
               "operator": {
                 "type": "string",
                 "operation": "equals",
@@ -255,6 +255,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-12-30T11:31:28.000Z",
-  "versionId": "653fa738-4cb8-422b-aba7-4e110636110e"
+  "updatedAt": "2025-12-30T19:01:54.000Z",
+  "versionId": "cbf828a2-938b-4f5f-ba0b-33fda00b93f3"
 }
