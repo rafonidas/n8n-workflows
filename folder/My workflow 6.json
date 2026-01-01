@@ -1,0 +1,119 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many executions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-31T11:09:38.172Z",
+  "id": "BxKmA6UibIu6AbNv",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 6",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        112
+      ],
+      "id": "5624ad93-94d2-41f5-b210-9a15abb9dc1d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "execution",
+        "limit": 10,
+        "filters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "V0kCQ1kK3N3ayC36",
+            "mode": "list",
+            "cachedResultName": "Revisión de Entornos (#V0kCQ1kK3N3ayC36)"
+          }
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        112
+      ],
+      "id": "a6c6e3ba-b8f9-4730-bce4-5c7ac487837d",
+      "name": "Get many executions",
+      "credentials": {
+        "n8nApi": {
+          "id": "I9e7wKcsSnlc40cq",
+          "name": "n8n base"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -160
+      ],
+      "id": "15b524c0-7d41-4bdf-a165-e21595aeefca",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -336,
+        -160
+      ],
+      "id": "7cf3c4b8-3aa1-48a7-842b-a1a4eb77ed06",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-12-31T11:09:38.180Z",
+      "updatedAt": "2025-12-31T11:09:38.180Z",
+      "role": "workflow:owner",
+      "workflowId": "BxKmA6UibIu6AbNv",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-31T13:01:13.000Z",
+  "versionId": "7077cc37-86be-49b1-ab48-4e3df10be2ef"
+}
