@@ -34,7 +34,7 @@
         ],
         [
           {
-            "node": "SQL Execute",
+            "node": "Audit Start",
             "type": "main",
             "index": 0
           }
@@ -68,7 +68,7 @@
       "main": [
         [
           {
-            "node": "Map Results",
+            "node": "Audit End",
             "type": "main",
             "index": 0
           }
@@ -242,6 +242,39 @@
           }
         ]
       ]
+    },
+    "Audit Start": {
+      "main": [
+        [
+          {
+            "node": "SQL Execute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit End": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "Map Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-12-30T13:52:32.496Z",
@@ -357,7 +390,7 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        688,
+        976,
         2736
       ],
       "notesInFlow": false,
@@ -372,12 +405,12 @@
     },
     {
       "parameters": {
-        "jsCode": "const sqlResults = items.map(i => i.json);\n\nconst contextItem = $node[\"Query Loop\"].json;\n\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\nreturn { json: outputItem };"
+        "jsCode": "// [NODO: Map Results - DENTRO DEL BUCLE]\n// MODO: Run Once for ALL Items\n\n// 1. Obtener los resultados del nodo \"SQL Execute\" específicamente\n// Usamos $('SQL Execute').all() para recuperar sus datos aunque haya nodos intermedios.\nconst sqlResults = $(\"SQL Execute\").all().map(i => i.json);\n\n// 2. Obtener el item de contexto (la query) del nodo \"Query Loop\"\n// Mantenemos la referencia al nodo que controla el bucle.\nconst contextItem = $node[\"Query Loop\"].json;\n\n// 3. Fusionar: Añadimos los resultados del SQL dentro del item de contexto\n// Creamos una copia para evitar problemas de referencia\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\n// 4. Devolver el item fusionado y listo\n// El resultado tendrá la estructura: { \"queryId\": \"...\", ..., \"result\": [ {fila1}, {fila2} ] }\nreturn { json: outputItem };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1152,
+        1616,
         2736
       ],
       "id": "929987d7-7329-45b2-8f98-a6143832db33",
@@ -408,7 +441,7 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        1376,
+        2208,
         2496
       ],
       "id": "fae70b3e-7ec8-4d56-8b9b-16d2cf0bdbfb",
@@ -421,6 +454,7 @@
           "name": "N8N-TeamsAccount"
         }
       },
+      "disabled": true,
       "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
     },
     {
@@ -430,7 +464,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1616,
+        2448,
         2496
       ],
       "id": "79bfd611-1e6c-40eb-bcc5-6d2c7498842f",
@@ -553,7 +587,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        864,
+        1696,
         2512
       ],
       "id": "2777b8c8-ed32-4a06-a269-ab38f676ea05",
@@ -569,7 +603,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        704,
+        1120,
         2512
       ],
       "id": "5257cf53-2061-45ae-a3a8-ad3fbfda2efa",
@@ -673,7 +707,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1040,
+        1872,
         2512
       ],
       "id": "c36b38a0-8eb7-4b25-ab9e-e61b21a10f41",
@@ -698,6 +732,58 @@
       ],
       "id": "855cf5c5-afe9-48db-b3e0-93428ef3177f",
       "name": "Hourly Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capturamos el momento exacto de inicio en milisegundos\nconst startTime = new Date().getTime();\n\n// Añadimos esta marca de tiempo a cada ítem que pasa por el flujo\n// para que esté disponible después de la consulta SQL\nfor (const item of $input.all()) {\n  item.json.audit_startTime = startTime;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        2736
+      ],
+      "id": "fc10b7c2-914c-446e-ab49-5fbc87d2a6e3",
+      "name": "Audit Start"
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos el País y Entorno del loop actual\n// Usamos .item para asegurarnos de traer el dato de la vuelta actual del bucle\nconst envData = $('Credentials Loop').item.json;\n\nconst queryData = $('Query Loop').item.json;\n// 3. Calculamos el peso\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Construimos el objeto de auditoría final\n// Si el SQL devolvió [{}], lo tratamos como vacío para el conteo\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\nreturn [{\n  json: {\n    // Datos de Identificación (vienen del Loop)\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    timestamp: new Date().toLocaleString(\"es-AR\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n    }\n  \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        2736
+      ],
+      "id": "4515ab4c-b8fb-4253-8c5b-2938b76df5cd",
+      "name": "Audit End"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "QLct9VqyIFgppL03",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1392,
+        2736
+      ],
+      "id": "800c0814-2a5d-4b75-a1dc-11b7ab6d95c1",
+      "name": "Insert row"
     }
   ],
   "pinData": {},
@@ -753,6 +839,6 @@
   },
   "tags": [],
   "triggerCount": 6,
-  "updatedAt": "2025-12-30T19:04:47.000Z",
-  "versionId": "de8b95ad-0058-42e6-b78a-c72880a2663c"
+  "updatedAt": "2025-12-31T16:01:48.000Z",
+  "versionId": "ce3b3bf2-b6ef-4dac-a348-01fc7c6eedc7"
 }
