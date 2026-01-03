@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Config": {
       "main": [
@@ -704,7 +704,10 @@
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
@@ -715,9 +718,13 @@
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-01-02T11:55:31.000Z",
-  "versionId": "5e739bf3-101c-4654-b31b-969a99e219f7"
+  "triggerCount": 1,
+  "updatedAt": "2026-01-02T13:52:50.000Z",
+  "versionId": "99b1268e-1539-4e60-8145-452278908190"
 }
