@@ -34,7 +34,7 @@
         ],
         [
           {
-            "node": "Audit Start",
+            "node": "SQL Execute",
             "type": "main",
             "index": 0
           }
@@ -64,17 +64,6 @@
         ]
       ]
     },
-    "SQL Execute": {
-      "main": [
-        [
-          {
-            "node": "Audit End",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Map Results": {
       "main": [
         [
@@ -90,22 +79,12 @@
       "main": [
         [
           {
-            "node": "Wait",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait": {
-      "main": [
-        [
-          {
             "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Weekly Trigger": {
@@ -167,7 +146,7 @@
       "main": [
         [
           {
-            "node": "Set  HTML",
+            "node": "Pattern recognition",
             "type": "main",
             "index": 0
           }
@@ -232,11 +211,52 @@
         ]
       ]
     },
+    "SQL Execute": {
+      "main": [
+        [
+          {
+            "node": "Map Results",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Pattern recognition": {
+      "main": [
+        [
+          {
+            "node": "Microsoft SQL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set  HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Hourly Trigger": {
       "main": [
         [
           {
-            "node": "Set Credentials",
+            "node": "Set Credentials1",
             "type": "main",
             "index": 0
           }
@@ -247,7 +267,7 @@
       "main": [
         [
           {
-            "node": "SQL Execute",
+            "node": "SQL Execute1",
             "type": "main",
             "index": 0
           }
@@ -269,7 +289,227 @@
       "main": [
         [
           {
-            "node": "Map Results",
+            "node": "Map Results1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials1": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Loop1": {
+      "main": [
+        [
+          {
+            "node": "Fan In1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Queries1": {
+      "main": [
+        [
+          {
+            "node": "Filter Queries1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Set Queries1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Execute1": {
+      "main": [
+        [
+          {
+            "node": "Audit End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Results1": {
+      "main": [
+        [
+          {
+            "node": "Query Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weekly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan Out1": {
+      "main": [
+        [
+          {
+            "node": "Query Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bi-hourly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set  HTML1": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan In1": {
+      "main": [
+        [
+          {
+            "node": "Set  HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Queries1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Fan Out1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Send Results1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
             "type": "main",
             "index": 0
           }
@@ -277,8 +517,8 @@
       ]
     }
   },
-  "createdAt": "2025-12-30T13:52:32.496Z",
-  "id": "ClEOILdTgx8OUhVg",
+  "createdAt": "2025-12-23T02:11:32.156Z",
+  "id": "5K68L5Ps2t472Hof",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -292,32 +532,33 @@
             {
               "field": "cronExpression",
               "expression": "0 0 5 * * 1-5"
-            }
+            },
+            {}
           ]
         }
       },
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        3456
+        -3072,
+        368
       ],
-      "id": "c4c68900-a736-4a3b-a10c-cf011f1fa26f",
+      "id": "5b213da4-a108-4243-ac08-2e643b5ca733",
       "name": "Daily Trigger",
       "alwaysOutputData": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n}\n\n// Configuración ARGENTINA\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Configuración COLOMBIA\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Función auxiliar para mapear\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,     // ESTE CAMPO ES CLAVE PARA EL FILTRO\n          channelId: db.channelId,\n          country: db.country,\n          \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\n\n// Retornamos la lista combinada (ARG + COL)\nreturn [...dbsArg, ...dbsCol];\n//"
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}\n\n// Configuración ARGENTINA\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Configuración COLOMBIA\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Función auxiliar para mapear\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,     // ESTE CAMPO ES CLAVE PARA EL FILTRO\n          channelId: db.channelId,\n          country: db.country,\n          \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\n\n// Retornamos la lista combinada (ARG + COL)\nreturn [...dbsArg, ...dbsCol];\n//"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1104,
-        2656
+        -2752,
+        64
       ],
-      "id": "9126974b-64cb-4e59-b977-8203e39ba96a",
+      "id": "beb892dd-3dd6-4984-bb18-75b02cfe5613",
       "name": "Set Credentials"
     },
     {
@@ -329,10 +570,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        352,
-        2720
+        -1248,
+        128
       ],
-      "id": "82650af0-7fea-4a82-b5d9-c3a0ecfe7c74",
+      "id": "bd68d47c-aa91-4ea6-88da-0f3cf6a83cb5",
       "name": "Query Loop"
     },
     {
@@ -360,12 +601,11 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -528,
-        2736
+        -2208,
+        144
       ],
-      "id": "8034df7e-4f83-47cc-8ad9-1086f52989b6",
-      "name": "Set Queries",
-      "retryOnFail": true
+      "id": "74eec0fd-f6e0-4a95-9c50-a8b21cf89f80",
+      "name": "Set Queries"
     },
     {
       "parameters": {
@@ -374,46 +614,23 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -768,
-        2720
+        -2416,
+        128
       ],
-      "id": "e65cf998-b841-4e7c-a043-3b3324c863f0",
+      "id": "62dfcee6-01ee-463e-bf86-33dc27c7d2eb",
       "name": "Credentials Loop"
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "{{ $json.revisionQuery }}"
-      },
-      "id": "99497f2a-afcd-4742-b4f8-e02b1a7720f3",
-      "name": "SQL Execute",
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1,
-      "position": [
-        976,
-        2736
-      ],
-      "notesInFlow": false,
-      "alwaysOutputData": true,
-      "retryOnFail": true,
-      "credentials": {
-        "microsoftSql": {
-          "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "// [NODO: Map Results - DENTRO DEL BUCLE]\n// MODO: Run Once for ALL Items\n\n// 1. Obtener los resultados del nodo \"SQL Execute\" específicamente\n// Usamos $('SQL Execute').all() para recuperar sus datos aunque haya nodos intermedios.\nconst sqlResults = $(\"SQL Execute\").all().map(i => i.json);\n\n// 2. Obtener el item de contexto (la query) del nodo \"Query Loop\"\n// Mantenemos la referencia al nodo que controla el bucle.\nconst contextItem = $node[\"Query Loop\"].json;\n\n// 3. Fusionar: Añadimos los resultados del SQL dentro del item de contexto\n// Creamos una copia para evitar problemas de referencia\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\n// 4. Devolver el item fusionado y listo\n// El resultado tendrá la estructura: { \"queryId\": \"...\", ..., \"result\": [ {fila1}, {fila2} ] }\nreturn { json: outputItem };"
+        "jsCode": "const sqlResults = items.map(i => i.json);\n\nconst contextItem = $node[\"Query Loop\"].json;\n\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\nreturn { json: outputItem };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1616,
-        2736
+        -640,
+        144
       ],
-      "id": "929987d7-7329-45b2-8f98-a6143832db33",
+      "id": "86b214e3-668b-4b3a-8cae-ac22d4ec51c0",
       "name": "Map Results"
     },
     {
@@ -441,12 +658,12 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2208,
-        2496
+        32,
+        -192
       ],
-      "id": "fae70b3e-7ec8-4d56-8b9b-16d2cf0bdbfb",
+      "id": "6a50f7f0-1bb0-4136-9fe0-8abb6c1422e1",
       "name": "Send Results",
-      "webhookId": "4c03ff36-2f79-4da4-be45-7843a06ff099",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": true,
       "credentials": {
         "microsoftTeamsOAuth2Api": {
@@ -459,20 +676,6 @@
     },
     {
       "parameters": {
-        "amount": 10
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        2448,
-        2496
-      ],
-      "id": "79bfd611-1e6c-40eb-bcc5-6d2c7498842f",
-      "name": "Wait",
-      "webhookId": "0ca8dabc-ea86-466f-a91c-5d37b9c00761"
-    },
-    {
-      "parameters": {
         "rule": {
           "interval": [
             {
@@ -480,7 +683,7 @@
               "triggerAtDay": [
                 2
               ],
-              "triggerAtHour": 9
+              "triggerAtHour": 7
             }
           ]
         }
@@ -488,10 +691,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        3296
+        -3072,
+        208
       ],
-      "id": "9396f50c-417a-487f-9b27-0b3f5da90fe9",
+      "id": "62028c18-6db4-4f22-8f76-e6e5dc71176a",
       "name": "Weekly Trigger",
       "alwaysOutputData": true
     },
@@ -510,24 +713,24 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        3152
+        -3072,
+        64
       ],
-      "id": "7911dc83-ddd3-4f8a-9b5e-bea57e6a6f49",
+      "id": "d75438ba-0faf-4d61-9001-d89c41239756",
       "name": "Monthly Trigger",
       "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "// [NODO: FAN OUT - DIVISOR]\n// MODO: Run Once for ALL Items\n\nconst allOutputItems = [];\nconst separatorRegex = /\\s*-{2,3}\\s*[\\r\\n]+/; \n\nfor (const item of items) {\n  const parentItem = item;\n  const json = parentItem.json;\n  \n  const revQuery = json.revisionQuery || '';\n  const corQuery = json.correctionQuery || '';\n  const queryId = json.queryId;\n\n  const revQueriesParts = revQuery.split(separatorRegex).filter(p => p.trim().length > 0);\n\n  if (revQueriesParts.length > 1) {\n    // --- CASO 1: Query Particionada (1.3) ---\n    const corQueriesParts = corQuery ? corQuery.split(separatorRegex).filter(p => p.trim().length > 0) : [];\n\n    revQueriesParts.forEach((subRevQuery, index) => {\n      const newItem = JSON.parse(JSON.stringify(json));\n      newItem.revisionQuery = subRevQuery.trim();\n      \n      let associatedCor = null;\n      if (corQueriesParts.length > 0 && corQueriesParts[index]) {\n        associatedCor = corQueriesParts[index].trim();\n      }\n      newItem.associatedCorrection = associatedCor;\n\n      newItem.queryType = 'revision';\n      newItem.subQueryIndex = index;\n      newItem.parentGroupId = queryId; \n      \n      delete newItem.correctionQuery; // Aquí SÍ borramos porque está partida\n      allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n    });\n\n  } else {\n    // --- CASO 2: Query Normal (1.2, etc) ---\n    const newItem = JSON.parse(JSON.stringify(json));\n    \n    newItem.revisionQuery = revQuery.trim();\n    // CORRECCIÓN AQUÍ: Mantenemos correctionQuery original para que llegue al HTML\n    newItem.correctionQuery = corQuery.trim(); \n    \n    // Opcional: dejamos associatedCorrection por si alguna lógica futura lo usa\n    newItem.associatedCorrection = corQuery.trim();\n\n    newItem.queryType = 'revision';\n    newItem.subQueryIndex = 0;\n    \n    delete newItem.parentGroupId; \n    // ELIMINADO: delete newItem.correctionQuery;  <-- ESTA LÍNEA CAUSABA EL ERROR\n\n    allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n  }\n}\n\nreturn allOutputItems;"
+        "jsCode": "// [NODO: FAN OUT - DIVISOR]\n// MODO: Run Once for ALL Items\n\nconst allOutputItems = [];\nconst separatorRegex = /\\s*-{2,3}\\s*[\\r\\n]+/; \n\nfor (const item of items) {\n  const parentItem = item;\n  const json = parentItem.json;\n  \n  const revQuery = '@' ;\n  const corQuery = json.correctionQuery || '';\n  const queryId = json.queryId;\n\n  const revQueriesParts = revQuery.split(separatorRegex).filter(p => p.trim().length > 0);\n\n  if (revQueriesParts.length > 1) {\n    // --- CASO 1: Query Particionada (1.3) ---\n    const corQueriesParts = corQuery ? corQuery.split(separatorRegex).filter(p => p.trim().length > 0) : [];\n\n    revQueriesParts.forEach((subRevQuery, index) => {\n      const newItem = JSON.parse(JSON.stringify(json));\n      newItem.revisionQuery = subRevQuery.trim();\n      \n      let associatedCor = null;\n      if (corQueriesParts.length > 0 && corQueriesParts[index]) {\n        associatedCor = corQueriesParts[index].trim();\n      }\n      newItem.associatedCorrection = associatedCor;\n\n      newItem.queryType = 'revision';\n      newItem.subQueryIndex = index;\n      newItem.parentGroupId = queryId; \n      \n      delete newItem.correctionQuery; // Aquí SÍ borramos porque está partida\n      allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n    });\n\n  } else {\n    // --- CASO 2: Query Normal (1.2, etc) ---\n    const newItem = JSON.parse(JSON.stringify(json));\n    \n    newItem.revisionQuery = revQuery.trim();\n    // CORRECCIÓN AQUÍ: Mantenemos correctionQuery original para que llegue al HTML\n    newItem.correctionQuery = corQuery.trim(); \n    \n    // Opcional: dejamos associatedCorrection por si alguna lógica futura lo usa\n    newItem.associatedCorrection = corQuery.trim();\n\n    newItem.queryType = 'revision';\n    newItem.subQueryIndex = 0;\n    \n    delete newItem.parentGroupId; \n    // ELIMINADO: delete newItem.correctionQuery;  <-- ESTA LÍNEA CAUSABA EL ERROR\n\n    allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n  }\n}\n\nreturn allOutputItems;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        112,
-        2720
+        -1536,
+        128
       ],
-      "id": "ca175a14-3af3-4f9d-9920-61703e61d6cd",
+      "id": "f2676c77-8e32-44c6-a39b-80564a19d320",
       "name": "Fan Out",
       "alwaysOutputData": false
     },
@@ -539,11 +742,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -448,
-        2320
+        -2272,
+        -784
       ],
       "typeVersion": 1,
-      "id": "99eba689-6f4f-4b99-973a-bf0a9db7d4e9",
+      "id": "55730039-41fc-4108-b561-0a84655a714f",
       "name": "Sticky Note1"
     },
     {
@@ -552,11 +755,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -448,
-        2160
+        -2512,
+        -752
       ],
       "typeVersion": 1,
-      "id": "0239600e-f44d-4046-b688-eb3f34fb78ba",
+      "id": "058d9a7f-2572-437c-ba77-918b2d653fe3",
       "name": "Sticky Note"
     },
     {
@@ -573,24 +776,24 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        3008
+        -3072,
+        -96
       ],
-      "id": "21dfccef-6d1b-4557-9dab-d37908f86424",
+      "id": "20aaba09-db97-4ccc-a3aa-dcff6b4ad9c1",
       "name": "Bi-hourly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
     {
       "parameters": {
-        "jsCode": "// [NODO: Set HTML - Versión Ultra-Ligera]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n\nlet reportType = \"General\";\ntry { \n    reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; \n} catch(e) {}\n\n// Si no hay ítems de entrada, validamos anti-spam básico\nif (allItems.length === 0) {\n    if (['Bi-hourly', 'Hourly'].includes(reportType)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\n\n// --- 1. ESTILOS MÍNIMOS (Centralizados para evitar repetición) ---\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    table: 'width:100%;border-collapse:collapse;', // El resto se maneja con atributos nativos\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n    const results = item.result;\n    \n    let isEmpty = false;\n    if (!results) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150; // AHORA PUEDES SUBIR ESTE LÍMITE\n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    // USO DE ATRIBUTOS NATIVOS: border, cellpadding y cellspacing para ahorrar bytes por celda\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`; // CERO estilos aquí, hereda del contenedor\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// --- 3. REPORTE FINAL ---\nlet finalHtml = `<div style=\"${styles.container}\">`;\n// --- 3. LÓGICA ANTI-SPAM FINAL ---\n// Si es Bi-hourly o Hourly y no hay contenido relevante, no enviamos nada (Array vacío)\nif (['Bi-hourly', 'Hourly'].includes(reportType) && validHtmlParts.length === 0) {\n    return [];\n}\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\n\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la revisión de Entornos</h2>`;\n\nif (validHtmlParts.length === 0) {\n    let reportType = \"General\";\n    try { reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; } catch(e){}\n    if (['Bi-hourly', 'Nightly'].includes(reportType)) return []; \n\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades.</div>`;\n} else {\n    // Hr simplificado\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    \n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\nfinalHtml += `</div>`;\n\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: parentPairedItem\n};"
+        "jsCode": "// [NODO: Set HTML - Versión Final Sobria]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n// --- 0. VALIDACIÓN INICIAL ---\n// Si no llegó nada al nodo, salimos.\nif (allItems.length === 0) {\n  // Anti-spam para ejecuciones automáticas (Bi-hourly/Nightly)\n  // Nota: Aunque ya no lo mostramos en el título, seguimos usándolo para esta lógica interna.\n  const type = $(\"Credentials Loop\").first().json[\"type\"] || \"\";\n  if (['Bi-hourly', 'Nightly'].includes(type)) {\n      return []; \n  }\n  return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \n\n// Contador de puntos ocultos\nlet hiddenQueriesCount = 0;\n\n// --- 1. ESTILOS (CSS Black & White) ---\nconst styles = {\n  // Contenedores y Tablas\n  table: 'border-collapse: collapse; margin-bottom: 15px; width: 100%; border: 1px solid #000;', \n  th: 'padding: 8px; text-align: left; font-weight: bold; border: 1px solid #000; background-color: #f2f2f2; color: #000; font-size: 13px;', \n  td: 'padding: 8px; vertical-align: top; border: 1px solid #000; font-size: 13px; color: #000;',\n  \n  // Tipografía y Jerarquía\n  dateHeader: 'font-size: 26px; color: #000000; margin: 0 0 5px 0; font-weight: 800; letter-spacing: -0.5px;', \n  mainTitle: 'font-size: 14px; font-weight: normal; color: #000000; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px;', \n  h3: 'margin-bottom: 8px; font-size: 16px; font-weight: bold; color: #000000; border-left: 4px solid #000000; padding-left: 8px;', \n  \n  // Script y Notas\n  // Nota: Quitamos el text-transform uppercase para que la oración larga se lea bien\n  queryLabel: 'font-size: 14px; font-weight: bold; margin-bottom: 5px; margin-top: 15px; color: #000000;', \n  pre: 'font-family: Consolas, monospace; white-space: pre-wrap; word-wrap: break-word; font-size: 12px; margin-top: 0; background: #fafafa; padding: 10px; border: 1px solid #ccc; border-radius: 4px; color: #000;',\n  p_notice: 'font-size: 12px; font-style: italic; color: #000;',\n  \n  // Separadores y Footer\n  hr: 'border: 0; border-top: 1px solid #000; margin: 25px 0;',\n  footerMsg: 'padding: 10px 0; color: #000; font-size: 13px; margin-top: 20px;' \n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n  const results = item.result;\n  \n  // A. Lógica de Vacío\n  let isEmpty = false;\n  if (!results) isEmpty = true;\n  else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n  else if (Array.isArray(results) && results.length === 1) {\n    const firstItem = results[0];\n    if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n      isEmpty = true;\n    }\n  }\n\n  if (isEmpty) {\n    hiddenQueriesCount++; \n    continue; \n  }\n\n  // B. Construcción del HTML del Item\n  let itemHtml = \"\";\n  itemHtml += `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n  // Tabla\n  let data = results;\n  const MAX_ROWS = 20;\n  const MAX_COLS = 8;\n  let limitedRows = results.length > MAX_ROWS;\n  let limitedCols = false;\n\n  if (limitedRows) data = results.slice(0, MAX_ROWS);\n  \n  let headers = Object.keys(data[0] || {});\n  if (headers.length > MAX_COLS) {\n    headers = headers.slice(0, MAX_COLS);\n    limitedCols = true;\n  }\n\n  itemHtml += `<table border=\"1\" style=\"${styles.table}\"><thead><tr>`;\n  for (const header of headers) itemHtml += `<th style=\"${styles.th}\">${header}</th>`;\n  itemHtml += \"</tr></thead><tbody>\";\n  \n  for (const row of data) {\n    itemHtml += \"<tr>\";\n    for (const header of headers) {\n      const val = row[header];\n      const value = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n      itemHtml += `<td style=\"${styles.td}\">${value}</td>`;\n    }\n    itemHtml += \"</tr>\";\n  }\n  itemHtml += \"</tbody></table>\";\n\n  if (limitedRows || limitedCols) {\n    itemHtml += `<p style=\"${styles.p_notice}\">(Vista previa limitada: ${limitedRows ? MAX_ROWS + ' filas ' : ''} ${limitedCols ? MAX_COLS + ' columnas' : ''})</p>`;\n  }\n\n  // C. Script (Patrón 2)\n  const pattern = String(item.pattern || \"0\").trim();\n  if (pattern === '2') {\n    const selectQuery = item.revisionQuery || \"-- No select --\";\n    const correctionQuery = item.correctionQuery || \"-- No update --\";\n    const combinedQueryText = `-- SELECT \\n${selectQuery}\\n\\n-- UPDATE\\n${correctionQuery}`;\n\n    itemHtml += `<div>`;\n    // NUEVO TEXTO SOLICITADO\n    itemHtml += `<p style=\"${styles.queryLabel}\">Se detectaron valores para modificar, deberá cargar un ticket con el siguiente texto:</p>`;\n    itemHtml += `<pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    itemHtml += `</div>`;\n  }\n\n  validHtmlParts.push(itemHtml);\n}\n\n// --- 3. GENERACIÓN DEL REPORTE FINAL ---\nlet combinedHtml = \"\";\n\n// A. Encabezado de FECHA\nconst now = new Date();\nconst options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };\nconst dateStr = now.toLocaleDateString('es-ES', options);\nconst dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n\ncombinedHtml += `<h1 style=\"${styles.dateHeader}\">${dateFormatted}</h1>`;\n\n// B. Subtítulo (Generico)\ncombinedHtml += `<h2 style=\"${styles.mainTitle}\">Resultados de la revisión de Entornos</h2>`;\n\n// C. Cuerpo del mensaje\nif (validHtmlParts.length === 0) {\n  // Lógica Anti-Spam para reportes automáticos vacíos\n  let reportType = \"General\";\n  try { reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; } catch(e){}\n  \n  if (['Bi-hourly', 'Nightly'].includes(reportType)) return []; \n\n  // Mensaje \"Sin novedades\" limpio\n  combinedHtml += `<div style=\"${styles.footerMsg}\">✅ No se encontraron novedades ni datos para revisar en este entorno el día de hoy.</div>`;\n\n} else {\n  // Caso: Hay errores\n  combinedHtml += validHtmlParts.join(`<hr style=\"${styles.hr}\">`);\n  \n  // D. FOOTER CON MENSAJE SOLICITADO\n  if (hiddenQueriesCount > 0) {\n      combinedHtml += `<div style=\"${styles.footerMsg}\">`;\n      combinedHtml += `El resto de los puntos que no se muestran fueron ejecutados y no dieron resultados`;\n      combinedHtml += `</div>`;\n  }\n}\n\n// Retorno\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: combinedHtml },\n    pairedItem: parentPairedItem\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1696,
-        2512
+        -496,
+        -208
       ],
-      "id": "2777b8c8-ed32-4a06-a269-ab38f676ea05",
+      "id": "fef31c1b-b9ff-4789-9622-b0a4745ae2ef",
       "name": "Set  HTML",
       "executeOnce": true,
       "alwaysOutputData": true,
@@ -603,10 +806,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
-        2512
+        -928,
+        -208
       ],
-      "id": "5257cf53-2061-45ae-a3a8-ad3fbfda2efa",
+      "id": "d6e81b90-08ce-4a0c-b7fa-220eb3357de9",
       "name": "Fan In",
       "alwaysOutputData": true
     },
@@ -616,7 +819,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 23 * * 1-5"
+              "expression": "*/30 * * * * 1-5"
             }
           ]
         }
@@ -624,10 +827,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        2864
+        -3072,
+        -240
       ],
-      "id": "f960c42c-a5a6-4bca-8a03-7085cf730053",
+      "id": "6fcea449-3f35-4d83-9940-45749cd58c8a",
       "name": "Nightly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -638,10 +841,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -352,
-        2736
+        -2000,
+        144
       ],
-      "id": "734c14a3-f6df-4037-85db-133fdc431213",
+      "id": "3cab63ca-d056-4241-a774-4167fe904d91",
       "name": "Filter Queries",
       "alwaysOutputData": true
     },
@@ -673,10 +876,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -128,
-        2736
+        -1776,
+        144
       ],
-      "id": "75ca8091-ea56-4008-a305-b5be7f4b0bc6",
+      "id": "97b10c14-d33f-4635-ba18-23c0627c51b0",
       "name": "If"
     },
     {
@@ -707,11 +910,174 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1872,
-        2512
+        -288,
+        -208
       ],
-      "id": "c36b38a0-8eb7-4b25-ab9e-e61b21a10f41",
+      "id": "dcf5b422-32eb-4eb4-b958-abda95d2d7df",
       "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery }}"
+      },
+      "id": "91a95817-770c-4d5c-acc2-62c85c3f8633",
+      "name": "SQL Execute",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        144
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftSql": {
+          "id": "7G3SN0kKPTZvCl0e",
+          "name": "SQL-04"
+        }
+      },
+      "notes": "{{ $json.revisionQuery }}"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "84195b98-3bf6-4361-b7c4-dc9ff2ac5711",
+              "leftValue": "={{$json.pattern}}",
+              "rightValue": "2",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -736,
+        -320
+      ],
+      "id": "40d3eacb-e5e7-4a3d-bc6f-be303aba29de",
+      "name": "Pattern recognition",
+      "notes": "si verifica que la query entrante debe ejecutar un update, va a esta rama"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.correctionQuery }}"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -496,
+        -448
+      ],
+      "id": "ef4ce9a1-7a45-4dd8-ab6d-5e2b6c77a739",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "AL FAN IN LE LLEGAN TODOS LOS RESULTADOS DE LAS QUERIES A EJECTUAR EN DICHO ENTORNO, Y LOS UNIFICA O LOS DEJA PASAR SI NO HAY QUE HACER NADA\nDEVUELVE LOS DATOS LISTOS PARA FORMAR EL HTML, BUENISIMO\nPASAMOS POR EL IF\nSI X QUERY TIENE UN CAMPO UPDATE ESTA VA APASAR A LA UPSER BRANCH\nSI NO, SIGUE AL HTML NORMALMENTE\nY EEN LA OTRA BRANCH",
+        "height": 416
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1472,
+        -1056
+      ],
+      "typeVersion": 1,
+      "id": "54cbbb11-0160-4827-8752-5f0b21b8aa69",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "PASOS POSTERIORES A EJECUTAR EL UPDATE?\nNOTIFICAR PUNTO SELECT Y UPDATE QUE SE EJECUTARON?",
+        "height": 224,
+        "width": 576
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -512,
+        -656
+      ],
+      "typeVersion": 1,
+      "id": "2b6fb562-64cf-497d-a102-2a22ca75f5a5",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -464
+      ],
+      "id": "954700bd-4bc5-4b68-a3f6-92f8951e1b9e",
+      "name": "Teams Notification",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "disabled": true,
+      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        784,
+        832
+      ],
+      "id": "cd9a26e6-00c0-48de-af3e-e9e15d9ad772",
+      "name": "Wait",
+      "webhookId": "0ca8dabc-ea86-466f-a91c-5d37b9c00761"
     },
     {
       "parameters": {
@@ -727,10 +1093,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        2656
+        -3056,
+        992
       ],
-      "id": "855cf5c5-afe9-48db-b3e0-93428ef3177f",
+      "id": "9556783e-44a3-4fdc-9e83-05a1bd35534a",
       "name": "Hourly Trigger"
     },
     {
@@ -740,23 +1106,23 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        720,
-        2736
+        -944,
+        1072
       ],
-      "id": "fc10b7c2-914c-446e-ab49-5fbc87d2a6e3",
+      "id": "95ae6429-7818-4f43-a7f5-01730674504a",
       "name": "Audit Start"
     },
     {
       "parameters": {
-        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos el País y Entorno del loop actual\n// Usamos .item para asegurarnos de traer el dato de la vuelta actual del bucle\nconst envData = $('Credentials Loop').item.json;\n\nconst queryData = $('Query Loop').item.json;\n// 3. Calculamos el peso\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Construimos el objeto de auditoría final\n// Si el SQL devolvió [{}], lo tratamos como vacío para el conteo\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\nreturn [{\n  json: {\n    // Datos de Identificación (vienen del Loop)\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    timestamp: new Date().toLocaleString(\"es-AR\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n    }\n  \n}];"
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos el País y Entorno del loop actual\n// Usamos .item para asegurarnos de traer el dato de la vuelta actual del bucle\nconst envData = $('Credentials Loop1').item.json;\n\nconst queryData = $('Query Loop1').item.json;\n// 3. Calculamos el peso\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Construimos el objeto de auditoría final\n// Si el SQL devolvió [{}], lo tratamos como vacío para el conteo\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\nreturn [{\n  json: {\n    // Datos de Identificación (vienen del Loop)\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    timestamp: new Date().toLocaleString(\"es-AR\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n    }\n  \n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1184,
-        2736
+        -480,
+        1072
       ],
-      "id": "4515ab4c-b8fb-4253-8c5b-2938b76df5cd",
+      "id": "81fa7aa8-c00a-403c-b563-aff1be417e53",
       "name": "Audit End"
     },
     {
@@ -779,29 +1145,509 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        1392,
-        2736
+        -272,
+        1072
       ],
-      "id": "800c0814-2a5d-4b75-a1dc-11b7ab6d95c1",
+      "id": "51655f01-54ee-4f54-96d8-0a865c597853",
       "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 5 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3056,
+        1792
+      ],
+      "id": "383ce990-dc92-4948-84ad-07d39274047c",
+      "name": "Daily Trigger1",
+      "alwaysOutputData": true,
+      "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger1\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger1\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger1\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger1\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger1\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n}\n\n// Configuración ARGENTINA\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Configuración COLOMBIA\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Función auxiliar para mapear\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,     // ESTE CAMPO ES CLAVE PARA EL FILTRO\n          channelId: db.channelId,\n          country: db.country,\n          \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\n\n// Retornamos la lista combinada (ARG + COL)\nreturn [...dbsArg, ...dbsCol];\n//"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2768,
+        992
+      ],
+      "id": "f20fbb1a-51ad-408f-8edd-0744484b6215",
+      "name": "Set Credentials1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Query Loop1'].context['done']}}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1312,
+        1056
+      ],
+      "id": "cd16acda-9af3-4f99-9a06-0726019f563f",
+      "name": "Query Loop1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "Zq3YDVYpBI4flDay",
+          "mode": "list",
+          "cachedResultName": "Revisión-Entorno-Queries",
+          "cachedResultUrl": "/projects/JCfdNIqoFmwORPL2/datatables/Zq3YDVYpBI4flDay"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "=type",
+              "condition": "=eq",
+              "keyValue": "={{ $json.type }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2192,
+        1072
+      ],
+      "id": "829ad38e-c2dc-43cd-9fe6-818eda7d1696",
+      "name": "Set Queries1",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2432,
+        1056
+      ],
+      "id": "37be0647-51b2-4b6e-8fa2-b812135e57ea",
+      "name": "Credentials Loop1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery }}"
+      },
+      "id": "296365a1-3daf-4686-be40-d39e7697eae4",
+      "name": "SQL Execute1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        1072
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: Map Results - DENTRO DEL BUCLE]\n// MODO: Run Once for ALL Items\n\n// 1. Obtener los resultados del nodo \"SQL Execute\" específicamente\n// Usamos $('SQL Execute1').all() para recuperar sus datos aunque haya nodos intermedios.\nconst sqlResults = $(\"SQL Execute1\").all().map(i => i.json);\n\n// 2. Obtener el item de contexto (la query) del nodo \"Query Loop\"\n// Mantenemos la referencia al nodo que controla el bucle.\nconst contextItem = $node[\"Query Loop1\"].json;\n\n// 3. Fusionar: Añadimos los resultados del SQL dentro del item de contexto\n// Creamos una copia para evitar problemas de referencia\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\n// 4. Devolver el item fusionado y listo\n// El resultado tendrá la estructura: { \"queryId\": \"...\", ..., \"result\": [ {fila1}, {fila2} ] }\nreturn { json: outputItem };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        1072
+      ],
+      "id": "67df654e-498d-4627-9850-9a9fdbb6a724",
+      "name": "Map Results1"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        544,
+        832
+      ],
+      "id": "583e60c4-e5a3-4d6d-9067-0013707d0335",
+      "name": "Send Results1",
+      "webhookId": "4c03ff36-2f79-4da4-be45-7843a06ff099",
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "disabled": true,
+      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                2
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3056,
+        1632
+      ],
+      "id": "6f852173-7eb7-4c91-9197-9926e4f79c08",
+      "name": "Weekly Trigger1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": "={{ 1 || 2 }}",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3056,
+        1488
+      ],
+      "id": "d9c9a63a-6ed5-4147-bd32-e6f7c629ce99",
+      "name": "Monthly Trigger1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN OUT - DIVISOR]\n// MODO: Run Once for ALL Items\n\nconst allOutputItems = [];\nconst separatorRegex = /\\s*-{2,3}\\s*[\\r\\n]+/; \n\nfor (const item of items) {\n  const parentItem = item;\n  const json = parentItem.json;\n  \n  const revQuery = json.revisionQuery || '';\n  const corQuery = json.correctionQuery || '';\n  const queryId = json.queryId;\n\n  const revQueriesParts = revQuery.split(separatorRegex).filter(p => p.trim().length > 0);\n\n  if (revQueriesParts.length > 1) {\n    // --- CASO 1: Query Particionada (1.3) ---\n    const corQueriesParts = corQuery ? corQuery.split(separatorRegex).filter(p => p.trim().length > 0) : [];\n\n    revQueriesParts.forEach((subRevQuery, index) => {\n      const newItem = JSON.parse(JSON.stringify(json));\n      newItem.revisionQuery = subRevQuery.trim();\n      \n      let associatedCor = null;\n      if (corQueriesParts.length > 0 && corQueriesParts[index]) {\n        associatedCor = corQueriesParts[index].trim();\n      }\n      newItem.associatedCorrection = associatedCor;\n\n      newItem.queryType = 'revision';\n      newItem.subQueryIndex = index;\n      newItem.parentGroupId = queryId; \n      \n      delete newItem.correctionQuery; // Aquí SÍ borramos porque está partida\n      allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n    });\n\n  } else {\n    // --- CASO 2: Query Normal (1.2, etc) ---\n    const newItem = JSON.parse(JSON.stringify(json));\n    \n    newItem.revisionQuery = revQuery.trim();\n    // CORRECCIÓN AQUÍ: Mantenemos correctionQuery original para que llegue al HTML\n    newItem.correctionQuery = corQuery.trim(); \n    \n    // Opcional: dejamos associatedCorrection por si alguna lógica futura lo usa\n    newItem.associatedCorrection = corQuery.trim();\n\n    newItem.queryType = 'revision';\n    newItem.subQueryIndex = 0;\n    \n    delete newItem.parentGroupId; \n    // ELIMINADO: delete newItem.correctionQuery;  <-- ESTA LÍNEA CAUSABA EL ERROR\n\n    allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n  }\n}\n\nreturn allOutputItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1552,
+        1056
+      ],
+      "id": "6091b677-690b-4ae6-870a-6e6dd4d2ec0c",
+      "name": "Fan Out1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "content": "-validar resultados\n-validar select y queries coincidan\n-optimizar queries con get date e indices de fechas a 7 días anteriores a hoy\n-agregar un workflow que se active al encontrar un error\n-relacionar ejecuciones con triggers para revisar facilmente ejecuciones pasadas",
+        "height": 208,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2112,
+        656
+      ],
+      "typeVersion": 1,
+      "id": "f991ef99-dbab-4e2c-a98e-c475b432ab11",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2112,
+        496
+      ],
+      "typeVersion": 1,
+      "id": "aa81eec7-9049-499d-bc81-e9e2a0b69a55",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9-18/2 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3056,
+        1344
+      ],
+      "id": "8fcb63ef-b1e9-44be-9f5e-8c34801848b4",
+      "name": "Bi-hourly Trigger1",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: Set HTML - Versión Ultra-Ligera]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n\nlet reportType = \"General\";\ntry { \n    reportType = $(\"Credentials Loop1\").first().json[\"type\"] || \"General\"; \n} catch(e) {}\n\n// Si no hay ítems de entrada, validamos anti-spam básico\nif (allItems.length === 0) {\n    if (['Bi-hourly', 'Hourly'].includes(reportType)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\n\n// --- 1. ESTILOS MÍNIMOS (Centralizados para evitar repetición) ---\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    table: 'width:100%;border-collapse:collapse;', // El resto se maneja con atributos nativos\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n    const results = item.result;\n    \n    let isEmpty = false;\n    if (!results) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150; // AHORA PUEDES SUBIR ESTE LÍMITE\n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    // USO DE ATRIBUTOS NATIVOS: border, cellpadding y cellspacing para ahorrar bytes por celda\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`; // CERO estilos aquí, hereda del contenedor\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// --- 3. REPORTE FINAL ---\nlet finalHtml = `<div style=\"${styles.container}\">`;\n// --- 3. LÓGICA ANTI-SPAM FINAL ---\n// Si es Bi-hourly o Hourly y no hay contenido relevante, no enviamos nada (Array vacío)\nif (['Bi-hourly', 'Hourly'].includes(reportType) && validHtmlParts.length === 0) {\n    return [];\n}\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\n\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la revisión de Entornos</h2>`;\n\nif (validHtmlParts.length === 0) {\n    let reportType = \"General\";\n    try { reportType = $(\"Credentials Loop1\").first().json[\"type\"] || \"General\"; } catch(e){}\n    if (['Bi-hourly', 'Nightly'].includes(reportType)) return []; \n\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades.</div>`;\n} else {\n    // Hr simplificado\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    \n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\nfinalHtml += `</div>`;\n\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: parentPairedItem\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        848
+      ],
+      "id": "125ea11a-7cce-4c6a-85ea-8cf36e15820c",
+      "name": "Set  HTML1",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "notes": "// [NODO: Set HTML]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n// Si no llegó nada al nodo, salimos con un mensaje básico.\nif (allItems.length === 0) {\n  return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\n// --- Obtener el tipo de reporte (Daily, Weekly, etc.) ---\nlet reportType = \"General\";\ntry {\n  // Intentamos leer el tipo desde el primer item del Loop de Credenciales\n  reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\";\n} catch (error) {\n  // Si falla, usamos el valor por defecto\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; // Aquí acumularemos solo los reportes que tengan datos\n\n// --- Configuración Visual (Estilos para Teams/Email) ---\nconst MAX_ROWS = 20;\nconst MAX_COLS = 6;\n\nconst styles = {\n  table: 'border-collapse: collapse; margin-bottom: 10px; width: 100%;', \n  th: 'padding: 5px; text-align: left; font-weight: bold; border: 1px solid #ddd;', \n  td: 'padding: 5px; vertical-align: top; border: 1px solid #ddd;',\n  p: 'font-size: 14px; margin: 0 0 10px 0;',\n  p_notice: 'font-size: 12px; font-style: italic; color: #666;',\n  h3: 'margin-bottom: 5px; font-size: 16px; font-weight: bold; color: #000;',\n  pre: 'font-family: monospace; white-space: pre-wrap; word-wrap: break-word; font-size: 11px; margin-top: 0;',\n  hr: 'border: 0; border-top: 1px solid #ccc; margin: 15px 0;',\n  queryLabel: 'font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 0; margin-top: 10px;',\n  mainTitle: 'font-size: 24px; font-weight: bold; color: #000; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;'\n};\n\n// --- Construcción del Título Principal ---\nconst reportTypeFormatted = reportType.charAt(0).toUpperCase() + reportType.slice(1);\nlet combinedHtml = `<h1 style=\"${styles.mainTitle}\">Resultados de revisión ${reportTypeFormatted}</h1>`;\n\n// --- Bucle Principal sobre cada Query ---\nfor (const item of allQueries) {\n  const results = item.result;\n  \n  // 1. FILTRO DE RESULTADOS VACÍOS\n  // Verificamos si results es null, vacío o un array con un objeto vacío.\n  let isEmpty = false;\n  if (!results) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 0) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 1) {\n    const firstItem = results[0];\n    if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n      isEmpty = true;\n    }\n  }\n\n  // REGLA: \"No se muestre nada si el punto no da resultado\"\n  if (isEmpty) {\n    continue; // Saltamos a la siguiente iteración inmediatamente\n  }\n\n  // --- Si llegamos aquí, ES PORQUE HAY DATOS PARA MOSTRAR ---\n  let itemHtml = \"\";\n\n  // Título del Punto\n  itemHtml += `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n  // 2. CONSTRUCCIÓN DE LA TABLA\n  let data = results;\n  let limitedRows = false;\n  let limitedCols = false;\n\n  // Lógica de límites (filas)\n  if (results.length > MAX_ROWS) {\n    data = results.slice(0, MAX_ROWS);\n    limitedRows = true;\n  }\n\n  // Obtener cabeceras\n  let headers = Object.keys(data[0] || {});\n  \n  // Lógica de límites (columnas)\n  if (headers.length > MAX_COLS) {\n    headers = headers.slice(0, MAX_COLS);\n    limitedCols = true;\n  }\n\n  // HTML de la Tabla\n  itemHtml += `<table border=\"1\" style=\"${styles.table}\">`;\n  itemHtml += '<thead><tr>';\n  for (const header of headers) itemHtml += `<th style=\"${styles.th}\">${header}</th>`;\n  itemHtml += \"</tr></thead>\";\n  \n  itemHtml += \"<tbody>\";\n  for (const row of data) {\n    itemHtml += \"<tr>\";\n    for (const header of headers) {\n      // Manejo seguro de null/undefined y escape de caracteres HTML\n      const value = (row[header] === null || typeof row[header] === \"undefined\") \n        ? \"\" \n        : String(row[header]).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n      itemHtml += `<td style=\"${styles.td}\">${value}</td>`;\n    }\n    itemHtml += \"</tr>\";\n  }\n  itemHtml += \"</tbody></table>\";\n\n  // Avisos de recorte de datos\n  let notices = \"\";\n  if (limitedRows) notices += `(Se muestran ${MAX_ROWS} filas de ${results.length}). `;\n  if (limitedCols) notices += `(Se muestran ${MAX_COLS} columnas de ${Object.keys(results[0]).length}).`;\n  if (notices) itemHtml += `<p style=\"${styles.p_notice}\">${notices.trim()}</p>`;\n\n  // 3. LÓGICA DE PATRONES (1, 2, 3)\n  // Convertimos a string por seguridad\n  const pattern = String(item.pattern || \"0\").trim();\n\n  // REGLA: Solo mostramos queries si el patrón es '2'\n  if (pattern === '2') {\n    const selectQuery = item.revisionQuery || \"(No se proporcionó SELECT)\";\n    const correctionQuery = item.correctionQuery || \"(No se proporcionó UPDATE)\";\n    const combinedQueryText = `\n    -- SELECT --\n    ${selectQuery}\n\n    -- UPDATE --\n    ${correctionQuery}\n    `.trim();\n\n    itemHtml += `<div style=\"margin-top: 10px;\">`;\n    itemHtml += `<p style=\"${styles.queryLabel}\">Script:</p>`;\n    // Renderizamos UNA SOLA caja <pre> con todo el contenido\n    itemHtml += `<pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    itemHtml += `</div>`;\n  }\n  // Pattern 1 y 3 (y otros) no muestran nada aquí.\n\n  validHtmlParts.push(itemHtml);\n}\n  \n// --- GENERACIÓN FINAL ---\n\nif (validHtmlParts.length === 0) {\n  // Caso: Se ejecutó el flujo, pero todas las queries vinieron vacías.\n  // Mensaje final indicando que todo está limpio.\n  combinedHtml += `<p style=\"${styles.p}\">No se encontraron novedades ni datos para revisar en este entorno el día de hoy.</p>`;\n} else {\n  // Unimos todas las partes válidas con un separador <hr>\n  combinedHtml += validHtmlParts.join(`<hr style=\"${styles.hr}\">`);\n}\n\n// Retornamos el contenido para el siguiente nodo (Teams/Email)\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\n\nreturn { \n    json: { htmlContent: combinedHtml },\n    pairedItem: parentPairedItem\n};"
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN IN - AGREGADOR]\n// MODO: Run Once for All Items\n\nconst groupedItems = new Map();\nconst finalOutput = [];\n\nconst hasData = (sqlResultData) => {\n  if (!sqlResultData || !Array.isArray(sqlResultData) || sqlResultData.length === 0) return false;\n  return sqlResultData.some(row => (row && Object.keys(row).length > 0));\n};\n\nfor (const item of items) {\n  const json = item.json;\n  const parentId = json.parentGroupId;\n\n  // --- CASO 1: ITEM NORMAL ---\n  if (!parentId) {\n    finalOutput.push(item);\n    continue;\n  }\n\n  // --- CASO 2: ITEM PARTICIONADO ---\n  if (hasData(json.result)) {\n    if (!groupedItems.has(parentId)) {\n      const baseItem = JSON.parse(JSON.stringify(item));\n      if (baseItem.json.associatedCorrection) {\n         baseItem.json.correctionQuery = baseItem.json.associatedCorrection;\n      }\n      baseItem.json.revisionQuery = (baseItem.json.revisionQuery || '').trim();\n      baseItem.json.correctionQuery = (baseItem.json.correctionQuery || '').trim();\n      groupedItems.set(parentId, baseItem);\n    } else {\n      const groupItem = groupedItems.get(parentId);\n      const currentJson = json;\n      groupItem.json.result.push(...currentJson.result);\n      \n      if (currentJson.revisionQuery) {\n        groupItem.json.revisionQuery += '\\n\\n' + currentJson.revisionQuery.trim();\n      }\n      const currentCorrection = currentJson.associatedCorrection || currentJson.correctionQuery;\n      if (currentCorrection) {\n        const prevCorrection = groupItem.json.correctionQuery;\n        groupItem.json.correctionQuery = prevCorrection \n          ? prevCorrection + '\\n\\n' + currentCorrection.trim() \n          : currentCorrection.trim();\n      }\n    }\n  }\n}\n\n// Volcamos los grupos al array final\nfor (const groupItem of groupedItems.values()) {\n  const json = groupItem.json;\n  delete json.parentGroupId;\n  delete json.subQueryIndex;\n  delete json.queryType;\n  delete json.associatedCorrection;\n  groupItem.json = json;\n  finalOutput.push(groupItem);\n}\n\n// CORRECCIÓN DE ORDEN: Ordenamos por queryId (ej: 1.2, 1.3, 1.4)\n// Asumimos que queryId es un string como \"1.2\", \"1.3\", \"4.9\". \n// Usamos localeCompare con 'numeric: true' para que ordene bien números (2 vs 10).\nfinalOutput.sort((a, b) => {\n    const idA = String(a.json.queryId || '');\n    const idB = String(b.json.queryId || '');\n    return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });\n});\n\nreturn finalOutput;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        848
+      ],
+      "id": "ad4e1632-4f09-4006-b0ae-2e0a1f8223f8",
+      "name": "Fan In1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 23 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3056,
+        1200
+      ],
+      "id": "665c3834-347e-46f6-8729-200f430918b7",
+      "name": "Nightly Trigger1",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "jsCode": "// Accedemos a las credenciales de la iteración actual del bucle\nconst loopItem = $('Credentials Loop1').item.json;\n\n// IMPORTANTE: Aquí corregí 'env' por 'entorno' para coincidir con tu nodo Set Credentials\nconst currentEnv = (loopItem.entorno || '').toString().trim().toUpperCase();\nconst currentCountry = (loopItem.country || '').toString().trim().toUpperCase();\n\n// Filtramos las queries que vienen del Data Table\nreturn items.filter(item => {\n  const query = item.json;\n\n  // --- 1. LÓGICA DE PAÍS ---\n  // Si la celda está vacía o dice ALL, asumimos que es para todos\n  let queryCountries = (query.country || 'ALL').toString().toUpperCase().trim();\n  if (queryCountries === '') queryCountries = 'ALL';\n  \n  let isCountryValid = false;\n\n  if (queryCountries === 'ALL') {\n    isCountryValid = true;\n  } else {\n    // Convierte \"ARG, COL\" en [\"ARG\", \"COL\"] y busca si el actual está incluido\n    const countryList = queryCountries.split(',').map(c => c.trim());\n    isCountryValid = countryList.includes(currentCountry);\n  }\n\n  // --- 2. LÓGICA DE ENTORNO (target_env) ---\n  let queryEnvs = (query.target_env || 'ALL').toString().toUpperCase().trim();\n  if (queryEnvs === '') queryEnvs = 'ALL';\n  \n  let isEnvValid = false;\n\n  if (queryEnvs === 'ALL') {\n    isEnvValid = true;\n  } else {\n    // Convierte \"APP, CINES\" en [\"APP\", \"CINES\"] y busca si el actual está incluido\n    const envList = queryEnvs.split(',').map(e => e.trim());\n    isEnvValid = envList.includes(currentEnv);\n  }\n\n  // La query pasa SOLO si cumple con el País Y con el Entorno\n  return isCountryValid && isEnvValid;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2016,
+        1072
+      ],
+      "id": "e5a0a4be-a33d-4439-92fc-ffd5f7153f27",
+      "name": "Filter Queries1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e949076c-37b9-4e5b-8c6a-73c9bcf6c3b4",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1792,
+        1072
+      ],
+      "id": "71ae02a1-6367-4b19-9112-d5950b95d976",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d074c4b-1844-4125-90f1-002e421f57db",
+              "leftValue": "={{$json.htmlContent}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        848
+      ],
+      "id": "204115df-f27b-4f89-8e68-04b06e980fe6",
+      "name": "If3"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Fan Out": [
+      {
+        "json": {
+          "revisionQuery": "@@@",
+          "correctionQuery": "",
+          "queryId": "1.2",
+          "country": "AR",
+          "description": "Errores en Generación de Comprobantes",
+          "type": "Daily",
+          "pattern": "1",
+          "patternDescription": null,
+          "correction": null,
+          "target_env": "APP, Cines",
+          "id": 30,
+          "createdAt": "2025-12-11T12:47:50.693Z",
+          "updatedAt": "2025-12-16T16:41:51.201Z",
+          "associatedCorrection": "",
+          "queryType": "revision",
+          "subQueryIndex": 0
+        }
+      },
+      {
+        "json": {
+          "revisionQuery": "IF (SELECT count(*) FROM UsuarioXReceptor WHERE CuitId in (30694376432,30565786306,30594494187) AND FechaAutorizacion IS NOT NULL AND UsuarioAutorizanteId IS NOT NULL AND RecibeComprobanteComoAdjunto=0) > 0\nBEGIN\n    SELECT CuitId, UsuarioId \n    FROM UsuarioXReceptor \n    WHERE CuitId in (30694376432,30565786306,30594494187) \n    AND FechaAutorizacion IS NOT NULL \n    AND UsuarioAutorizanteId IS NOT NULL \n    AND RecibeComprobanteComoAdjunto=0\nEND\nBEGIN\n    -- Devolver objeto vacío\n    SELECT TOP 0 CuitId, UsuarioId FROM UsuarioXReceptor\nEND",
+          "correctionQuery": "begin tran \r\nUpdate UsuarioXReceptor \r\nset RecibeComprobanteComoAdjunto=1 \r\nwhere CuitId in (30694376432,30565786306,30594494187)\r\nand FechaAutorizacion is not null \r\nand UsuarioAutorizanteId is not null \r\nand RecibeComprobanteComoAdjunto=0\r\n-- commit",
+          "queryId": "1.3",
+          "country": "AR",
+          "description": "Envío de Comprobantes como Adjunto",
+          "type": "Daily",
+          "pattern": "2",
+          "patternDescription": null,
+          "correction": null,
+          "target_env": "APP",
+          "id": 31,
+          "createdAt": "2025-12-11T12:48:44.408Z",
+          "updatedAt": "2025-12-16T16:42:44.190Z",
+          "associatedCorrection": "begin tran \r\nUpdate UsuarioXReceptor \r\nset RecibeComprobanteComoAdjunto=1 \r\nwhere CuitId in (30694376432,30565786306,30594494187)\r\nand FechaAutorizacion is not null \r\nand UsuarioAutorizanteId is not null \r\nand RecibeComprobanteComoAdjunto=0\r\n-- commit",
+          "queryType": "revision",
+          "subQueryIndex": 0
+        }
+      }
+    ],
+    "SQL Execute": [
+      {
+        "json": {
+          "revisionQuery": "@",
+          "correctionQuery": "",
+          "queryId": "1.1.0",
+          "country": "ALL",
+          "description": "Revisión General",
+          "type": "Nightly",
+          "pattern": "1",
+          "patternDescription": null,
+          "correction": null,
+          "target_env": "ALL",
+          "id": 32,
+          "createdAt": "2025-12-12T16:05:50.723Z",
+          "updatedAt": "2025-12-17T12:16:51.817Z",
+          "associatedCorrection": "",
+          "queryType": "revision",
+          "subQueryIndex": 0,
+          "error": "Login failed for user 'usr_automatic'."
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
-    "errorWorkflow": "h1TswfYCSmmTHJwB",
+    "errorWorkflow": "5K68L5Ps2t472Hof",
     "saveExecutionProgress": true,
     "timeSavedPerExecution": 45
   },
   "shared": [
     {
-      "createdAt": "2025-12-30T13:52:32.506Z",
-      "updatedAt": "2025-12-30T13:52:32.506Z",
+      "createdAt": "2025-12-23T02:11:32.161Z",
+      "updatedAt": "2025-12-23T02:11:32.161Z",
       "role": "workflow:owner",
-      "workflowId": "ClEOILdTgx8OUhVg",
+      "workflowId": "5K68L5Ps2t472Hof",
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
@@ -832,13 +1678,10 @@
     },
     "node:Nightly Trigger": {
       "recurrenceRules": []
-    },
-    "node:Hourly Trigger": {
-      "recurrenceRules": []
     }
   },
   "tags": [],
-  "triggerCount": 6,
-  "updatedAt": "2025-12-31T16:01:48.000Z",
-  "versionId": "ce3b3bf2-b6ef-4dac-a348-01fc7c6eedc7"
+  "triggerCount": 5,
+  "updatedAt": "2026-01-05T03:20:50.000Z",
+  "versionId": "989c08c9-e8f7-4323-930c-743ed7f5a0fc"
 }
