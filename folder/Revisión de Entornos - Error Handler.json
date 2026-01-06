@@ -1,0 +1,111 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2026-01-05T17:08:22.283Z",
+  "id": "p9uwH55oMSUgbeOp",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Revisión de Entornos - Error Handler",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Este flujo es una copia resumida del flujo original, ideada y desarrollada con el objetivo de ejecutar el flujo original desde el punto donde lo dejó la última ejecución\n## Detectar fallos y retomar desde ahí\n## O detectar que el flujo no se ejecutó y ejecutarlo\n",
+        "height": 512,
+        "width": 416
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -352,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "d1204b7c-fb1c-41f3-8e4b-796df5ff9ef5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "estado",
+              "lookupValue": "Pendiente"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        144
+      ],
+      "id": "ec197bed-9627-4700-b6ff-d192822e637a",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Necesito queries y credenciales (sql, teams, etc)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        144,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "df0819c2-7fc1-4bce-97ce-80f30ae3f914",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        96,
+        128
+      ],
+      "id": "5e8c399c-27b9-41b2-9062-f8cbd9231e18",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-05T17:08:22.287Z",
+      "updatedAt": "2026-01-05T17:08:22.287Z",
+      "role": "workflow:owner",
+      "workflowId": "p9uwH55oMSUgbeOp",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-05T20:53:27.000Z",
+  "versionId": "d9228ae4-3423-4568-b3c8-72d00052d44b"
+}
