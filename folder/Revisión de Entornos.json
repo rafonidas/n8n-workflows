@@ -34,7 +34,7 @@
         ],
         [
           {
-            "node": "SQL Execute",
+            "node": "Audit Start",
             "type": "main",
             "index": 0
           }
@@ -58,17 +58,6 @@
         [
           {
             "node": "Set Queries",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "SQL Execute": {
-      "main": [
-        [
-          {
-            "node": "Map Results",
             "type": "main",
             "index": 0
           }
@@ -242,6 +231,50 @@
           }
         ]
       ]
+    },
+    "Audit End": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit Start": {
+      "main": [
+        [
+          {
+            "node": "SQL Execute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Execute": {
+      "main": [
+        [
+          {
+            "node": "Audit End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Map Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-27T14:26:08.417Z",
@@ -348,35 +381,12 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "{{ $json.revisionQuery }}"
-      },
-      "id": "e060443e-519a-45f7-8816-f9543b0298ca",
-      "name": "SQL Execute",
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1,
-      "position": [
-        688,
-        2736
-      ],
-      "notesInFlow": false,
-      "alwaysOutputData": true,
-      "retryOnFail": true,
-      "credentials": {
-        "microsoftSql": {
-          "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const sqlResults = items.map(i => i.json);\n\nconst contextItem = $node[\"Query Loop\"].json;\n\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\nreturn { json: outputItem };"
+        "jsCode": "const sqlResults = $(\"SQL Execute\").all().map(i => i.json);\n\nconst contextItem = $node[\"Query Loop\"].json;\n\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\nreturn { json: outputItem };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1152,
+        1200,
         2736
       ],
       "id": "03e08805-bd36-4865-9290-950dab578519",
@@ -695,6 +705,191 @@
       ],
       "id": "ce15b724-1dcf-49eb-a29a-9cc0693fc713",
       "name": "Hourly Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos el País y Entorno del loop actual\n// Usamos .item para asegurarnos de traer el dato de la vuelta actual del bucle\nconst envData = $('Credentials Loop').item.json;\n\nconst queryData = $('Query Loop').item.json;\n// 3. Calculamos el peso\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Construimos el objeto de auditoría final\n// Si el SQL devolvió [{}], lo tratamos como vacío para el conteo\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\nreturn [{\n  json: {\n    // Datos de Identificación (vienen del Loop)\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    timestamp: new Date().toLocaleString(\"es-AR\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n    }\n  \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        2736
+      ],
+      "id": "2daa5b51-61c4-423f-945e-cedd3a6b3c46",
+      "name": "Audit End"
+    },
+    {
+      "parameters": {
+        "jsCode": "const startTime = new Date().getTime();\n\nconst items = $input.all();\n\nfor (const item of items) {\n  item.json.audit_startTime = startTime;\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        2736
+      ],
+      "id": "30ede0c1-e64b-4f90-9fe0-08318c2d06fa",
+      "name": "Audit Start"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery }}"
+      },
+      "id": "e060443e-519a-45f7-8816-f9543b0298ca",
+      "name": "SQL Execute",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        688,
+        2736
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0",
+          "mode": "list",
+          "cachedResultName": "query_metrics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        2736
+      ],
+      "id": "d2ffc99c-ecbe-4d9c-8289-a9efb196960c",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -750,6 +945,6 @@
   },
   "tags": [],
   "triggerCount": 6,
-  "updatedAt": "2026-01-05T03:17:20.000Z",
-  "versionId": "992f93fb-07aa-45f5-8555-58417c6c44e0"
+  "updatedAt": "2026-01-06T16:43:31.000Z",
+  "versionId": "61966df9-b211-450c-a624-854e8866504e"
 }
