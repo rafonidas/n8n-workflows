@@ -278,18 +278,7 @@
       "main": [
         [
           {
-            "node": "Update row in sheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Insert row": {
-      "main": [
-        [
-          {
-            "node": "Update row in sheet",
+            "node": "Append row in sheet",
             "type": "main",
             "index": 0
           }
@@ -565,6 +554,17 @@
         [
           {
             "node": "Map Results1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
             "type": "main",
             "index": 0
           }
@@ -1127,8 +1127,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1632,
-        832
+        800,
+        880
       ],
       "id": "cd9a26e6-00c0-48de-af3e-e9e15d9ad772",
       "name": "Wait",
@@ -1156,12 +1156,12 @@
     },
     {
       "parameters": {
-        "jsCode": "// Capturamos el momento exacto de inicio en milisegundos\nconst startTime = new Date().getTime();\n\n// Añadimos esta marca de tiempo a cada ítem que pasa por el flujo\n// para que esté disponible después de la consulta SQL\nfor (const item of $(\"Query Loop1\").all()) {\n  item.json.audit_startTime = startTime;\n}\n\nreturn $input.all();"
+        "jsCode": "const startTime = new Date().getTime();\n\nconst items = $input.all();\n\nfor (const item of items) {\n  item.json.audit_startTime = startTime;\n}\n\nreturn items;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -336,
+        -304,
         1072
       ],
       "id": "95ae6429-7818-4f43-a7f5-01730674504a",
@@ -1169,7 +1169,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos el País y Entorno del loop actual\n// Usamos .item para asegurarnos de traer el dato de la vuelta actual del bucle\nconst envData = $('Credentials Loop1').item.json;\n\nconst queryData = $('Query Loop1').item.json;\n// 3. Calculamos el peso\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Construimos el objeto de auditoría final\n// Si el SQL devolvió [{}], lo tratamos como vacío para el conteo\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\nreturn [{\n  json: {\n    // Datos de Identificación (vienen del Loop)\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    timestamp: new Date().toLocaleString(\"es-AR\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n    }\n  \n}];"
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos el País y Entorno del loop actual\n// Usamos .item para asegurarnos de traer el dato de la vuelta actual del bucle\nconst envData = $('Credentials Loop1').item.json;\n\nconst queryData = $('Query Loop1').item.json;\n// 3. Calculamos el peso\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Construimos el objeto de auditoría final\n// Si el SQL devolvió [{}], lo tratamos como vacío para el conteo\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\nconst now = new Date();\nconst timeOptions = { timeZone: \"America/Argentina/Buenos_Aires\" };\n\nconst fecha = now.toLocaleDateString(\"es-AR\", timeOptions);\nconst hora = now.toLocaleTimeString(\"es-AR\", timeOptions);\n\nreturn [{\n  json: {\n    // Datos de Identificación (vienen del Loop)\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    frecuencia: queryData.type || 'N/A', \n    fecha: fecha,\n    hora: hora,\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n    }\n  \n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1179,33 +1179,6 @@
       ],
       "id": "81fa7aa8-c00a-403c-b563-aff1be417e53",
       "name": "Audit End"
-    },
-    {
-      "parameters": {
-        "dataTableId": {
-          "__rl": true,
-          "value": "9XbCQV9UOLcOIK2a",
-          "mode": "id"
-        },
-        "columns": {
-          "mappingMode": "autoMapInputData",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [
-        352,
-        1536
-      ],
-      "id": "51655f01-54ee-4f54-96d8-0a865c597853",
-      "name": "Insert row",
-      "disabled": true
     },
     {
       "parameters": {
@@ -1305,7 +1278,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "{{ $json.revisionQuery }}"
+        "query": "SELECT     E.CuitId, E.TransaccionId, E.Cod, e.Motivo\nFROM     transaccion T WITH(NOLOCK)   \n\tINNER JOIN cuit C WITH(NOLOCK)  \n                 ON T.CuitId = C.CuitId    \n\tINNER JOIN EstadoPublicacion E WITH(NOLOCK)   \n                 ON E.CuitId = C.CuitId          AND E.TransaccionId = T.TransaccionId         AND E.Motivo not LIKE '%Documento no enviado: receptor con tipo de identificación Cedula  (Código 13) y numero de identificación ''222222222222'' no válido para publicación.%' \n\tINNER JOIN comprobante CO WITH(NOLOCK)     \n               ON E.CuitId = CO.CuitId         AND E.TransaccionId = CO.TransaccionId         AND E.PuntoDeVentaId = CO.PuntoDeVentaId         AND E.TipoComprobanteId = CO.TipoComprobanteId         AND E.NroCbte = CO.NroCbte    \n\tINNER JOIN formato F WITH(NOLOCK)\n             ON F.FormatoId = T.FormatoId\nWHERE     C.NivelServicio = 2     AND F.NivelServicio IN (2, 3)     AND F.PublicaAlAutorizar = 0     AND F.PublicaAlTerminar = 0     \n     AND Fecha >= DATEADD(day, -7, GETDATE())     AND E.Cod = 0    AND CO.Resultado <> 'R'   \n\t AND NOT EXISTS (        SELECT 1         FROM envio EN WITH(NOLOCK)  \n\t\t\t\t\t\t\tWHERE EN.CuitEmisor = CO.CuitId           AND EN.TransaccionId = CO.TransaccionId           AND EN.PuntoDeVentaId = CO.PuntoDeVentaId           AND EN.TipoComprobanteId = CO.TipoComprobanteId           AND EN.NroComprobante = CO.NroCbte    );\n"
       },
       "id": "296365a1-3daf-4686-be40-d39e7697eae4",
       "name": "SQL Execute1",
@@ -1363,8 +1336,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        1392,
-        832
+        480,
+        576
       ],
       "id": "583e60c4-e5a3-4d6d-9067-0013707d0335",
       "name": "Send Results1",
@@ -1432,7 +1405,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1536,
+        -1296,
         1056
       ],
       "id": "6091b677-690b-4ae6-870a-6e6dd4d2ec0c",
@@ -1495,8 +1468,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        880,
-        848
+        -48,
+        864
       ],
       "id": "125ea11a-7cce-4c6a-85ea-8cf36e15820c",
       "name": "Set  HTML1",
@@ -1511,8 +1484,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        96,
-        848
+        -288,
+        864
       ],
       "id": "ad4e1632-4f09-4006-b0ae-2e0a1f8223f8",
       "name": "Fan In1",
@@ -1615,8 +1588,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1056,
-        848
+        160,
+        864
       ],
       "id": "204115df-f27b-4f89-8e68-04b06e980fe6",
       "name": "If3"
@@ -1775,8 +1748,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1696,
-        1056
+        -1568,
+        1360
       ],
       "id": "25c7d5a4-451b-4672-b60a-d1dd37f8f5e5",
       "name": "Append or update row in sheet",
@@ -1924,11 +1897,162 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        576,
-        1072
+        608,
+        1488
       ],
       "id": "4de580be-b189-4591-a8b3-07ab12c09576",
       "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 352,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        368,
+        1072
+      ],
+      "typeVersion": 1,
+      "id": "eee66352-3f31-47b8-9ae2-b777d7371a8e",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0",
+          "mode": "list",
+          "cachedResultName": "query_metrics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        1488
+      ],
+      "id": "01abe84a-507f-49a6-ad35-84bdb9c0eea5",
+      "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
@@ -2030,6 +2154,6 @@
   },
   "tags": [],
   "triggerCount": 5,
-  "updatedAt": "2026-01-05T20:53:26.000Z",
-  "versionId": "e3a56b8c-7004-4493-b9d5-e495ad592cd2"
+  "updatedAt": "2026-01-06T20:34:00.000Z",
+  "versionId": "842d761c-a3e6-4241-8d80-d0b0e396e247"
 }
