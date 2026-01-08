@@ -1,0 +1,287 @@
+{
+  "active": false,
+  "connections": {
+    "Paso 1: Crear Ticket": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Paso 1: Crear Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Paso 2: Registrar Evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-01-07T18:44:39.625Z",
+  "id": "MBD2ctGTpWmflaUx",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 9",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/ticket/add/0327dc56-965a-47eb-9ed1-8a2c021384d0",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkNvbG9tYmlhIiwiQ291bnRyeUlkIjoiMSIsIklkR3JvdXAiOiI3IiwiR3JvdXAiOiJBUEcgQ29uc3VsdGluZyIsIkluc3RhbmNlSWQiOiIwMzI3ZGM1Ni05NjVhLTQ3ZWItOWVkMS04YTJjMDIxMzg0ZDAiLCJJbnN0YW5jZSI6IkFwZyBDb25zdWx0aW5nIEluc3RhbmNpYSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJBbmFsaXN0YSByZXNvbHV0b3IiLCJhZG1pbiIsIkNvbWVyY2lhbCBqciJdLCJQZXJtaXNzaW9ucyI6WyJBZG1pbiIsIkFkbWluSW5zdGFuY2VzIiwiSW50ZXJubyIsIk1hbmFnZXJBcmdlbnRpbmEiLCJNYW5hZ2VyQm9saXZpYSIsIk1hbmFnZXJDb2xvbWJpYSIsIk1hbmFnZXJDb3N0YVJpY2EiLCJNYW5hZ2VyRWN1YWRvciIsIk1hbmFnZXJQZXJ1IiwiVmlld0NvbW1lcmNpYWwiLCJFZGl0Q29tbWVyY2lhbCIsIkNyZWF0ZUNvbW1lcmNpYWwiLCJEZWxldGVDb21tZXJjaWFsIiwiVmlld1N1cHBvcnQiLCJFZGl0U3VwcG9ydCIsIkNyZWF0ZVN1cHBvcnQiLCJEZWxldGVTdXBwb3J0IiwiVmlld1Byb2plY3QiLCJFZGl0UHJvamVjdCIsIkNyZWF0ZVByb2plY3QiLCJEZWxldGVQcm9qZWN0IiwiVGltZVJlcG9ydCIsIlZpZXdDbGllbnQiLCJFZGl0Q2xpZW50IiwiQ3JlYXRlQ2xpZW50IiwiRGVsZXRlQ2xpZW50IiwiVmFsaWRhdGVDbGllbnQiLCJWaWV3VXNlciIsIkVkaXRVc2VyIiwiQ3JlYXRlVXNlciIsIkRlbGV0ZVVzZXIiLCJSb2xlIiwiQXVkaXQiLCJUYXNrVHlwZSIsIlRhc2tTdGF0dXMiLCJQcm9qZWN0U3RhdHVzIiwiVGVtcGxhdGUiLCJJbmR1c3RyeSIsIkNvdW50cnkiLCJMYWJvciIsIkVSUCIsIkNsaWVudFR5cGUiLCJQcm9kdWN0VHlwZSIsIkNvbm5lY3Rpb24iLCJUcmVlQ2xhc2lmaWNhdGlvbiIsIk1pbGVzdG9uZVR5cGUiLCJNaWxlc3RvbmVTdGF0dXMiLCJHZW5lcmljVGFza1R5cGUiLCJHZW5lcmljVGFzayIsIkhvbGlkYXkiLCJPcHBvcnR1bml0eVN0YXRlIiwiQ3VycmVuY3kiLCJBY3Rpdml0eVR5cGUiLCJBY3Rpdml0eVN0YXRlIiwiQWRtaW5CZWVsbGluZyIsIkFkbWluU3VwcGxpZXIiLCJTdXBwbGllclNlbGxlciIsIlN1cHBsaWVyUHJvdiIsIlZpZXdFcnAiLCJWaWV3T3JpZ2lucyIsIlZpZXdXZWJTaXRlIl0sIlVzZXJUeXBlIjoiSW50ZXJubyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2F1dGhlbnRpY2F0aW9uIjoibmV3VXNlci1hcGdDb3JlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkppbWVuZXogSnVsaWFuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlZDEwMjljYS1hYTAyLTRhNGEtODdlOC04ZmRkMmIzMTZjNGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqamltZW5lekBhcGctY29uc3VsdGluZy5jb20iLCJleHAiOjE3Njc4MjgxNjF9.q6rfEDlkgE43uEE-D0oUpuZerWfN0Ggp5XIGXzCYOYo"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "clientId",
+              "value": "1013"
+            },
+            {
+              "name": "title",
+              "value": "Ticket desde n8n"
+            },
+            {
+              "name": "questions",
+              "value": "<p>Cuerpo del mensaje</p>"
+            },
+            {
+              "name": "ticketClasification",
+              "value": "c1a72c9b-bcbb-4b37-b9ff-6b73121568ee"
+            },
+            {
+              "name": "idCreator",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            },
+            {
+              "name": "idUser",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            },
+            {
+              "name": "status",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Paso 1: Crear Ticket",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c8fd5a6c-8775-4b13-ad74-71de52cc2f2e"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/ticket/event",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkNvbG9tYmlhIiwiQ291bnRyeUlkIjoiMSIsIklkR3JvdXAiOiI3IiwiR3JvdXAiOiJBUEcgQ29uc3VsdGluZyIsIkluc3RhbmNlSWQiOiIwMzI3ZGM1Ni05NjVhLTQ3ZWItOWVkMS04YTJjMDIxMzg0ZDAiLCJJbnN0YW5jZSI6IkFwZyBDb25zdWx0aW5nIEluc3RhbmNpYSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJBbmFsaXN0YSByZXNvbHV0b3IiLCJhZG1pbiIsIkNvbWVyY2lhbCBqciJdLCJQZXJtaXNzaW9ucyI6WyJBZG1pbiIsIkFkbWluSW5zdGFuY2VzIiwiSW50ZXJubyIsIk1hbmFnZXJBcmdlbnRpbmEiLCJNYW5hZ2VyQm9saXZpYSIsIk1hbmFnZXJDb2xvbWJpYSIsIk1hbmFnZXJDb3N0YVJpY2EiLCJNYW5hZ2VyRWN1YWRvciIsIk1hbmFnZXJQZXJ1IiwiVmlld0NvbW1lcmNpYWwiLCJFZGl0Q29tbWVyY2lhbCIsIkNyZWF0ZUNvbW1lcmNpYWwiLCJEZWxldGVDb21tZXJjaWFsIiwiVmlld1N1cHBvcnQiLCJFZGl0U3VwcG9ydCIsIkNyZWF0ZVN1cHBvcnQiLCJEZWxldGVTdXBwb3J0IiwiVmlld1Byb2plY3QiLCJFZGl0UHJvamVjdCIsIkNyZWF0ZVByb2plY3QiLCJEZWxldGVQcm9qZWN0IiwiVGltZVJlcG9ydCIsIlZpZXdDbGllbnQiLCJFZGl0Q2xpZW50IiwiQ3JlYXRlQ2xpZW50IiwiRGVsZXRlQ2xpZW50IiwiVmFsaWRhdGVDbGllbnQiLCJWaWV3VXNlciIsIkVkaXRVc2VyIiwiQ3JlYXRlVXNlciIsIkRlbGV0ZVVzZXIiLCJSb2xlIiwiQXVkaXQiLCJUYXNrVHlwZSIsIlRhc2tTdGF0dXMiLCJQcm9qZWN0U3RhdHVzIiwiVGVtcGxhdGUiLCJJbmR1c3RyeSIsIkNvdW50cnkiLCJMYWJvciIsIkVSUCIsIkNsaWVudFR5cGUiLCJQcm9kdWN0VHlwZSIsIkNvbm5lY3Rpb24iLCJUcmVlQ2xhc2lmaWNhdGlvbiIsIk1pbGVzdG9uZVR5cGUiLCJNaWxlc3RvbmVTdGF0dXMiLCJHZW5lcmljVGFza1R5cGUiLCJHZW5lcmljVGFzayIsIkhvbGlkYXkiLCJPcHBvcnR1bml0eVN0YXRlIiwiQ3VycmVuY3kiLCJBY3Rpdml0eVR5cGUiLCJBY3Rpdml0eVN0YXRlIiwiQWRtaW5CZWVsbGluZyIsIkFkbWluU3VwcGxpZXIiLCJTdXBwbGllclNlbGxlciIsIlN1cHBsaWVyUHJvdiIsIlZpZXdFcnAiLCJWaWV3T3JpZ2lucyIsIlZpZXdXZWJTaXRlIl0sIlVzZXJUeXBlIjoiSW50ZXJubyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2F1dGhlbnRpY2F0aW9uIjoibmV3VXNlci1hcGdDb3JlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkppbWVuZXogSnVsaWFuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlZDEwMjljYS1hYTAyLTRhNGEtODdlOC04ZmRkMmIzMTZjNGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqamltZW5lekBhcGctY29uc3VsdGluZy5jb20iLCJleHAiOjE3Njc4MjgxNjF9.q6rfEDlkgE43uEE-D0oUpuZerWfN0Ggp5XIGXzCYOYo"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "ticketId",
+              "value": "={{ $(\"Paso 1: Crear Ticket\").item.json.ticketId }}"
+            },
+            {
+              "name": "eventId",
+              "value": "1"
+            },
+            {
+              "name": "createdBy",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            },
+            {
+              "name": "assignTo",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Paso 2: Registrar Evento",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1008,
+        0
+      ],
+      "id": "94e26345-e678-4e03-bbc8-3515d31fcf19"
+    },
+    {
+      "parameters": {
+        "content": "## Si haces un GET a https://testapg.cloudviga.com:8500/api/classification (o similar), podrías obtener una lista de todos los departamentos."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "70801f80-5570-418b-b973-f6ed5552e1bb",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/comment/add-message",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkNvbG9tYmlhIiwiQ291bnRyeUlkIjoiMSIsIklkR3JvdXAiOiI3IiwiR3JvdXAiOiJBUEcgQ29uc3VsdGluZyIsIkluc3RhbmNlSWQiOiIwMzI3ZGM1Ni05NjVhLTQ3ZWItOWVkMS04YTJjMDIxMzg0ZDAiLCJJbnN0YW5jZSI6IkFwZyBDb25zdWx0aW5nIEluc3RhbmNpYSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJBbmFsaXN0YSByZXNvbHV0b3IiLCJhZG1pbiIsIkNvbWVyY2lhbCBqciJdLCJQZXJtaXNzaW9ucyI6WyJBZG1pbiIsIkFkbWluSW5zdGFuY2VzIiwiSW50ZXJubyIsIk1hbmFnZXJBcmdlbnRpbmEiLCJNYW5hZ2VyQm9saXZpYSIsIk1hbmFnZXJDb2xvbWJpYSIsIk1hbmFnZXJDb3N0YVJpY2EiLCJNYW5hZ2VyRWN1YWRvciIsIk1hbmFnZXJQZXJ1IiwiVmlld0NvbW1lcmNpYWwiLCJFZGl0Q29tbWVyY2lhbCIsIkNyZWF0ZUNvbW1lcmNpYWwiLCJEZWxldGVDb21tZXJjaWFsIiwiVmlld1N1cHBvcnQiLCJFZGl0U3VwcG9ydCIsIkNyZWF0ZVN1cHBvcnQiLCJEZWxldGVTdXBwb3J0IiwiVmlld1Byb2plY3QiLCJFZGl0UHJvamVjdCIsIkNyZWF0ZVByb2plY3QiLCJEZWxldGVQcm9qZWN0IiwiVGltZVJlcG9ydCIsIlZpZXdDbGllbnQiLCJFZGl0Q2xpZW50IiwiQ3JlYXRlQ2xpZW50IiwiRGVsZXRlQ2xpZW50IiwiVmFsaWRhdGVDbGllbnQiLCJWaWV3VXNlciIsIkVkaXRVc2VyIiwiQ3JlYXRlVXNlciIsIkRlbGV0ZVVzZXIiLCJSb2xlIiwiQXVkaXQiLCJUYXNrVHlwZSIsIlRhc2tTdGF0dXMiLCJQcm9qZWN0U3RhdHVzIiwiVGVtcGxhdGUiLCJJbmR1c3RyeSIsIkNvdW50cnkiLCJMYWJvciIsIkVSUCIsIkNsaWVudFR5cGUiLCJQcm9kdWN0VHlwZSIsIkNvbm5lY3Rpb24iLCJUcmVlQ2xhc2lmaWNhdGlvbiIsIk1pbGVzdG9uZVR5cGUiLCJNaWxlc3RvbmVTdGF0dXMiLCJHZW5lcmljVGFza1R5cGUiLCJHZW5lcmljVGFzayIsIkhvbGlkYXkiLCJPcHBvcnR1bml0eVN0YXRlIiwiQ3VycmVuY3kiLCJBY3Rpdml0eVR5cGUiLCJBY3Rpdml0eVN0YXRlIiwiQWRtaW5CZWVsbGluZyIsIkFkbWluU3VwcGxpZXIiLCJTdXBwbGllclNlbGxlciIsIlN1cHBsaWVyUHJvdiIsIlZpZXdFcnAiLCJWaWV3T3JpZ2lucyIsIlZpZXdXZWJTaXRlIl0sIlVzZXJUeXBlIjoiSW50ZXJubyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2F1dGhlbnRpY2F0aW9uIjoibmV3VXNlci1hcGdDb3JlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkppbWVuZXogSnVsaWFuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlZDEwMjljYS1hYTAyLTRhNGEtODdlOC04ZmRkMmIzMTZjNGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqamltZW5lekBhcGctY29uc3VsdGluZy5jb20iLCJleHAiOjE3Njc4MjgxNjF9.q6rfEDlkgE43uEE-D0oUpuZerWfN0Ggp5XIGXzCYOYo"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "instanceid",
+              "value": "0327dc56-965a-47eb-9ed1-8a2c021384d0"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"ticketId\": {{ $node[\"Paso 1: Crear Ticket\"].json.ticketId }},\n  \"description\": \"<p>mensaje de prueba<p>\",\n  \"applicationUserId\": \"ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d\",\n  \"userType\": \"Interno\",\n  \"isPrivate\": false,\n  \"commentSent\": true\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        496,
+        0
+      ],
+      "id": "6e55a313-a82d-4ecd-8df5-12f9c41c9484",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        0
+      ],
+      "id": "db4ba4bd-42f9-4f96-b52f-d5b214414915",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3b5319c1-cc4a-48d3-a213-b79f212673a1",
+      "name": "Wait",
+      "webhookId": "5fcded01-7cac-466b-bf89-fdb59c1379bf"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        704,
+        0
+      ],
+      "id": "117f9f68-423d-4af5-90f6-1eb805391c37",
+      "name": "Wait1",
+      "webhookId": "f1c9b696-8d33-4494-9a19-015721f01e5e"
+    },
+    {
+      "parameters": {
+        "content": "## Notion (Log) -> Guarda el link: https://apg.cloudviga.com/access-ticket/{{$node[\"Paso 1\"].json.ticketId}}"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        288,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "ec48ab5e-a75b-46d7-810c-82bd9dfc0810",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-07T18:44:39.628Z",
+      "updatedAt": "2026-01-07T18:44:39.628Z",
+      "role": "workflow:owner",
+      "workflowId": "MBD2ctGTpWmflaUx",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-07T21:48:14.000Z",
+  "versionId": "85e37bd7-5d23-4a41-95a9-7a73d0eee84c"
+}
