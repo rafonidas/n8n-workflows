@@ -55,12 +55,19 @@
           }
         ]
       ]
+    },
+    "Paso 2: Registrar Evento": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2026-01-07T18:44:39.625Z",
   "id": "MBD2ctGTpWmflaUx",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "My workflow 9",
   "nodes": [
     {
@@ -77,6 +84,18 @@
             {
               "name": "Content-Type",
               "value": "application/json"
+            },
+            {
+              "name": "origin",
+              "value": "https://testapg.cloudviga.com"
+            },
+            {
+              "name": "referer",
+              "value": "https://testapg.cloudviga.com/"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
             }
           ]
         },
@@ -134,6 +153,18 @@
             {
               "name": "Authorization",
               "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkNvbG9tYmlhIiwiQ291bnRyeUlkIjoiMSIsIklkR3JvdXAiOiI3IiwiR3JvdXAiOiJBUEcgQ29uc3VsdGluZyIsIkluc3RhbmNlSWQiOiIwMzI3ZGM1Ni05NjVhLTQ3ZWItOWVkMS04YTJjMDIxMzg0ZDAiLCJJbnN0YW5jZSI6IkFwZyBDb25zdWx0aW5nIEluc3RhbmNpYSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJBbmFsaXN0YSByZXNvbHV0b3IiLCJhZG1pbiIsIkNvbWVyY2lhbCBqciJdLCJQZXJtaXNzaW9ucyI6WyJBZG1pbiIsIkFkbWluSW5zdGFuY2VzIiwiSW50ZXJubyIsIk1hbmFnZXJBcmdlbnRpbmEiLCJNYW5hZ2VyQm9saXZpYSIsIk1hbmFnZXJDb2xvbWJpYSIsIk1hbmFnZXJDb3N0YVJpY2EiLCJNYW5hZ2VyRWN1YWRvciIsIk1hbmFnZXJQZXJ1IiwiVmlld0NvbW1lcmNpYWwiLCJFZGl0Q29tbWVyY2lhbCIsIkNyZWF0ZUNvbW1lcmNpYWwiLCJEZWxldGVDb21tZXJjaWFsIiwiVmlld1N1cHBvcnQiLCJFZGl0U3VwcG9ydCIsIkNyZWF0ZVN1cHBvcnQiLCJEZWxldGVTdXBwb3J0IiwiVmlld1Byb2plY3QiLCJFZGl0UHJvamVjdCIsIkNyZWF0ZVByb2plY3QiLCJEZWxldGVQcm9qZWN0IiwiVGltZVJlcG9ydCIsIlZpZXdDbGllbnQiLCJFZGl0Q2xpZW50IiwiQ3JlYXRlQ2xpZW50IiwiRGVsZXRlQ2xpZW50IiwiVmFsaWRhdGVDbGllbnQiLCJWaWV3VXNlciIsIkVkaXRVc2VyIiwiQ3JlYXRlVXNlciIsIkRlbGV0ZVVzZXIiLCJSb2xlIiwiQXVkaXQiLCJUYXNrVHlwZSIsIlRhc2tTdGF0dXMiLCJQcm9qZWN0U3RhdHVzIiwiVGVtcGxhdGUiLCJJbmR1c3RyeSIsIkNvdW50cnkiLCJMYWJvciIsIkVSUCIsIkNsaWVudFR5cGUiLCJQcm9kdWN0VHlwZSIsIkNvbm5lY3Rpb24iLCJUcmVlQ2xhc2lmaWNhdGlvbiIsIk1pbGVzdG9uZVR5cGUiLCJNaWxlc3RvbmVTdGF0dXMiLCJHZW5lcmljVGFza1R5cGUiLCJHZW5lcmljVGFzayIsIkhvbGlkYXkiLCJPcHBvcnR1bml0eVN0YXRlIiwiQ3VycmVuY3kiLCJBY3Rpdml0eVR5cGUiLCJBY3Rpdml0eVN0YXRlIiwiQWRtaW5CZWVsbGluZyIsIkFkbWluU3VwcGxpZXIiLCJTdXBwbGllclNlbGxlciIsIlN1cHBsaWVyUHJvdiIsIlZpZXdFcnAiLCJWaWV3T3JpZ2lucyIsIlZpZXdXZWJTaXRlIl0sIlVzZXJUeXBlIjoiSW50ZXJubyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2F1dGhlbnRpY2F0aW9uIjoibmV3VXNlci1hcGdDb3JlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkppbWVuZXogSnVsaWFuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlZDEwMjljYS1hYTAyLTRhNGEtODdlOC04ZmRkMmIzMTZjNGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJqamltZW5lekBhcGctY29uc3VsdGluZy5jb20iLCJleHAiOjE3Njc4MjgxNjF9.q6rfEDlkgE43uEE-D0oUpuZerWfN0Ggp5XIGXzCYOYo"
+            },
+            {
+              "name": "origin",
+              "value": "https://testapg.cloudviga.com"
+            },
+            {
+              "name": "referer",
+              "value": "https://testapg.cloudviga.com/"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
             }
           ]
         },
@@ -200,6 +231,18 @@
             {
               "name": "instanceid",
               "value": "0327dc56-965a-47eb-9ed1-8a2c021384d0"
+            },
+            {
+              "name": "origin",
+              "value": "https://testapg.cloudviga.com/"
+            },
+            {
+              "name": "referer",
+              "value": "https://testapg.cloudviga.com"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
             }
           ]
         },
@@ -264,6 +307,26 @@
       "typeVersion": 1,
       "id": "ec48ab5e-a75b-46d7-810c-82bd9dfc0810",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select   C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension , t.EstadoTransaccion, c.Resultado, t.Fecha, convert(varchar,c.FechaCbte, 126) as fecha \nfrom comprobante c with(nolock) \ninner join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\ninner join puntodeventa pv with(nolock) on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \ninner join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere   c.FechaCbte >=DATEADD(day, -3, GETDATE())  and Resultado='' and t.Fecha < DATEADD(MI, -30, GETDATE()) and EstadoTransaccion in (5,6,7)\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A');\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        736,
+        -224
+      ],
+      "id": "dfa68050-ed6f-4c84-b38b-fbbf006a6659",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -282,6 +345,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-07T21:48:14.000Z",
-  "versionId": "85e37bd7-5d23-4a41-95a9-7a73d0eee84c"
+  "updatedAt": "2026-01-08T18:57:32.000Z",
+  "versionId": "5c6eac1a-1e57-4026-beaf-19ab04475d46"
 }
