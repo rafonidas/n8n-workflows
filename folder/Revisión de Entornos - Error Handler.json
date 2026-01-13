@@ -102,8 +102,8 @@
       ]
     }
   },
-  "createdAt": "2026-01-05T17:08:22.283Z",
-  "id": "p9uwH55oMSUgbeOp",
+  "createdAt": "2026-01-11T14:31:58.728Z",
+  "id": "aggj1YZ7Lmhbv9Ct",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -118,11 +118,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -352,
-        -80
+        -672,
+        224
       ],
       "typeVersion": 1,
-      "id": "d1204b7c-fb1c-41f3-8e4b-796df5ff9ef5",
+      "id": "0c88ebbb-6bdb-4355-9dc2-c847283f0ea6",
       "name": "Sticky Note"
     },
     {
@@ -154,10 +154,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        464,
-        -96
+        144,
+        208
       ],
-      "id": "ec197bed-9627-4700-b6ff-d192822e637a",
+      "id": "269516a9-6917-45f7-a730-63921ac8ff9b",
       "name": "Get row(s) in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -172,11 +172,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        144,
-        -64
+        -176,
+        240
       ],
       "typeVersion": 1,
-      "id": "df0819c2-7fc1-4bce-97ce-80f30ae3f914",
+      "id": "3e52d898-2aaf-461a-9855-ff438373d9fc",
       "name": "Sticky Note1"
     },
     {
@@ -184,10 +184,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        96,
-        160
+        -224,
+        464
       ],
-      "id": "5e8c399c-27b9-41b2-9062-f8cbd9231e18",
+      "id": "6317a8d8-aba2-4f4e-9c0d-129ea1e29cac",
       "name": "When Executed by Another Workflow"
     },
     {
@@ -197,10 +197,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        368,
-        208
+        48,
+        512
       ],
-      "id": "c10608ef-06d2-4aba-a236-529d864d0f6b",
+      "id": "69a8154f-35c7-4634-8bcf-7d226b5f14a4",
       "name": "Credentials Loop1"
     },
     {
@@ -212,10 +212,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        880,
-        432
+        560,
+        736
       ],
-      "id": "ee6b5991-a053-4afe-a2cf-0e0df7cff148",
+      "id": "f609e67e-8eb6-46d6-b655-7e54575886cb",
       "name": "Query Loop1"
     },
     {
@@ -225,10 +225,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        3088,
-        208
+        2768,
+        512
       ],
-      "id": "ee07cd1c-975e-4142-b317-f17fe1706fa5",
+      "id": "a76e4ebb-5956-49f8-af44-eab47058b42a",
       "name": "Wait",
       "webhookId": "0ca8dabc-ea86-466f-a91c-5d37b9c00761"
     },
@@ -239,10 +239,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1152,
-        448
+        832,
+        752
       ],
-      "id": "53a36b34-f8ba-4a45-a3e4-6f9a4e1a5382",
+      "id": "c51af57d-3752-40af-89f1-c866fce8d6e5",
       "name": "Audit Start"
     },
     {
@@ -252,10 +252,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1616,
-        448
+        1296,
+        752
       ],
-      "id": "9a8133c9-8948-4036-a81d-56c98e9e3137",
+      "id": "609bb922-918a-4d78-b8c5-82b0f3c2f539",
       "name": "Audit End"
     },
     {
@@ -263,13 +263,13 @@
         "operation": "executeQuery",
         "query": "{{ $json.revisionQuery }}"
       },
-      "id": "26083e44-a49d-4121-a628-b11945f4aae9",
+      "id": "ee43dd13-ecf1-407d-850c-759ac11d9114",
       "name": "SQL Execute1",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        1408,
-        448
+        1088,
+        752
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
@@ -288,10 +288,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2256,
-        448
+        1936,
+        752
       ],
-      "id": "95e300f7-4b04-4818-8f34-32d374eba5cd",
+      "id": "e2218c0f-6ae9-443d-886f-36dd8e46b035",
       "name": "Map Results1"
     },
     {
@@ -319,10 +319,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2848,
-        208
+        2528,
+        512
       ],
-      "id": "8fa7a551-e8f9-49cf-b747-33c309406ed9",
+      "id": "4e9eed09-ead1-41c8-a907-14b57e93f4ca",
       "name": "Send Results1",
       "webhookId": "4c03ff36-2f79-4da4-be45-7843a06ff099",
       "retryOnFail": true,
@@ -342,10 +342,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2336,
-        224
+        2016,
+        528
       ],
-      "id": "9ab7d6a3-6461-431d-9659-26e8d2d098aa",
+      "id": "374d4ae1-c4f1-44fc-b3a1-270775319cb6",
       "name": "Set  HTML1",
       "executeOnce": true,
       "alwaysOutputData": true,
@@ -358,10 +358,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1552,
-        224
+        1232,
+        528
       ],
-      "id": "de6c6a33-4d76-4f28-ab71-7d7f6b6869b8",
+      "id": "731c8fec-28d7-4b53-816e-f72c1cb2c28a",
       "name": "Fan In1",
       "alwaysOutputData": true
     },
@@ -393,10 +393,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2512,
-        224
+        2192,
+        528
       ],
-      "id": "cd0bf78d-bd29-4869-ad77-8caddc8ce47e",
+      "id": "d2b25267-339b-4e9b-8328-2c85a48b0368",
       "name": "If3"
     },
     {
@@ -536,15 +536,41 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2032,
-        448
+        1712,
+        752
       ],
-      "id": "ea7f95ab-f795-496c-971f-9964e26fed0f",
+      "id": "8b16c236-3b7b-4078-9193-c9cf2e265575",
       "name": "Update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
           "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "workflowId": {
+          "__rl": true,
+          "value": "t7cWyHrQjhowmzrV",
+          "mode": "list",
+          "cachedResultName": "My workflow 6 (#t7cWyHrQjhowmzrV)"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "147297ad-6841-4690-8bc5-d07e1cf81f58",
+      "name": "Delete a workflow",
+      "credentials": {
+        "n8nApi": {
+          "id": "y9PDEDAKrPqrNrgj",
+          "name": "n8n account"
         }
       }
     }
@@ -555,16 +581,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-01-05T17:08:22.287Z",
-      "updatedAt": "2026-01-05T17:08:22.287Z",
+      "createdAt": "2026-01-11T14:31:58.731Z",
+      "updatedAt": "2026-01-11T14:31:58.731Z",
       "role": "workflow:owner",
-      "workflowId": "p9uwH55oMSUgbeOp",
+      "workflowId": "aggj1YZ7Lmhbv9Ct",
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-06T16:36:17.000Z",
-  "versionId": "609f1889-c14b-4b20-94e7-4cbdbae0c482"
+  "updatedAt": "2026-01-12T12:44:01.000Z",
+  "versionId": "4e106b5c-43a6-477f-a897-ebd67bd69a6c"
 }
