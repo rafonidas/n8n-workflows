@@ -5,7 +5,29 @@
       "main": [
         [
           {
-            "node": "Get many executions",
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Beta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in Python (Beta)": {
+      "main": [
+        [
+          {
+            "node": "Create message",
             "type": "main",
             "index": 0
           }
@@ -13,8 +35,8 @@
       ]
     }
   },
-  "createdAt": "2025-12-31T11:09:38.172Z",
-  "id": "BxKmA6UibIu6AbNv",
+  "createdAt": "2026-01-12T13:11:05.628Z",
+  "id": "bWLA1wKxYmn2CJBd",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -26,94 +48,2773 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -320,
-        112
+        0,
+        0
       ],
-      "id": "5624ad93-94d2-41f5-b210-9a15abb9dc1d",
+      "id": "a32eb928-0974-4b1b-86c5-a6726f767893",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "resource": "execution",
-        "limit": 10,
-        "filters": {
-          "workflowId": {
-            "__rl": true,
-            "value": "V0kCQ1kK3N3ayC36",
-            "mode": "list",
-            "cachedResultName": "Revisión de Entornos (#V0kCQ1kK3N3ayC36)"
-          }
+        "documentId": {
+          "__rl": true,
+          "value": "1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0",
+          "mode": "list",
+          "cachedResultName": "query_metrics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit?usp=drivesdk"
         },
-        "options": {},
-        "requestOptions": {}
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit#gid=0"
+        },
+        "options": {}
       },
-      "type": "n8n-nodes-base.n8n",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
       "position": [
-        -96,
-        112
+        208,
+        0
       ],
-      "id": "a6c6e3ba-b8f9-4730-bce4-5c7ac487837d",
-      "name": "Get many executions",
+      "id": "21573f1b-94c9-403f-af1c-312e8dea4e1b",
+      "name": "Get row(s) in sheet",
       "credentials": {
-        "n8nApi": {
-          "id": "I9e7wKcsSnlc40cq",
-          "name": "n8n base"
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
         }
       }
     },
     {
       "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
+        "language": "python",
+        "pythonCode": "import pandas as pd\nfrom datetime import datetime\n\n# 1. CARGA DE DATOS\nitems = _input.all()\ndata = [item.json for item in items]\n\nif not data:\n    html_error = \"<h3>🟢 No hay datos procesados esta semana.</h3>\"\n    return [{'json': {'html_report': html_error, 'has_data': False}}]\n\ndf = pd.DataFrame(data)\n\n# 2. LIMPIEZA\n# Convertimos columnas numéricas y strings clave\ndf['query'] = df['query'].astype(str).str.replace(r'\\.0$', '', regex=True)\ndf['filas_encontradas'] = pd.to_numeric(df['filas_encontradas'], errors='coerce').fillna(0)\ndf['tiempo'] = pd.to_numeric(df['tiempo'], errors='coerce').fillna(0)\n# Importante: Normalizamos país y entorno a mayúsculas para evitar duplicados por \"ar\" vs \"AR\"\ndf['pais'] = df['pais'].astype(str).str.upper()\ndf['entorno'] = df['entorno'].astype(str).str.upper()\n\n# ==========================================\n# KPI 1: DÍAS CON 0 RESULTADOS (Candidatas a bajar frecuencia)\n# ==========================================\n# Filtramos solo las ejecuciones que dieron 0 filas\nzeros_df = df[df['filas_encontradas'] == 0]\n\n# Agrupamos por Query + Pais + Entorno y contamos FECHAS ÚNICAS\n# Esto responde: \"¿En cuántos días distintos dio 0 resultados?\"\nzero_summary = zeros_df.groupby(['query', 'pais', 'entorno'])['fecha'].nunique().reset_index()\nzero_summary.rename(columns={'fecha': 'dias_con_cero'}, inplace=True)\n\n# Filtramos para mostrar solo las que fallaron al menos 1 día (o puedes poner > 2 si quieres ser menos estricto)\ncandidates = zero_summary[zero_summary['dias_con_cero'] > 0].sort_values('dias_con_cero', ascending=False)\n\n# ==========================================\n# KPI 2: ANOMALÍAS DE PERFORMANCE (APP vs APP2 por País)\n# ==========================================\n# Calculamos promedio de tiempo por Query + Pais + Entorno\nperf_df = df.groupby(['query', 'pais', 'entorno'])['tiempo'].mean().reset_index()\n\n# Pivotamos para tener los entornos como columnas\n# Índice ahora incluye 'pais' para no mezclar Argentina con otros\npivot = perf_df.pivot(index=['query', 'pais'], columns='entorno', values='tiempo').reset_index()\n\nperf_rows = []\n# Verificamos si existen las columnas antes de comparar\nif 'APP' in pivot.columns and 'APP2' in pivot.columns:\n    # Detectamos donde APP2 es más del doble de lento que APP y la diferencia es notable (> 2s)\n    slow_tests = pivot[ (pivot['APP2'] > pivot['APP'] * 2) & ((pivot['APP2'] - pivot['APP']) > 2) ]\n    \n    for _, row in slow_tests.iterrows():\n        perf_rows.append({\n            'query': row['query'],\n            'pais': row['pais'],\n            't_app': round(row['APP'], 2),\n            't_app2': round(row['APP2'], 2)\n        })\n\n# ==========================================\n# CONSTRUCCIÓN DEL REPORTE HTML\n# ==========================================\nhtml_parts = []\n\n# Encabezado\nhtml_parts.append(f\"\"\"\n<div style=\"font-family: Arial, sans-serif; color: #333;\">\n    <h2 style=\"color: #2c3e50;\">📊 Reporte Semanal de Queries</h2>\n    <p><b>Fecha de corte:</b> {datetime.now().strftime('%d/%m/%Y')}</p>\n    <hr style=\"border: 1px solid #eee;\">\n\"\"\")\n\n# Sección 1: Queries Vacías\nif not candidates.empty:\n    html_parts.append(\"\"\"\n    <h3 style=\"color: #d35400;\">📉 Candidatas a reducir frecuencia</h3>\n    <p>Las siguientes consultas devolvieron <b>0 filas</b> consistentemente:</p>\n    <table style=\"width:100%; border-collapse: collapse; margin-bottom: 20px;\">\n        <tr style=\"background-color: #f2f2f2; text-align: left;\">\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">Query</th>\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">País</th>\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">Entorno</th>\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">Días sin datos</th>\n        </tr>\n    \"\"\")\n    \n    for _, row in candidates.iterrows():\n        # Destacamos en negrita si son muchos días (ej. 5 o más)\n        dias_style = \"color: red; font-weight: bold;\" if row['dias_con_cero'] >= 5 else \"\"\n        html_parts.append(f\"\"\"\n        <tr>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee;\">{row['query']}</td>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee;\">{row['pais']}</td>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee;\">{row['entorno']}</td>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee; {dias_style}\">{row['dias_con_cero']} días</td>\n        </tr>\n        \"\"\")\n    html_parts.append(\"</table>\")\nelse:\n    html_parts.append(\"<p>✅ No se detectaron queries vacías esta semana.</p>\")\n\n# Sección 2: Performance\nif perf_rows:\n    html_parts.append(\"\"\"\n    <h3 style=\"color: #c0392b;\">🐢 Degradación de Performance (Test vs Prod)</h3>\n    <p>Consultas mucho más lentas en APP2 que en APP (Posible falta de índices):</p>\n    <table style=\"width:100%; border-collapse: collapse;\">\n        <tr style=\"background-color: #f2f2f2; text-align: left;\">\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">Query</th>\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">País</th>\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">Tiempo APP</th>\n            <th style=\"padding: 8px; border-bottom: 1px solid #ddd;\">Tiempo APP2</th>\n        </tr>\n    \"\"\")\n    \n    for item in perf_rows:\n        html_parts.append(f\"\"\"\n        <tr>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee;\">{item['query']}</td>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee;\">{item['pais']}</td>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee; color: green;\">{item['t_app']}s</td>\n            <td style=\"padding: 8px; border-bottom: 1px solid #eee; color: red; font-weight: bold;\">{item['t_app2']}s</td>\n        </tr>\n        \"\"\")\n    html_parts.append(\"</table>\")\n\nhtml_parts.append(\"</div>\")\n\nfinal_html = \"\\n\".join(html_parts)\n\nreturn [{'json': {'html_report': final_html, 'has_data': True}}]"
       },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        16,
-        -160
+        416,
+        0
       ],
-      "id": "15b524c0-7d41-4bdf-a165-e21595aeefca",
-      "name": "Get row(s)"
+      "id": "b2c5a90a-d87f-40f1-a8d1-d3ac0249edda",
+      "name": "Code in Python (Beta)"
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {}
-          ]
-        }
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.html_report }}",
+        "options": {}
       },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
       "position": [
-        -336,
-        -160
+        624,
+        0
       ],
-      "id": "7cf3c4b8-3aa1-48a7-842b-a1a4eb77ed06",
-      "name": "Schedule Trigger"
+      "id": "ce5b7533-e02c-4849-92e4-2f1a1dcfdd5b",
+      "name": "Create message",
+      "webhookId": "3fff556a-0dd8-470d-a93e-430874ddf798",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Get row(s) in sheet": [
+      {
+        "json": {
+          "row_number": 2,
+          "query": 51656,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.82,
+          "peso": 0.29,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:04"
+        }
+      },
+      {
+        "json": {
+          "row_number": 3,
+          "query": 51672,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 1.7,
+          "peso": 0.14,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:08"
+        }
+      },
+      {
+        "json": {
+          "row_number": 4,
+          "query": 51673,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 3.42,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:30:13"
+        }
+      },
+      {
+        "json": {
+          "row_number": 5,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.53,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:17"
+        }
+      },
+      {
+        "json": {
+          "row_number": 6,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.5,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:21"
+        }
+      },
+      {
+        "json": {
+          "row_number": 7,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.48,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:25"
+        }
+      },
+      {
+        "json": {
+          "row_number": 8,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.55,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:29"
+        }
+      },
+      {
+        "json": {
+          "row_number": 9,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.45,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:33"
+        }
+      },
+      {
+        "json": {
+          "row_number": 10,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.89,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:38"
+        }
+      },
+      {
+        "json": {
+          "row_number": 11,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.36,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:30:42"
+        }
+      },
+      {
+        "json": {
+          "row_number": 12,
+          "query": 0,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 27.95,
+          "peso": 0.82,
+          "filas_encontradas": 4,
+          "fecha": "12/1/2026",
+          "hora": "9:31:12"
+        }
+      },
+      {
+        "json": {
+          "row_number": 13,
+          "query": 51802,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 19.84,
+          "peso": 0.22,
+          "filas_encontradas": 3,
+          "fecha": "12/1/2026",
+          "hora": "9:31:34"
+        }
+      },
+      {
+        "json": {
+          "row_number": 14,
+          "query": 51656,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.75,
+          "peso": 0.58,
+          "filas_encontradas": 2,
+          "fecha": "12/1/2026",
+          "hora": "9:31:48"
+        }
+      },
+      {
+        "json": {
+          "row_number": 15,
+          "query": 51672,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 1.81,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:31:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 16,
+          "query": 51673,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 32.42,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:32:26"
+        }
+      },
+      {
+        "json": {
+          "row_number": 17,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.67,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:29"
+        }
+      },
+      {
+        "json": {
+          "row_number": 18,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.7,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:33"
+        }
+      },
+      {
+        "json": {
+          "row_number": 19,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.7,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:36"
+        }
+      },
+      {
+        "json": {
+          "row_number": 20,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.72,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:39"
+        }
+      },
+      {
+        "json": {
+          "row_number": 21,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.7,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:43"
+        }
+      },
+      {
+        "json": {
+          "row_number": 22,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.69,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:46"
+        }
+      },
+      {
+        "json": {
+          "row_number": 23,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.68,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:32:49"
+        }
+      },
+      {
+        "json": {
+          "row_number": 24,
+          "query": 0,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 5.6,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:32:57"
+        }
+      },
+      {
+        "json": {
+          "row_number": 25,
+          "query": 51802,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 2.54,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:33:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 26,
+          "query": 51656,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.74,
+          "peso": 2.29,
+          "filas_encontradas": 8,
+          "fecha": "12/1/2026",
+          "hora": "9:33:16"
+        }
+      },
+      {
+        "json": {
+          "row_number": 27,
+          "query": 51672,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 13.3,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:33:31"
+        }
+      },
+      {
+        "json": {
+          "row_number": 28,
+          "query": 51673,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 66.23,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:34:39"
+        }
+      },
+      {
+        "json": {
+          "row_number": 29,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 10.91,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:34:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 30,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 6.15,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:35:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 31,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 6.68,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:35:10"
+        }
+      },
+      {
+        "json": {
+          "row_number": 32,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 6.25,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:35:18"
+        }
+      },
+      {
+        "json": {
+          "row_number": 33,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 6.5,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:35:27"
+        }
+      },
+      {
+        "json": {
+          "row_number": 34,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 16.28,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:35:45"
+        }
+      },
+      {
+        "json": {
+          "row_number": 35,
+          "query": 51748,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 6.63,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:35:53"
+        }
+      },
+      {
+        "json": {
+          "row_number": 36,
+          "query": 0,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 170.17,
+          "peso": 0.45,
+          "filas_encontradas": 2,
+          "fecha": "12/1/2026",
+          "hora": "9:38:45"
+        }
+      },
+      {
+        "json": {
+          "row_number": 37,
+          "query": 51802,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 81,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:40:08"
+        }
+      },
+      {
+        "json": {
+          "row_number": 38,
+          "query": 51656,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.75,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:40:23"
+        }
+      },
+      {
+        "json": {
+          "row_number": 39,
+          "query": 51672,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 3.36,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:40:28"
+        }
+      },
+      {
+        "json": {
+          "row_number": 40,
+          "query": 51673,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 11.32,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:40:41"
+        }
+      },
+      {
+        "json": {
+          "row_number": 41,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.15,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:40:44"
+        }
+      },
+      {
+        "json": {
+          "row_number": 42,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.07,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:40:48"
+        }
+      },
+      {
+        "json": {
+          "row_number": 43,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.05,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:40:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 44,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.95,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:40:55"
+        }
+      },
+      {
+        "json": {
+          "row_number": 45,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.82,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:40:59"
+        }
+      },
+      {
+        "json": {
+          "row_number": 46,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.98,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:41:02"
+        }
+      },
+      {
+        "json": {
+          "row_number": 47,
+          "query": 51748,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.92,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:41:06"
+        }
+      },
+      {
+        "json": {
+          "row_number": 48,
+          "query": 0,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 12.35,
+          "peso": 0.7,
+          "filas_encontradas": 3,
+          "fecha": "12/1/2026",
+          "hora": "9:41:20"
+        }
+      },
+      {
+        "json": {
+          "row_number": 49,
+          "query": 51802,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 26.02,
+          "peso": 0.46,
+          "filas_encontradas": 6,
+          "fecha": "12/1/2026",
+          "hora": "9:41:47"
+        }
+      },
+      {
+        "json": {
+          "row_number": 50,
+          "query": 51656,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 2.5,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:42:03"
+        }
+      },
+      {
+        "json": {
+          "row_number": 51,
+          "query": 51659,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios con distintos tipos de rol",
+          "tiempo": 1.67,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:42:06"
+        }
+      },
+      {
+        "json": {
+          "row_number": 52,
+          "query": 51672,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 1.9,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:42:10"
+        }
+      },
+      {
+        "json": {
+          "row_number": 53,
+          "query": 51673,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 5.37,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:42:17"
+        }
+      },
+      {
+        "json": {
+          "row_number": 54,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.95,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:20"
+        }
+      },
+      {
+        "json": {
+          "row_number": 55,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.8,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:24"
+        }
+      },
+      {
+        "json": {
+          "row_number": 56,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.73,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:27"
+        }
+      },
+      {
+        "json": {
+          "row_number": 57,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.74,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:30"
+        }
+      },
+      {
+        "json": {
+          "row_number": 58,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.73,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:34"
+        }
+      },
+      {
+        "json": {
+          "row_number": 59,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.82,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:37"
+        }
+      },
+      {
+        "json": {
+          "row_number": 60,
+          "query": 51748,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 1.73,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:41"
+        }
+      },
+      {
+        "json": {
+          "row_number": 61,
+          "query": 0,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 2.42,
+          "peso": 0.22,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:45"
+        }
+      },
+      {
+        "json": {
+          "row_number": 62,
+          "query": 51802,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 5.94,
+          "peso": 0.07,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:42:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 63,
+          "query": 51656,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.68,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:43:07"
+        }
+      },
+      {
+        "json": {
+          "row_number": 64,
+          "query": 51672,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 4.1,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:43:13"
+        }
+      },
+      {
+        "json": {
+          "row_number": 65,
+          "query": 51673,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 6.74,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:43:22"
+        }
+      },
+      {
+        "json": {
+          "row_number": 66,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 3.26,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:27"
+        }
+      },
+      {
+        "json": {
+          "row_number": 67,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.94,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:31"
+        }
+      },
+      {
+        "json": {
+          "row_number": 68,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.81,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:36"
+        }
+      },
+      {
+        "json": {
+          "row_number": 69,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.95,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:41"
+        }
+      },
+      {
+        "json": {
+          "row_number": 70,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.79,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:45"
+        }
+      },
+      {
+        "json": {
+          "row_number": 71,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.13,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:49"
+        }
+      },
+      {
+        "json": {
+          "row_number": 72,
+          "query": 51748,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.77,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:43:53"
+        }
+      },
+      {
+        "json": {
+          "row_number": 73,
+          "query": 0,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 3.88,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:43:59"
+        }
+      },
+      {
+        "json": {
+          "row_number": 74,
+          "query": 51802,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 44.76,
+          "peso": 0.07,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:44:46"
+        }
+      },
+      {
+        "json": {
+          "row_number": 75,
+          "query": 51656,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.73,
+          "peso": 0.59,
+          "filas_encontradas": 2,
+          "fecha": "12/1/2026",
+          "hora": "9:45:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 76,
+          "query": 51672,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 3.83,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:45:07"
+        }
+      },
+      {
+        "json": {
+          "row_number": 77,
+          "query": 51673,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 15.93,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:45:25"
+        }
+      },
+      {
+        "json": {
+          "row_number": 78,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.29,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:45:31"
+        }
+      },
+      {
+        "json": {
+          "row_number": 79,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 3.65,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:45:36"
+        }
+      },
+      {
+        "json": {
+          "row_number": 80,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 3.76,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:45:42"
+        }
+      },
+      {
+        "json": {
+          "row_number": 81,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 3.63,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:45:48"
+        }
+      },
+      {
+        "json": {
+          "row_number": 82,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 3.87,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:45:54"
+        }
+      },
+      {
+        "json": {
+          "row_number": 83,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.17,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:45:58"
+        }
+      },
+      {
+        "json": {
+          "row_number": 84,
+          "query": 51748,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 3.5,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:46:03"
+        }
+      },
+      {
+        "json": {
+          "row_number": 85,
+          "query": 0,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 5.31,
+          "peso": 0.22,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:46:10"
+        }
+      },
+      {
+        "json": {
+          "row_number": 86,
+          "query": 51802,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 26.29,
+          "peso": 0.07,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:46:38"
+        }
+      },
+      {
+        "json": {
+          "row_number": 87,
+          "query": 51656,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.71,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:46:53"
+        }
+      },
+      {
+        "json": {
+          "row_number": 88,
+          "query": 51659,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios con distintos tipos de rol",
+          "tiempo": 1.7,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:46:57"
+        }
+      },
+      {
+        "json": {
+          "row_number": 89,
+          "query": 51672,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 2.92,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:47:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 90,
+          "query": 51673,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 16.98,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:47:20"
+        }
+      },
+      {
+        "json": {
+          "row_number": 91,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.68,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:47:27"
+        }
+      },
+      {
+        "json": {
+          "row_number": 92,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.67,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:47:33"
+        }
+      },
+      {
+        "json": {
+          "row_number": 93,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.48,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:47:39"
+        }
+      },
+      {
+        "json": {
+          "row_number": 94,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.46,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:47:46"
+        }
+      },
+      {
+        "json": {
+          "row_number": 95,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.49,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:47:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 96,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 5.12,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:47:59"
+        }
+      },
+      {
+        "json": {
+          "row_number": 97,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 4.31,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:48:05"
+        }
+      },
+      {
+        "json": {
+          "row_number": 98,
+          "query": 0,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 5.99,
+          "peso": 1.6,
+          "filas_encontradas": 7,
+          "fecha": "12/1/2026",
+          "hora": "9:48:13"
+        }
+      },
+      {
+        "json": {
+          "row_number": 99,
+          "query": 51802,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 25.8,
+          "peso": 0.07,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:48:41"
+        }
+      },
+      {
+        "json": {
+          "row_number": 100,
+          "query": 51656,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.93,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:48:56"
+        }
+      },
+      {
+        "json": {
+          "row_number": 101,
+          "query": 51659,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Usuarios con distintos tipos de rol",
+          "tiempo": 1.7,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:48:59"
+        }
+      },
+      {
+        "json": {
+          "row_number": 102,
+          "query": 51672,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 2.06,
+          "peso": 0.14,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:03"
+        }
+      },
+      {
+        "json": {
+          "row_number": 103,
+          "query": 51673,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 9.64,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:49:15"
+        }
+      },
+      {
+        "json": {
+          "row_number": 104,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.69,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:20"
+        }
+      },
+      {
+        "json": {
+          "row_number": 105,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.66,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:24"
+        }
+      },
+      {
+        "json": {
+          "row_number": 106,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.85,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:29"
+        }
+      },
+      {
+        "json": {
+          "row_number": 107,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.65,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:33"
+        }
+      },
+      {
+        "json": {
+          "row_number": 108,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.6,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:38"
+        }
+      },
+      {
+        "json": {
+          "row_number": 109,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.6,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:42"
+        }
+      },
+      {
+        "json": {
+          "row_number": 110,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.54,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:49:47"
+        }
+      },
+      {
+        "json": {
+          "row_number": 111,
+          "query": 0,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 3.81,
+          "peso": 7.04,
+          "filas_encontradas": 32,
+          "fecha": "12/1/2026",
+          "hora": "9:49:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 112,
+          "query": 51802,
+          "pais": "CO",
+          "entorno": "APP2",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 17.3,
+          "peso": 0.36,
+          "filas_encontradas": 5,
+          "fecha": "12/1/2026",
+          "hora": "9:50:12"
+        }
+      },
+      {
+        "json": {
+          "row_number": 113,
+          "query": 51656,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Roles con Configuración en desuso",
+          "tiempo": 1.76,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:50:26"
+        }
+      },
+      {
+        "json": {
+          "row_number": 114,
+          "query": 51659,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Usuarios con distintos tipos de rol",
+          "tiempo": 1.7,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:50:29"
+        }
+      },
+      {
+        "json": {
+          "row_number": 115,
+          "query": 51672,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Usuarios Administradores fuera de APG",
+          "tiempo": 2.04,
+          "peso": 0.28,
+          "filas_encontradas": 2,
+          "fecha": "12/1/2026",
+          "hora": "9:50:33"
+        }
+      },
+      {
+        "json": {
+          "row_number": 116,
+          "query": 51673,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Comprobantes con error en la generación de reportes",
+          "tiempo": 17.44,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:50:52"
+        }
+      },
+      {
+        "json": {
+          "row_number": 117,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.66,
+          "peso": 0.16,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:50:57"
+        }
+      },
+      {
+        "json": {
+          "row_number": 118,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.28,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:51:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 119,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.27,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:51:05"
+        }
+      },
+      {
+        "json": {
+          "row_number": 120,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.35,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:51:10"
+        }
+      },
+      {
+        "json": {
+          "row_number": 121,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.28,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:51:14"
+        }
+      },
+      {
+        "json": {
+          "row_number": 122,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.36,
+          "peso": 0.17,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:51:18"
+        }
+      },
+      {
+        "json": {
+          "row_number": 123,
+          "query": 51748,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Correos de usuarios mal cargados",
+          "tiempo": 2.4,
+          "peso": 0.13,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:51:22"
+        }
+      },
+      {
+        "json": {
+          "row_number": 124,
+          "query": 0,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Revisión General",
+          "tiempo": 2.45,
+          "peso": 2.47,
+          "filas_encontradas": 10,
+          "fecha": "12/1/2026",
+          "hora": "9:51:26"
+        }
+      },
+      {
+        "json": {
+          "row_number": 125,
+          "query": 51802,
+          "pais": "CO",
+          "entorno": "APP3",
+          "frecuencia": "Daily",
+          "description": "Inicio de sesiones excesivas",
+          "tiempo": 14.06,
+          "peso": 0.69,
+          "filas_encontradas": 9,
+          "fecha": "12/1/2026",
+          "hora": "9:51:42"
+        }
+      },
+      {
+        "json": {
+          "row_number": 126,
+          "query": 51626,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 27.97,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:57:41"
+        }
+      },
+      {
+        "json": {
+          "row_number": 127,
+          "query": 51637,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 2.16,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:57:45"
+        }
+      },
+      {
+        "json": {
+          "row_number": 128,
+          "query": 51718,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 35.49,
+          "peso": 0.1,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:58:22"
+        }
+      },
+      {
+        "json": {
+          "row_number": 129,
+          "query": 51741,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 19.4,
+          "peso": 1.61,
+          "filas_encontradas": 22,
+          "fecha": "12/1/2026",
+          "hora": "9:58:43"
+        }
+      },
+      {
+        "json": {
+          "row_number": 130,
+          "query": 51742,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 2.3,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:58:47"
+        }
+      },
+      {
+        "json": {
+          "row_number": 131,
+          "query": 51742,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.77,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:58:51"
+        }
+      },
+      {
+        "json": {
+          "row_number": 132,
+          "query": 51797,
+          "pais": "AR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 1.88,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:58:55"
+        }
+      },
+      {
+        "json": {
+          "row_number": 133,
+          "query": 51626,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 20.74,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:59:28"
+        }
+      },
+      {
+        "json": {
+          "row_number": 134,
+          "query": 51637,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 9.76,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:59:39"
+        }
+      },
+      {
+        "json": {
+          "row_number": 135,
+          "query": 51718,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 2.16,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:59:43"
+        }
+      },
+      {
+        "json": {
+          "row_number": 136,
+          "query": 51741,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 2.12,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:59:47"
+        }
+      },
+      {
+        "json": {
+          "row_number": 137,
+          "query": 51742,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.99,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "9:59:51"
+        }
+      },
+      {
+        "json": {
+          "row_number": 138,
+          "query": 51797,
+          "pais": "AR",
+          "entorno": "APP2",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 1.82,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "9:59:54"
+        }
+      },
+      {
+        "json": {
+          "row_number": 139,
+          "query": 51626,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 111.43,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:01:58"
+        }
+      },
+      {
+        "json": {
+          "row_number": 140,
+          "query": 51637,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 103.03,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:03:43"
+        }
+      },
+      {
+        "json": {
+          "row_number": 141,
+          "query": 51718,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 58.03,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:04:43"
+        }
+      },
+      {
+        "json": {
+          "row_number": 142,
+          "query": 51741,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 23.18,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:05:07"
+        }
+      },
+      {
+        "json": {
+          "row_number": 143,
+          "query": 51742,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 9.29,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:05:18"
+        }
+      },
+      {
+        "json": {
+          "row_number": 144,
+          "query": 51797,
+          "pais": "AR",
+          "entorno": "Cines",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 3.19,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "10:05:23"
+        }
+      },
+      {
+        "json": {
+          "row_number": 145,
+          "query": 51626,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 2.06,
+          "peso": 0.54,
+          "filas_encontradas": 4,
+          "fecha": "12/1/2026",
+          "hora": "10:05:37"
+        }
+      },
+      {
+        "json": {
+          "row_number": 146,
+          "query": 51637,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 2.39,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:05:41"
+        }
+      },
+      {
+        "json": {
+          "row_number": 147,
+          "query": 51718,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 3.82,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:05:47"
+        }
+      },
+      {
+        "json": {
+          "row_number": 148,
+          "query": 51741,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 5.64,
+          "peso": 0.67,
+          "filas_encontradas": 9,
+          "fecha": "12/1/2026",
+          "hora": "10:05:54"
+        }
+      },
+      {
+        "json": {
+          "row_number": 149,
+          "query": 51742,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 2.06,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:05:58"
+        }
+      },
+      {
+        "json": {
+          "row_number": 150,
+          "query": 51742,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.78,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 151,
+          "query": 51797,
+          "pais": "PE",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 1.73,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "10:06:04"
+        }
+      },
+      {
+        "json": {
+          "row_number": 152,
+          "query": 51626,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 1.82,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:18"
+        }
+      },
+      {
+        "json": {
+          "row_number": 153,
+          "query": 51636,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes en Contingencia",
+          "tiempo": 2.06,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:22"
+        }
+      },
+      {
+        "json": {
+          "row_number": 154,
+          "query": 51637,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 1.7,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:25"
+        }
+      },
+      {
+        "json": {
+          "row_number": 155,
+          "query": 51718,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 2.19,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:29"
+        }
+      },
+      {
+        "json": {
+          "row_number": 156,
+          "query": 51741,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 2.24,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:33"
+        }
+      },
+      {
+        "json": {
+          "row_number": 157,
+          "query": 51742,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.88,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:36"
+        }
+      },
+      {
+        "json": {
+          "row_number": 158,
+          "query": 51742,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.86,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:40"
+        }
+      },
+      {
+        "json": {
+          "row_number": 159,
+          "query": 51636,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes en Contingencia",
+          "tiempo": 1.9,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:06:43"
+        }
+      },
+      {
+        "json": {
+          "row_number": 160,
+          "query": 51797,
+          "pais": "CR",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 1.7,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "10:06:46"
+        }
+      },
+      {
+        "json": {
+          "row_number": 161,
+          "query": 51626,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 2.1,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:07:01"
+        }
+      },
+      {
+        "json": {
+          "row_number": 162,
+          "query": 51637,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 2.68,
+          "peso": 0.27,
+          "filas_encontradas": 2,
+          "fecha": "12/1/2026",
+          "hora": "10:07:05"
+        }
+      },
+      {
+        "json": {
+          "row_number": 163,
+          "query": 51718,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 3.25,
+          "peso": 1.37,
+          "filas_encontradas": 14,
+          "fecha": "12/1/2026",
+          "hora": "10:07:10"
+        }
+      },
+      {
+        "json": {
+          "row_number": 164,
+          "query": 51741,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 8.55,
+          "peso": 0.96,
+          "filas_encontradas": 13,
+          "fecha": "12/1/2026",
+          "hora": "10:07:20"
+        }
+      },
+      {
+        "json": {
+          "row_number": 165,
+          "query": 51742,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 2.12,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:07:24"
+        }
+      },
+      {
+        "json": {
+          "row_number": 166,
+          "query": 51742,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.77,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:07:27"
+        }
+      },
+      {
+        "json": {
+          "row_number": 167,
+          "query": 51797,
+          "pais": "BO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 1.82,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "10:07:31"
+        }
+      },
+      {
+        "json": {
+          "row_number": 168,
+          "query": 51626,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 2.44,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:07:46"
+        }
+      },
+      {
+        "json": {
+          "row_number": 169,
+          "query": 51637,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 3.55,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:07:51"
+        }
+      },
+      {
+        "json": {
+          "row_number": 170,
+          "query": 51718,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 6.12,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:07:59"
+        }
+      },
+      {
+        "json": {
+          "row_number": 171,
+          "query": 51741,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Cantidad de inicios de sesión",
+          "tiempo": 6,
+          "peso": 0.55,
+          "filas_encontradas": 8,
+          "fecha": "12/1/2026",
+          "hora": "10:08:06"
+        }
+      },
+      {
+        "json": {
+          "row_number": 172,
+          "query": 51742,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.78,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:08:10"
+        }
+      },
+      {
+        "json": {
+          "row_number": 173,
+          "query": 51742,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin resultado",
+          "tiempo": 1.8,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:08:13"
+        }
+      },
+      {
+        "json": {
+          "row_number": 174,
+          "query": 51797,
+          "pais": "EC",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Validaciones de notificaciones en usuarios",
+          "tiempo": 1.85,
+          "peso": 0.31,
+          "filas_encontradas": 1,
+          "fecha": "12/1/2026",
+          "hora": "10:08:17"
+        }
+      },
+      {
+        "json": {
+          "row_number": 175,
+          "query": 51626,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin Autorizar",
+          "tiempo": 10.69,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:08:39"
+        }
+      },
+      {
+        "json": {
+          "row_number": 176,
+          "query": 51637,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes Repetidos",
+          "tiempo": 15.22,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:08:56"
+        }
+      },
+      {
+        "json": {
+          "row_number": 177,
+          "query": 51718,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes sin publicar",
+          "tiempo": 8.88,
+          "peso": 0.04,
+          "filas_encontradas": 0,
+          "fecha": "12/1/2026",
+          "hora": "10:09:07"
+        }
+      },
+      {
+        "json": {
+          "row_number": 178,
+          "query": 51737,
+          "pais": "CO",
+          "entorno": "APP",
+          "frecuencia": "Four-hourly",
+          "description": "Comprobantes en Error “Error de Conexión DIAN”",
+          "tiempo": 11.3,
+          "peso": 0.68,
+          "filas_encontradas": 2,
+          "fecha": "12/1/2026",
+          "hora": "10:09:20"
+        }
+      }
+    ]
+  },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
   },
   "shared": [
     {
-      "createdAt": "2025-12-31T11:09:38.180Z",
-      "updatedAt": "2025-12-31T11:09:38.180Z",
+      "createdAt": "2026-01-12T13:11:05.639Z",
+      "updatedAt": "2026-01-12T13:11:05.639Z",
       "role": "workflow:owner",
-      "workflowId": "BxKmA6UibIu6AbNv",
+      "workflowId": "bWLA1wKxYmn2CJBd",
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-12-31T13:01:13.000Z",
-  "versionId": "7077cc37-86be-49b1-ab48-4e3df10be2ef"
+  "updatedAt": "2026-01-12T13:45:38.000Z",
+  "versionId": "37ce7fe5-ddb6-45eb-b8ea-ac78152c0b73"
 }
