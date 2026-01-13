@@ -1,0 +1,158 @@
+{
+  "active": false,
+  "connections": {
+    "Paso 1: Crear Ticket": {
+      "main": [
+        [
+          {
+            "node": "Paso 2: Registrar Evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-01-13T00:16:49.688Z",
+  "id": "OzCVUbUz3V5ZZ0hW",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 7",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "dca6d597-c92f-40f1-b367-6dbb909fc6a9",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com/api/ticket/add",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzY4MjgxNTM4fQ.1et7ssA8UBVo7FC4e5b_ogS1yRz4PPIPYzgsPNcis8s"
+            },
+            {
+              "name": "Content-Type",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "clientId",
+              "value": "1013"
+            },
+            {
+              "name": "title",
+              "value": "Ticket desde n8n"
+            },
+            {
+              "name": "questions",
+              "value": "<p>Cuerpo del mensaje</p>"
+            },
+            {
+              "name": "ticketClasification",
+              "value": "c1a72c9b-bcbb-4b37-b9ff-6b73121568ee"
+            },
+            {
+              "name": "idCreator",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            },
+            {
+              "name": "idUser",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            },
+            {
+              "name": "status",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Paso 1: Crear Ticket",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        112
+      ],
+      "id": "bcee4628-ac9a-41a6-b3e6-0aef81cac745"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/ticket/event",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer TU_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "ticketId",
+              "value": "={{ $json.ticketId }}"
+            },
+            {
+              "name": "eventId",
+              "value": "1"
+            },
+            {
+              "name": "createdBy",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            },
+            {
+              "name": "assignTo",
+              "value": "ed1029ca-aa02-4a4a-87e8-8fdd2b316c4d"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Paso 2: Registrar Evento",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        464,
+        112
+      ],
+      "id": "8fe874ac-1035-44ef-aa68-f61fee9b669c"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-13T00:16:49.690Z",
+      "updatedAt": "2026-01-13T00:16:49.690Z",
+      "role": "workflow:owner",
+      "workflowId": "OzCVUbUz3V5ZZ0hW",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-13T00:26:09.000Z",
+  "versionId": "050291b6-098d-4c57-8107-091610025a78"
+}
