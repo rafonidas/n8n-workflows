@@ -66,6 +66,17 @@
           }
         ]
       ]
+    },
+    "1. Obtener Cookies (Home)": {
+      "main": [
+        [
+          {
+            "node": "2. Login con Cookies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-12T22:23:56.201Z",
@@ -140,7 +151,7 @@
               "name": "instanceid"
             },
             {
-              "name": "User-Agent",
+              "name": "user-agent",
               "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             }
           ]
@@ -149,7 +160,7 @@
         "bodyParameters": {
           "parameters": [
             {
-              "name": "email",
+              "name": "username",
               "value": "rnunez@apg-consulting.com"
             },
             {
@@ -383,6 +394,162 @@
       ],
       "id": "9e5f122c-07ab-4653-9b89-8802932864b6",
       "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json, text/plain, */*"
+            },
+            {
+              "name": "instanceid",
+              "value": "0327dc56-965a-47eb-9ed1-8a2c021384d0"
+            },
+            {
+              "name": "origin",
+              "value": "https://testapg.cloudviga.com"
+            },
+            {
+              "name": "referer",
+              "value": "https://testapg.cloudviga.com/"
+            },
+            {
+              "name": "user-agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\",Thrz96V\"},\"browserInfo\":\"Navegador: Netscape, Versión del navegador: 5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36, Código: Mozilla, Plataforma: Win32, Coockies habilitadas: true, Aplicación: Viga.\"}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        -736
+      ],
+      "id": "832bf298-324f-49c5-9d8d-ed05411e3fc1",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "id": "bb7228da-941c-48db-86da-b62984f36646",
+      "name": "1. Obtener Cookies (Home)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -48,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "name": "instanceid",
+              "value": "0327dc56-965a-47eb-9ed1-8a2c021384d0"
+            },
+            {
+              "name": "Origin",
+              "value": "https://testapg.cloudviga.com"
+            },
+            {
+              "name": "Referer",
+              "value": "https://testapg.cloudviga.com/"
+            },
+            {
+              "name": "Cookie",
+              "value": "={{ $node[\"1. Obtener Cookies (Home)\"].json.headers[\"set-cookie\"] ? $node[\"1. Obtener Cookies (Home)\"].json.headers[\"set-cookie\"].join('; ') : '' }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"username\": \"rnunez@apg-consulting.com\",\n  \"password\": \",Thrz96V\"\n}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "85e11949-fcbd-49c8-bf1f-225ffd183ece",
+      "name": "2. Login con Cookies",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        176,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://testapg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "name": "instanceid",
+              "value": "0327dc56-965a-47eb-9ed1-8a2c021384d0"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\": {   \"email\": \"rnunez@apg-consulting.com\",   \"password\": \",Thrz96V\"  }}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -768
+      ],
+      "id": "63daa3c2-fb9d-4e7a-bf4b-a399e0866ec6",
+      "name": "HTTP Request1"
     }
   ],
   "pinData": {},
@@ -401,6 +568,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-12T23:10:33.000Z",
-  "versionId": "938801b7-a054-4a2f-9ff4-28ca9c8f8645"
+  "updatedAt": "2026-01-13T12:52:55.000Z",
+  "versionId": "e1dfc747-c146-431e-af1c-0f4720a3e00d"
 }
