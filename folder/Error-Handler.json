@@ -79,7 +79,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const response = $input.first().json;\nconst resultData = response.data.resultData;\nconst runData = resultData.runData;\nconst lastNode = resultData.lastNodeExecuted;\n\n// 1. Obtener el error técnico\nconst technicalError = resultData.error || {};\n\n// 2. Obtener el Contexto de Negocio (País y Entorno)\n// El nodo \"Credentials Loop\" es un Split in Batches, el ítem activo sale por main[1]\nlet pais = \"N/A\";\nlet entorno = \"N/A\";\n\ntry {\n  const credsExecs = runData[\"Credentials Loop\"];\n  const lastCredsRun = credsExecs[credsExecs.length - 1];\n  const currentCreds = lastCredsRun.data.main[1][0].json;\n  \n  pais = currentCreds.country || \"N/A\";\n  entorno = currentCreds.entorno || \"N/A\";\n} catch (e) {\n  pais = \"No detectado\";\n  entorno = \"No detectado\";\n}\n\n// 3. Obtener el queryId de la última ejecución\nlet queryId = \"N/A\";\n\ntry {\n  // Primero intentamos buscar en el nodo Audit Start (que es el predecesor directo de SQL Execute)\n  // Como es un nodo de tipo Code normal, el resultado está en main[0]\n  if (runData[\"Audit Start\"]) {\n    const auditExecs = runData[\"Audit Start\"];\n    const lastAuditRun = auditExecs[auditExecs.length - 1];\n    queryId = lastAuditRun.data.main[0][0].json.queryId;\n  } \n  // Fallback: Si no está en Audit Start, lo buscamos en el Query Loop (Split in Batches, puerto 1)\n  else if (runData[\"Query Loop\"]) {\n    const qLoopExecs = runData[\"Query Loop\"];\n    const lastQLoopRun = qLoopExecs[qLoopExecs.length - 1];\n    queryId = lastQLoopRun.data.main[1][0].json.queryId;\n  }\n} catch (e) {\n  queryId = \"Error en rastreo\";\n}\n\nreturn {\n  json: {\n    alerta: {\n      error_mensaje: technicalError.message,\n      nodo_fallido: lastNode,\n      codigo_error: technicalError.code || \"N/A\"\n    },\n    contexto_negocio: {\n      queryId: queryId || \"N/A\",\n      pais: pais,\n      entorno: entorno\n    },\n    meta: {\n      executionId: response.id,\n      finalizado_at: response.stoppedAt,\n      workflow_name: response.workflowData?.name || \"Desconocido\"\n    }\n  }\n};"
+        "jsCode": "const response = $input.first().json;\nconst runData = response.data.resultData.runData;\nconst lastNode = response.data.resultData.lastNodeExecuted;\n\n// 1. Buscamos el error técnico\nconst technicalError = response.data.resultData.error || {};\n\n// 2. Buscamos el CONTEXTO REAL (País y Entorno del Credentials Loop)\nlet realContext = { pais: \"N/A\", entorno: \"N/A\" };\n\ntry {\n  // Accedemos al historial del nodo que itera las credenciales\n  const credsLoopExecs = runData[\"Credentials Loop\"];\n  // Tomamos la última vez que pasó por ese nodo\n  const lastCredsExecution = credsLoopExecs[credsLoopExecs.length - 1];\n  \n  // En un 'Split in Batches', el puerto 1 (índice 1) es el que saca el ítem actual\n  const currentCredsItem = lastCredsExecution.data.main[1][0].json;\n  \n  realContext.pais = currentCredsItem.country || \"N/A\";\n  realContext.entorno = currentCredsItem.entorno || \"N/A\";\n} catch (e) {\n  realContext = { pais: \"Error rastreo\", entorno: \"Error rastreo\" };\n}\n\n// 3. Buscamos los datos de la QUERY que falló\nlet lastInputData = {};\ntry {\n  const nodeExecutions = runData[lastNode];\n  const lastExecution = nodeExecutions[nodeExecutions.length - 1];\n  \n  if (lastExecution.source && lastExecution.source.length > 0) {\n    const sourceNodeName = lastExecution.source[0].previousNode;\n    const sourceNodeExecs = runData[sourceNodeName];\n    const lastSourceExec = sourceNodeExecs[sourceNodeExecs.length - 1];\n    \n    // El 'Query Loop' entrega los datos por el puerto 1\n    lastInputData = lastSourceExec.data.main[1][0].json;\n  }\n} catch (e) {\n  lastInputData = { info: \"No se pudo rastrear la query\" };\n}\n\nreturn {\n  json: {\n    alerta: {\n      error: technicalError.message,\n      stack: technicalError.stack,\n      nodo_fallido: lastNode,\n    },\n    contexto_negocio: {\n      queryId: lastInputData.queryId || \"N/A\",\n      // AHORA SI: Usamos los datos del contexto real de conexión\n      queryType: lastInputData.type,\n      pais: realContext.pais,\n      entorno: realContext.entorno,\n    },\n    meta: {\n      executionId: response.id,\n      timestamp: response.stoppedAt\n    }\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -179,7 +179,7 @@
           "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
         },
         "contentType": "html",
-        "message": "=<b>Workflow Error:</b> {{ $json.workflow.name }}<br>\n<br>\n<b>{{ $json.execution.lastNodeExecuted }}</b> at {{ $now.format('yyyy-MM-dd hh:mm') }}<br>\n<br>\n<b>See this execution at:</b> <a href=\"{{ $json.execution.url }}\">{{ $json.execution.url }}</a><br>\n<br>\n<b>The error message was:</b> {{ $json.execution.error.message }}<br>\n<br>\n<small><b>Technical Stack:</b> {{ $json.execution.error.stack }}</small>",
+        "message": "=<b>Workflow Error:</b> {{ $json.workflow.name }}<br>\n<br>\n<b>{{ $json.execution.lastNodeExecuted }}</b> at {{ $now.format('yyyy-MM-dd hh:mm') }}<br>\n<br>\n<b>The error message was:</b> {{ $json.execution.error.message }}<br>\n<br>\n<small><b>Technical Stack:</b> {{ $json.execution.error.stack }}</small>",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -205,19 +205,19 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
           "mode": "list",
-          "cachedResultName": "Notificaciones Soporte"
+          "cachedResultName": "n8n notifications"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:c81deee8b1fb41348b36a3684fd53a81@thread.tacv2",
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
           "mode": "list",
-          "cachedResultName": "Errores",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ac81deee8b1fb41348b36a3684fd53a81%40thread.tacv2/Errores?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
         },
         "contentType": "html",
-        "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $json.meta.finalizado_at }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error_mensaje }} <br>\n<br>\n<b>See this execution at:</b> <a href=\"{{ $node[\"Error Trigger\"].json.execution.url }}\">{{ $node[\"Error Trigger\"].json.execution.url }}</a>\n<br><br><small><b>Technical Code:</b>{{ $json.alerta.codigo_error }} ...</small>",
+        "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $json.meta.timestamp.toDateTime().format('yyyy-MM-dd HH:mm') }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error }}<br>\n<br>\n<br><br><small><b>Technical Stack:</b> {{ $json.alerta.stack }}...</small>",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -255,6 +255,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-08T13:44:33.000Z",
-  "versionId": "909f5e63-b65e-48f1-ba21-b8c7814ee973"
+  "updatedAt": "2026-01-15T03:08:56.000Z",
+  "versionId": "fe113f5e-c818-430a-8153-083fde7da16a"
 }
