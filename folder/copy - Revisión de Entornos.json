@@ -45,7 +45,7 @@
       "main": [
         [
           {
-            "node": "Filter Queries",
+            "node": "Microsoft SQL2",
             "type": "main",
             "index": 0
           }
@@ -55,13 +55,7 @@
     "Credentials Loop": {
       "main": [
         [],
-        [
-          {
-            "node": "Set Queries",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Map Results": {
@@ -77,13 +71,6 @@
     },
     "Send Results": {
       "main": [
-        [
-          {
-            "node": "Credentials Loop",
-            "type": "main",
-            "index": 0
-          }
-        ],
         []
       ]
     },
@@ -195,13 +182,7 @@
     },
     "If1": {
       "main": [
-        [
-          {
-            "node": "Send Results",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "Credentials Loop",
@@ -219,8 +200,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
+        ]
       ]
     },
     "Pattern recognition": {
@@ -245,7 +225,7 @@
       "main": [
         [
           {
-            "node": "Credentials Loop1",
+            "node": "Append or update row in sheet",
             "type": "main",
             "index": 0
           }
@@ -300,7 +280,7 @@
       "main": [
         [
           {
-            "node": "Credentials Loop1",
+            "node": "Code in JavaScript1",
             "type": "main",
             "index": 0
           }
@@ -473,7 +453,7 @@
       "main": [
         [
           {
-            "node": "Append or update row in sheet",
+            "node": "Fan Out1",
             "type": "main",
             "index": 0
           }
@@ -538,18 +518,12 @@
         ]
       ]
     },
-    "Append or update row in sheet": {
+    "Update row in sheet": {
       "main": [
-        [
-          {
-            "node": "Fan Out1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
-    "Update row in sheet": {
+    "Append row in sheet": {
       "main": [
         [
           {
@@ -560,11 +534,44 @@
         ]
       ]
     },
-    "Append row in sheet": {
+    "Code in JavaScript1": {
       "main": [
         [
           {
-            "node": "Update row in sheet",
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Send Results",
             "type": "main",
             "index": 0
           }
@@ -572,8 +579,8 @@
       ]
     }
   },
-  "createdAt": "2025-12-23T02:11:32.156Z",
-  "id": "5K68L5Ps2t472Hof",
+  "createdAt": "2026-01-11T14:31:18.163Z",
+  "id": "fzjFRbuNLbjyDl1d",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -595,10 +602,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3072,
-        368
+        -1344,
+        1728
       ],
-      "id": "5b213da4-a108-4243-ac08-2e643b5ca733",
+      "id": "71440864-13ec-4549-a912-905bd3f5a276",
       "name": "Daily Trigger",
       "alwaysOutputData": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
@@ -610,11 +617,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2752,
-        64
+        -1024,
+        1424
       ],
-      "id": "beb892dd-3dd6-4984-bb18-75b02cfe5613",
-      "name": "Set Credentials"
+      "id": "9e57ee5d-71b4-4876-8038-e8f08673989c",
+      "name": "Set Credentials",
+      "disabled": true
     },
     {
       "parameters": {
@@ -625,10 +633,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -1248,
-        128
+        480,
+        1488
       ],
-      "id": "bd68d47c-aa91-4ea6-88da-0f3cf6a83cb5",
+      "id": "250cb4eb-ef09-4dbb-a897-4bec25ed7dbc",
       "name": "Query Loop"
     },
     {
@@ -636,30 +644,21 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "Zq3YDVYpBI4flDay",
+          "value": "ncHyc8XHByDgMhAr",
           "mode": "list",
-          "cachedResultName": "Revisión-Entorno-Queries",
-          "cachedResultUrl": "/projects/JCfdNIqoFmwORPL2/datatables/Zq3YDVYpBI4flDay"
+          "cachedResultName": "query_v2",
+          "cachedResultUrl": "/projects/JCfdNIqoFmwORPL2/datatables/ncHyc8XHByDgMhAr"
         },
         "matchType": "allConditions",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "=type",
-              "condition": "=eq",
-              "keyValue": "={{ $json.type }}"
-            }
-          ]
-        },
         "returnAll": true
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -2208,
-        144
+        -496,
+        1184
       ],
-      "id": "74eec0fd-f6e0-4a95-9c50-a8b21cf89f80",
+      "id": "0bbcc4dd-f285-44a3-8270-2c2d1659ed18",
       "name": "Set Queries"
     },
     {
@@ -669,10 +668,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -2416,
-        128
+        -688,
+        1488
       ],
-      "id": "62dfcee6-01ee-463e-bf86-33dc27c7d2eb",
+      "id": "d2284405-0af4-429b-83f2-6ac381dabb92",
       "name": "Credentials Loop"
     },
     {
@@ -682,10 +681,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -640,
-        144
+        1088,
+        1504
       ],
-      "id": "86b214e3-668b-4b3a-8cae-ac22d4ec51c0",
+      "id": "9c053214-2847-408d-b778-123d712883fd",
       "name": "Map Results"
     },
     {
@@ -713,10 +712,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        32,
-        -192
+        1888,
+        1136
       ],
-      "id": "6a50f7f0-1bb0-4136-9fe0-8abb6c1422e1",
+      "id": "06cecc34-b5da-4230-8f91-97b4a64f2ccc",
       "name": "Send Results",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": true,
@@ -726,7 +725,6 @@
           "name": "N8N-TeamsAccount"
         }
       },
-      "disabled": true,
       "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
     },
     {
@@ -746,10 +744,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3072,
-        208
+        -1344,
+        1568
       ],
-      "id": "62028c18-6db4-4f22-8f76-e6e5dc71176a",
+      "id": "f28ee973-31c6-4b2f-b591-953236fc3691",
       "name": "Weekly Trigger",
       "alwaysOutputData": true
     },
@@ -768,10 +766,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3072,
-        64
+        -1344,
+        1424
       ],
-      "id": "d75438ba-0faf-4d61-9001-d89c41239756",
+      "id": "12acab1f-c166-46bb-a267-4009504eaf74",
       "name": "Monthly Trigger",
       "alwaysOutputData": true
     },
@@ -782,10 +780,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1536,
-        128
+        192,
+        1488
       ],
-      "id": "f2676c77-8e32-44c6-a39b-80564a19d320",
+      "id": "63975363-9c4d-41de-92a6-c280c0e7c9ba",
       "name": "Fan Out",
       "alwaysOutputData": false
     },
@@ -797,11 +795,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2272,
-        -784
+        -544,
+        576
       ],
       "typeVersion": 1,
-      "id": "55730039-41fc-4108-b561-0a84655a714f",
+      "id": "3b2a8a8f-03ae-47ce-92e4-dc998d5b5024",
       "name": "Sticky Note1"
     },
     {
@@ -810,11 +808,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2512,
-        -752
+        -784,
+        608
       ],
       "typeVersion": 1,
-      "id": "058d9a7f-2572-437c-ba77-918b2d653fe3",
+      "id": "0dc124da-7db9-4035-acf4-c5dc3470d354",
       "name": "Sticky Note"
     },
     {
@@ -831,10 +829,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3072,
-        -96
+        -1344,
+        1264
       ],
-      "id": "20aaba09-db97-4ccc-a3aa-dcff6b4ad9c1",
+      "id": "83d432cd-0d8d-4d5a-9cb2-664e15e955ed",
       "name": "Bi-hourly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -845,10 +843,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -496,
-        -208
+        1232,
+        1152
       ],
-      "id": "fef31c1b-b9ff-4789-9622-b0a4745ae2ef",
+      "id": "2b109465-b027-4d68-8fb2-5a2016b3ffa5",
       "name": "Set  HTML",
       "executeOnce": true,
       "alwaysOutputData": true,
@@ -861,10 +859,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -928,
-        -208
+        800,
+        1152
       ],
-      "id": "d6e81b90-08ce-4a0c-b7fa-220eb3357de9",
+      "id": "fb9e8247-1291-46bd-9586-8eb772ca849e",
       "name": "Fan In",
       "alwaysOutputData": true
     },
@@ -882,10 +880,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3072,
-        -240
+        -1344,
+        1120
       ],
-      "id": "6fcea449-3f35-4d83-9940-45749cd58c8a",
+      "id": "3f90b642-b125-4cfb-883b-edb75c5faa28",
       "name": "Nightly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -896,10 +894,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2000,
-        144
+        -272,
+        1504
       ],
-      "id": "3cab63ca-d056-4241-a774-4167fe904d91",
+      "id": "ed1a580c-6398-4cdc-acd0-94aee04bf51f",
       "name": "Filter Queries",
       "alwaysOutputData": true
     },
@@ -931,10 +929,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1776,
-        144
+        -48,
+        1504
       ],
-      "id": "97b10c14-d33f-4635-ba18-23c0627c51b0",
+      "id": "69a75ce2-efb6-422c-a975-9cd9459292e3",
       "name": "If"
     },
     {
@@ -965,10 +963,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -288,
-        -208
+        1440,
+        1152
       ],
-      "id": "dcf5b422-32eb-4eb4-b958-abda95d2d7df",
+      "id": "0f94d02b-82fe-4274-8bee-4f02bf0913c6",
       "name": "If1"
     },
     {
@@ -976,13 +974,13 @@
         "operation": "executeQuery",
         "query": "{{ $json.revisionQuery }}"
       },
-      "id": "91a95817-770c-4d5c-acc2-62c85c3f8633",
+      "id": "94d5d8fa-e7f2-4e1f-82e8-bea28b06a79e",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -944,
-        144
+        784,
+        1504
       ],
       "notesInFlow": false,
       "alwaysOutputData": false,
@@ -1023,10 +1021,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -736,
-        -320
+        992,
+        1040
       ],
-      "id": "40d3eacb-e5e7-4a3d-bc6f-be303aba29de",
+      "id": "31aa326e-d9c7-403d-afef-4b3a05c37872",
       "name": "Pattern recognition",
       "notes": "si verifica que la query entrante debe ejecutar un update, va a esta rama"
     },
@@ -1038,10 +1036,10 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -496,
-        -448
+        1232,
+        912
       ],
-      "id": "ef4ce9a1-7a45-4dd8-ab6d-5e2b6c77a739",
+      "id": "d15eb716-ffbf-400a-b4a6-71fa099187cc",
       "name": "Microsoft SQL",
       "credentials": {
         "microsoftSql": {
@@ -1057,11 +1055,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1472,
-        -1056
+        256,
+        304
       ],
       "typeVersion": 1,
-      "id": "54cbbb11-0160-4827-8752-5f0b21b8aa69",
+      "id": "08626b07-569a-432f-9b55-b482a6773bb9",
       "name": "Sticky Note2"
     },
     {
@@ -1072,11 +1070,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -512,
-        -656
+        1216,
+        704
       ],
       "typeVersion": 1,
-      "id": "2b6fb562-64cf-497d-a102-2a22ca75f5a5",
+      "id": "5c0465f9-0bf4-47c7-8eef-eb97f8d35a8d",
       "name": "Sticky Note3"
     },
     {
@@ -1104,10 +1102,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        -80,
-        -448
+        1648,
+        912
       ],
-      "id": "954700bd-4bc5-4b68-a3f6-92f8951e1b9e",
+      "id": "d6fd5744-a214-4ccc-90d5-3dde6c0d929c",
       "name": "Teams Notification",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": true,
@@ -1127,10 +1125,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        800,
-        880
+        2896,
+        1936
       ],
-      "id": "cd9a26e6-00c0-48de-af3e-e9e15d9ad772",
+      "id": "bca23db0-d72e-49aa-9f36-b550e08d3c31",
       "name": "Wait",
       "webhookId": "0ca8dabc-ea86-466f-a91c-5d37b9c00761"
     },
@@ -1148,10 +1146,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3056,
-        992
+        -1536,
+        2352
       ],
-      "id": "9556783e-44a3-4fdc-9e83-05a1bd35534a",
+      "id": "57410c27-1f6d-40ba-bdaf-d9382868ea74",
       "name": "Hourly Trigger"
     },
     {
@@ -1161,10 +1159,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -304,
-        1072
+        1840,
+        2432
       ],
-      "id": "95ae6429-7818-4f43-a7f5-01730674504a",
+      "id": "e4fa7e66-335b-4dc4-9c49-56b0bf95f095",
       "name": "Audit Start"
     },
     {
@@ -1174,10 +1172,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        160,
-        1072
+        2304,
+        2432
       ],
-      "id": "81fa7aa8-c00a-403c-b563-aff1be417e53",
+      "id": "6c052dec-f9cb-42fd-aafd-d91652e09470",
       "name": "Audit End"
     },
     {
@@ -1194,25 +1192,25 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3056,
-        1792
+        -1536,
+        3152
       ],
-      "id": "383ce990-dc92-4948-84ad-07d39274047c",
+      "id": "133ac84b-ea7d-4d42-bc35-073441843c24",
       "name": "Daily Trigger1",
       "alwaysOutputData": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger1\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger1\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger1\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger1\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger1\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n}\n\n// Configuración ARGENTINA\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Configuración COLOMBIA\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Función auxiliar para mapear\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,     // ESTE CAMPO ES CLAVE PARA EL FILTRO\n          channelId: db.channelId,\n          country: db.country,\n          \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\n\n// Retornamos la lista combinada (ARG + COL)\nreturn [...dbsArg, ...dbsCol];\n//"
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger1\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger1\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger1\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger1\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger1\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger1\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger1\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nreturn [...dbsArg, ...dbsCol, ...dbsCol4];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2704,
-        1056
+        -1184,
+        2416
       ],
-      "id": "f20fbb1a-51ad-408f-8edd-0744484b6215",
+      "id": "de9ed806-e37d-4a92-beb3-31d2a30957e6",
       "name": "Set Credentials1"
     },
     {
@@ -1224,10 +1222,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -880,
-        1056
+        1264,
+        2416
       ],
-      "id": "cd16acda-9af3-4f99-9a06-0726019f563f",
+      "id": "574c71a5-affe-45c2-87d0-1de8b82894f8",
       "name": "Query Loop1"
     },
     {
@@ -1255,10 +1253,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -2192,
-        1072
+        -48,
+        2432
       ],
-      "id": "829ad38e-c2dc-43cd-9fe6-818eda7d1696",
+      "id": "26d2090c-6abc-489d-8127-13eeab111132",
       "name": "Set Queries1",
       "retryOnFail": true
     },
@@ -1269,10 +1267,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -2432,
-        1056
+        -288,
+        2416
       ],
-      "id": "37be0647-51b2-4b6e-8fa2-b812135e57ea",
+      "id": "5379d98a-142c-4e0c-87d4-1484d9cb50a6",
       "name": "Credentials Loop1"
     },
     {
@@ -1280,13 +1278,13 @@
         "operation": "executeQuery",
         "query": "SELECT     E.CuitId, E.TransaccionId, E.Cod, e.Motivo\nFROM     transaccion T WITH(NOLOCK)   \n\tINNER JOIN cuit C WITH(NOLOCK)  \n                 ON T.CuitId = C.CuitId    \n\tINNER JOIN EstadoPublicacion E WITH(NOLOCK)   \n                 ON E.CuitId = C.CuitId          AND E.TransaccionId = T.TransaccionId         AND E.Motivo not LIKE '%Documento no enviado: receptor con tipo de identificación Cedula  (Código 13) y numero de identificación ''222222222222'' no válido para publicación.%' \n\tINNER JOIN comprobante CO WITH(NOLOCK)     \n               ON E.CuitId = CO.CuitId         AND E.TransaccionId = CO.TransaccionId         AND E.PuntoDeVentaId = CO.PuntoDeVentaId         AND E.TipoComprobanteId = CO.TipoComprobanteId         AND E.NroCbte = CO.NroCbte    \n\tINNER JOIN formato F WITH(NOLOCK)\n             ON F.FormatoId = T.FormatoId\nWHERE     C.NivelServicio = 2     AND F.NivelServicio IN (2, 3)     AND F.PublicaAlAutorizar = 0     AND F.PublicaAlTerminar = 0     \n     AND Fecha >= DATEADD(day, -7, GETDATE())     AND E.Cod = 0    AND CO.Resultado <> 'R'   \n\t AND NOT EXISTS (        SELECT 1         FROM envio EN WITH(NOLOCK)  \n\t\t\t\t\t\t\tWHERE EN.CuitEmisor = CO.CuitId           AND EN.TransaccionId = CO.TransaccionId           AND EN.PuntoDeVentaId = CO.PuntoDeVentaId           AND EN.TipoComprobanteId = CO.TipoComprobanteId           AND EN.NroComprobante = CO.NroCbte    );\n"
       },
-      "id": "296365a1-3daf-4686-be40-d39e7697eae4",
+      "id": "0db52d16-1ee9-4526-816f-4358f5b2a285",
       "name": "SQL Execute1",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -48,
-        1072
+        2096,
+        2432
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
@@ -1305,10 +1303,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        800,
-        1072
+        3152,
+        2432
       ],
-      "id": "67df654e-498d-4627-9850-9a9fdbb6a724",
+      "id": "2a8f2547-10ca-48e0-be53-426a0fbfdea2",
       "name": "Map Results1"
     },
     {
@@ -1336,10 +1334,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        480,
-        576
+        2624,
+        1936
       ],
-      "id": "583e60c4-e5a3-4d6d-9067-0013707d0335",
+      "id": "e6cd05a0-d1fd-4d1a-adf0-9a34787e7858",
       "name": "Send Results1",
       "webhookId": "4c03ff36-2f79-4da4-be45-7843a06ff099",
       "retryOnFail": true,
@@ -1369,10 +1367,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3056,
-        1632
+        -1536,
+        2992
       ],
-      "id": "6f852173-7eb7-4c91-9197-9926e4f79c08",
+      "id": "22ca57e6-308f-4005-a032-5c5145e574c7",
       "name": "Weekly Trigger1",
       "alwaysOutputData": true
     },
@@ -1391,10 +1389,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3056,
-        1488
+        -1536,
+        2848
       ],
-      "id": "d9c9a63a-6ed5-4147-bd32-e6f7c629ce99",
+      "id": "d0bced2e-af0e-4314-8c6d-04998b35efe3",
       "name": "Monthly Trigger1",
       "alwaysOutputData": true
     },
@@ -1405,10 +1403,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1296,
-        1056
+        848,
+        2416
       ],
-      "id": "6091b677-690b-4ae6-870a-6e6dd4d2ec0c",
+      "id": "0f914c4e-0c3a-4966-a1d6-637d6b3b5c2a",
       "name": "Fan Out1",
       "alwaysOutputData": false
     },
@@ -1420,11 +1418,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2112,
-        656
+        -384,
+        2016
       ],
       "typeVersion": 1,
-      "id": "f991ef99-dbab-4e2c-a98e-c475b432ab11",
+      "id": "df8b2acc-dd55-4a91-a952-6b11e02a6875",
       "name": "Sticky Note4"
     },
     {
@@ -1433,11 +1431,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2112,
-        496
+        -384,
+        1856
       ],
       "typeVersion": 1,
-      "id": "aa81eec7-9049-499d-bc81-e9e2a0b69a55",
+      "id": "3dacdca8-c132-44b5-a402-07f859b7bbf4",
       "name": "Sticky Note5"
     },
     {
@@ -1454,10 +1452,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3056,
-        1344
+        -1536,
+        2704
       ],
-      "id": "8fcb63ef-b1e9-44be-9f5e-8c34801848b4",
+      "id": "2282be71-abb5-4d2c-8258-301686edff5d",
       "name": "Bi-hourly Trigger1",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -1468,10 +1466,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -48,
-        864
+        2096,
+        2224
       ],
-      "id": "125ea11a-7cce-4c6a-85ea-8cf36e15820c",
+      "id": "5cfef556-49ec-4ec1-82cb-a13905c3f5a6",
       "name": "Set  HTML1",
       "executeOnce": true,
       "alwaysOutputData": true,
@@ -1484,10 +1482,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -288,
-        864
+        1856,
+        2224
       ],
-      "id": "ad4e1632-4f09-4006-b0ae-2e0a1f8223f8",
+      "id": "e579d97d-0d8a-414f-8c14-9d5bbde7bb92",
       "name": "Fan In1",
       "alwaysOutputData": true
     },
@@ -1505,10 +1503,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -3056,
-        1200
+        -1536,
+        2560
       ],
-      "id": "665c3834-347e-46f6-8729-200f430918b7",
+      "id": "01b93c43-7f70-4635-9f7a-dbe971f1fd6d",
       "name": "Nightly Trigger1",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -1519,10 +1517,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2064,
-        1072
+        80,
+        2432
       ],
-      "id": "e5a0a4be-a33d-4439-92fc-ffd5f7153f27",
+      "id": "83f5bb8a-fb01-47a9-bc86-da4716016aaf",
       "name": "Filter Queries1",
       "alwaysOutputData": true
     },
@@ -1554,10 +1552,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1872,
-        1072
+        272,
+        2432
       ],
-      "id": "71ae02a1-6367-4b19-9112-d5950b95d976",
+      "id": "27aa736a-856d-4a61-9119-8a449032f432",
       "name": "If2"
     },
     {
@@ -1588,10 +1586,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        160,
-        864
+        2304,
+        2224
       ],
-      "id": "204115df-f27b-4f89-8e68-04b06e980fe6",
+      "id": "35b5da28-25f3-4b6f-b84e-3e180d091a73",
       "name": "If3"
     },
     {
@@ -1601,10 +1599,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -288,
-        -448
+        1440,
+        912
       ],
-      "id": "2afa4c70-e4d6-4ae9-a388-14e84ab3f7bb",
+      "id": "715fc499-8194-47b0-be50-937db88b9b4b",
       "name": "Code in JavaScript"
     },
     {
@@ -1612,153 +1610,11 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -2704,
-        768
+        -976,
+        2128
       ],
-      "id": "6ee7d2d7-b8fd-4e4e-9e38-40a0c0894981",
+      "id": "e7ca46af-4d12-4adc-85d3-e78050fb4c8a",
       "name": "When clicking ‘Execute workflow’"
-    },
-    {
-      "parameters": {
-        "operation": "appendOrUpdate",
-        "documentId": {
-          "__rl": true,
-          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
-          "mode": "list",
-          "cachedResultName": "control_revisiones",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Hoja 1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $(\"Credentials Loop1\").item.json.country }}_{{ $(\"Credentials Loop1\").item.json.entorno }}_{{ $json.queryId }}_{{ $today.format('yyyy-MM-dd') }}\n",
-            "tipo_ejecucion": "={{ $json.type }}",
-            "estado": "Pendiente",
-            "pais": "={{ $('Credentials Loop1').item.json.country }}",
-            "query_id": "={{ $json.queryId }}",
-            "entorno": "={{ $('Credentials Loop1').item.json.entorno }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "fecha_ejecucion",
-              "displayName": "fecha_ejecucion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "cuenta_id",
-              "displayName": "cuenta_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "tipo_ejecucion",
-              "displayName": "tipo_ejecucion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "estado",
-              "displayName": "estado",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "ultimo_intento",
-              "displayName": "ultimo_intento",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "pais",
-              "displayName": "pais",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "entorno",
-              "displayName": "entorno",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "query_id",
-              "displayName": "query_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -1568,
-        1360
-      ],
-      "id": "25c7d5a4-451b-4672-b60a-d1dd37f8f5e5",
-      "name": "Append or update row in sheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1780,7 +1636,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "id": "={{ $('Append or update row in sheet').item.json.id }}",
+            "id": "={{ $('Append row in sheet1').item.json.id }}",
             "estado": "OK"
           },
           "matchingColumns": [
@@ -1897,10 +1753,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        608,
-        1488
+        1232,
+        2000
       ],
-      "id": "4de580be-b189-4591-a8b3-07ab12c09576",
+      "id": "e4093ac1-1f58-4d87-bfc5-b579d84540f2",
       "name": "Update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1917,11 +1773,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        368,
-        1072
+        2096,
+        2432
       ],
       "typeVersion": 1,
-      "id": "eee66352-3f31-47b8-9ae2-b777d7371a8e",
+      "id": "67dc9b1e-350a-4621-918b-83511dd091b6",
       "name": "Sticky Note6"
     },
     {
@@ -2048,15 +1904,298 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        416,
-        1488
+        2544,
+        2432
       ],
-      "id": "01abe84a-507f-49a6-ad35-84bdb9c0eea5",
+      "id": "1275f605-0fdb-4d3b-b5ef-9fc3643ed329",
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
           "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    c.CuitId, \n    c.TransaccionId, \n    pv.Descripcion, \n    c.NroCbte, \n    c.Cae, \n    f.Extension, \n    t.EstadoTransaccion, \n    t.Fecha AS FechaOriginal, \n    -- Evitamos colisión de nombres para n8n\n    CONVERT(VARCHAR, c.FechaCbte, 126) AS FechaComprobanteISO\nFROM comprobante AS c WITH (NOLOCK)\nINNER JOIN puntodeventa AS pv WITH (NOLOCK) \n    ON c.CuitId = pv.CuitId \n    AND c.PuntoDeVentaId = pv.PuntoDeVentaId\nINNER JOIN transaccion AS t WITH (NOLOCK) \n    ON c.CuitId = t.CuitId \n    AND c.TransaccionId = t.TransaccionId\nINNER JOIN Formato AS f WITH (NOLOCK) \n    ON t.FormatoId = f.FormatoId\n-- Reemplazo de NOT EXISTS por LEFT JOIN (Lineamiento Técnico APG)\nLEFT JOIN Comprobante AS c2 WITH (NOLOCK) \n    ON c.CuitId = c2.CuitId \n    AND c.TipoComprobanteId = c2.TipoComprobanteId \n    AND c.PuntoDeVentaId = c2.PuntoDeVentaId \n    AND c.NroCbte = c2.NroCbte \n    AND c.TransaccionId <> c2.TransaccionId \n    AND c2.Resultado <> 'R'\nWHERE \n\n    c.FechaCbte >= DATEADD(DAY, -7, GETDATE()) \n    AND c.FechaCbte < DATEADD(MINUTE, -30, GETDATE())\n    AND c.Resultado <> 'A'\n\n    AND c2.TransaccionId IS NULL\n\n    AND (\n\n        c.errordesc LIKE '%Error de conexión con la DIAN%' \n        OR c.Error = 500\n    );"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        48
+      ],
+      "id": "2493e467-820a-4bfe-a238-5e6c450b29f4",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials1').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials1').all();\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE'\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        2416
+      ],
+      "id": "305cd574-142c-460c-92ad-4d1e99faf84f",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID_Unico",
+              "displayName": "ID_Unico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pais",
+              "displayName": "Pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Frecuencia",
+              "displayName": "Frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -768,
+        2416
+      ],
+      "id": "daddc68f-b4c4-4c26-80a2-4d3ee5c32fae",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Estado": "OK",
+            "ID_Unico": "={{ $node[\"Credentials Loop1\"].json.country }}_{{ $node[\"Credentials Loop1\"].json.entorno }}_{{ $node[\"Credentials Loop1\"].json.type }}_{{ $today.format('yyyy-MM-dd') }}",
+            "Ultima_Actualizacion": "={{$now}}"
+          },
+          "matchingColumns": [
+            "ID_Unico"
+          ],
+          "schema": [
+            {
+              "id": "ID_Unico",
+              "displayName": "ID_Unico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pais",
+              "displayName": "Pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Frecuencia",
+              "displayName": "Frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ultima_Actualizacion",
+              "displayName": "Ultima_Actualizacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3104,
+        1936
+      ],
+      "id": "04041bcf-ecf3-4da6-8c08-fd2c9b4b2d78",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        1136
+      ],
+      "id": "862ac140-a369-498e-8720-d615fb5493b5",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select  comprobante.transaccionid, comprobante.cuitid, comprobante.cae, comprobante.fechacbte, comprobante.RolEmisorId \n\nfrom transaccion with(nolock)  \n\ninner join comprobante  with(nolock)  on comprobante.cuitid=transaccion.cuitid and comprobante.transaccionid=transaccion.transaccionid  \n\nwhere comprobante.resultado <>'R' and Transaccion.EstadoTransaccion=5 and Transaccion.FileOut='' and Transaccion.Fecha>=DATEADD(day, -3, GETDATE()) and Transaccion.Fecha < DATEADD(MI, -10, GETDATE())  \n\nand not exists (select 1 from  ContenidoTransaccion with(nolock)  \n\n                where Transaccion.cuitid=ContenidoTransaccion.cuitid and transaccion.TransaccionId=ContenidoTransaccion.TransaccionId and ContenidoTransaccion.EsIn=0); "
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -288,
+        1184
+      ],
+      "id": "9b902c0e-ed69-4869-8f53-2f37c1a3dbc2",
+      "name": "Microsoft SQL2",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
         }
       }
     }
@@ -2103,57 +2242,30 @@
           "subQueryIndex": 0
         }
       }
+    ],
+    "Code in JavaScript2": [
+      {
+        "json": {
+          "htmlContent": "<div style=\"font-family:sans-serif;font-size:13px;color:#000;\"><h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Resultados de la Revisión de Entornos cada 4 horas </h2><h3 style=\"font-size:15px;font-weight:bold;margin:15px 0 5px 0;\">Punto 51626: Comprobantes sin Autorizar</h3><table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"width:100%;border-collapse:collapse;\"><thead><tr bgcolor=\"#f2f2f2\"><th align=\"left\">CuitId</th><th align=\"left\">PuntoDeVentaId</th><th align=\"left\">TipoComprobanteId</th><th align=\"left\">Nrocbte</th><th align=\"left\">Error</th><th align=\"left\">ErrorDesc</th></tr></thead><tbody><tr><td>830077981</td><td>10006</td><td>1</td><td>182656</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185117</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185118</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185119</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185120</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185121</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185122</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185123</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185124</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185125</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185126</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185127</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185128</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185129</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185130</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185131</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185132</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185133</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185134</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185135</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185136</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185137</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185138</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185139</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185140</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185141</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185142</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185143</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185144</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185145</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185146</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185147</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185148</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185149</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185150</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185151</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185152</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185153</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185154</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185155</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185156</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185157</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185158</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185159</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185160</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185161</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185162</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185163</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185164</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185165</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185166</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185167</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185168</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185169</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185170</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185171</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185172</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185173</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185174</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185175</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185176</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185177</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185178</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185179</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185180</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185181</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185182</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185183</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185184</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185185</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185186</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185187</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185188</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185189</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185190</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185191</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185192</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185193</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185194</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185195</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185196</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185197</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185198</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185199</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185200</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185201</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185202</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185203</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185204</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185205</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185206</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185207</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185208</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185209</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185210</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185211</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185212</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185213</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185214</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185215</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185216</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185217</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185218</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185219</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185220</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185221</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185222</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185223</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185224</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185225</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185226</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185227</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185228</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185229</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185230</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185231</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185232</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185233</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185234</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185235</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185236</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185237</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185238</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185239</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185240</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185241</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10034</td><td>1</td><td>185242</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10029</td><td>1</td><td>13166</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10029</td><td>1</td><td>13167</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10029</td><td>1</td><td>13168</td><td>0</td><td></td></tr><tr><td>830077981</td><td>10029</td><td>1</td><td>13169</td><td>0</td><td></td></tr></tbody></table><hr size=\"1\" color=\"#eee\"><h3 style=\"font-size:15px;font-weight:bold;margin:15px 0 5px 0;\">Punto 51737: Comprobantes “Error de Conexión DIAN” (IBM-PLANETA)</h3><table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"width:100%;border-collapse:collapse;\"><thead><tr bgcolor=\"#f2f2f2\"><th align=\"left\">cuitid</th><th align=\"left\">transaccionid</th><th align=\"left\">descripcion</th><th align=\"left\">nrocbte</th><th align=\"left\">cae</th><th align=\"left\">Extension</th><th align=\"left\">fecha</th></tr></thead><tbody><tr><td>830048425</td><td>5818</td><td>FEV</td><td>1691</td><td>30ebe49e5abc75dec46c69a8319af14c21309c4c8d82772523c9e89deb04f676c64adf14c9dd5fed219c7908f52c3378</td><td>xml</td><td>2026-01-13T19:16:29.000Z</td></tr><tr><td>811016449</td><td>302791</td><td>FEVP</td><td>285007</td><td>7a961d1bd59cf566740df43f292807a8479a974099607b9d34ae79baf70e743f0980072d116d3915d9acf1c7117e688a</td><td>xml</td><td>2026-01-13T11:50:00.000Z</td></tr><tr><td>830048425</td><td>5819</td><td>FEV</td><td>1691</td><td>5ec84d94e29a6bad073f12d1b09427cc7bbf5cdea6471b84e5be0b362c2ce7ec3507ff2ad9cdadbcb3025a5a3911adb3</td><td>xml</td><td>2026-01-13T19:20:53.000Z</td></tr><tr><td>811016449</td><td>302793</td><td>FEVP</td><td>285008</td><td>de33b9a1f17b9f8dbda779dd3d86f9f8f77bc33fd6c154b4d3b6a58e2277b160d52560584a90f220dbc570d20f29cf3d</td><td>xml</td><td>2026-01-13T11:52:00.000Z</td></tr></tbody></table><p><b>Cargar ticket con:</b></p><pre style=\"font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;\">-- SELECT\nSELECT\n    C.cuitid,\n    C.transaccionid,\n    pv.descripcion,\n    C.nrocbte,\n    C.cae,\n    f.Extension,\n    C.FechaCbte AS fecha\nFROM\n    comprobante C WITH(NOLOCK)\n    LEFT JOIN puntodeventa pv WITH(NOLOCK) ON (C.cuitid = pv.cuitid AND C.puntodeventaid = pv.puntodeventaid)\n    LEFT JOIN transaccion t WITH(NOLOCK) ON (C.cuitid = t.cuitid AND C.transaccionid = t.transaccionid)\n    LEFT JOIN Formato f WITH(NOLOCK) ON (t.formatoid = f.formatoid)\nWHERE\n    C.Resultado = 'R'\n    AND C.ErrorDesc = 'Validación contiene errores en campos mandatorios.'\n    AND C.FechaCbte >= DATEADD(day, -3, GETDATE())\n    AND NOT EXISTS (\n        SELECT 1\n        FROM Comprobante c2 WITH(NOLOCK)\n        WHERE\n            C.CuitId = c2.CuitId\n            AND C.tipocomprobanteid = c2.TipoComprobanteId\n            AND C.PuntoDeVentaId = c2.PuntoDeVentaId\n            AND C.cae = c2.cae\n            AND C.transaccionid <> c2.TransaccionId\n            AND c2.Resultado <> 'A'\n    )\n    AND EXISTS (\n        SELECT 1\n        FROM COL_Cabecera c2 WITH(NOLOCK)\n        WHERE\n            C.CuitId = c2.CuitId\n            AND C.tipocomprobanteid = c2.TipoComprobanteId\n            AND C.PuntoDeVentaId = c2.PuntoDeVentaId\n            AND C.NroCbte = c2.nrocbte\n            AND C.transaccionid = c2.TransaccionId\n            AND c2.XmlRespuesta LIKE '%Regla: 90, Rechazo: Documento procesado anteriormente.%'\n    )\n\n-- UPDATE\n“Si existen registros de estos clientes, enviar notificación por correo al cliente”830077981EDITORIAL PLANETA COLOMBIANA S.A.860002120IBM DE COLOMBIA S.A.S.901240462PLANETA DE AGOSTINI FORMACIÓN COLOMBIA SAS</pre><hr size=\"1\" color=\"#eee\"><h3 style=\"font-size:15px;font-weight:bold;margin:15px 0 5px 0;\">Punto 51740: Transacciones canceladas por SQL</h3><table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"width:100%;border-collapse:collapse;\"><thead><tr bgcolor=\"#f2f2f2\"><th align=\"left\">cuitid</th><th align=\"left\">transaccionid</th><th align=\"left\">descripcion</th><th align=\"left\">nrocbte</th><th align=\"left\">cae</th><th align=\"left\">Extension</th></tr></thead><tbody><tr><td>901239003</td><td>2594</td><td>FEOP</td><td>2287</td><td>8a296f4438e5f2bf27eeb7b6d17c5bfae3b491621f39d21c459e43683ce67c989ecabd35c5caa41fd6f432a0a81d4736</td><td>xml</td></tr></tbody></table><hr size=\"1\" color=\"#eee\"><h3 style=\"font-size:15px;font-weight:bold;margin:15px 0 5px 0;\">Punto 51741: Cantidad de inicios de sesión</h3><table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"width:100%;border-collapse:collapse;\"><thead><tr bgcolor=\"#f2f2f2\"><th align=\"left\">UsuarioId</th><th align=\"left\">Cantidad</th></tr></thead><tbody><tr><td>Addomini</td><td>1</td></tr><tr><td>alessandro.aguiar@wsp.com</td><td>1</td></tr><tr><td>anderson.castro</td><td>2</td></tr><tr><td>asdasd6514</td><td>1</td></tr><tr><td>Bibiana.Rozo@noventiq.com</td><td>1</td></tr><tr><td>D1019023244</td><td>1</td></tr><tr><td>epk_eldc</td><td>2</td></tr><tr><td>epk_mikaela</td><td>1</td></tr><tr><td>epk_parrillajp</td><td>2</td></tr><tr><td>fabian.uruena@nch.com</td><td>1</td></tr><tr><td>FTRIANA</td><td>1</td></tr><tr><td>gabriel.motta</td><td>2</td></tr><tr><td>genfar_ws</td><td>2</td></tr><tr><td>genfardym_ws</td><td>2</td></tr><tr><td>HOROZCO</td><td>3</td></tr><tr><td>jlopez</td><td>1</td></tr><tr><td>juan.marquez</td><td>1</td></tr><tr><td>mariajose.ramirezr@dhl.com</td><td>1</td></tr><tr><td>MiltonM</td><td>1</td></tr><tr><td>ogonzalezr@pibox.app</td><td>1</td></tr><tr><td>Pao_gonza</td><td>1</td></tr><tr><td>sebastian@latamready.com</td><td>1</td></tr><tr><td>slinares@adsmovil.com</td><td>1</td></tr><tr><td>Susana</td><td>1</td></tr><tr><td>UXDR1A</td><td>1</td></tr><tr><td>ws_eurofarma</td><td>2</td></tr><tr><td>WS_Hipra</td><td>4</td></tr><tr><td>WSAGROXXI</td><td>1</td></tr><tr><td>WSAYGP</td><td>1</td></tr><tr><td>WSBEALATAM</td><td>1</td></tr><tr><td>wsbukco</td><td>3</td></tr><tr><td>WScascomoto</td><td>3</td></tr><tr><td>WSChivor</td><td>2</td></tr><tr><td>WSCloudhesiveCO</td><td>4</td></tr><tr><td>WSCoopsana</td><td>2</td></tr><tr><td>WSGalderma</td><td>3</td></tr><tr><td>WSIBM</td><td>1</td></tr><tr><td>wsKotraco</td><td>2</td></tr><tr><td>WsMotouleth</td><td>1</td></tr><tr><td>WSMPInternational</td><td>2</td></tr><tr><td>WSMUNSUS</td><td>3</td></tr><tr><td>wspicap</td><td>1</td></tr><tr><td>WSPlastilene</td><td>1</td></tr><tr><td>WSPROVEFABRICA</td><td>3</td></tr><tr><td>WSSiegfried</td><td>2</td></tr><tr><td>WSSisma</td><td>1</td></tr><tr><td>WSSOFTLINE</td><td>3</td></tr></tbody></table><hr size=\"1\" color=\"#eee\"><h3 style=\"font-size:15px;font-weight:bold;margin:15px 0 5px 0;\">Punto 51742: Comprobantes sin resultado</h3><table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"width:100%;border-collapse:collapse;\"><thead><tr bgcolor=\"#f2f2f2\"><th align=\"left\">cuitid</th><th align=\"left\">transaccionid</th><th align=\"left\">descripcion</th><th align=\"left\">nrocbte</th><th align=\"left\">cae</th><th align=\"left\">Extension</th><th align=\"left\">EstadoTransaccion</th><th align=\"left\">Resultado</th><th align=\"left\">Fecha</th><th align=\"left\">fecha</th></tr></thead><tbody><tr><td>830077981</td><td>385496</td><td>A20</td><td>182656</td><td>d9676cf71d9cb9aa77327f6bcf41686067f85e242fc374135d52ad1e7aaf3480f9464f9d49f165fc9fe1add789952241</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:36.710Z</td><td>2026-01-14T14:36:38</td></tr><tr><td>830077981</td><td>385499</td><td>T20</td><td>185117</td><td>520229b40615c89930d5a87442d0e5f527a0fd16abc4d0b2a47b2cde9894ac18bb4d680aac3d542e0abaff29c99b73b8</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:37.857Z</td><td>2026-01-14T14:36:18</td></tr><tr><td>830077981</td><td>385500</td><td>T20</td><td>185118</td><td>ae0075bd59cf725f475ebd60f5aeaff32a3628b21d42db7c580b43527d0c4e002ae0968501b22d6b0dbe58a595fcd4e9</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:38.683Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385502</td><td>T20</td><td>185119</td><td>47aa4dd80a3e07de5ea597b7f05cd0bbd79e6e0bb26ec90a38f7c245ad44802aa2975a6447ad271e3b0901f7b7e5c8dd</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:39.497Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385503</td><td>T20</td><td>185120</td><td>e599463ec07fcded97fe86d13d6c94dcfe4386d4d0b6dd3d16ef6d7d15e7a72434f8a9a517e8c1a2cdb532e319247d06</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:40.507Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385504</td><td>T20</td><td>185121</td><td>157cabf384ea590c88ad04119e1d5d55a6097ae7606856d3bfe84b4c1438abcd8dff3efd3e64806bb9380d77a725fb25</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:41.263Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385505</td><td>T20</td><td>185122</td><td>f8e983436effcb5e25d338d56e908ff855530b274b4eaa71abe9b0c7076fc9c50b45d7787ef393c5581af0c1ff92ffe4</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:42.143Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385506</td><td>T20</td><td>185123</td><td>c8969c2ed78837887ee718400413711a25e39c2bd390205e9932a79c411bd11db1d35f118d8c2983eb4e3a44e1f52f8e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:43.363Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385507</td><td>T20</td><td>185124</td><td>923cb5e576781d59f08765a4b1f915732cc0b7ce6ecd3bfca9699ef9ec5fcacc0048cb8c13a1c57f4fd3a73fe56d364f</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:44.573Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385508</td><td>T20</td><td>185125</td><td>69760e4d247886017fcf753cffefe4f2317559e90d4d8ace325f99de153e199c95f3e02588460c483ff47383b576d2b0</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:45.557Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385509</td><td>T20</td><td>185126</td><td>ef88dd002a66516ac9474e5b62ed84e272e8ec911e3a9841ac249aae95b93ca74468d641285cc2f993de19463dcb2fb2</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:46.490Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385510</td><td>T20</td><td>185127</td><td>bcf83ea6bcb81f811adb62fe994596f492a55ec173e7022c2ea4c1381bd3f712641bae57ab5d635fa374041ea41d5551</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:47.380Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385511</td><td>T20</td><td>185128</td><td>1bfb18aebb1b8606395be71918446a5e1ceeb5516fa4aff227070eba530401a2ed2d3558eeb85a8148f47b5728837eda</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:48.357Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385512</td><td>T20</td><td>185129</td><td>7f38b42841ab2d47b1998bf73f11c43e108872503efb3fac6ff8177bfe53e7bcd134158e80ad3096566c974d6ca11dba</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:49.363Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385513</td><td>T20</td><td>185130</td><td>7c7e0e8537395a2d9f3639fb5c4f6582eb25a4581213d4bdcb5e6b5f441ae072cda42b7275e36883b03c60f3a80018b0</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:53.700Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385514</td><td>T20</td><td>185131</td><td>55559fcc018e5313f2b82db1bf6fa71d184a3ddb154903aa7d7572c3714fb102ed4490dd454a551099be2f4e9e2d23ed</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:54.443Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385515</td><td>T20</td><td>185132</td><td>efa96bca2e0428d97ca6ef220f514deac78f73a7119f8fd612a61a1234a00d2fd3b3f371b768b8d953c6a02eab892dfa</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:55.300Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385516</td><td>T20</td><td>185133</td><td>9cd8395d6d91df6337bc70786e22d837da64c0416740db4990df6e07b80b4ab552d8d84f96bdaa852756be068f3794bf</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:56.150Z</td><td>2026-01-14T14:36:19</td></tr><tr><td>830077981</td><td>385517</td><td>T20</td><td>185134</td><td>375b6842eeeb17d50be9b528c3aeba17426fc0899799f9581b93166721fbf83f93abf89696b99044a168bc5fe992b7a1</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:56.990Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385518</td><td>T20</td><td>185135</td><td>98a3937b274af556bd61e49f35b211ea04446deefa67e2d53e25adb71be19bc932553e4367893e1256eb8aaf6829be5e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:57.900Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385519</td><td>T20</td><td>185136</td><td>207ac8a22b362c7dc8c35ecdc5c92f34b1568bec2cf7debc681b1f0454cf984685e0458a220601f503a7131754acf69a</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:58.890Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385520</td><td>T20</td><td>185137</td><td>5f6ac72a78f7f75c58aa2dcbc15d4fdf95e3b46034ba61db09655cef7d3b7de50d85be012d234043a7800325c65318d3</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:43:59.837Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385521</td><td>T20</td><td>185138</td><td>35e922353a7e01887a131fabceb29b8f928fd19d701ccd8b9ad21791388bf7e836a4c2e98cc655da052716ad34e76b93</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:01.020Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385522</td><td>T20</td><td>185139</td><td>76944a6226d71eda60c5aa69feb8edba3dc5e7bfa95cab82cd76a49aba1022117de2d8b97004b27d6282fc3e7e6f0ba8</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:02.003Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385523</td><td>T20</td><td>185140</td><td>6972933672e9c23a728b4c71b77e50f6504fbbe0a83a516b5f7e23c2d3e9b5214adf035f6eae3a4982cc142bd82f5e6b</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:02.873Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385524</td><td>T20</td><td>185141</td><td>1699feee91e5c56b258a90ba7d6c6bd88da3b229ecbb0078288330480ba1221a7df01bcf699908fba16b511c7b0b4abd</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:03.803Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385525</td><td>T20</td><td>185142</td><td>a6fbf2a917a75429377c5eebf2d93c44d036e00c14b59cd14135facbfe560350b7b8a78e022257a437b2e1b162f0d3ec</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:04.690Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385526</td><td>T20</td><td>185143</td><td>4216b9e0514f4daddd84059bc21e5c4d8039b5652e3b14de26806fcb46cf0b14653d6384d970025ef9c1dbd04c12109d</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:05.513Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385527</td><td>T20</td><td>185144</td><td>211f91165d09bdd73f1b774f6021cd84c95467a0dfa2a6f6416ef698441fb1bc38aae93dbf0d3e607e0e9fda24ab9da6</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:08.383Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385528</td><td>T20</td><td>185145</td><td>71e29f0b65b595a4f1b4f342360457eb1b0219b47dea57646a31acf78486ff74f888a851f2dab8d4eea90f2f2741626d</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:11.767Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385529</td><td>T20</td><td>185146</td><td>d681a4d974c8c63af463055b354485c6b723733a099c055e6ecb487ce1e5b501361ee4eecffd207b80361476ed1656b6</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:12.713Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385530</td><td>T20</td><td>185147</td><td>0d8a9e120db775e651c6ce92f50b40e5713f101556bb8c4b28fcb490759badc9976815c75d01e5c833dde526964418c4</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:13.607Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385531</td><td>T20</td><td>185148</td><td>a985eb71b3a7018bad516854d511d9419e86d9f00cb6541ee83385cb34780b528849f3299b4db58a2102fc7fcacb1e42</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:14.577Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385532</td><td>T20</td><td>185149</td><td>ba2adb0a8150298f0c4a784c5e80ee1f8d96f757f45856a1f4d636cf91e132881693249004a803214269cbbde08ad9b1</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:15.513Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385533</td><td>T20</td><td>185150</td><td>fb98e7358ab77ed816ea51624b976e673d9d3606bcd0c9e9d5e1b5afedc30adf4d261b5e38a3cb9400d220a4cb2652be</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:16.530Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385534</td><td>T20</td><td>185151</td><td>379800e21e910bc52e754659555bf9fde142d5fd32743b992083d97ed873f8a7b07dab66f3f6d17be69600297f05b973</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:17.723Z</td><td>2026-01-14T14:36:20</td></tr><tr><td>830077981</td><td>385535</td><td>T20</td><td>185152</td><td>f0c2dd31509161532a3e6a269996b874743fbd3ff53b97a7a0773ad3effbfbbc8ed05ed29ead9b3287779f5351a49142</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:18.780Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385536</td><td>T20</td><td>185153</td><td>9d6babef769d63a91f9c02053a5dea484446844fd75065ee94c1688181ad3ab35f124017ebc16df75647a5dd03107314</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:19.663Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385537</td><td>T20</td><td>185154</td><td>4c251aabf8272391b52f155cd656fd50e91db9341d9db0db07348133fd386d22871a8d22472c338b755810322ab6b5a1</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:20.620Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385538</td><td>T20</td><td>185155</td><td>404bb6f8e5460235152f0b42c5d8fb227f3527639a752ba94271d7eff9b4ae72c5f8bb05ab8f86f6300d8a0b7c3b9591</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:21.720Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385539</td><td>T20</td><td>185156</td><td>800cf6b23de70d0c8dedbc2830dac26cc7a9ef02cd5cf54ccf150b988ade0b2774289181f1e602058cdf4c9e07a35102</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:22.473Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385540</td><td>T20</td><td>185157</td><td>9679c2d37d7a2713fccc8851f01df56f13f8e737555930c7d57b108a763841e63a186886d782732538813f8dc4c8b1ee</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:23.217Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385541</td><td>T20</td><td>185158</td><td>4f78e0365c6d5a8e6423b5d2c4d8723fd111fd972d048aead3a7fc999bf3cb837c6251e6184801054ed5b0aa62dfe66b</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:23.907Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385542</td><td>T20</td><td>185159</td><td>f49502857bc489fa85f3d4870dcb79f9bb2165eecfad800b62def568112cb5f34f60e6f6f2f252e269098f4fbc648006</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:24.543Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385543</td><td>T20</td><td>185160</td><td>f9414301423694d4059fd730ccab8d94e7711e4bc2a118976b257bb11651317b6071f18babd0d3fd065f9f20fa994ce9</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:25.310Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385544</td><td>T20</td><td>185161</td><td>c3bb9c4296a205fdf8337d980ea001e5aca1e616d09f0e395f3c66f3071b864695a65447e406a8bca3a746aacef10ac6</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:26.143Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385545</td><td>T20</td><td>185162</td><td>542d3f0b17031e03e89ee9e2d6d49236931b69a6747c7099e9580987467e897432c96e393424f28e15c635205a6e10b1</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:27.007Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385546</td><td>T20</td><td>185163</td><td>458b1ad8a3d7be5cfe66e52bec7fa1dc684dd11613cf3d2c27fb31b7855f985e6f5b892aa22d90791720872b91f0635d</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:27.997Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385547</td><td>T20</td><td>185164</td><td>07ab38f5e3741ecc012fe9dd33961b52f8f7f0ed732116e65faf45b9acca9204108dd436f7f0328d97c9acd357bd6c3b</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:29.057Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385548</td><td>T20</td><td>185165</td><td>3d6bacdddf6610458f5bbf5d7bc21c6b03c8b0bbb034d8ca8bd1546425c92b356194d8cfe43b9543c61379cb1b67c596</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:30.103Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385549</td><td>T20</td><td>185166</td><td>f7584ac78ac376af58e0cb5a0cf1135ceb19bb53191dfef9a2b803384f902062653cb218738948d2aca4dd6a90b7c8a9</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:31.063Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385550</td><td>T20</td><td>185167</td><td>2c371970166ee2430a125b311defa86c9b75c30e5bc3d43e37b8cef642cb005b176c2f64b6171f7b29a4aa6dcc80a7e7</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:32.007Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385551</td><td>T20</td><td>185168</td><td>aa1c7b297e1abd826ad755ae6f1b0bdad7d0274ce57ff98aa585d050892ef872c0ade0bf51f1c99a3529098ae64906aa</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:33.000Z</td><td>2026-01-14T14:36:21</td></tr><tr><td>830077981</td><td>385552</td><td>T20</td><td>185169</td><td>119b2250833006d5e41717bf052a75bbf61bed2d326fb47c7bac2985537e124112b46cb19e9958109e793f7adef2a382</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:34.130Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385553</td><td>T20</td><td>185170</td><td>37d234d1473a6ce8b7d16cee4b8e3ad8f8719e2d3cd4be5692411c70c265bdd26c662c5eaa6a8a57943690380dacc780</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:35.463Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385554</td><td>T20</td><td>185171</td><td>965d132d5334d39d0bebb73385d9b8cb7b62001046e94a1229bdc02a0b39252596e6fcb716ed4952b1f7081c07ea8dde</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:36.960Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385555</td><td>T20</td><td>185172</td><td>8319cde70baa1981d1c4786fdccd4310e294e23db35572f79f47f5c43a766f9964554ae5e0cdf2a5c31c3efefbc9691c</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:38.490Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385556</td><td>T20</td><td>185173</td><td>d78e36a577fc0bd60e3201ccb42ee7a21deac991d82e50415c1cbfbb7ef749b99abdece6b950fa339336c68bdb9deac2</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:39.770Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385557</td><td>T20</td><td>185174</td><td>aa92cece7da4fe7436a2663f0589e43bf87304ceb0e670fa1ec56118ffb58e12882a39618a6555488b7074fd70c3d098</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:41.013Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385558</td><td>T20</td><td>185175</td><td>32dc738518da94c98f3022a94ae9b1f846f10af15cfd7db033fa75e4e67e6ba74807854d8b7ea175f2de74b60ab56510</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:42.277Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385559</td><td>T20</td><td>185176</td><td>0e9b93d65decad414619f987ff3dd837e6e4b301ae932f39a936fcfda99e910306e131cbc9172d9c3cdc91b348a1fe42</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:43.573Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385560</td><td>T20</td><td>185177</td><td>3b90f97886ca713dd1d3867ff01c84ffded9226f9ac19de062fafc5d547094a5f724bd07efcac1fc0752fba58025709e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:44.623Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385561</td><td>T20</td><td>185178</td><td>c886e024c2fd745f079c8a38dc3dc921e64dc726fd8aa24d58b2e9a2f7eb60d36c82dc1c5ad1a02a7990afbcdb9519e1</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:48.667Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385562</td><td>T20</td><td>185179</td><td>344f95465d3cda3408c796d1554ecc681f31731903d181de5e69ea8adfe731049afe9721e3bbb053aa9cbc9b0d27288e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:49.703Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385563</td><td>T20</td><td>185180</td><td>ba45491c069d7b6ece1a0a8e694157557d79858b446bce0c6e3ca2de5a5817469f8a4ab5ae2486b964686e3ba40542cd</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:50.767Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385564</td><td>T20</td><td>185181</td><td>02d8fde5e434ee300122c74b0f156e603bdff3dfd312e3160ed1670717aa2b795b51ea948e9c1fc8b57bf3d58503bec5</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:51.790Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385565</td><td>T20</td><td>185182</td><td>a2608ebe224516dc082c9f66ff06eb31ced0332ba457ec816d811e662986a6c8518d84fd40b17d3ee1a062bfa910d70e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:52.823Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385566</td><td>T20</td><td>185183</td><td>a077f8f5b24ac47a10c4a946b7c23ed71db639d8af28cbac5fcf326232b4d894b8ce04c8baba3448d36f63b54b39ee36</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:53.993Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385567</td><td>T20</td><td>185184</td><td>7127445d6f8da191e3df602b430e183539b0b8ee892f6aeaa47a25e9fdbb162facc1c6824f30522eff17960cb9702771</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:55.180Z</td><td>2026-01-14T14:36:22</td></tr><tr><td>830077981</td><td>385568</td><td>T20</td><td>185185</td><td>5d4f3a55054aab4d60ce816edb0ceb143a9972e905b969db43fb881148c7be6c24c73196777bd35afa6177820ae54ede</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:56.117Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385569</td><td>T20</td><td>185186</td><td>2529d2993f159f05835f3f6c5f85575eb87cd4477335f2d71b94393eac4f4047a0a7c63a0fc44f319915045197da926e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:57.203Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385570</td><td>T20</td><td>185187</td><td>7db93a5389efd69263d0b3045928e4d3a9ef447693ec2bcbd3335d1f58cc72a06f09ae0a5a946dd8d220ec0587f0c5a0</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:58.597Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385571</td><td>T20</td><td>185188</td><td>b0bde1e07d84d216051fc889d32f8764c761a0101f649b779b8e65e73dd1a8ae651228840fe57dbdc1eb8534a2da2ebc</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:44:59.757Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385572</td><td>T20</td><td>185189</td><td>6273f83c20ab6f35064b3b7809aeaf8e179f9247d3cabc72238b882f13ed7754e37b3b22b632fa6bd132513160ae01f3</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:01.090Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385573</td><td>T20</td><td>185190</td><td>9666f5e4ab468ea01184c44ea02cc8130070c97f8a646eb79d2dda910817a18499a67bf135f0c5fa5e8b81f2a4b112c2</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:02.147Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385574</td><td>T20</td><td>185191</td><td>1fee2c9692a00ae23cf0182da11b895c8345125cdf033ae62202ec35f6975786b64f1d831bc866548a256336be6703b0</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:03.273Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385575</td><td>T20</td><td>185192</td><td>e13c923474a011bf96de55f200aa4869425e611fd06b2a8ebdf6ab4cc52a5360c87a1b22a33f2b77f371ac899ba30f88</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:04.077Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385576</td><td>T20</td><td>185193</td><td>b454c25e7c58f664b26ff27ed9bd3236c768181c9cefa0b226bc9e0f5fe2f45995a701e13a2267134d0393e667853528</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:05.067Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385577</td><td>T20</td><td>185194</td><td>fdff6f1bdc93edd884af5716a784be413f45f8e4281527cf6836e391b6a3f5d515008e547e947c0c16a54a79fc4050f9</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:06.040Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385578</td><td>T20</td><td>185195</td><td>b5271dbd0457a3efc18b3cde7d9ecb1edc14cb8c72ca745007dd119f5c65aaa569212e3ca524097289b19c929621bcea</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:07.070Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385579</td><td>T20</td><td>185196</td><td>8042b29398844275ace4725bac01dffead6cbd0a7bd96ba7a4d2e472039bf13817a68d0a9adfe3a765c550e7ffb2c086</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:07.983Z</td><td>2026-01-14T14:36:23</td></tr><tr><td>830077981</td><td>385580</td><td>T20</td><td>185197</td><td>567c99d6e5d0d266b18068bae9d16dbcd6291fba8e0dd30f6c97386dab98466f5f8848d96a251173bdfbfeddd2715419</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:08.967Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385581</td><td>T20</td><td>185198</td><td>5a34e7f9e9b9f4e65dc546187b22facc2d99f36717507f481610ed29390794604e39b7c9d2391562b5ccb401ba161ef7</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:09.923Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385582</td><td>T20</td><td>185199</td><td>058244300ec13c2b735ecfcc1a9b4828f861edf14984da1543c102e04e8bec57261d1589611a0dcd9c3a398d293e3614</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:10.943Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385583</td><td>T20</td><td>185200</td><td>9ea53e13981ca00d3b2ac91fb16c9c31f9bffae75f4e1765ae8b90b084f11e23d5b1e32602c07f243167be81d1d82413</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:12.123Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385584</td><td>T20</td><td>185201</td><td>fb893a21a11726a1e5a7750c7a1068fbe1f20d8f7001612ed11baef183f4408ef0c5d06b1cfac3ea4f2f1817e822b54f</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:13.213Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385585</td><td>T20</td><td>185202</td><td>4391dd3f78b1d780d603c0d6e29fc8345916ff2dc169a30f6f10ac9650b4536c83c76cce7000d651185fa74031f189fe</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:14.300Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385586</td><td>T20</td><td>185203</td><td>9ae17fb3cc590afd06520c9577caa9e990b2076599a90cf61744842d657bc0d199d6b08aeefb20850cd7290503d15005</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:15.353Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385587</td><td>T20</td><td>185204</td><td>a170c8bd3bc80f5c313ba8d5339d28f194b58cbcb27d5b35aa464be2c7a1fb1a11d9848e2dcc19eb8f0e09d0d113a24d</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:16.827Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385588</td><td>T20</td><td>185205</td><td>1025eaa071e246eb1ec656b4bd1e2a613a1e21ff61496f316e5e137c2da8b93128cef2020cddbce6b9f7aa3076bf0edf</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:17.807Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385589</td><td>T20</td><td>185206</td><td>c6914c5e2330fd182acae60e627dcc55e240a9a6e57d589c24d4e5f9f8f8e4a7ee3e154d6ad803473422087ac4384c6e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:18.923Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385590</td><td>T20</td><td>185207</td><td>a9ed5bbe77c7354f997ec23af13c2f816a0621e2d1d8a0f7aedfb49a088d52438d96131046b81d7a6992245faaf7a88e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:19.917Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385591</td><td>T20</td><td>185208</td><td>c8958b8942295487e22bfa6e33d66397243dbf8b0fd9f9eeeb044794a5e6ebe9f89dfb14c6d49bf23b9eda727405f205</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:21.027Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385592</td><td>T20</td><td>185209</td><td>fb4ddccbec3b99d0ba89dc598acf972c4efcd8adb5562c06b29cb13eb70ea332522e3e1dc86983c5937ecdb1a41247e5</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:21.820Z</td><td>2026-01-14T14:36:24</td></tr><tr><td>830077981</td><td>385593</td><td>T20</td><td>185210</td><td>aed5d55627816d5d27f438b5b04492ef8557c4f8fbcba169e12a8bcf948a87ef5c4dfca6459c401ec477c1d2a71071fc</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:22.670Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385594</td><td>T20</td><td>185211</td><td>ff7cef284042fc836a2dd55e75a373d51857cba1448d302c38c2e1a7840fd7ffad2d0173bc1671fe1f980773be0fdb3f</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:23.620Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385595</td><td>T20</td><td>185212</td><td>5bf27d6ce19ecc8d4c5f0b07987cace6646493206d7392a12383ca230c139c09b52711178743ce2340ee856c44030ee5</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:24.617Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385596</td><td>T20</td><td>185213</td><td>cbe4da860d487952cea36983e61a0f7372c169fd9ce5cbc4e45cc58357937475df751279f346e5c4cc81bbb7094a6deb</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:25.757Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385597</td><td>T20</td><td>185214</td><td>dd860e1719cae1940c773b4a6d4afb20ecc61d382f99b58db714f1b6367ca7fe06cd7c5bbb19f3ad872a9825afb18367</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:26.817Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385598</td><td>T20</td><td>185215</td><td>dcd4aa8de8bd32201488e993d56cfb929e3a4780d4e2ac38f0573b707afa253c245b2454d6cd346f2884c615059f8118</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:27.753Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385599</td><td>T20</td><td>185216</td><td>e1b268f6cd801d9955fc14855b2244fd73130b85152800583645eaaf7fa2d32d01029a04f986054cf96eb4ba962d2d9e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:28.850Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385600</td><td>T20</td><td>185217</td><td>b8305ea551699df12a17207bc8e5217a1bdceb72a5558722a39a1952dfdf477d5b79c72dbca4d99ed9602fcf25f9434e</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:30.060Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385601</td><td>T20</td><td>185218</td><td>a7c2c7a2de42a78eeabdef86f6b7ff9b520461b3eee5d05038322049f6930c4eea5d55becc8382436b15e05c54bea4db</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:31.043Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385602</td><td>T20</td><td>185219</td><td>425612c50e59ad5b54c4c632b2bec1012ea192d82930e9094d2a4a3ef7a91d3e66a562a29dd9907d3059f94fc27d3e66</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:32.237Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385603</td><td>T20</td><td>185220</td><td>2b221943b7d1fdb29dd1634971c31cca68e6f93eab3a1531e566170b9ca416cabcd7b192d9eda6c3954f0d19eda564b8</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:33.843Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385604</td><td>T20</td><td>185221</td><td>6cdff4b5de6bc6125824f3ec7da138c3da9d13e8a4ec60f59793df1d666991b68c8ef080885a2407dd945e7e95703def</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:34.680Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385605</td><td>T20</td><td>185222</td><td>618ee85420d016e1f664c025b2b9d0c193199d2344c3f24ba58fb2455aeed4dcf766e6018bdc4986083e0ab421208fcd</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:35.343Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385606</td><td>T20</td><td>185223</td><td>3fd142914ac26a0063268b04c3056b22a07bbb818d9d9ec9f3e3a63db8d1e89e8ed51843cd507a238d12ffa512acd5ab</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:36.027Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385607</td><td>T20</td><td>185224</td><td>7e794291399ac909e0a6cb36db7876ee8e12f02902c46a8787ec68c5b80ed9b69d1a150005b5b2bc4a217630cac6a483</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:36.780Z</td><td>2026-01-14T14:36:25</td></tr><tr><td>830077981</td><td>385608</td><td>T20</td><td>185225</td><td>e296c986698d05a28320ed30a737fa162ab92dbc9b1e93d708f6ada21ab4d1d91373bdb19afccbe47d1671e7025c9668</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:37.743Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385609</td><td>T20</td><td>185226</td><td>68bf29f2418575acf0e5eb54f93de63f146bbafb9a18737b81678e02b6e00f7e37fe66e8b31a644b602455625223b92c</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:38.833Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385610</td><td>T20</td><td>185227</td><td>e2391050eab84ac29defd2f65c589f1f340a95aa0ff5b85dfd540da6bb3f7f0e5fca600ae1359fa757864557cde13399</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:39.883Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385611</td><td>T20</td><td>185228</td><td>f4774291c40d0ffb56033ea15570b7a34963316675eb90ff5c4f703ec038efef3cfb73baacfa46d4075471e9d92cbb44</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:40.973Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385612</td><td>T20</td><td>185229</td><td>9add80ca39f5d132f59c2243fb4713a49e98d3a301ee290af85b494ac2ca77445e8e632310d9f24524e56c5e68a086eb</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:42.047Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385613</td><td>T20</td><td>185230</td><td>4a9537b54e1484ec7f8fd480f7b6f6463abd0ab1cced3ce71304c0a46a4a15b6b88594b80c8122659b004314364530bb</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:42.987Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385614</td><td>T20</td><td>185231</td><td>f4fec36b194c411e8e737b531ff3e5ab812a7afe60bd20a5e791f45d072865b8c0997a21e77dee0b47335333af6a1150</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:44.123Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385615</td><td>T20</td><td>185232</td><td>cd28ef9fa5c17b8ed855bb7f24c2b283840845b82b1858e5b820c2e9b759514d4f6449929cb8f326eec575c34f5d5a0f</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:45.197Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385616</td><td>T20</td><td>185233</td><td>cf688015d44384606b6b47f93c8060eea39844fd82c02b1ed07eb138fb137695a7a5cc448ac5b90350beaf0f48f33069</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:46.073Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385617</td><td>T20</td><td>185234</td><td>32ee7d0f31aee363e2066c12425d71508a828ae0af308f81fee7d12531a7a03c7c06a7844184146abcae24eb603aec3b</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:47.350Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385618</td><td>T20</td><td>185235</td><td>248c5e16dffe5830047912dd4dc20e9474b6ca56b596cdb9dd0327ec690ef9eb685d91a88cb4c88dcd11c5e378abcd2b</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:48.253Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385619</td><td>T20</td><td>185236</td><td>f6ed69e720a49e3f28d1ef431cd1a03ae62f5e4754594b4e9e7b986b4a2868159ea471fa366631cc44ace8ca739fb43a</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:49.073Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385620</td><td>T20</td><td>185237</td><td>73d704723b52005b032498e6e623ae96677f217b63704fceedc5ee8f5c52670c13aa8899a7a79dcb84379b6a87ccb256</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:49.747Z</td><td>2026-01-14T14:36:26</td></tr><tr><td>830077981</td><td>385621</td><td>T20</td><td>185238</td><td>2347dd13f3ad9d05d4e91215867032ff5fc2c8d1842cae07824a8f0f693b4b09eedd197f591a499570749721efedf155</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:50.427Z</td><td>2026-01-14T14:36:27</td></tr><tr><td>830077981</td><td>385622</td><td>T20</td><td>185239</td><td>e491bf4c1b9cb634593a9d3a68432888a7da5e86a040c5788f776d522a0f8bde244b5bc1d80f533e56c52ca312081a5a</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:51.043Z</td><td>2026-01-14T14:36:27</td></tr><tr><td>830077981</td><td>385623</td><td>T20</td><td>185240</td><td>4c10e701a862d3a60fd5d67b94a0af0d6279b62b6c1e1ba26eeca504edabc08dd924d3bc1d61f46d2b4cd5d70d129b2f</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:51.817Z</td><td>2026-01-14T14:36:27</td></tr><tr><td>830077981</td><td>385624</td><td>T20</td><td>185241</td><td>e612e291dbe525470d913a0fd70b322290a33b6ce8b00ecb6f942167fd15f08682745a566aaef5efc5782bf7d68f8e17</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:52.763Z</td><td>2026-01-14T14:36:27</td></tr><tr><td>830077981</td><td>385625</td><td>T20</td><td>185242</td><td>58de546339ead46db10db476baed75699af13fd878eb162fda6e4b85547bec980a70460e1d7be164d27991b88753de7a</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:53.813Z</td><td>2026-01-14T14:36:27</td></tr><tr><td>830077981</td><td>385626</td><td>T15</td><td>13166</td><td>b705e3ec3fce63591384c642794f7f11405b466ab44924060b2d7a80cfdf485bacb99b612347c3f4b153cb28f533d2d0</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:45:54.983Z</td><td>2026-01-14T14:36:36</td></tr><tr><td>830077981</td><td>385627</td><td>T15</td><td>13167</td><td>9d83db114902ac910a7a97570d26ce6324d4f83e85b99c5dc5f75e5be97b89122537e08ff727d11244e361c734623c2f</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:46:03.027Z</td><td>2026-01-14T14:36:36</td></tr><tr><td>830077981</td><td>385628</td><td>T15</td><td>13168</td><td>6721d45d9300d6ef044c97db5730da505b387d69686997c716d25db0224a9caf41f590ad7c19a09d750f3443e9e0083c</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:46:04.173Z</td><td>2026-01-14T14:36:36</td></tr><tr><td>830077981</td><td>385629</td><td>T15</td><td>13169</td><td>bb7f357bdc2987895186adedb30274c5e1aa89e940dd156471479e9c258bba192a9e0b17b40d7afc1192d1f7bacfab0d</td><td>txt</td><td>5</td><td></td><td>2026-01-14T14:46:05.527Z</td><td>2026-01-14T14:36:36</td></tr></tbody></table><hr size=\"1\" color=\"#eee\"><h3 style=\"font-size:15px;font-weight:bold;margin:15px 0 5px 0;\">Punto 51797: Validaciones de notificaciones en usuarios</h3><table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"width:100%;border-collapse:collapse;\"><thead><tr bgcolor=\"#f2f2f2\"><th align=\"left\"></th></tr></thead><tbody><tr><td>update usuario set ErrorAplicacion=1, DescargaComprobantes=1, DescargaComprobantesOtrosEmisores=1, ModificacionRolesUsuarios=1 where   EsAdministrador=0 and (ErrorAplicacion=1 or DescargaComprobantes=1 or DescargaComprobantesOtrosEmisores=1 or ModificacionRolesUsuarios=1 ),1</td></tr></tbody></table><div style=\"margin-top:15px;font-size:12px;border-top:1px solid #eee;\">El resto de los puntos no dieron resultados.</div></div>"
+        }
+      }
     ]
   },
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "America/Argentina/Buenos_Aires",
-    "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false,
-    "errorWorkflow": "5K68L5Ps2t472Hof",
-    "saveExecutionProgress": true,
-    "timeSavedPerExecution": 45
+    "executionOrder": "v1"
   },
   "shared": [
     {
-      "createdAt": "2025-12-23T02:11:32.161Z",
-      "updatedAt": "2025-12-23T02:11:32.161Z",
+      "createdAt": "2026-01-11T14:31:18.166Z",
+      "updatedAt": "2026-01-11T14:31:18.166Z",
       "role": "workflow:owner",
-      "workflowId": "5K68L5Ps2t472Hof",
+      "workflowId": "fzjFRbuNLbjyDl1d",
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
-  "staticData": {
-    "node:Daily Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Weekly Trigger1": {
-      "recurrenceRules": []
-    },
-    "node:Monthly Trigger1": {
-      "recurrenceRules": []
-    },
-    "node:Schedule Trigger": {
-      "recurrenceRules": []
-    },
-    "node:24/11": {
-      "recurrenceRules": []
-    },
-    "node:Weekly Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Monthly Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Bi-hourly Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Nightly Trigger": {
-      "recurrenceRules": []
-    }
-  },
+  "staticData": null,
   "tags": [],
-  "triggerCount": 5,
-  "updatedAt": "2026-01-06T20:34:00.000Z",
-  "versionId": "842d761c-a3e6-4241-8d80-d0b0e396e247"
+  "triggerCount": 0,
+  "updatedAt": "2026-01-15T02:53:14.000Z",
+  "versionId": "85ae675f-ae4e-44f6-8ba7-60e837cba5a2"
 }
