@@ -11,12 +11,30 @@
           }
         ]
       ]
+    },
+    "QuickChart": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Beta)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-13T00:16:49.688Z",
   "id": "OzCVUbUz3V5ZZ0hW",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "My workflow 7",
   "nodes": [
     {
@@ -135,6 +153,67 @@
         112
       ],
       "id": "8fe874ac-1035-44ef-aa68-f61fee9b669c"
+    },
+    {
+      "parameters": {
+        "chartOptions": {},
+        "datasetOptions": {}
+      },
+      "type": "n8n-nodes-base.quickChart",
+      "typeVersion": 1,
+      "position": [
+        64,
+        224
+      ],
+      "id": "e718a071-ac20-418a-8216-60bf6d3885e9",
+      "name": "QuickChart"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0",
+          "mode": "list",
+          "cachedResultName": "query_metrics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        -368
+      ],
+      "id": "664a23c3-f853-4cbc-ba20-424fa1151ad7",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from collections import defaultdict\n\n# n8n entrega los datos en una variable llamada 'items'\n# Cada item es un diccionario con la llave 'json'\ninput_data = [item['json'] for item in items]\n\n# --- 1 & 2: Diccionarios para agrupar datos ---\nquery_times = defaultdict(list)\nquery_zeros = defaultdict(int)\nquery_counts = defaultdict(int)\nenv_query_times = defaultdict(lambda: defaultdict(list))\ndaily_env_counts = defaultdict(int)\ndaily_total_seconds = defaultdict(float)\n\nfor row in input_data:\n    q = str(row.get('query'))\n    t = float(row.get('tiempo', 0))\n    f = int(row.get('filas_encontradas', 0))\n    ent = str(row.get('entorno'))\n    fecha = str(row.get('fecha'))\n    \n    # Acumuladores\n    query_times[q].append(t)\n    query_counts[q] += 1\n    if f == 0:\n        query_zeros[q] += 1\n        \n    env_query_times[q][ent].append(t)\n    daily_env_counts[f\"{fecha} | {ent}\"] += 1\n    daily_total_seconds[fecha] += t\n\n# --- PROCESAMIENTO ---\n\n# 1. Queries más lentas (Promedio)\nslowest = []\nfor q, times in query_times.items():\n    avg = sum(times) / len(times)\n    slowest.append({\"query\": q, \"tiempo_promedio\": round(avg, 2)})\nslowest = sorted(slowest, key=lambda x: x['tiempo_promedio'], reverse=True)[:10]\n\n# 2. Frecuencia de Cero\nzeros_freq = []\nfor q, count in query_counts.items():\n    ratio = query_zeros[q] / count\n    zeros_freq.append({\"query\": q, \"frecuencia_cero\": round(ratio, 4)})\nzeros_freq = sorted(zeros_freq, key=lambda x: x['frecuencia_cero'], reverse=True)[:10]\n\n# 3. Diferencia entre entornos (Top 5)\nenv_diffs = []\nfor q, envs in env_query_times.items():\n    if len(envs) > 1:\n        avg_per_env = [sum(ts)/len(ts) for ts in envs.values()]\n        diff = max(avg_per_env) - min(avg_per_env)\n        env_diffs.append({\"query\": q, \"diff\": round(diff, 2)})\nenv_diffs = sorted(env_diffs, key=lambda x: x['diff'], reverse=True)[:5]\n\n# 4. Ejecuciones diarias por entorno\ndaily_exec = [{\"fecha_entorno\": k, \"n\": v} for k, v in daily_env_counts.items()]\n\n# 5. Segundos totales por día\ndaily_seconds = [{\"fecha\": k, \"total_segundos\": round(v, 2)} for k, v in daily_total_seconds.items()]\n\n# --- RESULTADO FINAL PARA n8n ---\nreturn [\n    {\n        \"queries_lentas\": slowest,\n        \"frecuencia_nula\": zeros_freq,\n        \"diferencia_entornos\": env_diffs,\n        \"ejecuciones_diarias\": daily_exec,\n        \"tiempo_total_diario\": daily_seconds\n    }\n]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        -368
+      ],
+      "id": "c0bba9a3-71d0-4c45-a843-6b0bad785fc4",
+      "name": "Code in Python (Beta)"
     }
   ],
   "pinData": {},
@@ -153,6 +232,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-13T00:26:09.000Z",
-  "versionId": "050291b6-098d-4c57-8107-091610025a78"
+  "updatedAt": "2026-01-15T03:39:59.000Z",
+  "versionId": "e8ad0afc-cc08-40ed-93ad-e261f13c659b"
 }
