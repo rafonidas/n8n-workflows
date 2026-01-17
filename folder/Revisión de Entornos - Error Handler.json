@@ -184,8 +184,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -224,
-        464
+        656,
+        160
       ],
       "id": "6317a8d8-aba2-4f4e-9c0d-129ea1e29cac",
       "name": "When Executed by Another Workflow"
@@ -591,6 +591,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-12T12:44:01.000Z",
-  "versionId": "4e106b5c-43a6-477f-a897-ebd67bd69a6c"
+  "updatedAt": "2026-01-16T17:35:09.000Z",
+  "versionId": "65d4ab3e-d603-46c4-8208-44b0b1667fe7"
 }
