@@ -1,78 +1,11 @@
 {
   "active": false,
   "connections": {
-    "Daily Trigger": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Weekly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Monthly Trigger": {
       "main": [
         [
           {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Get Queries",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        []
-      ]
-    },
-    "Code in JavaScript2": {
-      "main": [
-        [
-          {
-            "node": "Call 'Revisión de Entornos'",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript3": {
-      "main": [
-        [
-          {
-            "node": "Call 'Revisión de Entornos - Error Handler'",
+            "node": "Get pending",
             "type": "main",
             "index": 0
           }
@@ -83,7 +16,7 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "Code in JavaScript4",
             "type": "main",
             "index": 0
           }
@@ -92,20 +25,49 @@
     },
     "Get Queries": {
       "main": [
+        []
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
         [
           {
-            "node": "Code in JavaScript3",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "When clicking ‘Execute workflow’": {
+    "Switch": {
       "main": [
         [
           {
-            "node": "Get pending",
+            "node": "Call Original",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Call Original": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Call Error Handler",
             "type": "main",
             "index": 0
           }
@@ -113,8 +75,8 @@
       ]
     }
   },
-  "createdAt": "2026-01-05T17:08:43.289Z",
-  "id": "PgLGB0L67zZKIgE8",
+  "createdAt": "2026-01-11T14:31:53.174Z",
+  "id": "ysRfqbMcFNKwxjPo",
   "isArchived": false,
   "meta": null,
   "name": "Revisión de Entornos - Watchdog",
@@ -127,36 +89,17 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -560,
-        -144
+        -816,
+        -32
       ],
       "typeVersion": 1,
-      "id": "c5ed5f72-51bc-4131-a570-9411407086a2",
+      "id": "121ab24b-bdd8-4f7c-a32b-c09849f343fb",
       "name": "Sticky Note"
     },
     {
       "parameters": {
         "rule": {
           "interval": [
-            {
-              "triggerAtHour": 9
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        0,
-        -176
-      ],
-      "id": "8acc0b59-a70d-47c1-bf4e-316f38b96bf5",
-      "name": "Daily Trigger"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
             {}
           ]
         }
@@ -164,195 +107,11 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        0,
-        16
+        -528,
+        816
       ],
-      "id": "ec041608-18de-47e0-b4ef-d30ac9a94570",
-      "name": "Weekly Trigger"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {}
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        0,
-        208
-      ],
-      "id": "dbb04811-e4f3-4adf-8eb4-a06e66f8b12c",
+      "id": "d7deaf3e-239f-4b96-9616-cd913e4533c3",
       "name": "Monthly Trigger"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        704,
-        464
-      ],
-      "id": "168006ac-2953-4558-b3af-fcec287fa3d8",
-      "name": "Code in JavaScript"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "e5795c86-2269-45d5-b24f-117de4750121",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "empty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        608,
-        16
-      ],
-      "id": "717f9a7b-a634-4655-bc9c-efe02bd780de",
-      "name": "If"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "p9uwH55oMSUgbeOp",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/p9uwH55oMSUgbeOp",
-          "cachedResultName": "Revisión de Entornos - Error Handler"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        1312,
-        240
-      ],
-      "id": "4e7d03a0-031c-4694-bedf-e1534b69704a",
-      "name": "Call 'Revisión de Entornos - Error Handler'",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -96,
-        -288
-      ],
-      "id": "ff7a7c00-b35d-4c1f-b177-c60722e7c759",
-      "name": "Code in JavaScript1"
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "V0kCQ1kK3N3ayC36",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/V0kCQ1kK3N3ayC36",
-          "cachedResultName": "Revisión de Entornos"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        1008,
-        -96
-      ],
-      "id": "2abd97b7-874c-4656-a723-6d2a0443f927",
-      "name": "Call 'Revisión de Entornos'",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "content": "## Escenario A: Cero registros encontrados.\n\nLógica: Si no hay filas en el Sheets para \"Hoy + Daily\", significa que el flujo principal ni siquiera llegó a registrar la cola (ej: fallo de servidor antes de empezar).\n\nAcción: Nodo Execute Workflow -> Llamar al Flujo Principal.",
-        "height": 224,
-        "width": 448
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        1232,
-        -144
-      ],
-      "typeVersion": 1,
-      "id": "7241b48d-d8cf-42e2-9035-eae1f4341bed",
-      "name": "Sticky Note1"
-    },
-    {
-      "parameters": {
-        "content": "## Escenario B: Hay registros Pendientes/Error.\n\nLógica: El flujo principal empezó pero algo quedó en el tintero.\n\nAcción: Seguir al Constructor de Contexto.",
-        "height": 208,
-        "width": 480
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        1232,
-        112
-      ],
-      "typeVersion": 1,
-      "id": "49d70135-17bd-4d53-8cc7-49fc6fa764bf",
-      "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        800,
-        -96
-      ],
-      "id": "e0eb85c5-41a6-4168-89e6-7b9e1728d08f",
-      "name": "Code in JavaScript2"
-    },
-    {
-      "parameters": {
-        "jsCode": "// 1. Detectar el tipo de ejecución\nlet executionType = 'Daily';\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n}\n\n// 2. Traer fuentes de datos\nconst allQueries = $input.all(); // Datos de la Data Table\nconst missingTasks = $(\"Get pending\").all(); // Datos del Sheets\n\n// 3. Configuración Técnica de Servidores\nconst serverConfigMap = {\n  ARG_BLOCK: {\n    server: \"host.docker.internal\",\n    port: 11434,\n    user: \"usr_automatico\",\n    password: \"1qaz2wsx3edc\",\n    db_info: [\n      { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n      { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n      { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n      { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n      { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n      { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n      { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    ]\n  },\n  COL_BLOCK: {\n    server: \"host.docker.internal\",\n    port: 11433,\n    user: \"usr_automatico\",\n    password: \"1qaz2wsx3edc\",\n    db_info: [\n      { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n      { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n      { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"}\n    ]\n  }\n};\n\n// 4. Aplanamos la lista de DBs para búsqueda fácil\nconst masterDbList = [];\nObject.values(serverConfigMap).forEach(block => {\n  block.db_info.forEach(db => {\n    masterDbList.push({\n      ...db,\n      server_host: block.server,\n      port: block.port,\n      user: block.user,\n      password: block.password\n    });\n  });\n});\n\n// 5. Cruzamos los datos\nreturn missingTasks.map(task => {\n  const row = task.json;\n  \n  // Parsing del ID por si los campos individuales vienen vacíos\n  // Formato esperado en row.id: \"CO_APP_4.4.8_2026-01-05\"\n  const rawId = (row.id || \"\").trim();\n  const idParts = rawId.split('_');\n  \n  const pais = missingTasks.json.pais;\n  const entorno = (row.entorno || idParts[1] || \"\").toUpperCase();\n  const queryId = (row.query_id || idParts[2] || \"\").trim();\n\n  // Buscamos la Query en el input (DataTable)\n  const queryData = allQueries.find(q => \n    String(q.json.query_id) === queryId || \n    String(q.json.queryId) === queryId ||\n    String(q.json.id) === queryId\n  );\n\n  // Buscamos la conexión técnica (Pais + Entorno)\n  const dbConfig = masterDbList.find(d => \n    d.country === pais && \n    d.entorno === entorno\n  );\n\n  // Si no hay match, marcamos error para filtrar\n  if (!queryData || !dbConfig) {\n    return { json: { skip: true, reason: \"No se encontró match técnico\", query_id: queryId, pais, entorno } };\n  }\n\n  return {\n    json: {\n      ...row,\n      pais: pais,\n      entorno: entorno,\n      query_id: queryId,\n      \n      // Credenciales para el subflujo\n      server_host: dbConfig.server_host,\n      port: dbConfig.port,\n      user: dbConfig.user,\n      password: dbConfig.password,\n      database: dbConfig.db,\n      channelId: dbConfig.channelId,\n      \n      // Queries SQL\n      revisionQuery: queryData.json.revision || queryData.json.revisionQuery,\n      correctionQuery: queryData.json.correction || queryData.json.correctionQuery,\n      \n      type: executionType\n    }\n  };\n}).filter(item => !item.json.skip); // Solo devolvemos lo que se puede ejecutar"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1056,
-        240
-      ],
-      "id": "e4319aec-56fb-4aeb-9baa-d256fbd5d525",
-      "name": "Code in JavaScript3",
-      "notes": "// 1. Detectar el tipo de ejecución (Triggers)\nlet executionType = 'Daily';\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n}\n\n// 2. Traer fuentes de datos\nconst allQueries = $input.all(); // Datos de la Data Table (revisionQuery, correctionQuery, etc.)\nconst missingTasks = $(\"Get pending\").all(); // Datos del Sheets (lo que no se ejecutó)\n\n// 3. Configuración Técnica de Servidores\nconst servers = {\n  ARG_BLOCK: {\n    server: \"host.docker.internal\",\n    port: 11434,\n    user: \"usr_automatico\",\n    password: \"1qaz2wsx3edc\",\n    db_info: [\n      { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId: \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n      { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId: \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\" },\n      { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId: \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\" },\n      { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId: \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\" },\n      { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId: \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\" },\n      { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId: \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\" },\n      { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId: \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\" }\n    ]\n  },\n  COL_BLOCK: {\n    server: \"host.docker.internal\",\n    port: 11433,\n    user: \"usr_automatico\",\n    password: \"1qaz2wsx3edc\",\n    db_info: [\n      { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId: \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n      { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId: \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\" },\n      { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId: \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\" }\n    ]\n  }\n};\n\n// 4. APLANAR CONFIGURACIÓN DE SERVIDORES\n// Creamos una lista única de todas las bases de datos posibles para buscar fácil\nconst masterDbList = [];\n[servers.ARG_BLOCK, servers.COL_BLOCK].forEach(block => {\n  block.db_info.forEach(info => {\n    masterDbList.push({\n      ...info,\n      server_host: block.server,\n      port: block.port,\n      user: block.user,\n      password: block.password\n    });\n  });\n});\n\n// 5. CRUCE DE DATOS (RECONCILIACIÓN)\nconst finalTasks = [];\n\nmissingTasks.forEach(task => {\n  const row = task.json.estado;\n  \n  // Buscar la query técnica en el input (Data Table)\n  const queryData = allQueries.find(q => q.json.queryId === row.Query_ID);\n  \n  // Buscar la credencial técnica según País y Entorno que vienen del Sheets\n  // Asumimos que en el Sheets el país viene como 'AR', 'CO', etc. y el entorno como 'APP', 'APP2'\n  const dbConfig = masterDbList.find(d => \n    d.country === row.Pais && \n    d.entorno === row.Entorno\n  );\n\n  // Si encontramos tanto la query como el servidor, armamos el objeto de ejecución\n  if (queryData && dbConfig) {\n    finalTasks.push({\n      json: {\n        // Datos de control\n        task_id: row.ID, // ID de la fila en el Sheets para marcar como completado luego\n        query_id: row.Query_ID,\n        tipo_ejecucion: executionType,\n        \n        // Datos de conexión\n        server_host: dbConfig.server_host,\n        server_port: dbConfig.port,\n        db_user: dbConfig.user,\n        db_pass: dbConfig.password,\n        database_name: dbConfig.db,\n        \n        // Datos del entorno para el reporte\n        entorno: dbConfig.entorno,\n        pais: dbConfig.country,\n        teams_channel: dbConfig.channelId,\n        \n        // SQL técnico\n        sql_revision: queryData.json.revisionQuery,\n        sql_correccion: queryData.json.correctionQuery\n      }\n    });\n  }\n});\n\nreturn finalTasks;"
     },
     {
       "parameters": {
@@ -373,20 +132,25 @@
         "filtersUI": {
           "values": [
             {
-              "lookupColumn": "estado",
-              "lookupValue": "=Pendiente"
+              "lookupColumn": "Fecha",
+              "lookupValue": "={{ $now.format('dd/L/yyyy') }}"
+            },
+            {
+              "lookupColumn": "Frecuencia",
+              "lookupValue": "Daily"
             }
           ]
         },
+        "combineFilters": "OR",
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        448,
-        16
+        -320,
+        816
       ],
-      "id": "7ed26174-3c40-4271-8356-8949fec59c6d",
+      "id": "0e44358e-f001-4c85-9048-e8bf3b9af405",
       "name": "Get pending",
       "alwaysOutputData": true,
       "credentials": {
@@ -411,22 +175,11 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        816,
-        240
+        -144,
+        464
       ],
-      "id": "f2f7c65b-dbce-4078-8671-3bb0cbfc0850",
+      "id": "d1d190d3-279e-41bc-bd76-56ba383a45b5",
       "name": "Get Queries"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        240,
-        16
-      ],
-      "id": "14a55197-acdc-420e-86ec-daf5c47f028b",
-      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
@@ -434,12 +187,179 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        480,
-        -240
+        -640,
+        320
       ],
       "typeVersion": 1,
-      "id": "76ed66d8-7901-4797-9916-b793e45dfbf3",
+      "id": "ac521801-d792-40c3-8253-e8c2d14f27f0",
       "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all();\nconst totalEsperado = 17; // Tu número de entornos totales\nconst pendientes = rows.filter(r => r.json.Estado === 'PENDIENTE');\nconst oks = rows.filter(r => r.json.Estado === 'OK');\n\n// Escenario 1: No hay nada escrito hoy (Fallo total antes de empezar)\nif (rows.length === 0) {\n    return { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'No hay registros de hoy' };\n}\n\n// Escenario 2: Todos están pendientes (Murió justo después de inicializar)\nif (pendientes.length === rows.length && rows.length > 0) {\n    return { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'Todo pendiente, relanzar desde cero' };\n}\n\n// Escenario 3: Hay algunos OK y algunos PENDIENTES (Murió a la mitad)\nif (pendientes.length > 0 && oks.length > 0) {\n    return { \n        escenario: 'EJECUTAR_ERROR_HANDLER', \n        pendientes: pendientes.map(p => p.json),\n        motivo: `Faltan ${pendientes.length} entornos` \n    };\n}\n\n// Escenario 4: Todos están OK\nif (oks.length >= totalEsperado) {\n    return { escenario: 'DETENER', motivo: 'Todo completado con éxito' };\n}\n\nreturn { escenario: 'DETENER', motivo: 'Estado indeterminado o todo OK parcial' };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        816
+      ],
+      "id": "887f34eb-73b1-450e-b4bc-8a0de184d79f",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.escenario }}",
+                    "rightValue": "EJECUTAR_PRINCIPAL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "432fd74e-d220-445c-b1a1-4cc580d22758"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "40c91e79-6098-400c-a101-dcfebea9bddc",
+                    "leftValue": "={{ $json.escenario }}",
+                    "rightValue": "EJECUTAR_ERROR_HANDLER",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "91452470-6fe3-4b86-be3e-0b86206b8388",
+                    "leftValue": "={{ $json.escenario }}",
+                    "rightValue": "DETENER",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        80,
+        800
+      ],
+      "id": "9e882ceb-dc5c-4e31-9fec-26926c39c2ea",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ABtvnJIXyOxaiexU",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/ABtvnJIXyOxaiexU",
+          "cachedResultName": "copy revision de entornos"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        576,
+        784
+      ],
+      "id": "6cc900c3-74d1-476b-ab1d-f9dae7904fd1",
+      "name": "Call Original"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ABtvnJIXyOxaiexU",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/ABtvnJIXyOxaiexU",
+          "cachedResultName": "copy revision de entornos"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1168,
+        816
+      ],
+      "id": "a3804da5-7565-434b-90e8-0e5de4d5c8da",
+      "name": "Call Error Handler"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.item.json.pendientes"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        944
+      ],
+      "id": "c15218e4-9649-4ecc-ae2f-2ccab123897f",
+      "name": "Code in JavaScript"
     }
   ],
   "pinData": {
@@ -1022,92 +942,6 @@
           "updatedAt": "2025-12-30T11:30:11.311Z"
         }
       }
-    ],
-    "Get pending": [
-      {
-        "json": {
-          "row_number": 2,
-          "id": "CO_APP_4.4.8_2026-01-05\n",
-          "fecha_ejecucion": "",
-          "cuenta_id": "",
-          "tipo_ejecucion": "Nightly",
-          "estado": "Pendiente",
-          "ultimo_intento": "",
-          "pais": "CO",
-          "entorno": "",
-          "query_id": "4.4.8"
-        }
-      },
-      {
-        "json": {
-          "row_number": 3,
-          "id": "CO_APP_4.4.8.2_2026-01-05\n",
-          "fecha_ejecucion": "",
-          "cuenta_id": "",
-          "tipo_ejecucion": "Nightly",
-          "estado": "Pendiente",
-          "ultimo_intento": "",
-          "pais": "CO",
-          "entorno": "",
-          "query_id": "4.4.8.2"
-        }
-      },
-      {
-        "json": {
-          "row_number": 4,
-          "id": "AR_APP_1.1.2_2026-01-05\n",
-          "fecha_ejecucion": "",
-          "cuenta_id": "",
-          "tipo_ejecucion": "Daily",
-          "estado": "Pendiente",
-          "ultimo_intento": "",
-          "pais": "AR",
-          "entorno": "",
-          "query_id": "1.1.2"
-        }
-      },
-      {
-        "json": {
-          "row_number": 5,
-          "id": "AR_APP_1.1.3_2026-01-05\n",
-          "fecha_ejecucion": "",
-          "cuenta_id": "",
-          "tipo_ejecucion": "Daily",
-          "estado": "Pendiente",
-          "ultimo_intento": "",
-          "pais": "AR",
-          "entorno": "",
-          "query_id": "1.1.3"
-        }
-      },
-      {
-        "json": {
-          "row_number": 6,
-          "id": "AR_APP_9.1.0_2026-01-05\n",
-          "fecha_ejecucion": "",
-          "cuenta_id": "",
-          "tipo_ejecucion": "Daily",
-          "estado": "Pendiente",
-          "ultimo_intento": "",
-          "pais": "ALL",
-          "entorno": "",
-          "query_id": "9.1.0"
-        }
-      },
-      {
-        "json": {
-          "row_number": 7,
-          "id": "AR_APP_9.5.1_2026-01-05\n",
-          "fecha_ejecucion": "",
-          "cuenta_id": "",
-          "tipo_ejecucion": "Hourly",
-          "estado": "Pendiente",
-          "ultimo_intento": "",
-          "pais": "AR",
-          "entorno": "APP",
-          "query_id": "9.5.1"
-        }
-      }
     ]
   },
   "settings": {
@@ -1115,16 +949,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-01-05T17:08:43.291Z",
-      "updatedAt": "2026-01-05T17:08:43.291Z",
+      "createdAt": "2026-01-11T14:31:53.177Z",
+      "updatedAt": "2026-01-11T14:31:53.177Z",
       "role": "workflow:owner",
-      "workflowId": "PgLGB0L67zZKIgE8",
+      "workflowId": "ysRfqbMcFNKwxjPo",
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-06T16:31:15.000Z",
-  "versionId": "f6287a83-c70a-4fd7-9503-62b6a650d026"
+  "updatedAt": "2026-01-16T20:58:56.000Z",
+  "versionId": "adf279b1-2d22-4fc5-9421-d9f6f30790f9"
 }
