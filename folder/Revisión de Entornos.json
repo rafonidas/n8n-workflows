@@ -302,7 +302,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 0 7 * * 1-5"
+              "expression": "0 0 5 * * 1-5"
             }
           ]
         }
@@ -736,7 +736,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "{{ $json.revisionQuery }}"
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
       },
       "id": "559e0c07-e66a-4c21-a8c8-d1e3499d6562",
       "name": "SQL Execute",
@@ -986,6 +986,6 @@
   },
   "tags": [],
   "triggerCount": 3,
-  "updatedAt": "2026-01-15T02:56:08.000Z",
-  "versionId": "a13ab30c-437f-4336-9337-6203fb5cd22f"
+  "updatedAt": "2026-01-16T19:49:33.000Z",
+  "versionId": "edfcc68b-5b6b-43f8-8f5a-744a5818a40f"
 }
