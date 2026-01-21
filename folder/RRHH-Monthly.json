@@ -1,0 +1,750 @@
+{
+  "active": true,
+  "connections": {
+    "Check Dates": {
+      "main": [
+        [
+          {
+            "node": "Generate HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Cargar datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate HTML": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cargar datos": {
+      "main": [
+        [
+          {
+            "node": "Check Dates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-14T19:38:09.466Z",
+  "id": "ctYDE7r0xu9FqdXB",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "RRHH-Monthly",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": 24,
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -144,
+        -320
+      ],
+      "id": "8deb70d1-b006-4ca6-bcfe-ce8b80e8397b",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "content": "Se activará los días 25 de cada mes",
+        "height": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -224,
+        -368
+      ],
+      "typeVersion": 1,
+      "id": "faef259d-8408-4bbb-a2b7-239da28a9ae2",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Cargará los datos de los empleados",
+        "height": 240,
+        "width": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        64,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "cbdb31fe-4d66-4b71-94a3-dba4da287753",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "Se fijará la fecha de hoy, puede tomarla del Schedule Trigger y se fijará qué empleados cumplen Años o Aniversario dentro de la empresa en el mes entrante",
+        "height": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        352,
+        -320
+      ],
+      "typeVersion": 1,
+      "id": "0e17c62b-677f-4bc2-9a1a-2e729c42b407",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\n\nconst getNextMonthName = () => new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('es-ES', { month: 'long' }).replace(/^\\w/, c => c.toUpperCase());\n// targetMonth es el índice (0-11) del próximo mes.\nlet targetMonth = now.getMonth() + 1; \nif (targetMonth > 11) {\n    targetMonth = 0; // Si es Diciembre (11), el próximo es Enero (0)\n}\nconst targetMonthName = getNextMonthName();\nconst results = [];\n\n// Función para calcular la diferencia en años (edad o antigüedad)\nconst calculateDifferenceInYears = (eventDate) => {\n    if (!eventDate || isNaN(eventDate.getTime())) return 0;\n    \n    // Obtenemos el año en que el evento ocurrirá (actual o próximo año)\n    const nextEventYear = now.getFullYear() + (targetMonth > now.getMonth() ? 0 : 1);\n    \n    // Calculamos la diferencia simple de años\n    let diffYears = nextEventYear - eventDate.getFullYear();\n    \n    // Nota: Esta lógica asume que si el mes de la fecha registrada (eventDate)\n    // coincide con el targetMonth, la edad calculada por la diferencia de años será la correcta\n    // que tendrá en ese momento, ya que la ejecución está programada antes del evento.\n    // Esto funciona bien para la antigüedad o la edad en el momento del próximo cumpleaños.\n    \n    return diffYears;\n};\n\n// 2. Iterar sobre todos los empleados traidos del nodo anterior\nfor (const item of $input.all()) {\n    const row = item.json;\n\n    const nameField = 'Nombre'; \n    const birthdayDateField = 'BirthdayDate'; \n    const admissionDateField = 'AdmissionDate';\n    const countryField = 'Country'; // Asumiendo que el campo es 'Country'\n\n    const chequearFecha = (fechaString, tipoEvento) => {\n        if (!fechaString) return;\n        \n        const fecha = new Date(fechaString);\n        \n        // Verificar si la fecha es válida\n        if (isNaN(fecha.getTime())) return;\n\n        // Usamos getUTCMonth para evitar problemas de zona horaria con fechas ISO\n        // Comparamos el mes de la fecha guardada con el mes objetivo\n        // Nota: targetMonth es el índice JS (0-11) del próximo mes.\n        if (fecha.getUTCMonth() === targetMonth) {\n            \n            // 1. Calcular la diferencia en años (edad o antigüedad)\n            const diffAños = calculateDifferenceInYears(fecha);\n            const subject = 'años';\n            \n            // 2. Formato de fecha DD/MM/YYYY\n            const datePart = fecha.getUTCDate().toString().padStart(2, '0');\n            const monthPart = (fecha.getUTCMonth() + 1).toString().padStart(2, '0'); // +1 para mes 1-12\n            const yearPart = fecha.getUTCFullYear();\n            const fechaDisplay = `${datePart}/${monthPart}/${yearPart}`;\n\n            // 3. Icono\n            const icono = tipoEvento === 'Cumpleaños' ? '🎂' : '🥇';\n            \n            // 4. Mensaje Completo (Formato deseado: 02/01/1990 | 36 años Nataly Suarez Colombia 🎂 Cumpleaños)\n            const mensajeCompleto = `${fechaDisplay} | ${diffAños} ${subject}`;\n\n\n            results.push({\n                json: {\n                    month: targetMonthName,\n                    nombre: row[nameField],\n                    country: row[countryField] || '',\n                    tipo: tipoEvento,\n                    fecha_display: fechaDisplay, // Nuevo: DD/MM/YYYY (para uso futuro)\n                    fecha_sort_key: fecha.getUTCDate().toString().padStart(2, '0'), // Día (DD) para ordenar en el siguiente nodo\n                    edad_o_antiguedad: diffAños,\n                    mensaje_completo: mensajeCompleto // La cadena formateada final\n                }\n            });\n        }\n    };\n\n    // Chequear Cumpleaños\n    chequearFecha(row[birthdayDateField], 'Cumpleaños');\n\n    // Chequear Aniversario\n    chequearFecha(row[admissionDateField], 'Aniversario');\n}\n\nif (results.length === 0) {\n    return [\n        {\n            json: {\n                mensaje: \"No se encontraron cumpleaños ni aniversarios para el próximo mes.\",\n                hay_eventos: false, // Bandera para identificar que NO hay datos\n                mes_analizado: targetMonthName\n            }\n        }\n    ];\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -144
+      ],
+      "id": "b4aedc03-fe25-4d2e-adb0-e8a879575282",
+      "name": "Check Dates"
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8napg@apg-consulting.com",
+        "toEmail": "nalbanese@apg-consulting.com",
+        "subject": "Aniversarios - Cumpleaños",
+        "html": "={{ $json.html_email }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1056,
+        -144
+      ],
+      "id": "1f012e00-6f84-4521-bbc3-cdc46f933b19",
+      "name": "Send email",
+      "webhookId": "a9ca1981-77e9-463a-bc8f-d3b6043ac29f",
+      "credentials": {
+        "smtp": {
+          "id": "Uw4CpnQjIbsNpVhT",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtenemos todos los items de entrada\nconst items = $input.all();\n\n// 1. Verificamos si es el mensaje de \"No hay eventos\"\nif (items.length > 0 && items[0].json.hay_eventos === false) {\n\tconst mensajeVacio = `\n\t\t<div style=\"font-family: Arial, sans-serif; color: #555; padding: 20px; text-align: center; border: 1px solid #ddd; border-radius: 8px;\">\n\t\t\t<h3>📅 Próximo Mes</h3>\n\t\t\t<p>No hay cumpleaños ni aniversarios registrados para el mes entrante.</p>\n\t\t</div>\n\t`;\n\treturn [{ json: { html_email: mensajeVacio } }];\n}\n\n// 2. Si hay datos, los ordenamos por día (para que el email se vea ordenado cronológicamente)\n// Extraemos el día de la fecha \"2000-12-13\" -> 13\nitems.sort((a, b) => {\n\tconst diaA = parseInt(a.json.fecha_display.split('/')[2]);\n\tconst diaB = parseInt(b.json.fecha_display.split('/')[2]);\n\treturn diaA - diaB;\n});\n\n// 3. Construimos las filas de la tabla HTML\nlet filasHtml = '';\n\nfor (const item of items) {\n\tconst empleado = item.json;\n\t// const dia = empleado.fecha.split('-')[2]; // Ya no se usa solo el día\n\t\n\t// Definimos estilos/iconos según el tipo\n\tlet estiloBadge = '';\n\tlet icono = '';\n\t\n\tif (empleado.tipo === 'Cumpleaños') {\n\t\testiloBadge = 'background-color: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb;'; // Azulito\n\t\ticono = '🎂';\n\t} else {\n\t\testiloBadge = 'background-color: #fff3e0; color: #e65100; border: 1px solid #ffe0b2;'; // Naranja\n\t\ticono = '🥇';\n\t}\n\n\tfilasHtml += `\n\t\t<tr style=\"border-bottom: 1px solid #eee;\">\n\t\t\t<td style=\"padding: 12px; text-align: center; font-weight: bold; color: #333;\">${empleado.mensaje_completo}</td>\n\t\t\t<td style=\"padding: 12px; color: #333;\">${empleado.nombre}</td>\n\t\t\t<td style=\"padding: 12px; text-align: center; color: #333;\">${empleado.country || 'N/A'}</td>\n\t\t\t<td style=\"padding: 12px; text-align: center;\">\n\t\t\t\t<span style=\"display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; ${estiloBadge}\">\n\t\t\t\t\t${icono} ${empleado.tipo}\n\t\t\t\t</span>\n\t\t\t</td>\n\t\t</tr>\n\t`;\n}\n\n// 4. Armamos la estructura completa del HTML\nconst htmlFinal = `\n<div style=\"font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 800px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;\">\n\t\n\t<div style=\"background-color: #4a90e2; color: white; padding: 20px; text-align: center;\">\n\t\t<h2 style=\"margin: 0; font-size: 24px;\">🎉 Celebraciones de Diciembre</h2>\n\t\t<p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Fechas importantes del equipo</p>\n\t</div>\n\n\t<table style=\"width: 100%; border-collapse: collapse; background-color: white;\">\n\t\t<thead>\n\t\t\t<tr style=\"background-color: #f9f9f9; text-transform: uppercase; font-size: 12px; color: #666;\">\n\t\t\t\t<th style=\"padding: 12px; text-align: center; width: 100px;\">Fecha</th>\n\t\t\t\t<th style=\"padding: 12px; text-align: left;\">Colaborador</th>\n\t\t\t\t<th style=\"padding: 12px; text-align: center; width: 100px;\">País</th>\n\t\t\t\t<th style=\"padding: 12px; text-align: center; width: 120px;\">Celebración</th>\n\t\t\t</tr>\n\t\t</thead>\n\t\t<tbody>\n\t\t\t${filasHtml}\n\t\t</tbody>\n\t</table>\n\n\t<div style=\"background-color: #f5f5f5; padding: 10px; text-align: center; font-size: 11px; color: #888;\">\n\t\tReporte generado automáticamente por n8n\n\t</div>\n</div>\n`;\n\n// Devolvemos un solo item con el HTML listo para enviar\nreturn [{ json: { html_email: htmlFinal } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -144
+      ],
+      "id": "b9857ce7-38ca-4888-9e76-ab0693144675",
+      "name": "Generate HTML"
+    },
+    {
+      "parameters": {
+        "content": "Genera el código HTML para el mail\n",
+        "height": 208
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        736,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "31d97209-bf2f-4cb5-9b9f-299afb9fa220",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "ENVÍO DE MAIL\n",
+        "height": 208,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1024,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "d8002eeb-4813-40e2-8fea-2277e58e705b",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "cSs09EiaOhVKa40t",
+          "mode": "list",
+          "cachedResultName": "Nomina_Completa",
+          "cachedResultUrl": "/projects/JCfdNIqoFmwORPL2/datatables/cSs09EiaOhVKa40t"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        112,
+        -144
+      ],
+      "id": "50cc9701-b2a5-41c8-875d-2491c7c7dd05",
+      "name": "Cargar datos"
+    },
+    {
+      "parameters": {
+        "content": "Podríamos guardar los mails que se envían por mes, para no tener que repetir el proceso tantas veces, no hacen falta más de doce, o incluso no hace falta que se corra y haga todo\nSe podría correr 1 vez, recuperar todos los aniversarios, generar el html, guardarlo y enviarlo por mes correspondiente\n",
+        "height": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        400,
+        -672
+      ],
+      "typeVersion": 1,
+      "id": "fafbcc88-602d-4fb5-a23f-71bf04802d58",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {
+    "Cargar datos": [
+      {
+        "json": {
+          "Nombre": "Juan Cruz Bianchini",
+          "Country": "Argentina",
+          "AdmissionDate": "2025-11-03T05:00:00.000Z",
+          "BirthdayDate": "2000-12-13T05:00:00.000Z",
+          "id": 1,
+          "createdAt": "2025-11-14T19:55:49.859Z",
+          "updatedAt": "2025-11-26T18:36:40.652Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Noelia Albanese",
+          "Country": "Argentina",
+          "AdmissionDate": "2025-10-16T05:00:00.000Z",
+          "BirthdayDate": "1993-09-16T05:00:00.000Z",
+          "id": 2,
+          "createdAt": "2025-11-14T19:55:49.868Z",
+          "updatedAt": "2025-11-26T18:36:40.904Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Mariana Otondo",
+          "Country": "Argentina",
+          "AdmissionDate": "2025-10-06T05:00:00.000Z",
+          "BirthdayDate": "1995-03-09T05:00:00.000Z",
+          "id": 3,
+          "createdAt": "2025-11-14T19:55:49.868Z",
+          "updatedAt": "2025-11-26T18:36:41.076Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Nicolas Cabo",
+          "Country": "Argentina",
+          "AdmissionDate": "2025-08-18T05:00:00.000Z",
+          "BirthdayDate": "1985-03-14T05:00:00.000Z",
+          "id": 4,
+          "createdAt": "2025-11-14T19:55:49.869Z",
+          "updatedAt": "2025-11-26T18:36:41.143Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Macarena Cekauskas",
+          "Country": "Argentina",
+          "AdmissionDate": "2025-08-18T05:00:00.000Z",
+          "BirthdayDate": "2003-01-06T05:00:00.000Z",
+          "id": 5,
+          "createdAt": "2025-11-14T19:55:49.870Z",
+          "updatedAt": "2025-11-26T18:36:41.267Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Audrey Barrientos",
+          "Country": "Argentina",
+          "AdmissionDate": "2025-06-18T05:00:00.000Z",
+          "BirthdayDate": "2002-09-24T05:00:00.000Z",
+          "id": 6,
+          "createdAt": "2025-11-14T19:55:49.870Z",
+          "updatedAt": "2025-11-26T18:36:41.353Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Delfina Schlossberg",
+          "Country": "Argentina",
+          "AdmissionDate": "2024-05-06T05:00:00.000Z",
+          "BirthdayDate": "1998-01-17T05:00:00.000Z",
+          "id": 7,
+          "createdAt": "2025-11-14T19:55:49.871Z",
+          "updatedAt": "2025-11-26T18:36:41.416Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Veronica Paz",
+          "Country": "Argentina",
+          "AdmissionDate": "2022-07-04T05:00:00.000Z",
+          "BirthdayDate": "1985-09-03T05:00:00.000Z",
+          "id": 8,
+          "createdAt": "2025-11-14T19:55:49.872Z",
+          "updatedAt": "2025-11-26T18:36:41.520Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Diego Peña",
+          "Country": "Argentina",
+          "AdmissionDate": "2020-11-09T05:00:00.000Z",
+          "BirthdayDate": "1978-12-07T05:00:00.000Z",
+          "id": 9,
+          "createdAt": "2025-11-14T19:55:49.874Z",
+          "updatedAt": "2025-11-26T18:36:41.759Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Azul Danae Domini",
+          "Country": "Argentina",
+          "AdmissionDate": "2019-06-24T05:00:00.000Z",
+          "BirthdayDate": "1997-07-05T05:00:00.000Z",
+          "id": 10,
+          "createdAt": "2025-11-14T19:55:49.877Z",
+          "updatedAt": "2025-11-26T18:36:41.872Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Claudia Carolina Quinta",
+          "Country": "Argentina",
+          "AdmissionDate": "2019-06-03T05:00:00.000Z",
+          "BirthdayDate": "1982-01-12T05:00:00.000Z",
+          "id": 11,
+          "createdAt": "2025-11-14T19:55:49.877Z",
+          "updatedAt": "2025-11-26T18:36:41.950Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Valentina Maza",
+          "Country": "Argentina",
+          "AdmissionDate": "2019-02-06T05:00:00.000Z",
+          "BirthdayDate": "1991-03-10T05:00:00.000Z",
+          "id": 12,
+          "createdAt": "2025-11-14T19:55:49.878Z",
+          "updatedAt": "2025-11-26T18:36:42.038Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Andrea Ravenna",
+          "Country": "Argentina",
+          "AdmissionDate": "2018-10-01T05:00:00.000Z",
+          "BirthdayDate": "1997-08-22T05:00:00.000Z",
+          "id": 13,
+          "createdAt": "2025-11-14T19:55:49.879Z",
+          "updatedAt": "2025-11-26T18:36:42.128Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Andrea Prieto",
+          "Country": "Argentina",
+          "AdmissionDate": "2016-07-01T05:00:00.000Z",
+          "BirthdayDate": "1985-08-10T05:00:00.000Z",
+          "id": 14,
+          "createdAt": "2025-11-14T19:55:49.880Z",
+          "updatedAt": "2025-11-26T18:36:42.219Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Simon Dorfman",
+          "Country": "Argentina",
+          "AdmissionDate": "2011-05-01T05:00:00.000Z",
+          "BirthdayDate": "1980-02-23T05:00:00.000Z",
+          "id": 15,
+          "createdAt": "2025-11-14T19:55:49.880Z",
+          "updatedAt": "2025-11-26T18:36:42.361Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Matías Piloni",
+          "Country": "Argentina",
+          "AdmissionDate": "2012-11-01T05:00:00.000Z",
+          "BirthdayDate": "1989-01-16T05:00:00.000Z",
+          "id": 16,
+          "createdAt": "2025-11-14T19:55:49.881Z",
+          "updatedAt": "2025-11-26T18:36:42.498Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Martin Benitez",
+          "Country": "Argentina",
+          "AdmissionDate": "1995-02-01T05:00:00.000Z",
+          "BirthdayDate": "1978-02-26T05:00:00.000Z",
+          "id": 17,
+          "createdAt": "2025-11-14T19:55:49.882Z",
+          "updatedAt": "2025-11-26T18:36:42.633Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Matías Cherepinsky",
+          "Country": "Argentina",
+          "AdmissionDate": "2005-06-01T05:00:00.000Z",
+          "BirthdayDate": "1985-10-11T05:00:00.000Z",
+          "id": 18,
+          "createdAt": "2025-11-14T19:55:49.882Z",
+          "updatedAt": "2025-11-26T18:36:42.718Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Ezequiel Gulman",
+          "Country": "Argentina",
+          "AdmissionDate": "1994-12-01T05:00:00.000Z",
+          "BirthdayDate": "1974-04-06T05:00:00.000Z",
+          "id": 19,
+          "createdAt": "2025-11-14T19:55:49.883Z",
+          "updatedAt": "2025-11-26T18:36:42.821Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Matilde Alculumbre",
+          "Country": "Argentina",
+          "AdmissionDate": "1994-05-12T05:00:00.000Z",
+          "BirthdayDate": "1955-02-27T05:00:00.000Z",
+          "id": 20,
+          "createdAt": "2025-11-14T19:55:49.884Z",
+          "updatedAt": "2025-11-26T18:36:43.269Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Carlos Rolando",
+          "Country": "Argentina",
+          "AdmissionDate": "2004-01-13T05:00:00.000Z",
+          "BirthdayDate": "1961-09-05T05:00:00.000Z",
+          "id": 21,
+          "createdAt": "2025-11-14T19:55:49.885Z",
+          "updatedAt": "2025-11-26T18:36:43.455Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Juan Pablo Cordero",
+          "Country": "Bolivia",
+          "AdmissionDate": "2022-07-01T05:00:00.000Z",
+          "BirthdayDate": "1980-06-26T05:00:00.000Z",
+          "id": 22,
+          "createdAt": "2025-11-14T19:55:49.885Z",
+          "updatedAt": "2025-11-26T18:36:43.743Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Wilson Molina",
+          "Country": "Bolivia",
+          "AdmissionDate": "2022-05-19T05:00:00.000Z",
+          "BirthdayDate": "1973-01-29T05:00:00.000Z",
+          "id": 23,
+          "createdAt": "2025-11-14T19:55:49.886Z",
+          "updatedAt": "2025-11-26T18:36:43.842Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "William Peña",
+          "Country": "Bolivia",
+          "AdmissionDate": "2021-04-05T05:00:00.000Z",
+          "BirthdayDate": "1997-01-06T05:00:00.000Z",
+          "id": 24,
+          "createdAt": "2025-11-14T19:55:49.887Z",
+          "updatedAt": "2025-11-26T18:36:43.975Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "German Suarez",
+          "Country": "Bolivia",
+          "AdmissionDate": "2020-11-01T05:00:00.000Z",
+          "BirthdayDate": "1972-09-23T05:00:00.000Z",
+          "id": 25,
+          "createdAt": "2025-11-14T19:55:49.887Z",
+          "updatedAt": "2025-11-26T18:36:44.051Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Lucas Vallejo",
+          "Country": "Bolivia",
+          "AdmissionDate": "2019-10-01T05:00:00.000Z",
+          "BirthdayDate": "1989-04-23T05:00:00.000Z",
+          "id": 26,
+          "createdAt": "2025-11-14T19:55:49.888Z",
+          "updatedAt": "2025-11-26T18:36:44.125Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Zaida Ruiz",
+          "Country": "Colombia",
+          "AdmissionDate": "2024-12-23T05:00:00.000Z",
+          "BirthdayDate": "1990-04-25T05:00:00.000Z",
+          "id": 27,
+          "createdAt": "2025-11-14T19:55:49.889Z",
+          "updatedAt": "2025-11-26T18:36:44.200Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Jose Luis Cubillos",
+          "Country": "Colombia",
+          "AdmissionDate": "2022-06-15T05:00:00.000Z",
+          "BirthdayDate": "1993-06-11T05:00:00.000Z",
+          "id": 28,
+          "createdAt": "2025-11-14T19:55:49.889Z",
+          "updatedAt": "2025-11-26T18:36:44.295Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Tania Beltan",
+          "Country": "Colombia",
+          "AdmissionDate": "2022-11-11T05:00:00.000Z",
+          "BirthdayDate": "1991-11-08T05:00:00.000Z",
+          "id": 29,
+          "createdAt": "2025-11-14T19:55:49.890Z",
+          "updatedAt": "2025-11-26T18:36:44.650Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Julian Mateo Jimenez Sanchez",
+          "Country": "Colombia",
+          "AdmissionDate": "2022-02-15T05:00:00.000Z",
+          "BirthdayDate": "1996-04-21T05:00:00.000Z",
+          "id": 30,
+          "createdAt": "2025-11-14T19:55:49.891Z",
+          "updatedAt": "2025-11-26T18:36:44.852Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Tatiana Gutiérrez",
+          "Country": "Colombia",
+          "AdmissionDate": "2021-05-18T05:00:00.000Z",
+          "BirthdayDate": "1995-01-30T05:00:00.000Z",
+          "id": 31,
+          "createdAt": "2025-11-14T19:55:49.891Z",
+          "updatedAt": "2025-11-26T18:36:45.046Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Angie Palomeque",
+          "Country": "Colombia",
+          "AdmissionDate": "2020-11-30T05:00:00.000Z",
+          "BirthdayDate": "1993-09-16T05:00:00.000Z",
+          "id": 32,
+          "createdAt": "2025-11-14T19:55:49.892Z",
+          "updatedAt": "2025-11-26T18:36:45.169Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Jader Sanchez",
+          "Country": "Colombia",
+          "AdmissionDate": "2019-06-04T05:00:00.000Z",
+          "BirthdayDate": "1972-05-11T05:00:00.000Z",
+          "id": 33,
+          "createdAt": "2025-11-14T19:55:49.892Z",
+          "updatedAt": "2025-11-26T18:36:45.250Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Alexander Navarro",
+          "Country": "Colombia",
+          "AdmissionDate": "2019-06-06T05:00:00.000Z",
+          "BirthdayDate": "1975-07-09T05:00:00.000Z",
+          "id": 34,
+          "createdAt": "2025-11-14T19:55:49.896Z",
+          "updatedAt": "2025-11-26T18:36:45.408Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Vanessa Rodriguez",
+          "Country": "Colombia",
+          "AdmissionDate": "2018-09-20T05:00:00.000Z",
+          "BirthdayDate": "1994-11-23T05:00:00.000Z",
+          "id": 35,
+          "createdAt": "2025-11-14T19:55:49.897Z",
+          "updatedAt": "2025-11-26T18:36:45.883Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Nataly Suarez",
+          "Country": "Colombia",
+          "AdmissionDate": "2018-05-21T05:00:00.000Z",
+          "BirthdayDate": "1990-01-02T05:00:00.000Z",
+          "id": 36,
+          "createdAt": "2025-11-14T19:55:49.898Z",
+          "updatedAt": "2025-11-26T18:36:46.143Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Juan José Parada",
+          "Country": "Colombia",
+          "AdmissionDate": "2017-12-15T05:00:00.000Z",
+          "BirthdayDate": "1983-10-07T05:00:00.000Z",
+          "id": 37,
+          "createdAt": "2025-11-14T19:55:49.900Z",
+          "updatedAt": "2025-11-26T18:36:46.312Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Ivan Rodríguez",
+          "Country": "Colombia",
+          "AdmissionDate": "2017-05-23T05:00:00.000Z",
+          "BirthdayDate": "1982-04-22T05:00:00.000Z",
+          "id": 38,
+          "createdAt": "2025-11-14T19:55:49.902Z",
+          "updatedAt": "2025-11-26T18:36:46.485Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "John Arevalo",
+          "Country": "España",
+          "AdmissionDate": "2020-11-23T05:00:00.000Z",
+          "BirthdayDate": "1978-11-26T05:00:00.000Z",
+          "id": 39,
+          "createdAt": "2025-11-14T19:55:49.903Z",
+          "updatedAt": "2025-11-26T18:36:46.860Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Guiancarlo Luna",
+          "Country": "Peru",
+          "AdmissionDate": "2022-04-18T05:00:00.000Z",
+          "BirthdayDate": "1994-11-19T05:00:00.000Z",
+          "id": 40,
+          "createdAt": "2025-11-14T19:55:49.904Z",
+          "updatedAt": "2025-11-26T18:36:47.216Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Eduardo Canizales",
+          "Country": "Peru",
+          "AdmissionDate": "2021-03-15T05:00:00.000Z",
+          "BirthdayDate": "1983-09-25T05:00:00.000Z",
+          "id": 41,
+          "createdAt": "2025-11-14T19:55:49.908Z",
+          "updatedAt": "2025-11-26T18:36:47.399Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Ronald Garcia",
+          "Country": "Peru",
+          "AdmissionDate": "2019-01-11T05:00:00.000Z",
+          "BirthdayDate": "1983-04-30T05:00:00.000Z",
+          "id": 42,
+          "createdAt": "2025-11-14T19:55:49.911Z",
+          "updatedAt": "2025-11-26T18:36:47.623Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Roberto Marcano",
+          "Country": "Peru",
+          "AdmissionDate": "2018-07-16T05:00:00.000Z",
+          "BirthdayDate": "1982-05-01T05:00:00.000Z",
+          "id": 43,
+          "createdAt": "2025-11-14T19:55:49.912Z",
+          "updatedAt": "2025-11-26T18:36:47.819Z"
+        }
+      },
+      {
+        "json": {
+          "Nombre": "Gian Giorgio De Gennaro",
+          "Country": "Peru",
+          "AdmissionDate": "2016-09-01T05:00:00.000Z",
+          "BirthdayDate": "1965-11-22T05:00:00.000Z",
+          "id": 44,
+          "createdAt": "2025-11-14T19:55:49.912Z",
+          "updatedAt": "2025-11-26T18:36:48.229Z"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-11-14T19:38:09.493Z",
+      "updatedAt": "2025-11-14T19:38:09.493Z",
+      "role": "workflow:owner",
+      "workflowId": "ctYDE7r0xu9FqdXB",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-01-20T16:22:25.000Z",
+  "versionId": "0e87e44f-d89d-499b-88d1-2fa47640beef"
+}
