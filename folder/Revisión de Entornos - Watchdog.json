@@ -1,17 +1,6 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
-    "Monthly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Get pending",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Get pending": {
       "main": [
         [
@@ -73,6 +62,17 @@
           }
         ]
       ]
+    },
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get pending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-11T14:31:53.174Z",
@@ -95,23 +95,6 @@
       "typeVersion": 1,
       "id": "121ab24b-bdd8-4f7c-a32b-c09849f343fb",
       "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {}
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -528,
-        816
-      ],
-      "id": "d7deaf3e-239f-4b96-9616-cd913e4533c3",
-      "name": "Monthly Trigger"
     },
     {
       "parameters": {
@@ -196,7 +179,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const rows = $input.all();\nconst totalEsperado = 17; // Tu número de entornos totales\nconst pendientes = rows.filter(r => r.json.Estado === 'PENDIENTE');\nconst oks = rows.filter(r => r.json.Estado === 'OK');\n\n// Escenario 1: No hay nada escrito hoy (Fallo total antes de empezar)\nif (rows.length === 0) {\n    return { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'No hay registros de hoy' };\n}\n\n// Escenario 2: Todos están pendientes (Murió justo después de inicializar)\nif (pendientes.length === rows.length && rows.length > 0) {\n    return { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'Todo pendiente, relanzar desde cero' };\n}\n\n// Escenario 3: Hay algunos OK y algunos PENDIENTES (Murió a la mitad)\nif (pendientes.length > 0 && oks.length > 0) {\n    return { \n        escenario: 'EJECUTAR_ERROR_HANDLER', \n        pendientes: pendientes.map(p => p.json),\n        motivo: `Faltan ${pendientes.length} entornos` \n    };\n}\n\n// Escenario 4: Todos están OK\nif (oks.length >= totalEsperado) {\n    return { escenario: 'DETENER', motivo: 'Todo completado con éxito' };\n}\n\nreturn { escenario: 'DETENER', motivo: 'Estado indeterminado o todo OK parcial' };"
+        "jsCode": "const rows = $input.all();\nconst totalEsperado = 17; // Tu número de entornos totales\nconst pendientes = rows.filter(r => r.json.Estado === 'PENDIENTE');\nconst oks = rows.filter(r => r.json.Estado === 'OK');\n\n// Escenario 1: No hay nada escrito hoy (Fallo total antes de empezar)\nif (rows.length === 0) {\n    return { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'No hay registros de hoy' };\n}\n\n// Escenario 2: Todos están pendientes (Murió justo después de inicializar)\nif (pendientes.length === rows.length && rows.length > 0) {\n    return { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'Todo pendiente, relanzar desde cero' };\n}\n\n// Escenario 3: Hay algunos OK y algunos PENDIENTES (Murió a la mitad)\nif (pendientes.length > 0 && oks.length > 0) {\n    return { \n        escenario: 'EJECUTAR_ERROR_HANDLER', \n        pendientes: pendientes.map(p => p.json),\n        motivo: `Faltan ${pendientes.length} entornos` \n    };\n}\n\n// Escenario 4: Todos están OK\nif (oks.length >= totalEsperado) {\n    return { escenario: 'DETENER', motivo: 'Todo completado con éxito' };\n}\n\nreturn { escenario: 'EJECUTAR_PRINCIPAL', motivo: 'No se ejecutó el flujo.' };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -296,10 +279,10 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "ABtvnJIXyOxaiexU",
+          "value": "3Bmd3g640coLDTeO",
           "mode": "list",
-          "cachedResultUrl": "/workflow/ABtvnJIXyOxaiexU",
-          "cachedResultName": "copy revision de entornos"
+          "cachedResultUrl": "/workflow/3Bmd3g640coLDTeO",
+          "cachedResultName": "Revisión de Entornos"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -324,10 +307,10 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "value": "ABtvnJIXyOxaiexU",
+          "value": "3Bmd3g640coLDTeO",
           "mode": "list",
-          "cachedResultUrl": "/workflow/ABtvnJIXyOxaiexU",
-          "cachedResultName": "copy revision de entornos"
+          "cachedResultUrl": "/workflow/3Bmd3g640coLDTeO",
+          "cachedResultName": "Revisión de Entornos"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -360,6 +343,26 @@
       ],
       "id": "c15218e4-9649-4ecc-ae2f-2ccab123897f",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -528,
+        816
+      ],
+      "id": "d7deaf3e-239f-4b96-9616-cd913e4533c3",
+      "name": "Daily Trigger"
     }
   ],
   "pinData": {
@@ -956,9 +959,13 @@
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Daily Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-01-16T20:58:56.000Z",
-  "versionId": "adf279b1-2d22-4fc5-9421-d9f6f30790f9"
+  "triggerCount": 1,
+  "updatedAt": "2026-01-20T16:20:47.000Z",
+  "versionId": "35eeedc5-ef46-4243-ae1e-1e52ce3d8fd8"
 }
