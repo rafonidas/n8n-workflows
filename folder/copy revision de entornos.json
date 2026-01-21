@@ -412,7 +412,7 @@
             }
           ]
         },
-        "returnAll": true
+        "limit": 1
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
@@ -438,8 +438,7 @@
         640
       ],
       "id": "d1043eae-bc35-4588-890d-0fe42473bb32",
-      "name": "Credentials Loop",
-      "disabled": true
+      "name": "Credentials Loop"
     },
     {
       "parameters": {
@@ -801,7 +800,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "30 9 * * 1-5 comando"
+              "expression": "30 9 * * 1-5"
             }
           ]
         }
@@ -951,7 +950,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
+        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\nif (executionType !== \"Daily\") {\n  return null;\n}\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1286,9 +1285,19 @@
       "projectId": "JCfdNIqoFmwORPL2"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Daily Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Four-hourly Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-01-19T13:31:48.000Z",
-  "versionId": "aeb2dac9-54b0-4ef4-9af8-905bd64ba1d9"
+  "triggerCount": 3,
+  "updatedAt": "2026-01-20T16:13:19.000Z",
+  "versionId": "911ee850-85e4-4b7f-b034-28a074f3aadb"
 }
