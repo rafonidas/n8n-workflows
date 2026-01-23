@@ -27,11 +27,16 @@
           }
         ]
       ]
+    },
+    "Get row(s)": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2026-01-13T00:16:49.688Z",
   "id": "OzCVUbUz3V5ZZ0hW",
-  "isArchived": false,
+  "isArchived": true,
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -214,6 +219,45 @@
       ],
       "id": "c0bba9a3-71d0-4c45-a843-6b0bad785fc4",
       "name": "Code in Python (Beta)"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "=ncHyc8XHByDgMhAr",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        240,
+        240
+      ],
+      "id": "189021ba-a1d4-44c9-adeb-dde1e953b042",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    CONCAT(\n        'update usuario set ',\n        'ErrorAplicacion=1, DescargaComprobantes=1, DescargaComprobantesOtrosEmisores=1, ModificacionRolesUsuarios=1 ',\n        'where EsAdministrador=0 and (ErrorAplicacion=1 or DescargaComprobantes=1 or DescargaComprobantesOtrosEmisores=1 or ModificacionRolesUsuarios=1 )'\n    ) AS UpdateQuery, \n    COUNT(*) AS TotalRegistros\nFROM usuario WITH(NOLOCK)\nWHERE EsAdministrador = 0 \n  AND (\n      ErrorAplicacion = 1 \n      OR DescargaComprobantes = 1 \n      OR DescargaComprobantesOtrosEmisores = 1 \n      OR ModificacionRolesUsuarios = 1\n  )\nHAVING COUNT(*) > 0;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        544,
+        -160
+      ],
+      "id": "785d2243-beea-4135-9a27-5cf6c7eef190",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -232,6 +276,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-15T03:39:59.000Z",
-  "versionId": "e8ad0afc-cc08-40ed-93ad-e261f13c659b"
+  "updatedAt": "2026-01-22T17:59:27.000Z",
+  "versionId": "aa419d38-493a-4b1e-ab29-e3230fa59f46"
 }
