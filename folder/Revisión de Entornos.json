@@ -372,7 +372,6 @@
       "id": "b0645a99-b6de-4d7e-9f5a-2ed90d1d8174",
       "name": "Daily Trigger",
       "alwaysOutputData": true,
-      "disabled": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
     },
     {
@@ -1328,7 +1327,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2026-01-20T20:33:36.000Z",
-  "versionId": "b0ccd945-fb37-4e3e-808e-6400c1745441"
+  "triggerCount": 3,
+  "updatedAt": "2026-01-22T14:11:45.000Z",
+  "versionId": "bc702fd6-02f3-4344-80ff-419082544dd5"
 }
