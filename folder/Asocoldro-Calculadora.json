@@ -1,0 +1,28 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2026-01-22T18:15:10.832Z",
+  "id": "BgA588PyqRyxNXNL",
+  "isArchived": false,
+  "meta": null,
+  "name": "Asocoldro-Calculadora",
+  "nodes": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-22T18:15:10.834Z",
+      "updatedAt": "2026-01-22T18:15:10.834Z",
+      "role": "workflow:owner",
+      "workflowId": "BgA588PyqRyxNXNL",
+      "projectId": "JCfdNIqoFmwORPL2"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-22T18:15:10.832Z",
+  "versionId": "94520f14-02f6-4e13-97da-bdc5b3fd4f15"
+}
