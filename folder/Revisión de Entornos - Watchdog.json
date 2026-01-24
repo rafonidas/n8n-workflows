@@ -116,7 +116,7 @@
           "values": [
             {
               "lookupColumn": "Fecha",
-              "lookupValue": "={{ $now.format('dd/L/yyyy') }}"
+              "lookupValue": "={{ $now.format('yyyy-LL-dd') }}"
             },
             {
               "lookupColumn": "Frecuencia",
@@ -124,7 +124,6 @@
             }
           ]
         },
-        "combineFilters": "OR",
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
@@ -971,6 +970,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-01-21T11:58:08.000Z",
-  "versionId": "78ef096e-1729-4990-85b8-03bfec6cc46d"
+  "updatedAt": "2026-01-23T14:44:19.000Z",
+  "versionId": "ec07d5c6-f16d-4193-b902-5ad2550f7426"
 }
