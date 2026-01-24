@@ -1,12 +1,264 @@
 {
   "active": false,
-  "connections": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
   "createdAt": "2026-01-22T18:13:49.850Z",
   "id": "jbKgXRGZ8YK1IRof",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Asocoldro-Router",
-  "nodes": [],
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -448,
+        16
+      ],
+      "id": "43e810ad-06a1-48a0-927a-b2971a57a728",
+      "name": "When chat message received",
+      "webhookId": "ca3c8f67-292a-4873-b641-6d58597508f2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "ERES: Un clasificador de intenciones para un flujo de automatización de APG Consulting.\nTU TAREA: Analizar el mensaje del usuario y clasificarlo en UNA de las siguientes 4 categorías.\nTU SALIDA: Debe ser EXCLUSIVAMENTE un objeto JSON con el formato: {\"categoria\": \"NOMBRE_CATEGORIA\", \"razon\": \"Breve explicación\"}\n\nCATEGORÍAS Y REGLAS DE LÓGICA:\n\n1. \"SOPORTE_TECNICO\"\n   - DETECTOR: El usuario menciona errores, fallos, bugs, o pide ayuda técnica/reparación.\n   - REGLA: Prioridad alta sobre cotización.\n\n2. \"SOFTWARE_NO_COMPATIBLE\"\n   - DETECTOR: El usuario menciona explícitamente que usa un software diferente a \"Dominium\" (ej: SAP, Oracle, Excel, software propio).\n   - REGLA: Si el software NO es Dominium, cae aquí inmediatamente.\n\n3. \"INTENCION_COTIZAR\"\n   - DETECTOR: El usuario quiere precios, contratar, saber costos o información sobre facturación electrónica.\n   - CONDICIÓN: No menciona software externo (o menciona explícitamente \"Dominium\") y no pide soporte técnico.\n\n4. \"GENERAL\"\n   - DETECTOR: Saludos, preguntas fuera de contexto, o input que no encaja en las anteriores.\n\n---\nEJEMPLOS DE ENTRENAMIENTO (Few-Shot):\n\nUsuario: \"Hola, mi facturación no está enviando los correos, me da error 500.\"\nAsistente: {\"categoria\": \"SOPORTE_TECNICO\", \"razon\": \"Reporte de error técnico.\"}\n\nUsuario: \"Quiero saber cuánto cuesta el servicio para mi empresa que usa SAP Business One.\"\nAsistente: {\"categoria\": \"SOFTWARE_NO_COMPATIBLE\", \"razon\": \"Usa SAP, diferente a Dominium.\"}\n\nUsuario: \"Necesito cotizar facturación electrónica para Dominium.\"\nAsistente: {\"categoria\": \"INTENCION_COTIZAR\", \"razon\": \"Solicitud de precio con software correcto.\"}\n\nUsuario: \"Hola, buenos días.\"\nAsistente: {\"categoria\": \"GENERAL\", \"razon\": \"Saludo sin intención clara.\"}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        16
+      ],
+      "id": "6ee23b3c-c341-4b70-ae40-d04995391757",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.0-flash-exp:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        208
+      ],
+      "id": "9b458b26-b249-41eb-88f7-5b1aacb1e3ad",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "rjHN8SxV6XIropxf",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        208
+      ],
+      "id": "e145927a-d588-439d-9f13-72cae77bf27b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        -304,
+        -176
+      ],
+      "id": "ea978991-7b95-4f66-b85f-2306701b7516",
+      "name": "Send message",
+      "webhookId": "5eb5dc66-a6e2-495b-be79-b60872da7166",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        -128
+      ],
+      "id": "e48ed9c5-e81c-445d-a233-36374d80c9bf",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e2c7a9c7-17ea-4d07-b46c-e1908dee1aab"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "02b455b4-06ec-4d49-89b6-496fd5ecbeec",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6a7073c8-1400-4939-8408-462d508b5bfa",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "be75b6e3-092b-4d37-a3bc-8654dec823be",
+      "name": "Switch"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        -128
+      ],
+      "id": "69bc46fa-ad91-4506-a4d7-dc80a1da18a4",
+      "name": "Send template",
+      "webhookId": "40450e21-ab54-47bc-8103-67560e054182",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia"
+        }
+      }
+    }
+  ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1"
@@ -23,6 +275,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-22T18:13:49.850Z",
-  "versionId": "2c43e593-cec0-41a6-8aef-568a72351154"
+  "updatedAt": "2026-01-23T20:54:27.000Z",
+  "versionId": "0514cc90-3e9c-4c43-8009-cb1ae35d8ad2"
 }
