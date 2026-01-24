@@ -1178,7 +1178,7 @@
     },
     {
       "parameters": {
-        "operation": "appendOrUpdate",
+        "operation": "update",
         "documentId": {
           "__rl": true,
           "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
@@ -1272,6 +1272,17 @@
               "type": "string",
               "canBeUsedToMatch": true,
               "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -1328,6 +1339,6 @@
   },
   "tags": [],
   "triggerCount": 3,
-  "updatedAt": "2026-01-22T14:11:45.000Z",
-  "versionId": "bc702fd6-02f3-4344-80ff-419082544dd5"
+  "updatedAt": "2026-01-23T23:44:49.000Z",
+  "versionId": "8cec1aa5-b45f-42e2-83db-cb04d95a49c4"
 }
