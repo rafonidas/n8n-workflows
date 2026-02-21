@@ -1,0 +1,392 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Configuracion (Env + Fecha)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuracion (Env + Fecha)": {
+      "main": [
+        [
+          {
+            "node": "Loop x Ambiente2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop x Ambiente2": {
+      "main": [
+        [
+          {
+            "node": "Reinyectar memoria",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Descomprimir ZIP (Blindado)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descomprimir ZIP (Blindado)": {
+      "main": [
+        [
+          {
+            "node": "Grep MailFrom/MailTo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grep MailFrom/MailTo": {
+      "main": [
+        [
+          {
+            "node": "Parsear salida grep",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear salida grep": {
+      "main": [
+        [
+          {
+            "node": "Extraer Conteo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Conteo": {
+      "main": [
+        [
+          {
+            "node": "Preparar filas CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar filas CSV": {
+      "main": [
+        [
+          {
+            "node": "Convertir a Binario (CSV)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convertir a Binario (CSV)": {
+      "main": [
+        [
+          {
+            "node": "Guardar CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar CSV": {
+      "main": [
+        [
+          {
+            "node": "Eliminar Carpeta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Eliminar Carpeta": {
+      "main": [
+        [
+          {
+            "node": "Loop x Ambiente2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar Reporte HTML": {
+      "main": [
+        [
+          {
+            "node": "Notificar en Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reinyectar memoria": {
+      "main": [
+        [
+          {
+            "node": "Generar Reporte HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-24T18:07:19.535Z",
+  "id": "nemgxv8ZPSExYNDJ",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5e0521c5-b400-41f6-9568-b16de19c5de5",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1) Configuración de Ambientes y Fecha\nconst environments = ['AR','BO','CO','CO2','CO3','EC','PE'];\nconst folderName = '2025_10';\n\n// Inicializar objeto global de estadísticas\nconst globalStats = {};\nenvironments.forEach(env => { globalStats[env] = 0; });\n\nreturn environments.map(env => ({\n  json: {\n    env,\n    zipName: folderName,\n    basePath: `/files_host/XML_Mails_error/${env}`,\n    global_stats: globalStats\n  }\n}));"
+      },
+      "id": "fbcc1c30-b479-40fb-9348-87a3ec448bfe",
+      "name": "Configuracion (Env + Fecha)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {}
+      },
+      "id": "6535ee58-5411-4d6d-bac8-9af2056d1721",
+      "name": "Loop x Ambiente2",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -816,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=FILE=\"{{ $json.basePath }}/{{ $json.zipName }}.zip\"; DIR=\"{{ $json.basePath }}/{{ $json.zipName }}\"; rm -rf \"$DIR\"; [ -f \"$FILE\" ] && unzip -o \"$FILE\" -d \"$DIR\" || echo \"SKIP_UNZIP_FAILED_OR_NO_FILE\""
+      },
+      "id": "57488040-ec15-4759-a6c1-b7d7ed3ad946",
+      "name": "Descomprimir ZIP (Blindado)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        64
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "=DIR=\"{{ $('Loop x Ambiente2').first().json.basePath }}/{{ $('Loop x Ambiente2').first().json.zipName }}\"; [ -d \"$DIR\" ] && grep -r -H -o -E \"<MailFrom>[^<]*</MailFrom>|<MailTo>[^<]*</MailTo>\" \"$DIR\" || true"
+      },
+      "id": "b7f5d1bd-4d4f-41e3-aadd-54711b12e049",
+      "name": "Grep MailFrom/MailTo",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        64
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsear salida de grep con manejo de errores y persistencia global\ntry {\n  const env = items[0].json.env;\n  const basePath = items[0].json.basePath;\n  const stdout = items[0].json.stdout || '';\n  const globalStats = items[0].json.global_stats;\n\n  if (!stdout || stdout.includes('SKIP') || stdout.trim() === '') {\n    return [{ json: { env, basePath, files: [], global_stats: globalStats } }];\n  }\n\n  const lines = stdout.split('\\n').filter(l => l.trim() !== '');\n  const byFile = new Map();\n\n  for (const line of lines) {\n    const colonIndex = line.indexOf(':');\n    if (colonIndex === -1) continue;\n    const filePath = line.slice(0, colonIndex);\n    const match = line.slice(colonIndex + 1);\n\n    const cleanPath = filePath.replace(/\\\\/g, '/');\n    const entry = byFile.get(cleanPath) || { filePath: cleanPath, MailFrom: [], MailTo: [] };\n\n    if (match.includes('<MailFrom>')) {\n      const val = (match.match(/<MailFrom>([^<]*)<\\/MailFrom>/i) || [])[1] || '';\n      entry.MailFrom.push(val);\n    } else if (match.includes('<MailTo>')) {\n      const val = (match.match(/<MailTo>([^<]*)<\\/MailTo>/i) || [])[1] || '';\n      entry.MailTo.push(val);\n    }\n    byFile.set(cleanPath, entry);\n  }\n\n  const consolidated = Array.from(byFile.values()).map(r => ({\n    env,\n    basePath,\n    archivo: r.filePath.split('/').pop(),\n    MailFrom: r.MailFrom.length ? r.MailFrom[0] : 'NO_ENCONTRADO',\n    MailTo: r.MailTo.length ? r.MailTo[0] : 'NO_ENCONTRADO'\n  }));\n\n  return [{ json: { env, basePath, files: consolidated, global_stats: globalStats } }];\n\n} catch (error) {\n  const envCatch = items[0].json.env || 'Unknown';\n  const globalStats = items[0].json.global_stats || {};\n  return [{ json: { env: envCatch, files: [], error: `Error grave al parsear: ${error.message}`, global_stats: globalStats } }];\n}"
+      },
+      "id": "3ba6c22b-1a7c-497d-b288-7f002db9af38",
+      "name": "Parsear salida grep",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Actualizar memoria global con conteo por ambiente\nconst payload = items[0].json;\nconst previousStats = payload.global_stats || {};\nconst env = payload.env;\nconst files = payload.files || [];\nconst currentStats = { ...previousStats };\ncurrentStats[env] = files.length;\nreturn [{ json: { env, files, global_stats: currentStats } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        80,
+        64
+      ],
+      "id": "94382989-aed4-45e5-b010-061c2dd4a700",
+      "name": "Extraer Conteo"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Expandir filas para CSV y mantener global_stats en el primer item\nconst payload = items[0].json;\nconst rows = (payload.files || []).map(f => ({ json: { Archivo: f.archivo, MailFrom: f.MailFrom, MailTo: f.MailTo, Ambiente: payload.env } }));\nif (!rows.length) {\n  return [{ json: { Archivo: 'SIN_ZIP_O_CARPETA_VACIA', MailFrom: '-', MailTo: '-', Ambiente: payload.env, global_stats: payload.global_stats } }];\n}\nrows[0].json.global_stats = payload.global_stats;\nreturn rows;"
+      },
+      "id": "d6d356de-9775-4c1e-bc0d-105f4448b179",
+      "name": "Preparar filas CSV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "csv",
+        "options": {
+          "fileName": "temp_report.csv"
+        }
+      },
+      "id": "abb86ce7-5bf0-485a-b3e4-da50afa09acd",
+      "name": "Convertir a Binario (CSV)",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        528,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/files_host/XML_Mails_error/Resultados/Reporte_{{ $json.Ambiente || $('Loop x Ambiente2').first().json.env }}_{{ $('Loop x Ambiente2').first().json.zipName }}_{{ new Date().getTime() }}.csv",
+        "options": {}
+      },
+      "id": "9b90b818-17f3-434e-b9b2-2a3cd87f7803",
+      "name": "Guardar CSV",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        752,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=rm -rf \"{{ $('Loop x Ambiente2').first().json.basePath }}/{{ $('Loop x Ambiente2').first().json.zipName }}\""
+      },
+      "id": "eef19907-b53d-4864-905a-f18fb7a47279",
+      "name": "Eliminar Carpeta",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        976,
+        136
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generar Reporte HTML final con los conteos acumulados\nconst initialItems = $('Configuracion (Env + Fecha)').all();\nconst finalStatsItem = $('Reinyectar memoria').first().json;\nif (!finalStatsItem || !finalStatsItem.global_stats) {\n  return [{ json: { html_report: 'Error: No se encontró la data final. global_stats no disponible.' } }];\n}\nconst finalStats = finalStatsItem.global_stats;\nlet html = `\\n<table style=\"border-collapse: collapse; width: 300px; font-family: Arial, sans-serif;\">\\n  <tr style=\"background-color: #f2f2f2;\">\\n    <th style=\"border: 1px solid #ddd; padding: 8px; text-align: left;\">Entorno</th>\\n    <th style=\"border: 1px solid #ddd; padding: 8px; text-align: right;\">Cantidad archivos</th>\\n  </tr>`;\ninitialItems.forEach(item => {\n  const env = item.json.env;\n  const count = finalStats[env] ?? 0;\n  html += `\\n  <tr>\\n    <td style=\"border: 1px solid #ddd; padding: 8px;\">${env}</td>\\n    <td style=\"border: 1px solid #ddd; padding: 8px; text-align: right;\">${count}</td>\\n  </tr>`;\n});\nhtml += '</table>';\nreturn [{ json: { html_report: html } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -624,
+        -320
+      ],
+      "id": "1c8b64c3-455d-46b5-8856-4f67916b55fd",
+      "name": "Generar Reporte HTML"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "APG Consulting Notificaciones, Julian Jimenez (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        },
+        "contentType": "html",
+        "message": "={{ $json.html_report }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "990806a1-6b94-4cbc-9b6d-80fd78e7e258",
+      "name": "Notificar en Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -432
+      ],
+      "webhookId": "bf0d00a7-36f0-4524-b003-4e3939453fdb",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $('Extraer Conteo').last().json.global_stats }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -816,
+        -192
+      ],
+      "id": "e6757592-429d-44a9-87d7-4d30673879e1",
+      "name": "Reinyectar memoria"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "nemgxv8ZPSExYNDJ",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-27T19:55:53.380Z",
+  "versionId": "feb38080-cd17-4f9b-9a27-faa781d105cd"
+}
