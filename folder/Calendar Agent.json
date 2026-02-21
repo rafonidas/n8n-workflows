@@ -291,16 +291,16 @@
   },
   "shared": [
     {
-      "createdAt": "2025-12-09T12:54:36.178Z",
-      "updatedAt": "2025-12-09T12:54:36.178Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "rXkz2i4IcJJUMkDe",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-12-30T13:45:11.000Z",
+  "updatedAt": "2026-01-27T18:21:01.867Z",
   "versionId": "27d19ce3-68cf-4531-be2e-7aa6d40dd4e8"
 }
