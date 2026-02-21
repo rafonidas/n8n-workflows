@@ -1,0 +1,586 @@
+{
+  "active": false,
+  "connections": {
+    "Enviar Email": {
+      "main": [
+        [
+          {
+            "node": "Limpiar log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer y formatear informe": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron diario 23:59": {
+      "main": [
+        [
+          {
+            "node": "Leer y formatear informe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server": {
+      "main": [
+        [
+          {
+            "node": "Guardar en log local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de scripts": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron cada 3h": {
+      "main": [
+        [
+          {
+            "node": "Lista de scripts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en log local": {
+      "main": [
+        []
+      ]
+    },
+    "Cron diario 23:1": {
+      "main": [
+        [
+          {
+            "node": "Leer y formatear informe1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer y formatear informe1": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar Email1": {
+      "main": [
+        [
+          {
+            "node": "Limpiar log1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de scripts1": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron cada 3h1": {
+      "main": [
+        [
+          {
+            "node": "Lista de scripts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server1": {
+      "main": [
+        [
+          {
+            "node": "Guardar en log persistente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en log persistente": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ver log acumulado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-11T20:01:44.848Z",
+  "id": "wBE8jzadDPa9sqou",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Automatizacion Correos",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "return items;"
+      },
+      "name": "Limpiar log",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        480
+      ],
+      "id": "e09248fe-694c-4324-a123-602c6a7945a2"
+    },
+    {
+      "parameters": {
+        "fromEmail": "jjimenez@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "Informe diario de scripts SQL",
+        "text": "={{$json[\"cuerpo\"]}}",
+        "options": {}
+      },
+      "name": "Enviar Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        480
+      ],
+      "id": "95258348-79db-43c5-8b73-920d8367277c",
+      "credentials": {
+        "smtp": {
+          "id": "7a8iRmMxXXrqNfNy",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": ""
+      },
+      "name": "Leer y formatear informe",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        480
+      ],
+      "id": "bbdf55ee-0bfa-4b3e-91f9-9a2742eb1b31"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 23,
+              "minute": 59
+            }
+          ]
+        }
+      },
+      "name": "Cron diario 23:59",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1632,
+        480
+      ],
+      "id": "6f9e037f-635f-4912-bc93-ed67ab22de8c"
+    },
+    {
+      "parameters": {
+        "functionCode": "const totalFilas = items.length;\nconst mensaje = `La ejecución del script ha dado ${totalFilas} resultados`;\nreturn [{ json: { log: mensaje } }];"
+      },
+      "name": "Guardar en log local",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        48
+      ],
+      "id": "656f891f-1c39-40fe-af22-42a8e2cefe44"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"script\"]}}"
+      },
+      "name": "Ejecutar en SQL Server",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        48
+      ],
+      "id": "a95b07be-d191-40e1-b0dd-0676e0407ef8",
+      "credentials": {
+        "microsoftSql": {
+          "id": "1Eeapg5UuYNRTIME",
+          "name": "Conexión Test Interno CO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { json: { script: \"SELECT * FROM USUARIO WHERE USUARIOID='admin'\" } }\n];"
+      },
+      "name": "Lista de scripts",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        48
+      ],
+      "id": "73198372-d2f0-4ce2-b72b-c46d399aaa1f"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "name": "Cron cada 3h",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1632,
+        48
+      ],
+      "id": "07009ddf-e11d-460b-bd8e-e0374677edfd"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 23,
+              "minute": 59
+            }
+          ]
+        }
+      },
+      "name": "Cron diario 23:1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1616,
+        -176
+      ],
+      "id": "a3ac6b77-41d6-4221-9254-fba2f32b852a"
+    },
+    {
+      "parameters": {
+        "functionCode": "const staticData = this.getWorkflowStaticData('global');\n\nlet cuerpo;\nif (staticData.logs && staticData.logs.length > 0) {\n  cuerpo = staticData.logs.join(\"\\n\");\n} else {\n  cuerpo = 'No hay datos de log para hoy';\n}\n\nreturn [{ json: { cuerpo } }];"
+      },
+      "name": "Leer y formatear informe1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1376,
+        -176
+      ],
+      "id": "bd7d2931-96ac-49ea-b1f7-d7db6892b7c1"
+    },
+    {
+      "parameters": {
+        "fromEmail": "jjimenez@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "Informe diario de scripts SQL",
+        "text": "={{$json[\"cuerpo\"]}}",
+        "options": {}
+      },
+      "name": "Enviar Email1",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        -176
+      ],
+      "id": "4eaacba6-7bb0-4ea3-88ea-0518a7f67cac",
+      "credentials": {
+        "smtp": {
+          "id": "7a8iRmMxXXrqNfNy",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const staticData = this.getWorkflowStaticData('global');\nstaticData.logs = [];\nreturn [{ json: { limpieza: 'Logs eliminados tras enviar informe' } }];"
+      },
+      "name": "Limpiar log1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        -176
+      ],
+      "id": "40ce48ad-f57e-4a42-a0c7-b98edc6cd4ba"
+    },
+    {
+      "parameters": {
+        "content": "Flujos"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        -1008
+      ],
+      "id": "5e798c07-b73b-4392-b8ab-2ec90d484dba",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "id": "22a74ef3-f15f-423d-b3eb-79762c3c8dfe",
+      "name": "Cron cada 3h1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1616,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const scripts = [\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@gmial.com', mail)-1)+'@gmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@gmial.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotamil.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotamil.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotmaill.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotmaill.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotmal.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotmal.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@homail.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@homail.com'`,\n  `SELECT * \n   FROM usuario\n   WHERE mail LIKE '%sincorreo%'\n     AND Eliminado != 1\n     AND PublicacionComprobantes != 0`,\n  `SELECT mail, LTRIM(RTRIM(REPLACE(mail,CHAR(9), '')))\n   FROM usuario\n   WHERE mail LIKE '% %'`\n];\nreturn scripts.map(s => ({ json: { script: s } }));"
+      },
+      "id": "be791e06-0938-4a64-af28-4564c2b8ebdc",
+      "name": "Lista de scripts1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1424,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "cacac1a4-87bc-4618-9073-856d29a49fde",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        -1216,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"script\"]}}"
+      },
+      "id": "b4b88b84-071d-40a7-9554-bbf5f7c85e16",
+      "name": "Ejecutar en SQL Server1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -1024,
+        -704
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "DITSWqvLjnoODIqU",
+          "name": "Conexion Test Interno CR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const staticData = this.getWorkflowStaticData('global');\n\nconst totalFilas = items.length;\nconst script = $json[\"script\"] ?? 'Desconocido';\nconst timestamp = new Date().toISOString();\n\nconst mensaje = `[${timestamp}] Script: ${script} → ${totalFilas} filas`;\n\nif (!staticData.logs) {\n  staticData.logs = [];\n}\nstaticData.logs.push(mensaje);\n\n// Devolver tanto el mensaje actual como todo el acumulado\nreturn [{\n  json: {\n    log: mensaje,\n    acumulado: staticData.logs\n  }\n}];\n\n"
+      },
+      "id": "bdd12b34-318b-4175-8180-1ad34de94d7f",
+      "name": "Guardar en log persistente",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        -704
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = this.getWorkflowStaticData('global');\\nreturn [{\\n  json: {\\n    acumulado: staticData.logs || []\\n  }\\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -608,
+        -704
+      ],
+      "id": "9a7c7cc1-199a-4501-84d8-652ed9f23c68",
+      "name": "Ver log acumulado"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "id": "894381c5-45dd-4ed4-9b41-ef9ed667f0f5",
+      "name": "Cron cada 3h2",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1584,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const scripts = [\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@gmial.com', mail)-1)+'@gmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@gmial.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotamil.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotamil.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotmaill.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotmaill.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotmal.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotmal.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@homail.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@homail.com'`,\n  `SELECT * \n   FROM usuario\n   WHERE mail LIKE '%sincorreo%'\n     AND Eliminado != 1\n     AND PublicacionComprobantes != 0`,\n  `SELECT mail, LTRIM(RTRIM(REPLACE(mail,CHAR(9), '')))\n   FROM usuario\n   WHERE mail LIKE '% %'`\n];\nreturn scripts.map(s => ({ json: { script: s } }));"
+      },
+      "id": "ea52bd8f-19b8-4a07-b7d1-ed64279e0326",
+      "name": "Lista de scripts2",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1392,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "4d078147-db5b-4932-a6f2-86b40140788c",
+      "name": "Split In Batches1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"script\"]}}"
+      },
+      "id": "7d382b90-2de5-492f-a17e-ca6b7fa503e0",
+      "name": "Ejecutar en SQL Server2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        -416
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "DITSWqvLjnoODIqU",
+          "name": "Conexion Test Interno CR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const staticData = this.getWorkflowStaticData('global');\nconst totalFilas = items.length;\nconst script = $json[\"script\"] ?? 'Desconocido';\nconst timestamp = new Date().toISOString();\nconst mensaje = `[${timestamp}] Script: ${script} → ${totalFilas} filas`;\nif (!staticData.logs) {\n  staticData.logs = [];\n}\nstaticData.logs.push(mensaje);\nreturn [{ json: { log: mensaje, acumulado: staticData.logs } }];"
+      },
+      "id": "b8d3164d-5231-4312-9c25-1e3fa35ca088",
+      "name": "Guardar en log persistente1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        -416
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "wBE8jzadDPa9sqou",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-22T21:30:30.000Z",
+  "versionId": "a66727e8-d4b2-4219-b404-31449facc1cd"
+}
