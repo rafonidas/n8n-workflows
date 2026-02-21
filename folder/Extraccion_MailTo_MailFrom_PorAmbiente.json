@@ -1,0 +1,498 @@
+{
+  "active": true,
+  "connections": {
+    "Definir Canal y Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Notificar al Canal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar al Canal": {
+      "main": [
+        [
+          {
+            "node": "Sincronizar y Unir",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Sincronizar y Unir": {
+      "main": [
+        [
+          {
+            "node": "Loop x Ambiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuracion (Env + Fecha)": {
+      "main": [
+        [
+          {
+            "node": "Loop x Ambiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop x Ambiente": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Descomprimir ZIP (Blindado)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descomprimir ZIP (Blindado)": {
+      "main": [
+        [
+          {
+            "node": "Grep MailFrom/MailTo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grep MailFrom/MailTo": {
+      "main": [
+        [
+          {
+            "node": "Parsear salida grep",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear salida grep": {
+      "main": [
+        [
+          {
+            "node": "Preparar filas CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar filas CSV": {
+      "main": [
+        [
+          {
+            "node": "Convertir a Binario (CSV)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Conteo de resultados por ambiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convertir a Binario (CSV)": {
+      "main": [
+        [
+          {
+            "node": "Guardar CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar CSV": {
+      "main": [
+        [
+          {
+            "node": "Eliminar Carpeta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Eliminar Carpeta": {
+      "main": [
+        [
+          {
+            "node": "Sincronizar y Unir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conteo de resultados por ambiente": {
+      "main": [
+        [
+          {
+            "node": "Definir Canal y Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Configuracion (Env + Fecha)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Configuracion (Env + Fecha)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar por mensaje": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-11-24T15:42:06.364Z",
+  "id": "bZYXPjb4uDEy4n2t",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Extraccion_MailTo_MailFrom_PorAmbiente",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Nodo funcional, envia datos basicos al teams \nDeja informes en la carpeta resultados",
+        "height": 512,
+        "width": 2528
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3168,
+        1664
+      ],
+      "id": "d401c264-fad3-4806-a210-d5ece4f102f2",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtener datos del nodo anterior\nconst env = $input.item.json.ambiente; // Ej: 'AR', 'CO'\nconst count = $input.item.json.count;\nconst emails = $input.item.json.raw_emails || [];\n\n// -----------------------------------------------------------\n// 2. CONFIGURACIÓN DE CANALES (¡Edita esto con tus IDs!)\n// -----------------------------------------------------------\nconst channelMap = {\n  'AR':  '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2',\n  'BO': '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2',\n  'CO':  '19:af378cf202564cfc87591f580cd70935@thread.tacv2',\n  'CO2': '19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2',\n  'CO3': '19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2',\n  'CR':  '19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2',\n  'EC':  '19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2',\n  'PE':  '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2',\n\n  // Fallback (Por defecto usa el canal de CO si no encuentra otro, o cambia este ID)\n  'DEFAULT': '19:e2644020e0de42b0b55da552614c8ea5@thread.tacv2' \n};\n\n// Seleccionamos el canal según el ambiente, si no existe, usa el default\nconst targetChannelId = channelMap[env] || channelMap['DEFAULT'];\n\n// -----------------------------------------------------------\n// 3. GENERAR HTML INDIVIDUAL\n// -----------------------------------------------------------\nlet html = `<div style=\"font-family: sans-serif; border: 1px solid #ccc; padding: 15px; border-radius: 5px;\">`;\nhtml += `<h2 style=\"color: #0056b3; margin-top: 0;\">Reporte Ambiente: ${env}</h2>`;\n\nif (count > 0) {\n  html += `<p>⚠️ Se detectaron <strong>${count}</strong> archivos con error.</p>`;\n  \n  if (emails.length > 0) {\n    // Deduplicar emails\n    const uniqueEmails = [...new Set(emails)];\n    html += `<div style=\"background-color: #f9f9f9; padding: 10px; margin-top: 10px;\">`;\n    html += `<strong>Correos afectados:</strong><ul>`;\n    uniqueEmails.forEach(e => {\n        html += `<li>${e}</li>`;\n    });\n    html += `</ul></div>`;\n  }\n} else {\n  html += `<p style=\"color: green;\">✅ Sin errores reportados en este ciclo.</p>`;\n}\nhtml += `</div>`;\n\n// 4. Retornar datos listos para el nodo de Teams\nreturn {\n  json: {\n    targetChannelId: targetChannelId,\n    htmlMessage: html,\n    ambiente: env,\n    processed: true\n  }\n};"
+      },
+      "id": "69ef9c4d-3519-4d7b-ab65-ab1273d852c2",
+      "name": "Definir Canal y Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        1936
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.targetChannelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlMessage }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        1936
+      ],
+      "id": "dfe60439-ef03-4edb-94e1-2d39d2f4fbff",
+      "name": "Notificar al Canal",
+      "webhookId": "4b619e0d-9c73-4a46-b563-67be65e2f0b9",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -832,
+        1936
+      ],
+      "id": "427287b2-0b00-4113-92a7-883239a73a89",
+      "name": "Sincronizar y Unir"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1) Configuración de Ambientes\nconst environments = ['AR','BO','CO','CO2','CO3','CR','EC','PE'];\n\n// 2) Cálculo de Fecha Dinámica (Mes Anterior)\nconst date = new Date();\ndate.setMonth(date.getMonth() - 1); // Restamos 1 mes a la fecha actual\n\nconst year = date.getFullYear();\n// getMonth() devuelve 0-11, sumamos 1 y usamos padStart para asegurar 2 dígitos (ej: '02')\nconst month = String(date.getMonth() + 1).padStart(2, '0'); \n\nconst folderName = `${year}_${month}`; \n// Resultado esperado: Si corre en Marzo 2026 -> folderName = \"2026_02\"\n\nreturn environments.map(env => ({\n  json: {\n    env,\n    zipName: folderName,\n    // Ruta interna del contenedor\n    basePath: `/files_host/XML_Mails_error/${env}`\n  }\n}));"
+      },
+      "id": "0cf62091-0e1a-465f-aae7-e5f3d6ad2f6e",
+      "name": "Configuracion (Env + Fecha)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2848,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5b9db0a5-7691-4f96-be0b-f066f341ccaf",
+      "name": "Loop x Ambiente",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2624,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=FILE=\"{{ $('Loop x Ambiente').item.json.basePath }}/{{ $('Loop x Ambiente').item.json.zipName }}.zip\"\nDIR=\"{{ $('Loop x Ambiente').item.json.basePath }}/{{ $('Loop x Ambiente').item.json.zipName }}\"\nrm -rf \"$DIR\"\nmkdir -p \"$DIR\"\n[ -f \"$FILE\" ] && unzip -o \"$FILE\" -d \"$DIR\" | sed 's|\\\\|/|g' || echo \"SKIP_UNZIP_FAILED_OR_NO_FILE\""
+      },
+      "id": "93b5db0e-6af1-4303-b11a-e96a714ba085",
+      "name": "Descomprimir ZIP (Blindado)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2400,
+        1840
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "command": "=DIR=\"{{ $('Loop x Ambiente').item.json.basePath }}/{{ $('Loop x Ambiente').item.json.zipName }}\"\n[ -d \"$DIR\" ] && \\\nfind \"$DIR\" -type f -name \"*.xml\" -print0 | xargs -0 -I{} sh -c 'iconv -f ISO-8859-1 -t UTF-8 \"{}\" | grep -o -E \"<MailFrom>[^<]*</MailFrom>|<MailTo>[^<]*</MailTo>\" | sed \"s|^|{}:|\"' || echo \"NO_MATCHES\""
+      },
+      "id": "63773e51-5729-4e03-a802-db5d9532c3dd",
+      "name": "Grep MailFrom/MailTo",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2176,
+        1840
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsear salida de grep (CORREGIDO)\ntry {\n  // Usamos .item para asegurar que leemos el ambiente ACTUAL, no el primero\n  const loopNode = $('Loop x Ambiente');\n  // Fallback seguro: intentar leer .item, si falla, leer .json directo si el nodo anterior pasó la info\n  const loopData = loopNode.item ? loopNode.item.json : (loopNode.first ? loopNode.first().json : {});\n  \n  const env = loopData.env || 'UNKNOWN';\n  const zipName = loopData.zipName;\n  const basePath = loopData.basePath;\n\n  const item = items[0];\n  const stdout = (item && item.json && item.json.stdout) ? item.json.stdout : '';\n  \n  // Si stdout está vacío, es SKIP o dice NO_MATCHES\n  if (!stdout || stdout.includes('SKIP') || stdout.includes('NO_MATCHES') || stdout.trim() === '') {\n    return [{\n      json: {\n        env, zipName, basePath, files: [] \n      }\n    }];\n  }\n\n  const lines = stdout.split('\\n').filter(l => l.trim() !== '');\n  const byFile = new Map();\n\n  for (const line of lines) {\n    const colonIndex = line.indexOf(':');\n    if (colonIndex === -1) continue;\n    \n    const filePath = line.slice(0, colonIndex);\n    const match = line.slice(colonIndex + 1);\n    const cleanPath = filePath.replace(/\\\\/g, '/');\n    \n    const entry = byFile.get(cleanPath) || { filePath: cleanPath, MailFrom: [], MailTo: [] };\n\n    if (match.includes('<MailFrom>')) {\n      const val = (match.match(/<MailFrom>([^<]*)<\\/MailFrom>/i) || [])[1] || '';\n      entry.MailFrom.push(val);\n    } else if (match.includes('<MailTo>')) {\n      const val = (match.match(/<MailTo>([^<]*)<\\/MailTo>/i) || [])[1] || '';\n      entry.MailTo.push(val);\n    }\n    byFile.set(cleanPath, entry);\n  }\n\n  const consolidated = Array.from(byFile.values()).map(r => ({\n    env,\n    zipName,\n    basePath,\n    archivo: r.filePath.split('/').pop(),\n    MailFrom: r.MailFrom.length ? r.MailFrom[0] : 'NO_ENCONTRADO',\n    MailTo: r.MailTo.length ? r.MailTo[0] : 'NO_ENCONTRADO'\n  }));\n\n  if (consolidated.length === 0) {\n      return [{ json: { env, zipName, basePath, files: [] } }];\n  }\n\n  return [{ json: { env, zipName, basePath, files: consolidated } }];\n\n} catch (error) {\n  return [{\n      json: {\n        env: 'ERROR_CATCH',\n        files: [] \n      }\n  }];\n}"
+      },
+      "id": "36e8073f-5d1b-4686-a62f-9c5720963a86",
+      "name": "Parsear salida grep",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1952,
+        1840
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepara filas para CSV\nconst payload = items[0].json;\nconst files = payload.files || [];\n\nconst rows = files.map(f => ({\n  json: {\n    Archivo: f.archivo,\n    MailFrom: f.MailFrom,\n    MailTo: f.MailTo,\n    Ambiente: payload.env\n  }\n}));\n\nif (!rows.length) {\n  return [{\n    json: {\n      Archivo: 'SIN_ZIP_O_CARPETA_VACIA',\n      MailFrom: '-',\n      MailTo: '-',\n      Ambiente: payload.env\n    }\n  }];\n}\n\nreturn rows;"
+      },
+      "id": "ced4a3fb-e9f3-4358-9150-5ea48ed5adca",
+      "name": "Preparar filas CSV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1728,
+        1840
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "csv",
+        "options": {
+          "fileName": "temp_report.csv"
+        }
+      },
+      "id": "74a48de2-aa88-499b-8a49-e94f748a04a7",
+      "name": "Convertir a Binario (CSV)",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 2,
+      "position": [
+        -1504,
+        1744
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/files_host/XML_Mails_error/Resultados/Reporte_{{ $('Loop x Ambiente').item.json.env }}_{{ $('Loop x Ambiente').item.json.zipName }}_{{ new Date().getTime() }}.csv",
+        "options": {}
+      },
+      "id": "cd948957-173f-423b-86e6-3d925e81a916",
+      "name": "Guardar CSV",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        1744
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=rm -rf \"{{ $('Loop x Ambiente').item.json.basePath }}/{{ $('Loop x Ambiente').item.json.zipName }}\""
+      },
+      "id": "7f1268d5-9081-43b3-928d-88a94db84e73",
+      "name": "Eliminar Carpeta",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1056,
+        1744
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo Code: Conteo de resultados + Recoleccion de Mails\n\n// 1. Recuperamos el ambiente ACTUAL usando .item\nconst loopNode = $('Loop x Ambiente');\nconst loopData = loopNode.item ? loopNode.item.json : (loopNode.first ? loopNode.first().json : {});\nconst ambiente = loopData.env || 'UNKNOWN';\n\n// 2. Lógica de conteo\nconst primerItem = items[0] ? items[0].json : {};\nlet count = items.length;\n\n// Si el único item es el marcador de carpeta vacía, el conteo es 0\nif (primerItem.Archivo === 'SIN_ZIP_O_CARPETA_VACIA') {\n  count = 0;\n}\n\n// 3. RECOLECCION DE MAILS 'SUCIOS' PARA REPORTE\n// Iteramos sobre todos los items de este batch (ambiente)\nconst rawEmails = [];\nitems.forEach(row => {\n  const mail = row.json['MailTo'];\n  // Guardamos si existe y no es valor placeholder\n  if (mail && mail !== 'NO_ENCONTRADO' && mail !== '-') {\n    rawEmails.push(String(mail));\n  }\n});\n\n// 4. Devolvemos el resultado enriquecido\nreturn [{\n  json: {\n    ambiente,\n    count,\n    raw_emails: rawEmails // Pasamos el array al final del flujo\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1504,
+        1936
+      ],
+      "id": "709a688a-7811-42de-ac06-c838c2c668c1",
+      "name": "Conteo de resultados por ambiente"
+    },
+    {
+      "parameters": {},
+      "id": "3804ca54-9230-46ef-b743-afe4de3c2b92",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3072,
+        2016
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": 3,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3072,
+        1824
+      ],
+      "id": "eea21797-0425-42c7-9259-18ba05c3d9b9",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "APG Consulting Notificaciones, Julian Jimenez (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlMessage }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -1296,
+        1440
+      ],
+      "id": "8fd97b9a-bda1-434f-b288-6336ac5ec9f8",
+      "name": "Notificar por mensaje",
+      "webhookId": "4b619e0d-9c73-4a46-b563-67be65e2f0b9",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "bZYXPjb4uDEy4n2t",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-06T13:42:22.772Z",
+  "versionId": "b08789ad-d023-4440-8388-e1b349c5801b"
+}
