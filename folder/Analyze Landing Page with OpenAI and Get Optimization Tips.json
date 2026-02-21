@@ -42,7 +42,7 @@
   },
   "createdAt": "2025-12-04T15:38:56.415Z",
   "id": "Awf7pgqyICLxgLs0",
-  "isArchived": true,
+  "isArchived": false,
   "meta": {
     "templateId": "3100",
     "templateCredsSetupCompleted": true
@@ -130,16 +130,16 @@
   },
   "shared": [
     {
-      "createdAt": "2025-12-04T15:38:56.459Z",
-      "updatedAt": "2025-12-04T15:38:56.459Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "Awf7pgqyICLxgLs0",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-22T18:00:37.000Z",
-  "versionId": "5171da01-4dbe-408b-8180-5e05827a37b0"
+  "updatedAt": "2026-01-27T18:22:29.449Z",
+  "versionId": "a4e5efa3-17a9-4089-b5ed-fe5c05859992"
 }
