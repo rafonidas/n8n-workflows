@@ -1,0 +1,127 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create chat message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-01T14:36:32.308Z",
+  "id": "221qzQUukM6Xamms",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -96
+      ],
+      "id": "aaf3a582-28d6-4c70-81d6-b1ed0d71ccfd",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "APG Consulting Notificaciones, Julian Jimenez (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        },
+        "message": "Mensaje de prueba desde n8n, probando conexiones a Azure EntraID",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "d62e4282-dae2-415d-9144-c2178977ade4",
+      "name": "Create chat message",
+      "webhookId": "4aa7e94f-9fea-414b-a6e4-f0349610f60c",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "list"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        208,
+        -160
+      ],
+      "id": "ebc1c6d8-dcd0-482f-acda-4ab6ea6e4308",
+      "name": "FTP",
+      "credentials": {
+        "ftp": {
+          "id": "sZ3lVQeVeeJ0JgH5",
+          "name": "FTP account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "/****** Script for SelectTopNRows command from SSMS  ******/\nSELECT TOP (1000) [Id]\n      ,[Enabled]\n      ,[ClientId]\n      ,[ProtocolType]\n      ,[RequireClientSecret]\n      ,[ClientName]\n      ,[Description]\n      ,[ClientUri]\n      ,[LogoUri]\n      ,[RequireConsent]\n      ,[AllowRememberConsent]\n      ,[AlwaysIncludeUserClaimsInIdToken]\n      ,[RequirePkce]\n      ,[AllowPlainTextPkce]\n      ,[RequireRequestObject]\n      ,[AllowAccessTokensViaBrowser]\n      ,[FrontChannelLogoutUri]\n      ,[FrontChannelLogoutSessionRequired]\n      ,[BackChannelLogoutUri]\n      ,[BackChannelLogoutSessionRequired]\n      ,[AllowOfflineAccess]\n      ,[IdentityTokenLifetime]\n      ,[AllowedIdentityTokenSigningAlgorithms]\n      ,[AccessTokenLifetime]\n      ,[AuthorizationCodeLifetime]\n      ,[ConsentLifetime]\n      ,[AbsoluteRefreshTokenLifetime]\n      ,[SlidingRefreshTokenLifetime]\n      ,[RefreshTokenUsage]\n      ,[UpdateAccessTokenClaimsOnRefresh]\n      ,[RefreshTokenExpiration]\n      ,[AccessTokenType]\n      ,[EnableLocalLogin]\n      ,[IncludeJwtId]\n      ,[AlwaysSendClientClaims]\n      ,[ClientClaimsPrefix]\n      ,[PairWiseSubjectSalt]\n      ,[Created]\n      ,[Updated]\n      ,[LastAccessed]\n      ,[UserSsoLifetime]\n      ,[UserCodeType]\n      ,[DeviceCodeLifetime]\n      ,[NonEditable]\n  FROM [dbo].[Clients]"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -32,
+        -256
+      ],
+      "id": "df55454f-ea19-4c4a-958b-ea53d0fded99",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "dr4WH3sdI5rTra0L",
+          "name": "COMFIAR 2 test lectura"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "221qzQUukM6Xamms",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-27T18:21:22.439Z",
+  "versionId": "fedb4116-86bb-45c8-b914-eeeb6b8b6a84"
+}
