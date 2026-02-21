@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "1. Login2",
+            "node": "Configuracion Inicial1",
             "type": "main",
             "index": 0
           }
@@ -17,6 +17,254 @@
         [
           {
             "node": "4. Activar Evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear Archivo": {
+      "main": [
+        []
+      ]
+    },
+    "Configuracion Inicial1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CLEAN DATA2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Juntar Lote1": {
+      "main": [
+        []
+      ]
+    },
+    "Calcular Siguiente1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Quedan Tickets?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quedan Tickets?1": {
+      "main": [
+        []
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        []
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Crear Archivo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generar Lote IDs1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar Lote IDs1": {
+      "main": [
+        [
+          {
+            "node": "GET Ticket API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "SUPABASE TOOL",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SUPABASE TOOL": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "item loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read File": {
+      "main": [
+        [
+          {
+            "node": "item loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload your file here": {
+      "main": [
+        [
+          {
+            "node": "Read File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "main": [
+        [
+          {
+            "node": "item loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows in Supabase": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "sends chat message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "receives chat message": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
             "type": "main",
             "index": 0
           }
@@ -35,10 +283,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -496,
-        176
+        -480,
+        688
       ],
-      "id": "6bfed84e-2066-4df0-99e6-65e2bbb284fa",
+      "id": "23c6eb62-0454-49f5-8b70-962dfa36ab97",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -61,25 +309,14 @@
           "allowUnauthorizedCerts": true
         }
       },
-      "id": "bc8af67e-7717-4c92-8a01-db1256a55299",
+      "id": "fc6856d5-a46d-4427-b983-ca66786becd4",
       "name": "1. Login2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -224,
-        176
+        384,
+        256
       ]
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.3,
-      "position": [
-        -160,
-        0
-      ],
-      "id": "df9fe1c7-4b3a-45e5-95dc-d1848db357b7",
-      "name": "GET userInfo2"
     },
     {
       "parameters": {
@@ -105,13 +342,13 @@
           "allowUnauthorizedCerts": true
         }
       },
-      "id": "e5520685-4f3c-4252-a28f-4e56e79135fe",
+      "id": "b9df1431-1349-461d-a00b-bb2f0b034e19",
       "name": "3. Crear Ticket (Con Mensaje)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        208,
-        176
+        784,
+        272
       ]
     },
     {
@@ -156,47 +393,14 @@
           "allowUnauthorizedCerts": true
         }
       },
-      "id": "9e618e38-e6ff-416f-b49d-a56ecd2c7222",
+      "id": "0d8dad73-4810-45a2-907f-e16a278f0833",
       "name": "4. Activar Evento",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        400,
-        176
+        976,
+        272
       ]
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.3,
-      "position": [
-        592,
-        176
-      ],
-      "id": "195846e9-c91a-4c7d-b8b0-d3bbeb4c07d3",
-      "name": "POST add message"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.3,
-      "position": [
-        0,
-        0
-      ],
-      "id": "2ec5e4e4-4237-417f-815f-0b1cdc8f7345",
-      "name": "GET TICKETS"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.3,
-      "position": [
-        192,
-        0
-      ],
-      "id": "312965e0-c2ee-4b6e-b5ad-2383c9603d0c",
-      "name": "GET userInfo"
     },
     {
       "parameters": {
@@ -245,40 +449,640 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        0,
+        576,
+        272
+      ],
+      "id": "4f527336-fae0-4839-8b61-1cfd1b5d1196",
+      "name": "GET User Info"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recuperamos los datos del nodo Aggregate\nconst tickets = items[0].json.tickets_limpios || [];\n\n// LÓGICA DE NOMBRADO SEGURA:\n// 1. Intentamos tomar el ID del primer ticket.\n// 2. Si no hay tickets o falla, usamos la fecha y hora exacta (timestamp) para que sea único.\nlet batchId;\n\nif (tickets.length > 0 && tickets[0].ticket_id) {\n  batchId = tickets[0].ticket_id;\n} else {\n  // Genera un número único basado en el tiempo (ej: 1715629999)\n  batchId = \"backup_\" + Date.now();\n}\n\n// Convertimos a JSON\nconst jsonString = JSON.stringify(tickets, null, 2);\nconst finalFileName = `tickets_lote_${batchId}.json`;\n\nreturn {\n  json: {\n    // Estas variables van al flujo\n    last_batch_id: (tickets.length > 0 && tickets[0].ticket_id) ? tickets[0].ticket_id : 0, \n    fileName: finalFileName,\n    cantidad_tickets: tickets.length\n  },\n  binary: {\n    data: {\n      data: Buffer.from(jsonString).toString('base64'),\n      mimeType: 'application/json',\n      fileName: finalFileName\n    }\n  }\n};"
+      },
+      "id": "81fe3328-51a1-409b-b3de-9edb404d2768",
+      "name": "Crear Archivo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1e3a955-54b1-4175-a33f-c18069eaefca",
+              "name": "next_start_id",
+              "value": 45000,
+              "type": "number"
+            },
+            {
+              "id": "46fc6517-a6ca-4860-bac4-9d864d71bb55",
+              "name": "fileId",
+              "value": 0,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1014a608-214d-403b-a0ff-04096f31114c",
+      "name": "Configuracion Inicial1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -320,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const startId = $input.first().json.next_start_id;\nconst batchSize = 1000;\nconst newItems = [];\n\nfor (let i = 0; i < batchSize; i++) {\n  const currentId = startId - i;\n  if (currentId > 0) {\n    newItems.push({\n      json: { \n        id: currentId,\n        batch_start_reference: startId \n      }\n    });\n  }\n}\nreturn newItems;"
+      },
+      "id": "0dcabbcb-21bc-4ca4-a7a1-c5472025b801",
+      "name": "Generar Lote IDs1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function stripHtml(html) {\n  if (!html || typeof html !== 'string') return \"\";\n  return html.replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ').replace(/\\s+/g, ' ').trim();\n}\n\nreturn items.map(item => {\n  const ticket = item.json;\n  const problemaInicial = stripHtml(ticket.additionalDescription || ticket.description);\n  const rawComments = (ticket.ticketComments || []).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));\n  const validComments = rawComments.map(c => stripHtml(c.description)).filter(t => t.length > 2);\n  const solucion = validComments.length > 0 ? validComments[validComments.length - 1] : \"Sin solución\";\n  \n  return {\n    json: {\n      ticket_id: ticket.id,\n      titulo: (ticket.description || \"Sin título\").toString(),\n      problema_inicial: problemaInicial,\n      estado: ticket.ticketState?.name || \"Desconocido\",\n      cliente: ticket.client?.name || \"Interno\",\n      solucion_detectada: solucion,\n      _batch_start_reference: item.json.batch_start_reference\n    }\n  };\n});"
+      },
+      "id": "a7d2a61f-afaf-4769-b634-322e7d8b6b55",
+      "name": "CLEAN DATA2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "tickets_limpios",
+        "options": {}
+      },
+      "id": "4cfadebe-304b-49c9-9eb0-76700a4171b5",
+      "name": "Juntar Lote1",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1856,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Leemos la referencia numérica que preparamos en el paso 1\nconst lastStartId = $(\"Generar Lote IDs1\").first().json.id\nconst batchSize = 1000;\n\nreturn {\n  json: {\n    next_start_id: lastStartId - batchSize\n  }\n};"
+      },
+      "id": "e517be2e-d5f9-4c82-8253-9401aaae92f5",
+      "name": "Calcular Siguiente1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        704
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "3c675770-67df-47f9-98bc-205f18ce0467",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        192
+      ],
+      "webhookId": "42f7471b-86aa-4e14-a9a3-35b2bb5c206f"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-id",
+              "leftValue": "={{ $json.next_start_id }}",
+              "rightValue": 25000,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f0a64553-5456-4907-9fb2-61fa1ef50e73",
+      "name": "Quedan Tickets?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1904,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/node/tickets_folder/tickets_lote_{{ $json.last_batch_id }}.json",
+        "options": {
+          "append": false
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1216,
+        16
+      ],
+      "id": "4c8da0e8-db0a-4d46-8432-a6f035c403da",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/45000",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzcwNDIxOTE2fQ.XUU_dYdv2WcKOxfI8hjLt_ZF7R74eUHfVW8ZQZNZOcs"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        704
+      ],
+      "id": "c5257ba7-e560-4f4c-9c82-b0ba50acc120",
+      "name": "GET Ticket API1"
+    },
+    {
+      "parameters": {
+        "content": "Obtener información importante de cada ticket\n\n-- falta obtener la CLASIFICACION \n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -576,
+        448
+      ],
+      "typeVersion": 1,
+      "id": "5627b6c8-4980-41ed-945f-e5ae27ac4f8b",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Logearse en VIGA y realizar los pasos necesarios para crear un ticket con Comentario inicial\n\n## Cómo se completan los tickets con updates para IT?\n\n## buscar info en el siguiente flujo -- \n",
+        "height": 240,
+        "width": 496
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -816,
         176
       ],
-      "id": "2e69f75a-82bd-4150-bbcf-f628380be2cd",
-      "name": "GET User Info"
-    }
-  ],
-  "pinData": {
-    "1. Login2": [
-      {
-        "json": {
-          "token": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzY4ODQ4MzQ3fQ.U3QjMSGx5CxuBdJ9NfH_3RCtjYSpm24Jn3p7LBZN_3c",
-            "expiration": "2026-01-19T18:45:47.2791344Z"
+      "typeVersion": 1,
+      "id": "b0b76ca3-3918-44b0-bfab-5e494bb91c1a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## recuperar llamadas -->\n",
+        "height": 80,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -64,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "7e319840-0691-4a44-b9b8-0655f72bda2b",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "batchSize": 1000,
+        "options": {
+          "reset": true
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        48,
+        688
+      ],
+      "id": "30668351-528d-41be-b717-00580fa413c0",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función auxiliar para limpiar HTML y espacios\nfunction stripHtml(html) {\n  if (!html || typeof html !== 'string') return \"\";\n  return html\n    .replace(/<[^>]*>?/gm, ' ') // Reemplaza tags por espacio para evitar palabras pegadas\n    .replace(/&nbsp;/g, ' ')\n    .replace(/\\s+/g, ' ') // Colapsa múltiples espacios en uno\n    .trim();\n}\n\nreturn items.map(item => {\n  const t = item.json;\n\n  // 1. Obtener y limpiar descripciones base\n  const asunto = stripHtml(t.description);\n  // A veces additionalDescription es null, usamos description como fallback\n  const problemaInicial = stripHtml(t.additionalDescription) || asunto;\n\n  // 2. Procesar Comentarios (La parte crítica)\n  let comentariosRaw = (t.ticketComments || [])\n    // Ordenar por fecha (del más viejo al más nuevo)\n    .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))\n    // Limpiar texto\n    .map(c => stripHtml(c.description))\n    // Eliminar comentarios vacíos o muy cortos (menos de 3 letras, ej: \"Ok\")\n    .filter(text => text && text.length > 3);\n\n  // 3. Deduplicar comentarios consecutivos idénticos\n  // Esto soluciona el problema de \"se repite 3 veces el mismo mensaje\"\n  let comentariosUnicos = comentariosRaw.filter((texto, index, arr) => {\n    return index === 0 || texto !== arr[index - 1];\n  });\n\n  // 4. Limpiar redundancia del Problema vs Primer Comentario\n  // Si el primer comentario es igual al problema inicial, lo quitamos de la lista\n  if (comentariosUnicos.length > 0 && comentariosUnicos[0] === problemaInicial) {\n    comentariosUnicos.shift(); \n  }\n\n  // 5. Separar Solución vs Conversación\n  // Asumimos que el ÚLTIMO mensaje es la solución o el cierre del ticket.\n  let solucion = \"No se registró una solución explícita en los comentarios.\";\n  let historialConversacion = [];\n\n  if (comentariosUnicos.length > 0) {\n    solucion = comentariosUnicos.pop(); // Sacamos el último elemento y lo guardamos como solución\n    historialConversacion = comentariosUnicos; // El resto queda como historia\n  }\n\n  // 6. Construir Metadata (Para filtros estrictos)\n  const metadata = {\n    ticket_id: t.id,\n    fecha_creacion: t.createdAt, // Importante para saber si es viejo o nuevo\n    cliente: t.client?.name || \"Desconocido\",\n    categoria: t.ticketClasification?.name || \"General\", // Usa la clasificación humana si existe\n    estado: t.ticketState?.name || \"Desconocido\",\n    url_ticket: `https://tu-sistema-tickets.com/ticket/${t.id}` // Opcional: útil para referencia\n  };\n\n  // 7. Construir el BLOQUE DE TEXTO FINAL (Content) para el Vector Store\n  // Este formato ayuda al LLM a distinguir qué es qué.\n  const contenidoVectorial = `\nTICKET ID: ${t.id}\nFECHA: ${t.createdAt}\nCATEGORÍA: ${metadata.categoria}\nCLIENTE: ${metadata.cliente}\n\nASUNTO:\n${asunto}\n\nDESCRIPCIÓN DEL PROBLEMA:\n${problemaInicial}\n\nHISTORIAL DE CONVERSACIÓN (Pasos intermedios):\n${historialConversacion.length > 0 ? historialConversacion.map(c => `- ${c}`).join('\\n') : \"Sin intercambio intermedio.\"}\n\nSOLUCIÓN TÉCNICA / RESOLUCIÓN FINAL:\n${solucion}\n`.trim();\n\n  // Devolver estructura compatible con Vector Store\n  return {\n    json: {\n      id: t.id,\n      content: contenidoVectorial, // Esto es lo que se incrusta (embedding)\n      metadata: metadata // Esto va a las columnas de metadatos (filtro)\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        592
+      ],
+      "id": "df641c7d-38af-408d-9d9e-5065c56e15ee",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "System Prompt del Agente de Soporte:\n\"Eres un experto analista de soporte técnico Nivel 2. Tu objetivo es ayudar a técnicos junior a resolver problemas basándote ESTRICTAMENTE en el historial de tickets de la empresa.\n\nREGLAS CRÍTICAS:\n\nTienes herramientas de búsqueda de base de datos. Úsalas para buscar información antes de responder.\n\nSi el usuario pregunta por un cliente específico, usa el nombre exacto que te dio para el parámetro 'filtro_cliente' de tu herramienta.\n\nLos estados válidos para filtrar son SOLO: 'abierto', 'en proceso', 'finalizado', 'cancelado'. Si el usuario menciona uno, úsalo en 'filtro_estado'.\n\nNEGATIVA PLAUSIBLE: Si después de buscar no encuentras información que resuelva la duda (o si la similitud de los resultados es muy baja), DEBES decir: 'No cuento con información documentada sobre este caso'. BAJO NINGUNA CIRCUNSTANCIA inventes soluciones técnicas, rutas de carpetas o comandos SQL que no estén en el contexto recuperado.\n\nCuando des una solución, intenta citar el ID del ticket de donde sacaste la información (ej. 'Basado en el ticket 40001...').\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        1408
+      ],
+      "id": "d5fff9b9-38be-460d-b82f-a2c52b98a0a0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "content": "### 🐕 2. Retriever Flow",
+        "height": 460,
+        "width": 680,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1600,
+        1360
+      ],
+      "typeVersion": 1,
+      "id": "6d6c2909-45df-4f79-9e8f-11ea7f1502ea",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "### Embeddings\n\nThe Insert and Retrieve operation use the same embedding node.\n\nThis is to ensure that they are using the **exact same embeddings and settings**.\n\nDifferent embeddings might not work at all, or have unintended consequences.\n",
+        "height": 240,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1664,
+        1872
+      ],
+      "typeVersion": 1,
+      "id": "bc2c57d1-e7a0-4918-9ec4-72f54d298596",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "model": "arcee-ai/trinity-large-preview:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1824,
+        1616
+      ],
+      "id": "ad20bf66-95fa-4525-9967-ca8a8073acd7",
+      "name": "OpenRouter Chat Model"
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        1856
+      ],
+      "id": "40e73565-e1bf-4967-90e9-f3350886e783",
+      "name": "Embeddings Ollama1"
+    },
+    {
+      "parameters": {
+        "content": "## Como veo qué hace o piensa la ia cuando tarda mucho ?"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2624,
+        1440
+      ],
+      "typeVersion": 1,
+      "id": "4f84c83a-7a0a-409c-b6b4-6f46eb18610c",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieve data from a Supabase Vector Store that the user requested",
+        "tableName": {
+          "__rl": true,
+          "value": "tickets_duplicate",
+          "mode": "list",
+          "cachedResultName": "tickets_duplicate"
+        },
+        "options": {
+          "queryName": "match_documents",
+          "metadata": {
+            "metadataValues": [
+              {},
+              {}
+            ]
           }
         }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        2000,
+        1696
+      ],
+      "id": "bccb1561-2c73-4f46-aa94-98d783952f51",
+      "name": "SUPABASE TOOL"
+    },
+    {
+      "parameters": {
+        "batchSize": 20,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        608,
+        1440
+      ],
+      "id": "cc8321e9-f5c9-4156-a89b-89dcf14cb730",
+      "name": "item loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtener el archivo binario.\n// Asegúrate de que el nombre del campo en el nodo anterior coincida.\n// En un Form Trigger suele llamarse 'data' o el nombre del campo del formulario (ej. 'file').\n// Si tu input binario se llama diferente, cambia 'data' por ese nombre.\nconst binaryData = $input.item.binary.data; // <--- VERIFICA ESTE NOMBRE\n\nif (!binaryData) {\n  throw new Error(\"No se encontró información binaria. Verifica el nombre del campo.\");\n}\n\n// 2. Convertir el binario (Base64) a texto y luego a objeto JSON\nconst jsonString = Buffer.from(binaryData.data, 'base64').toString('utf8');\nconst tickets = JSON.parse(jsonString);\n\n// Verificamos que sea un array\nif (!Array.isArray(tickets)) {\n  throw new Error(\"El archivo JSON no contiene un array de tickets.\");\n}\n\n// 3. Devolver los tickets como ítems individuales\n// Esto \"explota\" el array: si entran 1 archivo, salen 8000 ítems\nreturn tickets.map(ticket => {\n  // Lógica de metadatos que ya tenías\n  const fileName = binaryData.fileName || \"unknown.json\";\n  const type = fileName.toLowerCase().includes(\"manual\") ? \"manual\" : \"ticket\";\n\n  return {\n    json: {\n      ...ticket, // Mantiene todas las propiedades del ticket (id, asunto, etc.)\n      metadata: {\n        source: fileName,\n        type: type,\n        ingest_date: new Date().toISOString()\n      }\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        1440
+      ],
+      "id": "ee136bc8-e854-41a1-b54d-1f456895424f",
+      "name": "Read File"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        784,
+        1504
+      ],
+      "id": "4245dadc-9a42-4717-9ae5-4cd0151bc40f",
+      "name": "Wait",
+      "webhookId": "c7eea7af-b437-4267-b06e-e441bd2758dc"
+    },
+    {
+      "parameters": {
+        "chunkSize": 512,
+        "chunkOverlap": 50,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        1072,
+        1872
+      ],
+      "id": "075282e3-f006-4912-b1b1-86dd7901422f",
+      "name": "Recursive Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "formTitle": "data",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf, .csv, .json",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        1440
+      ],
+      "id": "64adea53-1d8c-412d-b8bf-c9ac8e11e28b",
+      "name": "Upload your file here",
+      "webhookId": "82848bc4-5ea2-4e5a-8bb6-3c09b94a8c5d"
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "=Asunto: {{ $json.titulo }}\nDescripción: {{ $json.problema_inicial }}\nSolución: {{ $json.solucion_detectada }}",
+        "textSplittingMode": "custom",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "ticket_id",
+                "value": "={{ $('item loop').item.json.ticket_id }}"
+              },
+              {
+                "name": "estado",
+                "value": "={{ $('Read File').item.json.estado }}"
+              },
+              {
+                "name": "cliente",
+                "value": "={{ $('Read File').item.json.cliente }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        1648
+      ],
+      "id": "938c2807-84a7-472e-9b08-866c3b030b9e",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        944,
+        1648
+      ],
+      "id": "51dcfd8e-afef-42f5-a3cb-b1e648b98688",
+      "name": "Embeddings Ollama"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "tickets",
+          "mode": "list",
+          "cachedResultName": "tickets"
+        },
+        "embeddingBatchSize": "={{ 200 }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        944,
+        1456
+      ],
+      "id": "db1ef894-f2cf-4639-b926-3ba0beb450ff",
+      "name": "Supabase Vector Store"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "tickets_nomic",
+        "limit": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "metadata",
+              "condition": "ilike",
+              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Field_Value', ``, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        2368,
+        1696
+      ],
+      "id": "a9df6fff-5795-4b29-9eca-9105b79fff9d",
+      "name": "Get many rows in Supabase"
+    },
+    {
+      "parameters": {
+        "content": "### 📚 Load Data Flow",
+        "height": 684,
+        "width": 1388,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        176,
+        1360
+      ],
+      "typeVersion": 1,
+      "id": "795b56a4-6ca3-4f3d-ab67-79608116e9a3",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "event": "newChatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "Rafael Nuñez, Andrea Ravenna (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        1728,
+        1408
+      ],
+      "id": "6662ce75-9561-4e56-a643-6f304206ce09",
+      "name": "receives chat message",
+      "webhookId": "82c27cfe-d8d6-4296-8b08-d9a796e41509",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
       }
-    ]
-  },
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "Rafael Nuñez, Andrea Ravenna (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        },
+        "message": "hola",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        2288,
+        1408
+      ],
+      "id": "cce47787-f288-4552-8bd5-bf3039f7ed6e",
+      "name": "sends chat message",
+      "webhookId": "f3318ca7-0808-4113-9593-dced1aee5b06",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    }
+  ],
+  "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
   "shared": [
     {
-      "createdAt": "2026-01-12T22:23:56.206Z",
-      "updatedAt": "2026-01-12T22:23:56.206Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "R07KrPcQXEdQQJj1",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-21T16:03:48.000Z",
-  "versionId": "ae7cb5de-0af7-4e27-b01e-569195c52b49"
+  "updatedAt": "2026-02-20T20:37:42.545Z",
+  "versionId": "9c6957ea-9fbd-4565-b34f-dfe2d8f5d43d"
 }
