@@ -1,0 +1,154 @@
+{
+  "active": false,
+  "connections": {
+    "Ejecutar en SQL Server1": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de scripts1": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron cada 3h1": {
+      "main": [
+        [
+          {
+            "node": "Lista de scripts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-22T21:30:50.979Z",
+  "id": "dPcJamvAFi2gdlSS",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "const staticData = this.getWorkflowStaticData('global');\nconst totalFilas = items.length;\nconst script = $json[\"script\"] ?? 'Desconocido';\nconst timestamp = new Date().toISOString();\nconst mensaje = `[${timestamp}] Script: ${script} → ${totalFilas} filas`;\nif (!staticData.logs) {\n  staticData.logs = [];\n}\nstaticData.logs.push(mensaje);\nreturn [{ json: { log: mensaje, acumulado: staticData.logs } }];"
+      },
+      "id": "1de79f1f-b14d-4068-8808-d30236b39461",
+      "name": "Guardar en log persistente",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"script\"]}}"
+      },
+      "id": "92dad7fc-7d56-4715-b176-2b3e9a992a01",
+      "name": "Ejecutar en SQL Server1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -80
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "DITSWqvLjnoODIqU",
+          "name": "Conexion Test Interno CR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "2a9dc200-29f3-42ac-a387-8bc896509393",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const scripts = [\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@gmial.com', mail)-1)+'@gmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@gmial.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotamil.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotamil.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotmaill.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotmaill.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@hotmal.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@hotmal.com'`,\n  `SELECT usuarioid, SUBSTRING(mail,1,CHARINDEX('@homail.com', mail)-1)+'@hotmail.com'\n   FROM usuario\n   WHERE mail LIKE '%@homail.com'`,\n  `SELECT * \n   FROM usuario\n   WHERE mail LIKE '%sincorreo%'\n     AND Eliminado != 1\n     AND PublicacionComprobantes != 0`,\n  `SELECT mail, LTRIM(RTRIM(REPLACE(mail,CHAR(9), '')))\n   FROM usuario\n   WHERE mail LIKE '% %'`\n];\nreturn scripts.map(s => ({ json: { script: s } }));"
+      },
+      "id": "466c0ed4-20a9-48f5-91d6-dc59652aff26",
+      "name": "Lista de scripts1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 3
+            }
+          ]
+        }
+      },
+      "id": "7a3613da-fa16-489d-bea3-e4f079fd793d",
+      "name": "Cron cada 3h1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -80
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "dPcJamvAFi2gdlSS",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-22T21:54:00.000Z",
+  "versionId": "90623659-ce8a-484d-b80c-9be547f3be1d"
+}
