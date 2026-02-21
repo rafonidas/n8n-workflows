@@ -711,11 +711,11 @@
   },
   "shared": [
     {
-      "createdAt": "2025-12-26T18:45:45.480Z",
-      "updatedAt": "2025-12-26T18:45:45.480Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "QlYS2BPEzeQliaos",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": {
@@ -725,6 +725,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-01-12T12:45:43.000Z",
+  "updatedAt": "2026-01-29T12:34:23.460Z",
   "versionId": "99b1268e-1539-4e60-8145-452278908190"
 }
