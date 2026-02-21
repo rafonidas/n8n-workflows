@@ -1,0 +1,521 @@
+{
+  "active": false,
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Normalizacion de datos2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Microsoft SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft SQL": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-10T15:41:35.952Z",
+  "id": "jCSYHwbszMwX8Bw1",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Fomulario Gestion de informe facturacion",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Ojo se esta ejecutando sobre la BD de ValoresCOMFIARTEST\n",
+        "height": 80,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1152,
+        -736
+      ],
+      "typeVersion": 1,
+      "id": "92a06f02-e3b9-4356-8d98-e7be03ab1eb3",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "formTitle": "Ingreso de comprobantes emitidos",
+        "formDescription": "Ingreso de comprobantes emitidos",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Pais",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "AR"
+                  },
+                  {
+                    "option": "BO"
+                  },
+                  {
+                    "option": "CO"
+                  },
+                  {
+                    "option": "CR"
+                  },
+                  {
+                    "option": "EC"
+                  },
+                  {
+                    "option": "PE"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Entorno",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Año",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "2025"
+                  },
+                  {
+                    "option": "2024"
+                  },
+                  {
+                    "option": "2023"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Mes",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "01"
+                  },
+                  {
+                    "option": "02"
+                  },
+                  {
+                    "option": "03"
+                  },
+                  {
+                    "option": "04"
+                  },
+                  {
+                    "option": "05"
+                  },
+                  {
+                    "option": "06"
+                  },
+                  {
+                    "option": "07"
+                  },
+                  {
+                    "option": "08"
+                  },
+                  {
+                    "option": "09"
+                  },
+                  {
+                    "option": "10"
+                  },
+                  {
+                    "option": "11"
+                  },
+                  {
+                    "option": "12"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Cantidad",
+              "fieldType": "number",
+              "placeholder": "Ingrese los comprobantes emitidos",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "appendAttribution": false,
+          "customCss": ":root {\n\t--font-family: 'Open Sans', sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 600;\n\t--font-size-body: 12px;\n\t--font-size-label: 14px;\n\t--font-size-test-notice: 12px;\n\t--font-size-input: 14px;\n\t--font-size-header: 20px;\n\t--font-size-paragraph: 14px;\n\t--font-size-link: 12px;\n\t--font-size-error: 12px;\n\t--font-size-html-h1: 28px;\n\t--font-size-html-h2: 20px;\n\t--font-size-html-h3: 16px;\n\t--font-size-html-h4: 14px;\n\t--font-size-html-h5: 12px;\n\t--font-size-html-h6: 10px;\n\t--font-size-subheader: 14px;\n\n\t/* Colors */\n\t--color-background: #fbfcfe;\n\t--color-test-notice-text: #e6a23d;\n\t--color-test-notice-bg: #fefaf6;\n\t--color-test-notice-border: #f6dcb7;\n\t--color-card-bg: #ffffff;\n\t--color-card-border: #dbdfe7;\n\t--color-card-shadow: rgba(99, 77, 255, 0.06);\n\t--color-link: #7e8186;\n\t--color-header: #525356;\n\t--color-label: #555555;\n\t--color-input-border: #dbdfe7;\n\t--color-input-text: #71747A;\n\t--color-focus-border: rgb(90, 76, 194);\n\t--color-submit-btn-bg: #ff6d5a;\n\t--color-submit-btn-text: #ffffff;\n\t--color-error: #ea1f30;\n\t--color-required: #ff6d5a;\n\t--color-clear-button-bg: #7e8186;\n\t--color-html-text: #555;\n\t--color-html-link: #ff6d5a;\n\t--color-header-subtext: #7e8186;\n\n\t/* Border Radii */\n\t--border-radius-card: 8px;\n\t--border-radius-input: 6px;\n\t--border-radius-clear-btn: 50%;\n\t--card-border-radius: 8px;\n\n\t/* Spacing */\n\t--padding-container-top: 24px;\n\t--padding-card: 24px;\n\t--padding-test-notice-vertical: 12px;\n\t--padding-test-notice-horizontal: 24px;\n\t--margin-bottom-card: 16px;\n\t--padding-form-input: 12px;\n\t--card-padding: 24px;\n\t--card-margin-bottom: 16px;\n\n\t/* Dimensions */\n\t--container-width: 448px;\n\t--submit-btn-height: 48px;\n\t--checkbox-size: 18px;\n\n\t/* Others */\n\t--box-shadow-card: 0px 4px 16px 0px var(--color-card-shadow);\n\t--opacity-placeholder: 0.5;\n}"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -688,
+        -976
+      ],
+      "id": "1896a617-11e1-4eba-8ee9-ca5599c22274",
+      "name": "On form submission",
+      "webhookId": "a165c3bc-4ef0-43ba-be79-d0a99512be5e"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "014fffcc-241c-4cab-b91a-0c7f62c24d26",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "72576cc3-6ba4-41f1-a4fa-b1661d0d5f73",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "71898983-7e4f-4583-8f50-a3e7bfcdf054",
+              "name": "Año",
+              "value": "={{ $json['Año'] }}",
+              "type": "number"
+            },
+            {
+              "id": "3903e286-34a6-40e6-9a2d-c963ea29e8a0",
+              "name": "Mes",
+              "value": "={{ $json.Mes }}",
+              "type": "number"
+            },
+            {
+              "id": "853e889c-8b58-4527-a303-a2f5c0a76253",
+              "name": "Cantidad",
+              "value": "={{ $json.Cantidad }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        -976
+      ],
+      "id": "c4479648-911a-4a0a-9c2e-7fb339d8500d",
+      "name": "Normalizacion de datos2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => \n  `('${r.json.Pais}', '${r.json.Entorno}', ${r.json.Año}, ${r.json.Mes}, ${r.json.Cantidad})`\n).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\n      INSERT INTO ValoresCOMFIARTEST (pais, entorno, anio, mes, cantidad)\n      VALUES ${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        -976
+      ],
+      "id": "a17ebb09-24ee-4599-84ea-7bb3ced7fc79",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -16,
+        -976
+      ],
+      "id": "2651b4e2-8dcb-4d40-9e8f-2acbd10b816a",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Argentina",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3AKqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1%40thread.tacv2/Notificaciones%20Soporte?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "message": "=Se han cargado los valores del ambiente {{ $('Normalizacion de datos2').item.json.Pais }} - {{ $('Normalizacion de datos2').item.json.Entorno }} - {{ $('Normalizacion de datos2').item.json['Año'] }} - {{ $('Normalizacion de datos2').item.json.Mes  }} - {{ $('Normalizacion de datos2').item.json.Cantidad }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        192,
+        -976
+      ],
+      "id": "572bf453-e2cd-4ab4-b22e-33ecbcb6d287",
+      "name": "Create message",
+      "webhookId": "b3e90b9e-0bd0-4af9-8fb8-4b40f40be80b",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Bogota",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "Cli8NIZaHvhPaYsN"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "jCSYHwbszMwX8Bw1",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "global": {
+      "logs": [
+        {
+          "ts": "2025-11-05T20:03:50.269Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 218456
+        },
+        {
+          "ts": "2025-11-05T20:04:42.476Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 513898
+        },
+        {
+          "ts": "2025-11-05T20:10:13.300Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 612803
+        },
+        {
+          "ts": "2025-11-05T20:12:06.896Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 58916
+        },
+        {
+          "ts": "2025-11-05T20:14:27.240Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 373265
+        },
+        {
+          "ts": "2025-11-05T20:17:39.099Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 722334
+        },
+        {
+          "ts": "2025-11-05T20:59:05.525Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 97163
+        },
+        {
+          "ts": "2025-11-05T20:59:08.134Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 42690
+        },
+        {
+          "ts": "2025-11-05T20:59:36.560Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 48856
+        },
+        {
+          "ts": "2025-11-05T20:59:38.500Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 2041
+        },
+        {
+          "ts": "2025-11-06T20:03:55.105Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 218456
+        },
+        {
+          "ts": "2025-11-06T20:04:20.749Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 513898
+        },
+        {
+          "ts": "2025-11-06T20:06:52.668Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 612803
+        },
+        {
+          "ts": "2025-11-06T20:07:05.157Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 58916
+        },
+        {
+          "ts": "2025-11-06T20:07:10.576Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 373265
+        },
+        {
+          "ts": "2025-11-06T20:07:17.105Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 722334
+        },
+        {
+          "ts": "2025-11-06T20:08:11.247Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 97163
+        },
+        {
+          "ts": "2025-11-06T20:08:14.559Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 42690
+        },
+        {
+          "ts": "2025-11-06T20:08:18.932Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 48856
+        },
+        {
+          "ts": "2025-11-06T20:08:20.806Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 2041
+        }
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-01-27T20:41:16.519Z",
+  "versionId": "5213120f-ab13-4d82-8e53-4c183ccb86d0"
+}
