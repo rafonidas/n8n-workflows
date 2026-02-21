@@ -225,7 +225,7 @@
       "main": [
         [
           {
-            "node": "Update Metrics",
+            "node": "Append row in sheet",
             "type": "main",
             "index": 0
           }
@@ -254,6 +254,17 @@
         ]
       ]
     },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Map Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Four-hourly Trigger": {
       "main": [
         [
@@ -263,6 +274,11 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Append or update row in sheet1": {
+      "main": [
+        []
       ]
     },
     "UPDATE": {
@@ -280,44 +296,20 @@
       "main": [
         [
           {
-            "node": "Set Tasks State",
+            "node": "List Tasks",
             "type": "main",
             "index": 0
           }
         ]
+      ]
+    },
+    "List Tasks": {
+      "main": [
+        []
       ]
     },
     "Set Credentials": {
       "main": [
-        [
-          {
-            "node": "If2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "When Executed by Another Workflow": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If2": {
-      "main": [
-        [
-          {
-            "node": "Credentials Loop",
-            "type": "main",
-            "index": 0
-          }
-        ],
         [
           {
             "node": "Set Tasks",
@@ -330,22 +322,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Update Metrics": {
-      "main": [
-        [
-          {
-            "node": "Map Results",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Set Tasks State": {
-      "main": [
-        []
       ]
     }
   },
@@ -428,7 +404,6 @@
     },
     {
       "parameters": {
-        "batchSize": "=1",
         "options": {}
       },
       "type": "n8n-nodes-base.splitInBatches",
@@ -583,8 +558,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1792,
-        432
+        -1568,
+        576
       ],
       "id": "1aca7ff9-5c9e-4a27-a0be-0428d25f1d7e",
       "name": "Bi-hourly Trigger",
@@ -747,7 +722,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').item.json.audit_startTime;\n\n// 2. Buscamos los datos de los loops previos\nconst envData = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\n\n// 3. Calculamos el peso de los datos\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Manejo de resultados vacíos del SQL\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\n// 5. Formateo de Fecha y Hora por separado\nconst now = new Date();\nconst timeOptions = { timeZone: \"America/Argentina/Buenos_Aires\" };\n\nconst fecha = now.toLocaleDateString(\"es-AR\", timeOptions);\nconst hora = now.toLocaleTimeString(\"es-AR\", timeOptions);\n\nreturn [{\n  json: {\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    // Nuevo campo: Frecuencia\n    frecuencia: queryData.type || 'N/A', \n    // Campos separados: Fecha y Hora\n    fecha: fecha,\n    hora: hora,\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n  }\n}];"
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Buscamos los datos de los loops previos\nconst envData = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\n\n// 3. Calculamos el peso de los datos\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Manejo de resultados vacíos del SQL\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\n// 5. Formateo de Fecha y Hora por separado\nconst now = new Date();\nconst timeOptions = { timeZone: \"America/Argentina/Buenos_Aires\" };\n\nconst fecha = now.toLocaleDateString(\"es-AR\", timeOptions);\nconst hora = now.toLocaleTimeString(\"es-AR\", timeOptions);\n\nreturn [{\n  json: {\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    // Nuevo campo: Frecuencia\n    frecuencia: queryData.type || 'N/A', \n    // Campos separados: Fecha y Hora\n    fecha: fecha,\n    hora: hora,\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -793,233 +768,6 @@
           "name": "WEEKLY"
         }
       }
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "30 9 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        128
-      ],
-      "id": "286d21fb-c081-41fd-aa12-f43056018f25",
-      "name": "Four-hourly Trigger",
-      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
-    },
-    {
-      "parameters": {
-        "content": "## chekear \n## notificaciones de error\n## retrys - paths - \n## queries - set credentials\n## credenciales correctas\n##\n##",
-        "height": 320,
-        "width": 448
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        368,
-        0
-      ],
-      "typeVersion": 1,
-      "id": "d1c8e619-0eda-4b1a-9ada-c5a339ad5112",
-      "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
-        "operation": "appendOrUpdate",
-        "documentId": {
-          "__rl": true,
-          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
-          "mode": "list",
-          "cachedResultName": "control_revisiones",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Hoja 1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Estado": "OK",
-            "ID_Unico": "={{ $node[\"Credentials Loop\"].json.country }}_{{ $node[\"Credentials Loop\"].json.entorno }}_{{ $node[\"Credentials Loop\"].json.type }}_{{ $today.format('yyyy-MM-dd') }}",
-            "Ultima_Actualizacion": "={{$now}}"
-          },
-          "matchingColumns": [
-            "ID_Unico"
-          ],
-          "schema": [
-            {
-              "id": "ID_Unico",
-              "displayName": "ID_Unico",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Pais",
-              "displayName": "Pais",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Entorno",
-              "displayName": "Entorno",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Frecuencia",
-              "displayName": "Frecuencia",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Fecha",
-              "displayName": "Fecha",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Estado",
-              "displayName": "Estado",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Ultima_Actualizacion",
-              "displayName": "Ultima_Actualizacion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        1888,
-        416
-      ],
-      "id": "ea89adc9-90b3-4845-a6ab-c932935edee1",
-      "name": "UPDATE",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\nif (executionType !== \"Daily\") {\n  return null;\n}\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -944,
-        400
-      ],
-      "id": "7889cd56-8579-48b4-9118-6f4f4ff45582",
-      "name": "Set Tasks"
-    },
-    {
-      "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"test.comfiar.com.ec\", entorno: \"test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -1280,
-        624
-      ],
-      "id": "15507e07-e49a-4767-bc74-09b8198c3443",
-      "name": "Set Credentials"
-    },
-    {
-      "parameters": {
-        "inputSource": "passthrough"
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -1888,
-        624
-      ],
-      "id": "9511fb26-9a83-401d-a4c0-1ac47628e24a",
-      "name": "When Executed by Another Workflow"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "54983ce0-25f1-4a9a-9726-8a2b34aa4c5e",
-              "leftValue": "={{ $(\"When Executed by Another Workflow\").isExecuted }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -1104,
-        624
-      ],
-      "id": "e294fd12-157d-49b0-af35-685f46866fa3",
-      "name": "If2"
     },
     {
       "parameters": {
@@ -1145,11 +893,11 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1328,
-        656
+        1344,
+        1040
       ],
       "id": "98016bfe-8061-4179-a6fb-070653e12e45",
-      "name": "Update Metrics",
+      "name": "Append row in sheet",
       "alwaysOutputData": false,
       "retryOnFail": true,
       "waitBetweenTries": 5000,
@@ -1158,7 +906,204 @@
           "id": "YtjFVoybbkWVfDYe",
           "name": "Google Sheets account"
         }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 9 * * 1-5 comando"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1568,
+        128
+      ],
+      "id": "286d21fb-c081-41fd-aa12-f43056018f25",
+      "name": "Four-hourly Trigger",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "content": "## chekear \n## notificaciones de error\n## retrys - paths - \n## queries - set credentials\n## credenciales correctas\n##\n##",
+        "height": 320,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        368,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "d1c8e619-0eda-4b1a-9ada-c5a339ad5112",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1904,
+        -160
+      ],
+      "id": "d1807e6e-8a85-4328-a58a-c243d387cb01",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
       }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Estado": "OK",
+            "ID_Unico": "={{ $node[\"Credentials Loop\"].json.country }}_{{ $node[\"Credentials Loop\"].json.entorno }}_{{ $node[\"Credentials Loop\"].json.type }}_{{ $today.format('yyyy-MM-dd') }}",
+            "Ultima_Actualizacion": "={{$now}}"
+          },
+          "matchingColumns": [
+            "ID_Unico"
+          ],
+          "schema": [
+            {
+              "id": "ID_Unico",
+              "displayName": "ID_Unico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pais",
+              "displayName": "Pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Frecuencia",
+              "displayName": "Frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ultima_Actualizacion",
+              "displayName": "Ultima_Actualizacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1888,
+        416
+      ],
+      "id": "ea89adc9-90b3-4845-a6ab-c932935edee1",
+      "name": "UPDATE",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = $now\nconst today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: now\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1088,
+        464
+      ],
+      "id": "7889cd56-8579-48b4-9118-6f4f4ff45582",
+      "name": "Set Tasks"
     },
     {
       "parameters": {
@@ -1179,9 +1124,7 @@
         },
         "columns": {
           "mappingMode": "autoMapInputData",
-          "value": {
-            "Ultima_Actualizacion": "="
-          },
+          "value": {},
           "matchingColumns": [],
           "schema": [
             {
@@ -1256,17 +1199,30 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -752,
-        400
+        -896,
+        464
       ],
       "id": "636a1ed0-9ea8-4bd5-8894-ee50acd52e4f",
-      "name": "Set Tasks State",
+      "name": "List Tasks",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"test.comfiar.com.ec\", entorno: \"test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nreturn [...dbsArg, ...dbsCol, ...dbsCol4];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1264,
+        640
+      ],
+      "id": "15507e07-e49a-4767-bc74-09b8198c3443",
+      "name": "Set Credentials"
     }
   ],
   "pinData": {},
@@ -1278,26 +1234,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-01-14T18:39:13.464Z",
-      "updatedAt": "2026-01-14T18:39:13.464Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "ABtvnJIXyOxaiexU",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": {
-    "node:Daily Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Hourly Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Four-hourly Trigger": {
-      "recurrenceRules": []
-    }
-  },
+  "staticData": null,
   "tags": [],
-  "triggerCount": 3,
-  "updatedAt": "2026-01-20T16:13:19.000Z",
-  "versionId": "911ee850-85e4-4b7f-b034-28a074f3aadb"
+  "triggerCount": 0,
+  "updatedAt": "2026-01-27T18:20:09.854Z",
+  "versionId": "f03ad395-7f32-49c1-8343-94f5d44ab74c"
 }
