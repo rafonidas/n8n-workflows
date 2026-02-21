@@ -1,0 +1,456 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Cuestionario con validaciones1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalizacion de datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Microsoft SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft SQL": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-13T13:56:12.413Z",
+  "id": "wuiI6jrZsmmRGY9E",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Formulario de Comprobantes",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Ojo se esta ejecutando sobre la BD de ValoresCOMFIAR\n",
+        "height": 80,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1872,
+        -1552
+      ],
+      "typeVersion": 1,
+      "id": "2e7743fa-843e-418c-aa45-962b97036f84",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "Formulario",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1536,
+        -1328
+      ],
+      "id": "12f534ab-e905-4928-8bad-9c8774c3253a",
+      "name": "Webhook",
+      "webhookId": "9f104d84-7ab1-47db-b453-fa45785a5a2a"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => \n  `('${r.json.pais}', '${r.json.entorno}', ${r.json.anio}, ${r.json.mes}, ${r.json.cantidad})`\n).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1120,
+        -1216
+      ],
+      "id": "35d27f92-5a69-46b8-8105-19638d8507e5",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -896,
+        -1216
+      ],
+      "id": "5e37a433-7b89-4da4-b259-ee76b728db61",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "389ab60c-4f23-4a7f-9764-841485242703",
+          "mode": "list",
+          "cachedResultName": "IT APG"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:e493dac9b5c54887af024e5dbe762d90@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "IT - Notificaciones n8n",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ae493dac9b5c54887af024e5dbe762d90%40thread.tacv2/IT%20-%20Notificaciones%20n8n?groupId=389ab60c-4f23-4a7f-9764-841485242703&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n<title>Datos Insertados para el Dashboard</title>\n<style>\n  body { font-family: Segoe UI, Arial, sans-serif; background:#f6f7f9; margin:0; padding:24px; }\n  .card { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); }\n  h2 { margin: 0 0 16px; color: #911f30; font-size: 20px; }\n  table { width: 100%; border-collapse: collapse; }\n  th, td { padding: 10px 12px; border-bottom: 1px solid #e6e8eb; text-align: left; }\n  th { background: #fafbfc; font-weight: 600; color:#333; }\n  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }\n</style>\n</head>\n<body>\n  <div class=\"card\">\n    <h2>Datos Insertados para el Dashboard</h2>\n    <table>\n      <tr>\n        <th>País</th>\n        <td class=\"mono\">{{ $('Normalizacion de datos').item.json.pais }}</td>\n      </tr>\n      <tr>\n        <th>Entorno</th>\n        <td class=\"mono\">{{ $('Normalizacion de datos').item.json.entorno }}</td>\n      </tr>\n      <tr>\n        <th>Año</th>\n        <td class=\"mono\">{{ $('Normalizacion de datos').item.json.anio }}</td>\n      </tr>\n      <tr>\n        <th>Mes</th>\n        <td class=\"mono\">{{ $('Normalizacion de datos').item.json.mes }}</td>\n      </tr>\n      <tr>\n        <th>Cantidad</th>\n        <td class=\"mono\">{{ $('Normalizacion de datos').item.json.cantidad }}</td>\n      </tr>\n    </table>\n  </div>\n</body>\n</html>\n",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        -1216
+      ],
+      "id": "c76f702a-a226-40ea-a89a-e513125b70f0",
+      "name": "Create message",
+      "webhookId": "b3e90b9e-0bd0-4af9-8fb8-4b40f40be80b",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d8c12e4-8189-4b07-a534-4a20934b0318",
+              "name": "pais",
+              "value": "={{ $json.body.pais }}",
+              "type": "string"
+            },
+            {
+              "id": "9f85e663-71c8-41df-a451-f4246e094be4",
+              "name": "entorno",
+              "value": "={{ $json.body.entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "ace0f92b-09b8-4ebd-9c52-0a680e16a619",
+              "name": "anio",
+              "value": "={{ $json.body.anio }}",
+              "type": "string"
+            },
+            {
+              "id": "93a89df1-5201-4349-a5bf-760ac9c56c7a",
+              "name": "mes",
+              "value": "={{ $json.body.mes }}",
+              "type": "string"
+            },
+            {
+              "id": "777db746-8344-416c-b42c-44f9e01d694e",
+              "name": "cantidad",
+              "value": "={{ $json.body.cantidad }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1312,
+        -1216
+      ],
+      "id": "5df4139b-6595-4f40-904b-1d9749795908",
+      "name": "Normalizacion de datos"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n<title>Ingreso de Comprobantes Emitidos</title>\n\n<style>\n  body {\n    font-family: \"Segoe UI\", sans-serif;\n    background: #f3f6f9;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    margin: 0;\n  }\n  .form-container {\n    background: white;\n    padding: 35px 40px;\n    border-radius: 14px;\n    box-shadow: 0 5px 20px rgba(0,0,0,0.08);\n    width: 400px;\n    max-width: 95%;\n  }\n  .logo { display: flex; justify-content: center; margin-bottom: 15px; }\n  .logo img { width: 110px; height: auto; }\n  h2 { text-align: center; color: #911f30; margin-bottom: 25px; font-size: 20px; font-weight: 700; }\n  label { display: block; margin-bottom: 6px; color: #333; font-weight: 600; }\n  select, input {\n    width: 100%; padding: 12px; margin-bottom: 18px; border-radius: 8px;\n    border: 1px solid #ccc; font-size: 15px; background-color: #fafafa;\n    box-sizing: border-box; transition: all 0.2s ease;\n  }\n  #cantidad { margin-bottom: 28px; }\n  select:focus, input:focus {\n    border-color: #911f30; background-color: #fff; outline: none; box-shadow: 0 0 5px #911f3040;\n  }\n  button {\n    width: 100%; background-color: #911f30; color: white; border: none; padding: 12px;\n    font-size: 15px; border-radius: 8px; cursor: pointer; transition: all 0.25s ease; font-weight: 600;\n  }\n  button:hover { background-color: #7c1a29; transform: scale(1.02); }\n  .message { text-align: center; margin-top: 10px; font-weight: 600; }\n  @media (max-width: 480px) { .form-container { padding: 25px 20px; } }\n</style>\n</head>\n\n<body>\n<div class=\"form-container\">\n  <div class=\"logo\">\n    <img src=\"https://apg-consulting.com/wp-content/uploads/cropped-APG-Logo-png-peque.png\" alt=\"APG Consulting Logo\">\n  </div>\n  <h2>Ingreso de Comprobantes Emitidos</h2>\n\n  <form id=\"formulario\">\n    <!-- País -->\n    <label for=\"pais\">País</label>\n    <select id=\"pais\" name=\"pais\" required>\n      <option value=\"\" disabled selected>Seleccionar País</option>\n      <option value=\"AR\">AR</option>\n      <option value=\"BO\">BO</option>\n      <option value=\"CO\">CO</option>\n      <option value=\"CR\">CR</option>\n      <option value=\"EC\">EC</option>\n      <option value=\"ES\">ES</option>\n      <option value=\"PE\">PE</option>\n    </select>\n\n    <!-- Entorno -->\n    <label for=\"entorno\">Entorno</label>\n    <select id=\"entorno\" name=\"entorno\" required>\n      <option value=\"\">Seleccione un país primero</option>\n    </select>\n\n    <!-- Año -->\n    <label for=\"anio\">Año</label>\n    <select id=\"anio\" name=\"anio\" required>\n      <option value=\"\">Seleccionar Año</option>\n    </select>\n\n    <!-- Mes -->\n    <label for=\"mes\">Mes</label>\n    <select id=\"mes\" name=\"mes\" required>\n      <option value=\"\">Seleccionar Mes</option>\n    </select>\n\n    <!-- Cantidad -->\n    <label for=\"cantidad\">Cantidad de documentos</label>\n    <input type=\"number\" id=\"cantidad\" name=\"cantidad\" min=\"1\" placeholder=\"Ej: 25\" required />\n\n    <button type=\"submit\">Enviar</button>\n    <div id=\"responseMsg\" class=\"message\"></div>\n  </form>\n</div>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', () => {\n  const form = document.getElementById('formulario');\n  const responseMsg = document.getElementById('responseMsg');\n  const paisSelect = document.getElementById('pais');\n  const entornoSelect = document.getElementById('entorno');\n  const anioSelect = document.getElementById('anio');\n  const mesSelect = document.getElementById('mes');\n\n  // Entornos por país\n  const entornosPorPais = {\n    CO: [\"NESTLE\", \"Baker\"],\n    EC: [\"NESTLE\", \"Bebemundo\", \"DGAC\"],\n    CR: [\"NESTLE\"]\n  };\n\n  // Función segura para llenar años y meses\nfunction generarFechas() {\n  try {\n    const today = new Date();\n    const currentMonth = today.getMonth(); // 0 = Enero\n    const currentYear = today.getFullYear();\n\n    const months = [];\n    const yearSet = new Set();\n\n    for (let i = 3; i >= 1; i--) {\n      const d = new Date(currentYear, currentMonth - i, 1);\n      const nombreMes = d.toLocaleString('es-ES', { month: 'long' });\n      const valorMes = String(d.getMonth() + 1).padStart(2, '0');\n      const año = d.getFullYear();\n\n      months.push({ name: nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1), value: valorMes });\n      yearSet.add(año);\n    }\n\n    mesSelect.innerHTML = '<option value=\"\">Seleccionar Mes</option>' +\n      months.map(m => `<option value=\"${m.value}\">${m.name}</option>`).join('');\n\n    anioSelect.innerHTML = '<option value=\"\">Seleccionar Año</option>' +\n      Array.from(yearSet).sort((a, b) => a - b).map(y => `<option value=\"${y}\">${y}</option>`).join('');\n  } catch (e) {\n    console.error('Error generando fechas:', e);\n  }\n}\n\n\n\n  // Actualizar entornos según país\n  function actualizarEntornos(pais) {\n    entornoSelect.innerHTML = \"\";\n    if (entornosPorPais[pais]) {\n      const opciones = entornosPorPais[pais]\n        .map(e => `<option value=\"${e}\">${e}</option>`)\n        .join('');\n      entornoSelect.innerHTML = `<option value=\"\">Seleccionar Entorno</option>${opciones}`;\n    } else {\n      entornoSelect.innerHTML = `<option value=\"\">Seleccione un país válido</option>`;\n    }\n  }\n\n  // Inicializar\n  generarFechas();\n  actualizarEntornos(\"\"); // estado inicial\n\n  // Listener de cambio de país\n  paisSelect.addEventListener('change', (e) => {\n    const pais = e.target.value;\n    actualizarEntornos(pais);\n  });\n\n  // Envío del formulario\n  form.addEventListener('submit', async function (e) {\n    e.preventDefault();\n\n    const btn = form.querySelector('button');\n    btn.disabled = true;\n    btn.innerText = 'Enviando...';\n    btn.style.opacity = '0.8';\n    responseMsg.textContent = '';\n\n    const pais = paisSelect.value;\n    const entorno = entornoSelect.value;\n    const anio = anioSelect.value;\n    const mes = mesSelect.value;\n    const cantidad = document.getElementById('cantidad').value;\n\n    if (!pais) {\n      responseMsg.textContent = '⚠️ Selecciona un país';\n      responseMsg.style.color = 'red';\n      btn.disabled = false; btn.innerText = 'Enviar'; btn.style.opacity = '1';\n      return;\n    }\n    if (!entorno) {\n      responseMsg.textContent = '⚠️ Selecciona un entorno';\n      responseMsg.style.color = 'red';\n      btn.disabled = false; btn.innerText = 'Enviar'; btn.style.opacity = '1';\n      return;\n    }\n    if (cantidad <= 0) {\n      responseMsg.textContent = '⚠️ La cantidad debe ser mayor a 0';\n      responseMsg.style.color = 'red';\n      btn.disabled = false; btn.innerText = 'Enviar'; btn.style.opacity = '1';\n      return;\n    }\n\n    const payload = { pais, entorno, anio, mes, cantidad };\n\n    try {\n      const res = await fetch('https://lilia-unshunted-morris.ngrok-free.dev/webhook/Formulario', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify(payload)\n      });\n\n      if (res.ok) {\n        responseMsg.textContent = '✅ Enviado correctamente';\n        responseMsg.style.color = 'green';\n        form.reset();\n        actualizarEntornos(\"\"); // volver a estado inicial\n      } else {\n        responseMsg.textContent = '❌ Error al enviar. Intenta de nuevo.';\n        responseMsg.style.color = 'red';\n      }\n    } catch (err) {\n      console.error('Error en el envío:', err);\n      responseMsg.textContent = '⚠️ Ocurrió un error al conectar con el servidor.';\n      responseMsg.style.color = 'red';\n    } finally {\n      btn.disabled = false;\n      btn.innerText = 'Enviar';\n      btn.style.opacity = '1';\n    }\n  });\n});\n</script>\n</body>\n</html>\n",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -1312,
+        -1392
+      ],
+      "id": "30332bba-b51b-4316-88e8-2bd94320b732",
+      "name": "Cuestionario con validaciones1"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n<title>Ingreso de Comprobantes Emitidos</title>\n\n<style>\n  body {\n    font-family: \"Segoe UI\", sans-serif;\n    background: #f3f6f9;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    margin: 0;\n  }\n  .form-container {\n    background: white;\n    padding: 35px 40px;\n    border-radius: 14px;\n    box-shadow: 0 5px 20px rgba(0,0,0,0.08);\n    width: 400px;\n    max-width: 95%;\n  }\n  .logo { display: flex; justify-content: center; margin-bottom: 15px; }\n  .logo img { width: 110px; height: auto; }\n  h2 { text-align: center; color: #911f30; margin-bottom: 25px; font-size: 20px; font-weight: 700; }\n  label { display: block; margin-bottom: 6px; color: #333; font-weight: 600; }\n  select, input {\n    width: 100%; padding: 12px; margin-bottom: 18px; border-radius: 8px;\n    border: 1px solid #ccc; font-size: 15px; background-color: #fafafa;\n    box-sizing: border-box; transition: all 0.2s ease;\n  }\n  #cantidad { margin-bottom: 28px; }\n  select:focus, input:focus {\n    border-color: #911f30; background-color: #fff; outline: none; box-shadow: 0 0 5px #911f3040;\n  }\n  button {\n    width: 100%; background-color: #911f30; color: white; border: none; padding: 12px;\n    font-size: 15px; border-radius: 8px; cursor: pointer; transition: all 0.25s ease; font-weight: 600;\n  }\n  button:hover { background-color: #7c1a29; transform: scale(1.02); }\n  .message { text-align: center; margin-top: 10px; font-weight: 600; }\n  @media (max-width: 480px) { .form-container { padding: 25px 20px; } }\n</style>\n</head>\n\n<body>\n<div class=\"form-container\">\n  <div class=\"logo\">\n    <img src=\"https://apg-consulting.com/wp-content/uploads/cropped-APG-Logo-png-peque.png\" alt=\"APG Consulting Logo\">\n  </div>\n  <h2>Ingreso de Comprobantes Emitidos</h2>\n\n  <form id=\"formulario\">\n    <!-- País -->\n    <label for=\"pais\">País</label>\n    <select id=\"pais\" name=\"pais\" required>\n      <option value=\"\" disabled selected>Seleccionar País</option>\n      <option value=\"AR\">AR</option>\n      <option value=\"BO\">BO</option>\n      <option value=\"CO\">CO</option>\n      <option value=\"CR\">CR</option>\n      <option value=\"EC\">EC</option>\n      <option value=\"ES\">ES</option>\n      <option value=\"PE\">PE</option>\n    </select>\n\n    <!-- Entorno -->\n    <label for=\"entorno\">Entorno</label>\n    <select id=\"entorno\" name=\"entorno\" required>\n      <option value=\"\">Seleccione un país primero</option>\n    </select>\n\n    <!-- Año -->\n    <label for=\"anio\">Año</label>\n    <select id=\"anio\" name=\"anio\" required>\n      <option value=\"\">Seleccionar Año</option>\n    </select>\n\n    <!-- Mes -->\n    <label for=\"mes\">Mes</label>\n    <select id=\"mes\" name=\"mes\" required>\n      <option value=\"\">Seleccionar Mes</option>\n    </select>\n\n    <!-- Cantidad -->\n    <label for=\"cantidad\">Cantidad de documentos</label>\n    <input type=\"number\" id=\"cantidad\" name=\"cantidad\" min=\"1\" placeholder=\"Ej: 25\" required />\n\n    <button type=\"submit\">Enviar</button>\n    <div id=\"responseMsg\" class=\"message\"></div>\n  </form>\n</div>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', () => {\n  const form = document.getElementById('formulario');\n  const responseMsg = document.getElementById('responseMsg');\n  const paisSelect = document.getElementById('pais');\n  const entornoSelect = document.getElementById('entorno');\n  const anioSelect = document.getElementById('anio');\n  const mesSelect = document.getElementById('mes');\n\n  // Entornos por país\n  const entornosPorPais = {\n    CO: [\"NESTLE\", \"Baker\"],\n    EC: [\"NESTLE\", \"Bebemundo\", \"DGAC\"],\n    CR: [\"NESTLE\"]\n  };\n\n  // Función segura para llenar años y meses\n  function generarFechas() {\n    try {\n      const today = new Date();\n      const currentMonth = today.getMonth();\n      const currentYear = today.getFullYear();\n      const monthsToShow = currentMonth === 0 ? 2 : 3;\n\n      const months = [];\n      const yearSet = new Set();\n\n      for (let i = monthsToShow - 1; i >= 0; i--) {\n        const d = new Date(currentYear, currentMonth - i, 1);\n        const monthName = d.toLocaleString('es-ES', { month: 'long' });\n        const monthValue = String(d.getMonth() + 1).padStart(2, '0');\n        const year = d.getFullYear();\n        months.push({ name: monthName.charAt(0).toUpperCase() + monthName.slice(1), value: monthValue });\n        yearSet.add(year);\n      }\n\n      mesSelect.innerHTML = '<option value=\"\">Seleccionar Mes</option>' +\n        months.map(m => `<option value=\"${m.value}\">${m.name}</option>`).join('');\n\n      anioSelect.innerHTML = '<option value=\"\">Seleccionar Año</option>' +\n        Array.from(yearSet).sort((a, b) => a - b).map(y => `<option value=\"${y}\">${y}</option>`).join('');\n    } catch (e) {\n      console.error('Error generando fechas:', e);\n    }\n  }\n\n  // Actualizar entornos según país\n  function actualizarEntornos(pais) {\n    entornoSelect.innerHTML = \"\";\n    if (entornosPorPais[pais]) {\n      const opciones = entornosPorPais[pais]\n        .map(e => `<option value=\"${e}\">${e}</option>`)\n        .join('');\n      entornoSelect.innerHTML = `<option value=\"\">Seleccionar Entorno</option>${opciones}`;\n    } else {\n      entornoSelect.innerHTML = `<option value=\"\">Seleccione un país válido</option>`;\n    }\n  }\n\n  // Inicializar\n  generarFechas();\n  actualizarEntornos(\"\"); // estado inicial\n\n  // Listener de cambio de país\n  paisSelect.addEventListener('change', (e) => {\n    const pais = e.target.value;\n    actualizarEntornos(pais);\n  });\n\n  // Envío del formulario\n  form.addEventListener('submit', async function (e) {\n    e.preventDefault();\n\n    const btn = form.querySelector('button');\n    btn.disabled = true;\n    btn.innerText = 'Enviando...';\n    btn.style.opacity = '0.8';\n    responseMsg.textContent = '';\n\n    const pais = paisSelect.value;\n    const entorno = entornoSelect.value;\n    const anio = anioSelect.value;\n    const mes = mesSelect.value;\n    const cantidad = document.getElementById('cantidad').value;\n\n    if (!pais) {\n      responseMsg.textContent = '⚠️ Selecciona un país';\n      responseMsg.style.color = 'red';\n      btn.disabled = false; btn.innerText = 'Enviar'; btn.style.opacity = '1';\n      return;\n    }\n    if (!entorno) {\n      responseMsg.textContent = '⚠️ Selecciona un entorno';\n      responseMsg.style.color = 'red';\n      btn.disabled = false; btn.innerText = 'Enviar'; btn.style.opacity = '1';\n      return;\n    }\n    if (cantidad <= 0) {\n      responseMsg.textContent = '⚠️ La cantidad debe ser mayor a 0';\n      responseMsg.style.color = 'red';\n      btn.disabled = false; btn.innerText = 'Enviar'; btn.style.opacity = '1';\n      return;\n    }\n\n    const payload = { pais, entorno, anio, mes, cantidad };\n\n    try {\n      const res = await fetch('https://quaveringly-shelterless-joanie.ngrok-free.dev/webhook/Formulario', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify(payload)\n      });\n\n      if (res.ok) {\n        responseMsg.textContent = '✅ Enviado correctamente';\n        responseMsg.style.color = 'green';\n        form.reset();\n        actualizarEntornos(\"\"); // volver a estado inicial\n      } else {\n        responseMsg.textContent = '❌ Error al enviar. Intenta de nuevo.';\n        responseMsg.style.color = 'red';\n      }\n    } catch (err) {\n      console.error('Error en el envío:', err);\n      responseMsg.textContent = '⚠️ Ocurrió un error al conectar con el servidor.';\n      responseMsg.style.color = 'red';\n    } finally {\n      btn.disabled = false;\n      btn.innerText = 'Enviar';\n      btn.style.opacity = '1';\n    }\n  });\n});\n</script>\n</body>\n</html>\n",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -880,
+        -1632
+      ],
+      "id": "2e931c5b-7d8d-47b9-a9e7-20e486a554c3",
+      "name": "VA.Cuestionario con validaciones"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Bogota",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "Cli8NIZaHvhPaYsN"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "wuiI6jrZsmmRGY9E",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "global": {
+      "logs": [
+        {
+          "ts": "2025-11-05T20:03:50.269Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 218456
+        },
+        {
+          "ts": "2025-11-05T20:04:42.476Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 513898
+        },
+        {
+          "ts": "2025-11-05T20:10:13.300Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 612803
+        },
+        {
+          "ts": "2025-11-05T20:12:06.896Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 58916
+        },
+        {
+          "ts": "2025-11-05T20:14:27.240Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 373265
+        },
+        {
+          "ts": "2025-11-05T20:17:39.099Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 722334
+        },
+        {
+          "ts": "2025-11-05T20:59:05.525Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 97163
+        },
+        {
+          "ts": "2025-11-05T20:59:08.134Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 42690
+        },
+        {
+          "ts": "2025-11-05T20:59:36.560Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 48856
+        },
+        {
+          "ts": "2025-11-05T20:59:38.500Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 2041
+        },
+        {
+          "ts": "2025-11-06T20:03:55.105Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 218456
+        },
+        {
+          "ts": "2025-11-06T20:04:20.749Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 513898
+        },
+        {
+          "ts": "2025-11-06T20:06:52.668Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 612803
+        },
+        {
+          "ts": "2025-11-06T20:07:05.157Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 58916
+        },
+        {
+          "ts": "2025-11-06T20:07:10.576Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 373265
+        },
+        {
+          "ts": "2025-11-06T20:07:17.105Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 722334
+        },
+        {
+          "ts": "2025-11-06T20:08:11.247Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 97163
+        },
+        {
+          "ts": "2025-11-06T20:08:14.559Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 42690
+        },
+        {
+          "ts": "2025-11-06T20:08:18.932Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 48856
+        },
+        {
+          "ts": "2025-11-06T20:08:20.806Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 2041
+        }
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-02T13:48:10.858Z",
+  "versionId": "1fb6c4f6-e8f4-4493-bade-eaccc20c7191"
+}
