@@ -1,0 +1,28 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-11-03T20:22:04.734Z",
+  "id": "zUBNPN1fThyFRCPu",
+  "isArchived": true,
+  "meta": null,
+  "name": "Error-Handling-Workflow",
+  "nodes": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "zUBNPN1fThyFRCPu",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-12-03T12:35:24.000Z",
+  "versionId": "a5cc8c01-7c6d-4ae5-b60d-962c244cdc07"
+}
