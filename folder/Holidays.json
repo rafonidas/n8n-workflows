@@ -1,0 +1,1086 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set URLS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [],
+        [
+          {
+            "node": "PER",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "BOL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ECU",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "COR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "COL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Code in Python (Beta)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    " AR": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BO": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PE": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CR": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set URLS": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ARG": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PER": {
+      "main": [
+        [
+          {
+            "node": "PE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BOL": {
+      "main": [
+        [
+          {
+            "node": "BO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "COR": {
+      "main": [
+        [
+          {
+            "node": "CR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ECU": {
+      "main": [
+        [
+          {
+            "node": "EC1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EC1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CO": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "COL": {
+      "main": [
+        [
+          {
+            "node": "CO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in Python (Beta)": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configurar Paises y Fechas": {
+      "main": [
+        [
+          {
+            "node": "Loop Paises",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Paises": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Filtrar por Mes Objetivo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar por Mes Objetivo": {
+      "main": [
+        [
+          {
+            "node": "Hay Feriados?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hay Feriados?": {
+      "main": [
+        [
+          {
+            "node": "Crear HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear HTML": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-10T17:20:41.295Z",
+  "id": "ZpPrrM1e1moifDNY",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Holidays",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1248,
+        688
+      ],
+      "id": "6dc0d3dc-cd41-476b-8ba4-1aab48d5d360",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.pais }}",
+                    "rightValue": "AR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "cd5213c3-e7b6-48ea-899f-3583287cae58"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ea1821fb-c1ac-42c6-a551-cf2122e74149",
+                    "leftValue": "={{ $json.pais }}",
+                    "rightValue": "PE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5228a701-86ba-4c39-9b7b-7d5115d8ad0a",
+                    "leftValue": "={{ $json.pais }}",
+                    "rightValue": "BO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "001a8f83-8f44-4baa-a792-78cac2fa5752",
+                    "leftValue": "={{ $json.pais }}",
+                    "rightValue": "EC",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "54ad1a59-d58d-4878-b193-271b7d43f7ea",
+                    "leftValue": "={{ $json.pais }}",
+                    "rightValue": "CR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f5a05853-d29a-408b-a9b5-199d1108dccf",
+                    "leftValue": "={{ $json.pais }}",
+                    "rightValue": "CO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -560,
+        640
+      ],
+      "id": "2fad4690-e245-4e55-ad96-25cb0e914d73",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        688
+      ],
+      "id": "4d91e1ca-549c-4459-8a1e-fd07a2337176",
+      "name": "BO"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        528
+      ],
+      "id": "f304f1c6-68b0-47b4-904e-37fb3032de6a",
+      "name": "PE"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        1024
+      ],
+      "id": "bdf3bb81-4adb-4f98-b86c-982a09b225be",
+      "name": "CR"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import re\nimport json\n\n# 1. Obtener el HTML del input (tipo texto)\ntry:\n    html_content = _input.first().json.data\nexcept Exception as e:\n    # Si la data no está en .json.data, intentar con .json\n    html_content = _input.first().json\n    if not isinstance(html_content, str):\n        raise Exception(f\"No se pudo leer el HTML como string. Error: {e}\")\n\nextracted_list = []\nerror_messages = []\n\ntry:\n    # 2. EXTRAER EL ARRAY 'es'\n    match_es = re.search(r'es:\\s*(\\[[\\s\\S]*?\\])\\s*,', html_content)\n    \n    if match_es:\n        es_string = match_es.group(1)\n        \n        # 3. Limpiar la coma sobrante (trailing comma)\n        es_string_cleaned = re.sub(r',\\s*(?=\\])', '', es_string)\n        \n        try:\n            # 4. Convertir el string a una lista de Python\n            extracted_list = json.loads(es_string_cleaned)\n        except json.JSONDecodeError as e:\n            error_messages.append(f\"Error al decodificar JSON de 'es': {e}\")\n    else:\n        error_messages.append(\"No se pudo encontrar el array 'es'.\")\n\n    # 5. DEVOLVER EL RESULTADO PARA N8N\n    if extracted_list:\n        # --- ESTA ES LA CORRECCIÓN ---\n        # En lugar de: { \"json\": [...] }\n        # Devolvemos:   { \"json\": { \"feriados_es\": [...] } }\n        # Ahora \"json\" sí es un diccionario.\n        return [\n            {\n                \"json\": {\n                    \"feriados_es\": extracted_list\n                }\n            }\n        ]\n    else:\n        raise Exception(f\"No se pudo extraer la lista 'es'. Errores: {', '.join(error_messages)}\")\n\nexcept Exception as e:\n    raise Exception(f\"Ocurrió un error inesperado: {e}\")"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        384
+      ],
+      "id": "dde4a205-54b5-4744-b8a7-9f6fcf6b1c6c",
+      "name": " AR"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -896,
+        -640
+      ],
+      "id": "59d92c96-c795-4409-960c-8196c2d9405e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -784,
+        688
+      ],
+      "id": "57e9dd39-b425-48e2-8cad-1e1f86221735",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Este nodo define la lista de países que queremos procesar.\n// Añadimos un 'tipo' para saber cómo procesar cada uno.\nconst paises = [\n  { \n    pais: \"AR\", \n    url: \"https://www.argentina.gob.ar/interior/feriados-nacionales-2025\", \n    tipo: \"html_ar\" // Requiere su propio scraper\n  },\n  { \n    pais: \"PE\", \n    url: \"https://www.ytuqueplanes.com/blog-viajero/lima/descubre-los-feriados-y-dias-no-laborables-2025-en-peru-y-planea-el-viaje-de-tus-suenos-?gad_source=1&gclid=CjwKCAiAt8bIBhBpEiwAzH1w6VMC0qv2_5_U1xVcd0PRxigCvUjDRFKb1hVkPam4N9bvJ2RdJ9piphoCYT0QAvD_BwE\", \n    tipo: \"html_pe\" // Requiere su propio scraper\n  },\n  { \n    pais: \"BO\", \n    url: \"https://publicholidays.com.bo/es/\", \n    tipo: \"html_bo\" // Requiere su propio scraper\n  },\n  { \n    pais: \"EC\", \n    url: \"https://www.assistcard.com/ec/feriados-ecuador\", \n    tipo: \"html_ec\" // Requiere su propio scraper\n  },\n  { \n    pais: \"CR\", \n    url: \"https://www.mtss.go.cr/temas-laborales/feriados/feriados_calendario_2025.pdf\", \n    tipo: \"pdf\" // Caso especial\n  },\n  { \n    pais: \"CO\", \n    url: \"https://www.festivos.com.co/calendario/2025\", \n    tipo: \"html_co\" // El que ya tienes resuelto\n  }\n];\n\n// Devolvemos cada país como un item separado para n8n\nreturn paises.map(p => ({ json: p }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        688
+      ],
+      "id": "93d861f8-c96a-4b79-9af1-fbec0dc39fd5",
+      "name": "Set URLS"
+    },
+    {
+      "parameters": {
+        "url": "https://www.argentina.gob.ar/interior/feriados-nacionales-2025",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -624,
+        192
+      ],
+      "id": "ccff5935-011a-40bb-9961-3b6651647e7f",
+      "name": "ARG"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Loop Over Items').item.json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        528
+      ],
+      "id": "3dfc071d-68e6-4539-b464-d94df64b1417",
+      "name": "PER"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        688
+      ],
+      "id": "af5f3e2a-1cac-42c5-97b7-5a2e133fe3f7",
+      "name": "BOL"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Loop Over Items').item.json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        1024
+      ],
+      "id": "521ae796-130d-4ebb-9b26-686e5137689e",
+      "name": "COR"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Loop Over Items').item.json.url }}",
+        "options": {
+          "response": {
+            "response": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        848
+      ],
+      "id": "f23e729b-4371-4dba-918e-b87f55bda5fe",
+      "name": "ECU"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from bs4 import BeautifulSoup\nimport sys\n\n# La clase CSS sigue siendo la misma\nCLASE_FESTIVO = \"text-base mobilel:text-xs font-medium h-full flex items-center justify-center rounded relative bg-link text-white cursor-pointer\"\n\ndef scrapear_festivos(html):\n    \"\"\"\n    Funcion para parsear el HTML de los festivos.\n    \"\"\"\n    try:\n        # 1. Parsear el HTML con BeautifulSoup\n        print(\"Parseando HTML...\")\n        soup = BeautifulSoup(html, 'html.parser')\n\n        # 2. Encontrar los elementos\n        elementos_festivos = soup.find_all('span', class_=CLASE_FESTIVO)\n        \n        if not elementos_festivos:\n            print(\"No se encontraron festivos con esa clase exacta.\")\n            return [{\"error\": \"No se encontraron elementos con la clase CSS.\"}]\n\n        print(f\"Se encontraron {len(elementos_festivos)} dias festivos:\")\n        \n        fechas_festivos = []\n        \n        # 3. Iterar y extraer la informacion\n        for span in elementos_festivos:\n            dia = span.text.strip()\n            popover_target = span.get('data-popover-target')\n            \n            if popover_target:\n                fecha = popover_target.replace('popover-observance-', '')\n                if '2025' in fecha:\n                    fechas_festivos.append(fecha)\n        \n        # 4. Devolver los datos para el siguiente nodo de n8n\n        resultado = {\n            \"pais\": \"Colombia\",\n            \"total_encontrados\": len(fechas_festivos),\n            \"fechas\": fechas_festivos\n        }\n        # Devolvemos una lista con el diccionario\n        return [resultado]\n\n    except Exception as e:\n        print(f\"Ocurrio un error inesperado parseando: {e}\", file=sys.stderr)\n        return [{\"error\": str(e)}]\n\n# --- BLOQUE PRINCIPAL ---\n# Usamos 'return' para la salida y '_input' para la entrada.\n# Esto soluciona el UnboundLocalError.\ntry:\n    # _input.first() obtiene el primer item de entrada.\n    # .json es el payload de datos (un dict).\n    # ['data'] es la clave donde el HTTP Request (modo Text) guarda el HTML.\n    html_content = _input.first().json['data']\n    \n    # Llamamos a la funcion y retornamos su resultado\n    return scrapear_festivos(html_content)\n\nexcept (AttributeError, IndexError):\n    # Captura si no hay items de entrada\n    print(\"Error: No se recibieron items de entrada.\", file=sys.stderr)\n    return [{\"error\": \"No hay datos del nodo HTTP Request.\"}]\n\nexcept KeyError:\n    # Captura si .json['data'] no existe\n    print(\"Error: No se encontro 'json.data'. Asegurate de que HTTP Request este en modo 'Text'.\", file=sys.stderr)\n    print(f\"Datos recibidos: {_input.first().json}\", file=sys.stderr)\n    return [{\"error\": \"Estructura de datos inesperada. Revisa que HTTP Request este en modo 'Text'.\"}]\n\nexcept Exception as e:\n    # Captura cualquier otro error\n    print(f\"Error inesperado al iniciar: {e}\", file=sys.stderr)\n    return [{\"error\": f\"Error inesperado al iniciar: {str(e)}\"}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        848
+      ],
+      "id": "daa92094-adeb-4eb5-b806-b8494ac4023d",
+      "name": "EC1"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from bs4 import BeautifulSoup\nimport sys\n\n# La clase CSS sigue siendo la misma\nCLASE_FESTIVO = \"text-base mobilel:text-xs font-medium h-full flex items-center justify-center rounded relative bg-link text-white cursor-pointer\"\n\ndef scrapear_festivos(html):\n    \"\"\"\n    Funcion para parsear el HTML de los festivos.\n    \"\"\"\n    try:\n        # 1. Parsear el HTML con BeautifulSoup\n        print(\"Parseando HTML...\")\n        soup = BeautifulSoup(html, 'html.parser')\n\n        # 2. Encontrar los elementos\n        elementos_festivos = soup.find_all('span', class_=CLASE_FESTIVO)\n        \n        if not elementos_festivos:\n            print(\"No se encontraron festivos con esa clase exacta.\")\n            return [{\"error\": \"No se encontraron elementos con la clase CSS.\"}]\n\n        print(f\"Se encontraron {len(elementos_festivos)} dias festivos:\")\n        \n        fechas_festivos = []\n        \n        # 3. Iterar y extraer la informacion\n        for span in elementos_festivos:\n            dia = span.text.strip()\n            popover_target = span.get('data-popover-target')\n            \n            if popover_target:\n                fecha = popover_target.replace('popover-observance-', '')\n                if '2025' in fecha:\n                    fechas_festivos.append(fecha)\n        \n        # 4. Devolver los datos para el siguiente nodo de n8n\n        resultado = {\n            \"pais\": \"Colombia\",\n            \"total_encontrados\": len(fechas_festivos),\n            \"fechas\": fechas_festivos\n        }\n        # Devolvemos una lista con el diccionario\n        return [resultado]\n\n    except Exception as e:\n        print(f\"Ocurrio un error inesperado parseando: {e}\", file=sys.stderr)\n        return [{\"error\": str(e)}]\n\n# --- BLOQUE PRINCIPAL ---\n# Usamos 'return' para la salida y '_input' para la entrada.\n# Esto soluciona el UnboundLocalError.\ntry:\n    # _input.first() obtiene el primer item de entrada.\n    # .json es el payload de datos (un dict).\n    # ['data'] es la clave donde el HTTP Request (modo Text) guarda el HTML.\n    html_content = _input.first().json['data']\n    \n    # Llamamos a la funcion y retornamos su resultado\n    return scrapear_festivos(html_content)\n\nexcept (AttributeError, IndexError):\n    # Captura si no hay items de entrada\n    print(\"Error: No se recibieron items de entrada.\", file=sys.stderr)\n    return [{\"error\": \"No hay datos del nodo HTTP Request.\"}]\n\nexcept KeyError:\n    # Captura si .json['data'] no existe\n    print(\"Error: No se encontro 'json.data'. Asegurate de que HTTP Request este en modo 'Text'.\", file=sys.stderr)\n    print(f\"Datos recibidos: {_input.first().json}\", file=sys.stderr)\n    return [{\"error\": \"Estructura de datos inesperada. Revisa que HTTP Request este en modo 'Text'.\"}]\n\nexcept Exception as e:\n    # Captura cualquier otro error\n    print(f\"Error inesperado al iniciar: {e}\", file=sys.stderr)\n    return [{\"error\": f\"Error inesperado al iniciar: {str(e)}\"}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        1200
+      ],
+      "id": "d4e8e57f-9734-4b24-816a-67ff15fa5f49",
+      "name": "CO"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        1200
+      ],
+      "id": "c023bf07-5c25-4b19-a893-49164057cb3c",
+      "name": "COL"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor item in _input.all():\n  item.json.myNewField = 1\nreturn _input.all()"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1248,
+        944
+      ],
+      "id": "af123dff-48ac-4c81-b09f-8c45f9e61490",
+      "name": "Code in Python (Beta)"
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8napg@apg-consulting.com",
+        "toEmail": "rnunez@apg-consulting.com",
+        "subject": "Feriados 2025",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1040,
+        944
+      ],
+      "id": "df27d0c4-4c19-4ee8-9579-de8ceae0f8c1",
+      "name": "Send email",
+      "webhookId": "70e0e9d0-1695-4b26-b246-0230fd87f659",
+      "credentials": {
+        "smtp": {
+          "id": "Uw4CpnQjIbsNpVhT",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 25 * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1360,
+        368
+      ],
+      "id": "34596e5b-a661-487b-b669-6700f0e8a91a",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e6d14919-3630-4081-afd5-55c78062b454",
+              "name": "targetMonth",
+              "value": "={{ $now.plus(1, 'months').month }}",
+              "type": "string"
+            },
+            {
+              "id": "acc6e149-f5b3-4471-bd2c-d56395119d8f",
+              "name": "targetYear",
+              "value": "={{ $now.plus(1, 'months').year }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1152,
+        368
+      ],
+      "id": "0bfbff52-985c-4857-bd8e-59bde9b8c88f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 25 * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        1680
+      ],
+      "id": "5f32500b-8773-44db-83f0-ddfe60026eec",
+      "name": "Ejecutar dia 25"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Calculamos el mes objetivo (mes siguiente)\nconst hoy = $now;\nconst mesSiguiente = hoy.plus({ months: 1 });\n\n// Variables globales para el flujo\nconst targetMonth = mesSiguiente.month;\nconst targetYear = mesSiguiente.year;\nconst nombreMes = mesSiguiente.toFormat('MMMM'); // ej: \"Noviembre\"\n\n// 2. Definimos las URLs (algunas dinámicas con el año)\nconst paises = [\n  { \n    pais: \"AR\", \n    nombre: \"Argentina\",\n    url: `https://www.argentina.gob.ar/interior/feriados-nacionales-${targetYear}`, \n    tipo: \"html_ar\"\n  },\n  { \n    pais: \"PE\", \n    nombre: \"Perú\",\n    url: \"https://www.ytuqueplanes.com/feriados\", // URL Fija ejemplo\n    tipo: \"html_pe\"\n  },\n  { \n    pais: \"BO\", \n    nombre: \"Bolivia\",\n    url: `https://publicholidays.com.bo/es/${targetYear}`, \n    tipo: \"html_bo\"\n  },\n  { \n    pais: \"EC\", \n    nombre: \"Ecuador\",\n    url: \"https://www.assistcard.com/ec/feriados-ecuador\", \n    tipo: \"html_ec\"\n  },\n  { \n    pais: \"CO\", \n    nombre: \"Colombia\",\n    url: `https://www.festivos.com.co/calendario/${targetYear}`, \n    tipo: \"html_co\"\n  },\n  { \n    pais: \"CR\", \n    nombre: \"Costa Rica\",\n    url: `https://www.mtss.go.cr/temas-laborales/feriados/feriados_calendario_${targetYear}.pdf`,\n    tipo: \"pdf\"\n  }\n];\n\n// Devolvemos los items enriquecidos con la meta del mes\nreturn paises.map(p => ({\n  json: {\n    ...p,\n    targetMonth,\n    targetYear,\n    nombreMes\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        1680
+      ],
+      "id": "4f758013-befa-46dc-9f09-b36f523e733b",
+      "name": "Configurar Paises y Fechas"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        544,
+        1680
+      ],
+      "id": "b00e6d4e-92a4-42d4-84e9-c4a3a14fb1e9",
+      "name": "Loop Paises"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        784,
+        1568
+      ],
+      "id": "a9177f95-3a75-4648-8e12-c18ef6fa2280",
+      "name": "Descargar HTML/PDF"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Loop Paises').item.json.tipo }}",
+                    "rightValue": "html_co",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Loop Paises').item.json.tipo }}",
+                    "rightValue": "html_ar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        992,
+        1568
+      ],
+      "id": "73d671ff-ab46-4e2d-b81f-287133c6a25a",
+      "name": "Router por Pais"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# SCRAPER PARA COLOMBIA (Tu código funcional)\nfrom bs4 import BeautifulSoup\n\nhtml = _input.first().json.get('data', '')\npais_info = $('Loop Paises').item.json\n\n# Simulación de extracción (Reemplaza con tu lógica real)\n# Aquí extraemos TODO el año. El filtrado viene DESPUES.\nferiados = [\n    {\"fecha\": f\"{pais_info['targetYear']}-11-04\", \"motivo\": \"Todos los Santos\"},\n    {\"fecha\": f\"{pais_info['targetYear']}-12-25\", \"motivo\": \"Navidad\"}\n]\n\nreturn [{\n    \"json\": {\n        \"pais\": pais_info['nombre'],\n        \"feriados_raw\": feriados\n    }\n}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        736
+      ],
+      "id": "64b8602b-4f52-4db7-b7d4-a4291ad66bde",
+      "name": "Parsear CO"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# SCRAPER GENERICO (Placeholder)\n# Usa esto para AR, BO, PE, EC adaptando los selectores\n\nhtml = _input.first().json.get('data', '')\npais_info = $('Loop Paises').item.json\n\n# Logica placeholder\nferiados = []\n\nreturn [{\n    \"json\": {\n        \"pais\": pais_info['nombre'],\n        \"feriados_raw\": feriados # Array vacio si no encuentra nada\n    }\n}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        1648
+      ],
+      "id": "01475bee-b7d5-460c-80d5-d7563e4b4c72",
+      "name": "Parsear Otros"
+    },
+    {
+      "parameters": {
+        "jsCode": "// NODO DE FILTRADO FINAL\n// Se ejecuta una sola vez al terminar el bucle\n\nconst items = $input.all(); // Recibe todos los resultados de los scrappers\nconst targetMonth = $('Configurar Paises y Fechas').first().json.targetMonth;\nconst targetYear = $('Configurar Paises y Fechas').first().json.targetYear;\n\nlet feriadosDelMes = [];\n\nfor (const item of items) {\n  const pais = item.json.pais;\n  const todosLosFeriados = item.json.feriados_raw || [];\n  \n  for (const f of todosLosFeriados) {\n    // Asumimos formato YYYY-MM-DD\n    const fechaParts = f.fecha.split('-');\n    const mes = parseInt(fechaParts[1]);\n    const anio = parseInt(fechaParts[0]);\n    \n    if (mes === targetMonth && anio === targetYear) {\n      feriadosDelMes.push({\n        pais: pais,\n        fecha: f.fecha,\n        motivo: f.motivo\n      });\n    }\n  }\n}\n\nreturn feriadosDelMes;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        1968
+      ],
+      "id": "fee67a2a-706e-4ec9-a73c-6745426585fb",
+      "name": "Filtrar por Mes Objetivo"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0602f37c-3b9e-4c4b-8732-45e3240e53a3",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        784,
+        1968
+      ],
+      "id": "fc80a92b-8102-408c-a3ae-3633d5bcf9c2",
+      "name": "Hay Feriados?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const feriados = $input.all().map(i => i.json);\nconst mes = $('Configurar Paises y Fechas').first().json.nombreMes;\n\nlet html = `<h2>Feriados encontrados para ${mes}</h2>`;\nhtml += `<table style=\"border-collapse: collapse; width: 100%;\">`;\nhtml += `<tr style=\"background-color: #f2f2f2;\"><th style=\"border: 1px solid #ddd; padding: 8px;\">País</th><th style=\"border: 1px solid #ddd; padding: 8px;\">Fecha</th><th style=\"border: 1px solid #ddd; padding: 8px;\">Motivo</th></tr>`;\n\nfor (const f of feriados) {\n  html += `<tr>`;\n  html += `<td style=\"border: 1px solid #ddd; padding: 8px;\"><b>${f.pais}</b></td>`;\n  html += `<td style=\"border: 1px solid #ddd; padding: 8px;\">${f.fecha}</td>`;\n  html += `<td style=\"border: 1px solid #ddd; padding: 8px;\">${f.motivo}</td>`;\n  html += `</tr>`;\n}\nhtml += `</table>`;\n\nreturn { htmlBody: html, asunto: `Alertas de Feriados: ${mes}` };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        1952
+      ],
+      "id": "87362c17-301b-48c4-942c-46cbf299c013",
+      "name": "Crear HTML"
+    },
+    {
+      "parameters": {
+        "sendTo": "rrhh@empresa.com",
+        "subject": "={{ $json.asunto }}",
+        "message": "={{ $json.htmlBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1232,
+        1952
+      ],
+      "id": "43be543a-e619-47b9-b8cd-6e498cbe49e4",
+      "name": "Enviar Email",
+      "webhookId": "e151325f-b8d3-4543-b083-9a7d4128a676"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        -384,
+        192
+      ],
+      "id": "295d395c-2bd3-46ca-bf50-d4ee17912a8b",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT e.CuitId, e.TransaccionId, e.PuntoDeVentaId, e.TipoComprobanteId, e.NroCbte, e.Cod EstadoPublicacion, e.ErrorPDF, E.ErrorPDFMotivo, c.Resultado\nFROM comprobante C WITH(NOLOCK) \ninner join EstadoPublicacion E WITH(NOLOCK) on c.CuitId=e.CuitId and c.TransaccionId=e.TransaccionId and c.PuntoDeVentaId=e.PuntoDeVentaId and c.TipoComprobanteId=e.TipoComprobanteId and c.NroCbte=e.NroCbte\nWHERE c.FechaCbte > DATEADD(day, -2, GETDATE()) AND  c.error=0 and  c.ErrorDesc='El comprobante no puede generarse dado que el reporte o los datos no son válidos.' \n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1cf31537-deaf-4eae-a94b-c5f24a93fc2d",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "ZpPrrM1e1moifDNY",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-27T18:20:54.713Z",
+  "versionId": "6cc68b0f-22ea-436e-8af4-a0a6e5cf5cc7"
+}
