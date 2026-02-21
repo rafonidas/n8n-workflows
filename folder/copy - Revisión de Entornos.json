@@ -2256,16 +2256,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-01-11T14:31:18.166Z",
-      "updatedAt": "2026-01-11T14:31:18.166Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "fzjFRbuNLbjyDl1d",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-15T02:53:14.000Z",
+  "updatedAt": "2026-01-27T18:20:15.565Z",
   "versionId": "85ae675f-ae4e-44f6-8ba7-60e837cba5a2"
 }
