@@ -1,0 +1,696 @@
+{
+  "active": false,
+  "connections": {
+    "Cron mensual 1er día 3am1": {
+      "main": [
+        [
+          {
+            "node": "Lista de BD",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lista de BD1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)1": {
+      "main": [
+        [
+          {
+            "node": "Normalizacion de datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (INSERT)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar datos en n8n": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)": {
+      "main": [
+        [
+          {
+            "node": "Normalizacion de datos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (INSERT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar datos en n8n1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de BD": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de BD1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Enviar mail de insercion exitosa",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos1": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-05T18:54:41.468Z",
+  "id": "BPvVV8reRqU0zMuW",
+  "isArchived": false,
+  "meta": null,
+  "name": "Workflow Comprobantes Detallado",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMonth",
+              "hour": 15,
+              "minute": 3
+            }
+          ]
+        }
+      },
+      "name": "Cron mensual 1er día 3am1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        544
+      ],
+      "id": "d3c7a9a9-1f02-459c-99ff-b2919f69fe26"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "USE {{$json[\"db\"]}};\nSET LANGUAGE Spanish\nselect  \n    DB_NAME() as dbname,\n     -- Normalización de Pais: elimina cualquier número al final\n    RTRIM(\n        LEFT(\n            RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n            PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1)    ) AS Pais,\n     -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n    YEAR(DATEADD(MONTH, -1, GETDATE())) as anio, MONTH(DATEADD(MONTH, -1, GETDATE())) as mes,\n \nProcesados.MesTexto,  procesados , \nCASE WHEN aprobados is null THEN 0 ELSE aprobados END as aprobados,\nCASE WHEN aprobados is null THEN procesados ELSE procesados-aprobados END as Erroneos,\n \nCASE \n    WHEN aprobados IS NULL THEN '0%'\n    WHEN aprobados = 0 THEN '100%'\n    ELSE \n        FORMAT((procesados - aprobados) * 1.0 / procesados, 'P2', 'es-AR')\n    END AS PorcentajeError\n \n \nfrom \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as procesados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Procesados\n \nleft join \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as Aprobados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n        and c.Resultado !='R'\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Aprobados\n \non \nprocesados.MesTexto= aprobados.MesTexto"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        0,
+        192
+      ],
+      "id": "bcbe441f-4fe2-475c-a531-0fe81f5f23f9",
+      "executeOnce": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "fJiH8DThwB6YtjLT",
+          "name": "Conexion SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "name": "Ejecutar en SQL Server (INSERT)1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "e85dff8b-d5ca-4a42-8b86-1e01127bfaa8",
+      "alwaysOutputData": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "zhkh4iIZSEdvDMT7",
+          "name": "Conexion Test Interno Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -224,
+        288
+      ],
+      "id": "51a50f26-943b-457c-85e9-81ee112193b6",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => {\n  const j = r.json;\n  return `(\n    '${j.dbname || ''}',\n    '${j.Pais || ''}',\n    '${j.Entorno || ''}',\n    ${j.anio ?? 'NULL'},\n    ${j.mes ?? 'NULL'},\n    '${j.MesTexto || ''}',\n    ${j.procesados ?? 'NULL'},\n    ${j.aprobados ?? 'NULL'},\n    ${j.Erroneos ?? 'NULL'},\n    '${j.PorcentajeError || ''}'\n  )`;\n}).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\nINSERT INTO [dbo].[Dashboard_COMFIAR_DatosMensualesTexto]\n           ([dbname]\n           ,[Pais]\n           ,[Entorno]\n           ,[anio]\n           ,[mes]\n           ,[MesTexto]\n           ,[procesados]\n           ,[aprobados]\n           ,[Erroneos]\n           ,[PorcentajeError])\n     VALUES\n${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7abcfb36-c8ea-4fe5-a545-2b270e150a36",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    mesTexto: json.MesTexto || 'N/A',\n    procesados: json.procesados ?? 0,\n    aprobados: json.aprobados ?? 0,\n    erroneos: json.Erroneos ?? 0,\n    porcentajeError: json.PorcentajeError ?? 0,\n    // Conserva también la cantidad si la sigues usando\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+      },
+      "name": "Guardar datos en n8n",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        448,
+        192
+      ],
+      "id": "434c8335-a51c-42f0-a365-78993cf040b1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "USE {{$json[\"db\"]}};\nSET LANGUAGE Spanish\nselect  \n    DB_NAME() as dbname,\n     -- Normalización de Pais: elimina cualquier número al final\n    RTRIM(\n        LEFT(\n            RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n            PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1)    ) AS Pais,\n     -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n    YEAR(DATEADD(MONTH, -1, GETDATE())) as anio, MONTH(DATEADD(MONTH, -1, GETDATE())) as mes,\n \nProcesados.MesTexto,  procesados , \nCASE WHEN aprobados is null THEN 0 ELSE aprobados END as aprobados,\nCASE WHEN aprobados is null THEN procesados ELSE procesados-aprobados END as Erroneos,\n \nCASE \n    WHEN aprobados IS NULL THEN '0%'\n    WHEN aprobados = 0 THEN '100%'\n    ELSE \n        FORMAT((procesados - aprobados) * 1.0 / procesados, 'P2', 'es-AR')\n    END AS PorcentajeError\n \n \nfrom \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as procesados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Procesados\n \nleft join \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as Aprobados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n        and c.Resultado !='R'\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Aprobados\n \non \nprocesados.MesTexto= aprobados.MesTexto"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1008
+      ],
+      "id": "dd68f980-9220-4928-a53a-885af2737ec5",
+      "executeOnce": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "Sx3U8PUa7HcdOpAt",
+          "name": "Conexion SQL-01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "name": "Ejecutar en SQL Server (INSERT)",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        432,
+        816
+      ],
+      "id": "fa919e46-d3bd-4761-b678-632858021207",
+      "alwaysOutputData": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "zhkh4iIZSEdvDMT7",
+          "name": "Conexion Test Interno Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8n@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "={{ $json.mailSubject }}",
+        "html": "={{ $json.mailBody }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        592,
+        624
+      ],
+      "id": "26f8f14b-ce5f-4e36-9742-12994c9771da",
+      "name": "Enviar mail de insercion exitosa",
+      "webhookId": "dc767dcc-ee1a-4bb5-8452-1a915db98c6f",
+      "credentials": {
+        "smtp": {
+          "id": "7BCf6E4STzoP3zci",
+          "name": "APG SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -224,
+        896
+      ],
+      "id": "23e6a075-770d-4559-813a-7c1daa98dfab",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => {\n  const j = r.json;\n  return `(\n    '${j.dbname || ''}',\n    '${j.Pais || ''}',\n    '${j.Entorno || ''}',\n    ${j.anio ?? 'NULL'},\n    ${j.mes ?? 'NULL'},\n    '${j.MesTexto || ''}',\n    ${j.procesados ?? 'NULL'},\n    ${j.aprobados ?? 'NULL'},\n    ${j.Erroneos ?? 'NULL'},\n    '${j.PorcentajeError || ''}'\n  )`;\n}).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\nINSERT INTO [dbo].[Dashboard_COMFIAR_DatosMensualesTexto]\n           ([dbname]\n           ,[Pais]\n           ,[Entorno]\n           ,[anio]\n           ,[mes]\n           ,[MesTexto]\n           ,[procesados]\n           ,[aprobados]\n           ,[Erroneos]\n           ,[PorcentajeError])\n     VALUES\n${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        816
+      ],
+      "id": "5a4c84f0-4eaf-4264-9550-d1d2dbaa2d41",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    mesTexto: json.MesTexto || 'N/A',\n    procesados: json.procesados ?? 0,\n    aprobados: json.aprobados ?? 0,\n    erroneos: json.Erroneos ?? 0,\n    porcentajeError: json.PorcentajeError ?? 0,\n    // Conserva también la cantidad si la sigues usando\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+      },
+      "name": "Guardar datos en n8n1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        544,
+        1008
+      ],
+      "id": "024e9f32-45b2-4989-91f3-32e3d9ff4d8e"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { db: \"COMFIAR_AR\" },\n  { db: \"COMFIAR_AR2\" },\n  { db: \"COMFIAR_CINES\" },\n  { db: \"COMFIAR_BO\" },\n  { db: \"COMFIAR_EC\" },\n  { db: \"COMFIAR_PE\" },\n  { db: \"COMFIAR_CR\" }\n];\n"
+      },
+      "name": "Lista de BD",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        896
+      ],
+      "id": "55528004-ee44-44de-8f22-e7aadd911733",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { db: \"COMFIAR_CO\" },\n  { db: \"COMFIAR_CO2\" },\n  { db: \"COMFIAR_CO3\" }\n];\n"
+      },
+      "name": "Lista de BD1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        288
+      ],
+      "id": "6ec305da-b800-4ae5-80a0-8a09f4cf1e48",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "const registros = $input.all();   // aquí llegan TODOS los items de todos los loops\nconst mailSubject = `Informe de ejecución - Valores Mensuales (Consolidado)`;\n\nif (!registros.length) {\n  return [{\n    json: {\n      mailSubject,\n      mailBody: `<p>No se encontraron registros en ninguna conexión.</p>`\n    }\n  }];\n}\n\n// Construcción de filas con los nuevos campos\nconst filas = registros.map(r => `\n  <tr>\n    <td>${r.json.dbname}</td>\n    <td>${r.json.Pais}</td>\n    <td>${r.json.Entorno}</td>\n    <td>${r.json.anio}</td>\n    <td>${r.json.mes}</td>\n    <td>${r.json.MesTexto}</td>\n    <td>${r.json.procesados}</td>\n    <td>${r.json.aprobados}</td>\n    <td>${r.json.Erroneos}</td>\n    <td>${r.json.PorcentajeError}</td>\n  </tr>\n`).join(\"\");\n\n// Totales consolidados\nconst totalProcesados = registros.reduce((acc, r) => acc + (r.json.procesados || 0), 0);\nconst totalAprobados = registros.reduce((acc, r) => acc + (r.json.aprobados || 0), 0);\nconst totalErroneos  = registros.reduce((acc, r) => acc + (r.json.Erroneos || 0), 0);\n\n// Porcentaje de error consolidado (si quieres calcularlo globalmente)\nconst porcentajeErrorGlobal = totalProcesados > 0 \n  ? ((totalErroneos / totalProcesados) * 100).toFixed(2) + \" %\" \n  : \"0 %\";\n\nconst mailBody = `\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }\n    .container { max-width: 1000px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }\n    .header { text-align: center; margin-bottom: 20px; }\n    .company-name { font-size: 24px; font-weight: bold; color: #921E30; }\n    h1 { color: #333; margin-bottom: 10px; }\n    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }\n    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }\n    th { background-color: #f2f2f2; color: #333; }\n    tfoot td { font-weight: bold; background-color: #fafafa; }\n    .footer { font-size: 12px; color: #777; text-align: center; margin-top: 20px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting</div>\n      <h1>Informe Consolidado Valores Mensuales</h1>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th>DB</th>\n          <th>País</th>\n          <th>Entorno</th>\n          <th>Año</th>\n          <th>Mes</th>\n          <th>Mes Texto</th>\n          <th>Procesados</th>\n          <th>Aprobados</th>\n          <th>Erróneos</th>\n          <th>% Error</th>\n        </tr>\n      </thead>\n      <tbody>\n        ${filas}\n      </tbody>\n      <tfoot>\n        <tr>\n          <td colspan=\"6\">TOTAL CONSOLIDADO</td>\n          <td>${totalProcesados}</td>\n          <td>${totalAprobados}</td>\n          <td>${totalErroneos}</td>\n          <td>${porcentajeErrorGlobal}</td>\n        </tr>\n      </tfoot>\n    </table>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    mailSubject,\n    mailBody\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        544
+      ],
+      "id": "4eedb743-6cef-4d41-bb66-e978b2cc2f55",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        160,
+        544
+      ],
+      "id": "fb7cfd81-869c-4094-873d-c7f00c94852b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "389ab60c-4f23-4a7f-9764-841485242703",
+          "mode": "list",
+          "cachedResultName": "IT APG"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:e493dac9b5c54887af024e5dbe762d90@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "IT - Notificaciones n8n",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ae493dac9b5c54887af024e5dbe762d90%40thread.tacv2/IT%20-%20Notificaciones%20n8n?groupId=389ab60c-4f23-4a7f-9764-841485242703&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.mailBody }}",
+        "options": {
+          "includeLinkToWorkflow": false,
+          "makeReply": ""
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        592,
+        432
+      ],
+      "id": "027f54eb-6e99-42d3-bf85-2302b30ba415",
+      "name": "Create message",
+      "webhookId": "e6199b36-ad36-4010-a698-fa9598e3d2b6",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "QnROAgrEvldV0tun",
+          "name": "Microsoft Teams account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Ojo se esta ejecutando sobre la BD de dashbaord en PRD"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -752,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "539994db-0c5b-4421-9296-b2f09e97507e",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f96e4cb-c380-4321-a5e5-5301f1721daa",
+              "name": "dbname",
+              "value": "={{ $json.dbname }}",
+              "type": "string"
+            },
+            {
+              "id": "56c94587-afb9-4dd3-be24-3a60101808b6",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "ad9c933a-501a-4b5a-be94-1cdfa0fc23b8",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "fd417a0f-241c-4a74-9d3d-43b1447894d3",
+              "name": "anio",
+              "value": "={{ $json.anio }}",
+              "type": "number"
+            },
+            {
+              "id": "88dba4d0-65c8-4449-9d3d-694b0492322d",
+              "name": "MesTexto",
+              "value": "={{ $json.MesTexto }}",
+              "type": "string"
+            },
+            {
+              "id": "6baa2de5-cf17-49ab-ab08-8485c8125b42",
+              "name": "procesados",
+              "value": "={{ $json.procesados }}",
+              "type": "number"
+            },
+            {
+              "id": "b9bcafbc-788a-4e07-99bc-66fc36af8ae8",
+              "name": "Erroneos",
+              "value": "={{ $json.Erroneos }}",
+              "type": "number"
+            },
+            {
+              "id": "0a071071-a14c-4a35-b9e5-a94d1cc02d55",
+              "name": "PorcentajeError",
+              "value": "={{ $json.PorcentajeError }}",
+              "type": "string"
+            },
+            {
+              "id": "e5dc3a08-ee29-4e67-9343-7aeb5086d41b",
+              "name": "mes",
+              "value": "={{ $json.mes }}",
+              "type": "number"
+            },
+            {
+              "id": "a3557bc6-856b-48bf-b86f-9b4d4cdd6c77",
+              "name": "aprobados",
+              "value": "={{ $json.aprobados }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        1008
+      ],
+      "id": "eaf272a1-a401-4a30-b23f-99e854c2678a",
+      "name": "Normalizacion de datos1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2f96e4cb-c380-4321-a5e5-5301f1721daa",
+              "name": "dbname",
+              "value": "={{ $json.dbname }}",
+              "type": "string"
+            },
+            {
+              "id": "56c94587-afb9-4dd3-be24-3a60101808b6",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "ad9c933a-501a-4b5a-be94-1cdfa0fc23b8",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "fd417a0f-241c-4a74-9d3d-43b1447894d3",
+              "name": "anio",
+              "value": "={{ $json.anio }}",
+              "type": "number"
+            },
+            {
+              "id": "88dba4d0-65c8-4449-9d3d-694b0492322d",
+              "name": "MesTexto",
+              "value": "={{ $json.MesTexto }}",
+              "type": "string"
+            },
+            {
+              "id": "6baa2de5-cf17-49ab-ab08-8485c8125b42",
+              "name": "procesados",
+              "value": "={{ $json.procesados }}",
+              "type": "number"
+            },
+            {
+              "id": "b9bcafbc-788a-4e07-99bc-66fc36af8ae8",
+              "name": "Erroneos",
+              "value": "={{ $json.Erroneos }}",
+              "type": "number"
+            },
+            {
+              "id": "0a071071-a14c-4a35-b9e5-a94d1cc02d55",
+              "name": "PorcentajeError",
+              "value": "={{ $json.PorcentajeError }}",
+              "type": "string"
+            },
+            {
+              "id": "e5dc3a08-ee29-4e67-9343-7aeb5086d41b",
+              "name": "mes",
+              "value": "={{ $json.mes }}",
+              "type": "number"
+            },
+            {
+              "id": "a3557bc6-856b-48bf-b86f-9b4d4cdd6c77",
+              "name": "aprobados",
+              "value": "={{ $json.aprobados }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        192
+      ],
+      "id": "b42af805-aeb4-4a76-a5d3-c910dfedf0bf",
+      "name": "Normalizacion de datos"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "BPvVV8reRqU0zMuW",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-05T22:29:44.000Z",
+  "versionId": "18205340-3a9c-4660-9de5-9c00fade69d8"
+}
