@@ -1,0 +1,536 @@
+{
+  "active": false,
+  "connections": {
+    "Cron Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials2": {
+      "main": [
+        [
+          {
+            "node": "APP",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "APP2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "APP3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "TEST CO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APP": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Añadir valor de ambiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unir Respuestas": {
+      "main": [
+        [
+          {
+            "node": "Solo Errores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Solo Errores": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APP2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Añadir valor de ambiente1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APP3": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Añadir valor de ambiente2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Añadir valor de ambiente": {
+      "main": [
+        [
+          {
+            "node": "Unir Respuestas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Añadir valor de ambiente1": {
+      "main": [
+        [
+          {
+            "node": "Unir Respuestas",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Añadir valor de ambiente2": {
+      "main": [
+        [
+          {
+            "node": "Unir Respuestas",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "TEST CO": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Añadir valor de ambiente3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Añadir valor de ambiente3": {
+      "main": [
+        [
+          {
+            "node": "Unir Respuestas",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-20T19:46:28.373Z",
+  "id": "l4RGK4aKwT3Y0vNK",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "WSComfiar IniciarSesion SOAP 1.2",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        }
+      },
+      "id": "768333f2-6f17-474c-a6c1-8fb712474228",
+      "name": "Cron Trigger1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "usuarioId",
+              "value": "usr_automatico"
+            },
+            {
+              "name": "password",
+              "value": "1qaz2wsx3edc"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "685507af-b5bf-4ec5-a12a-78f2a7da43a9",
+      "name": "Set Credentials2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://app3.comfiar.co/ws/WSComfiar.asmx",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml; charset=utf-8"
+            },
+            {
+              "name": "SOAPAction",
+              "value": "http://comfiar.com.ar/webservice/IniciarSesion"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <IniciarSesion xmlns=\"http://comfiar.com.ar/webservice/\">\n      <usuarioId>{{ $json.usuarioId }}</usuarioId>\n      <password>{{ $json.password }}</password>\n    </IniciarSesion>\n  </soap:Body>\n</soap:Envelope>",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        -64
+      ],
+      "id": "23d40482-fae4-45ea-8f2e-8872406b611d",
+      "name": "APP3",
+      "notesInFlow": true,
+      "onError": "continueErrorOutput",
+      "notes": "APP3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://app2.comfiar.co/ws/WSComfiar.asmx",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml; charset=utf-8"
+            },
+            {
+              "name": "SOAPAction",
+              "value": "http://comfiar.com.ar/webservice/IniciarSesion"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <IniciarSesion xmlns=\"http://comfiar.com.ar/webservice/\">\n      <usuarioId>{{ $json.usuarioId }}</usuarioId>\n      <password>{{ $json.password }}</password>\n    </IniciarSesion>\n  </soap:Body>\n</soap:Envelope>",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        -256
+      ],
+      "id": "67842417-1581-4771-ba3d-9a0d2de0d744",
+      "name": "APP2",
+      "notesInFlow": true,
+      "onError": "continueErrorOutput",
+      "notes": "APP2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://app.comfiar.co/ws/WSComfiar.asmx",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml; charset=utf-8"
+            },
+            {
+              "name": "SOAPAction",
+              "value": "http://comfiar.com.ar/webservice/IniciarSesion"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <IniciarSesion xmlns=\"http://comfiar.com.ar/webservice/\">\n      <usuarioId>{{ $json.usuarioId }}</usuarioId>\n      <password>{{ $json.password }}</password>\n    </IniciarSesion>\n  </soap:Body>\n</soap:Envelope>",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        -448
+      ],
+      "id": "78801320-80fe-439d-8fc9-02a441574253",
+      "name": "APP",
+      "notesInFlow": true,
+      "onError": "continueErrorOutput",
+      "notes": "APP"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "id": "8d65a0f1-868c-4be6-b589-605a26e6f418",
+      "name": "Unir Respuestas",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -32,
+        -192
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0605a964-1603-4f10-ad27-94d072f85741",
+              "leftValue": "=error",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "9773f998-c75a-4d0f-99d4-5b1934bb457a",
+      "name": "Solo Errores",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": "19:327dcb61-dd4e-43a5-af9d-39f2445d0796_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+        "message": "=🚨 Error de Conexión\n\n{{ $json.Aplicacion }} falló al intentar iniciar sesión.\n\n**Detalles del Error:**\n\nMensaje: {{ $('TEST CO').item.json.error.message}}}\n\nDescripción: {{ $('TEST CO').item.json.error.code }} {{ $('TEST CO').item.json.error.status }}",
+        "options": {}
+      },
+      "id": "303ac3f3-e93c-4eb4-be54-810f4a190cb6",
+      "name": "Microsoft Teams",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -160
+      ],
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ba8d58b7-4fdd-438a-8717-d653106e144b",
+              "name": "Aplicacion",
+              "value": "APP",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        -448
+      ],
+      "id": "d5842117-f7fe-44c9-b509-cc990e0e4219",
+      "name": "Añadir valor de ambiente"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ba8d58b7-4fdd-438a-8717-d653106e144b",
+              "name": "Aplicacion",
+              "value": "APP2",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        -256
+      ],
+      "id": "efe41094-313a-4edc-b195-d922c6c68d15",
+      "name": "Añadir valor de ambiente1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ba8d58b7-4fdd-438a-8717-d653106e144b",
+              "name": "Aplicacion",
+              "value": "APP3",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        -64
+      ],
+      "id": "2e2e2eef-5fab-41ac-90e2-2c9459283ef4",
+      "name": "Añadir valor de ambiente2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ba8d58b7-4fdd-438a-8717-d653106e144b",
+              "name": "Aplicacion",
+              "value": "TEST CO",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        128
+      ],
+      "id": "7dd59f29-b7bb-4b4f-8a56-49bdb34ad066",
+      "name": "Añadir valor de ambiente3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://test.comfiar.co/ws/WSComfiar.asmx",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/xml; charset=utf-8"
+            },
+            {
+              "name": "SOAPAction",
+              "value": "http://comfiar.com.ar/webservice/IniciarSesion"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <IniciarSesion xmlns=\"http://comfiar.com.ar/webservice/\">\n      <usuarioId>{{ $json.usuarioId }}</usuarioId>\n      <password>{{ $json.password }}</password>\n    </IniciarSesion>\n  </soap:Body>\n</soap:Envelope>",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        128
+      ],
+      "id": "99b42c6c-688f-4341-bafa-3ee7e7f6ecc7",
+      "name": "TEST CO",
+      "notesInFlow": true,
+      "onError": "continueErrorOutput",
+      "notes": "APP3"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "l4RGK4aKwT3Y0vNK",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-02T19:01:44.457Z",
+  "versionId": "8fdfe160-76e4-4707-ba5c-a6e6fa57253b"
+}
