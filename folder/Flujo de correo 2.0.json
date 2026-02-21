@@ -1,0 +1,1396 @@
+{
+  "active": false,
+  "connections": {
+    "Evaluar resultados SELECT1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de SELECTs": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server": {
+      "main": [
+        [
+          {
+            "node": "Normalizar salida SELECT1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en log persistente": {
+      "main": [
+        [
+          {
+            "node": "Evaluar resultados SELECT1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de UPDATEs": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server4": {
+      "main": [
+        [
+          {
+            "node": "Guardar en log persistente3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Informe de ejecución": {
+      "main": [
+        [
+          {
+            "node": "Generar cuerpo HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en log persistente3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF ejecutarUpdates1": {
+      "main": [
+        [
+          {
+            "node": "Lista de UPDATEs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generar cuerpo HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar salida SELECT1": {
+      "main": [
+        [
+          {
+            "node": "Guardar en log persistente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar cuerpo HTML1": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer último informe1": {
+      "main": [
+        [
+          {
+            "node": "Enviar correo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items2": {
+      "main": [
+        [
+          {
+            "node": "IF ejecutarUpdates1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items3": {
+      "main": [
+        [
+          {
+            "node": "Informe de ejecución",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron personalizado 7am-1pm1": {
+      "main": [
+        [
+          {
+            "node": "Lista de SELECTs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert rows in a table1": {
+      "main": [
+        [
+          {
+            "node": "Leer último informe1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar cuerpo HTML": {
+      "main": [
+        [
+          {
+            "node": "Enviar correo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-09-22T22:00:28.155Z",
+  "id": "qszggU60yfEan2ZC",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Flujo de correo 2.0",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nconst logs = sd.logs || [];\nconst selects = logs.filter(l => l.tipo === 'SELECT');\nconst filasSelectsValidas = selects.reduce((a, e) => a + (e.filas || 0), 0);\n\nreturn [{ json: { ejecutarUpdates: filasSelectsValidas > 0 } }];\n"
+      },
+      "id": "4202eedf-c642-40cd-af1d-ab99222c73ca",
+      "name": "Evaluar resultados SELECT1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        352,
+        2104
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const selects = [\n  // GMAIL mal escrito\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@gmial.com';`,\n\n  // HOTMAIL mal escrito (variantes)\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@hotamil.com';`,\n\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@hotmaill.com';`,\n\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@hotmal.com';`,\n\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@homail.com';`,\n\n  // Usuarios sin correo y con restricciones\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%sincorreo%'\n     AND Eliminado != 1\n     AND PublicacionComprobantes != 0;`,\n\n  // Correos con espacios o tabs\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '% %';`\n];\n\nreturn selects.map(s => ({\n  json: { tipo: 'SELECT', sentencia: s }\n}));"
+      },
+      "id": "31a603cd-63d8-4a1e-ae11-25a0ee6705d2",
+      "name": "Lista de SELECTs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        2032
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"sentencia\"]}}"
+      },
+      "id": "add86d03-90d9-4863-b00b-1c9b2a15913d",
+      "name": "Ejecutar en SQL Server",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        1984
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "fJiH8DThwB6YtjLT",
+          "name": "Conexion SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nif (!sd.logs) sd.logs = [];\n\nitems.forEach(item => {\n  const json = item?.json || {};\n  const tipo = json.tipo || 'Desconocido';\n  const sentencia = json.sentencia || 'N/A';\n  const filas = json.filasValidas ?? json.filas ?? 0;\n  const ts = new Date().toISOString();\n\n  sd.logs.push({ ts, tipo, sentencia, filas });\n});\n\nreturn items;\n"
+      },
+      "id": "6f244700-da0b-4200-b35b-99b049e180da",
+      "name": "Guardar en log persistente",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        128,
+        1984
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const updates = [\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@gmial.com', mail)-1)+'@gmail.com' WHERE mail LIKE '%@gmial.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@hotamil.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@hotamil.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@hotmaill.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@hotmaill.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@hotmal.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@hotmal.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@homail.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@homail.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET publicacioncomprobantes = 0 WHERE mail LIKE '%sincorreo%' AND Eliminado != 1 AND PublicacionComprobantes != 0; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario\n   SET mail = REPLACE(REPLACE(mail, CHAR(9), ''), ' ', '')\n   WHERE mail LIKE '% %' OR mail LIKE '%' + CHAR(9) + '%';\n   SELECT @@ROWCOUNT AS filas;`\n];\n\nreturn updates.map(u => ({ json: { tipo: 'UPDATE', sentencia: u } }));;\n"
+      },
+      "id": "3faacd09-89e5-4b2c-80f4-e19dc0b90c6a",
+      "name": "Lista de UPDATEs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        1600
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"sentencia\"]}}"
+      },
+      "id": "f8a958af-2723-42ea-8bd6-c33f56e98f43",
+      "name": "Ejecutar en SQL Server4",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        352,
+        1648
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "fJiH8DThwB6YtjLT",
+          "name": "Conexion SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nconst logs = sd.logs || [];\nconst selects = logs.filter(l => l.tipo === 'SELECT');\nconst updates = logs.filter(l => l.tipo === 'UPDATE');\nconst resumen = {\n  totalOperaciones: logs.length,\n  totalSelects: selects.length,\n  totalUpdates: updates.length,\n  filasSelects: selects.reduce((a, e) => a + (e.filas || 0), 0),\n  filasUpdates: updates.reduce((a, e) => a + (e.filas || 0), 0),\n  detalle: logs\n};\nreturn [{ json: resumen }];"
+      },
+      "id": "4a2ff4f6-fac2-4bb9-a498-2b18c5ff102e",
+      "name": "Informe de ejecución",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        352,
+        1456
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nif (!sd.logs) sd.logs = [];\n\nlet salida = [];\n\nif (!items || items.length === 0) {\n  // Iteración sin datos: crear ítem seguro\n  salida.push({\n    json: {\n      tipo: 'UPDATE',\n      sentencia: 'N/A',\n      filas: 0\n    }\n  });\n} else {\n  items.forEach((item, idx) => {\n    const json = item?.json || {};\n    const tipo = json.tipo || 'UPDATE';\n    const sentencia = json.sentencia || ($item(idx)?.$json?.sentencia) || 'N/A';\n    const filas = json.filasValidas ?? json.filas ?? 0;\n    const ts = new Date().toISOString();\n\n    sd.logs.push({ ts, tipo, sentencia, filas });\n\n    salida.push({ json: { tipo, sentencia, filas } });\n  });\n}\n\nreturn salida;\n"
+      },
+      "id": "1aab7d3b-55b6-40de-92f0-22ddcb1e567b",
+      "name": "Guardar en log persistente3",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        576,
+        1696
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"ejecutarUpdates\"]}}",
+              "operation": "notEqual"
+            }
+          ]
+        }
+      },
+      "id": "b55cd1fa-ed48-4545-b867-2dabfdc7f328",
+      "name": "IF ejecutarUpdates1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        1744
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recupera la sentencia y tipo del ítem original\nconst sentencia = $item(0).$json.sentencia || 'N/A';\nconst tipo = $item(0).$json.tipo || 'SELECT';\n\n// items[0].json debe tener { filasValidas: N }\nconst filas = (() => {\n  const j = items?.[0]?.json;\n  if (j == null) return 0;\n  const v = j.filasValidas ?? j.rowCount ?? (Array.isArray(j) ? j.length : 0);\n  return Number(v) || 0;\n})();\n\nreturn [{\n  json: {\n    tipo,\n    sentencia,\n    filasValidas: filas,\n    filas: filas\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        1984
+      ],
+      "id": "e9f00e35-10c2-482f-a7ae-5059e7b93dad",
+      "name": "Normalizar salida SELECT1"
+    },
+    {
+      "parameters": {
+        "functionCode": "const resumen = items[0].json;\nreturn [{\n  json: {\n    mailSubject: `APP2 - Correos de usuarios mal cargados `,\n    mailBody: `\n<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\">\n<title> 1.3 Correos de usuarios mal cargados</title>\n<style>\n  body {\n    font-family: Arial, sans-serif;\n    background-color: #f4f4f4;\n    margin: 0;\n    padding: 0;\n  }\n  .container {\n    max-width: 600px;\n    margin: auto;\n    background: #fff;\n    padding: 20px;\n    border-radius: 8px;\n    box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n  }\n  .header {\n    text-align: center;\n    margin-bottom: 20px;\n  }\n  .company-name {\n    font-size: 24px;\n    font-weight: bold;\n    color: #921E30;\n  }\n  h1 {\n    color: #333;\n    margin-bottom: 10px;\n  }\n  .summary {\n    background: #fafafa;\n    border: 1px solid #ddd;\n    border-radius: 6px;\n    padding: 15px;\n    margin-bottom: 20px;\n  }\n  .summary p {\n    margin: 5px 0;\n    font-size: 14px;\n  }\n  .footer {\n    font-size: 12px;\n    color: #777;\n    text-align: center;\n    margin-top: 20px;\n  }\n</style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting Colombia</div>\n      <h1>Correos de usuarios mal cargados</h1>\n    </div>\n    <div class=\"summary\">\n      <p><strong>Resumen</strong></p>\n      <p>Mails corregidos: ${$json.filasUpdates}</p>\n      <p>Generado: ${new Date().toLocaleString(\"es-CO\", { timeZone: \"America/Bogota\" })}</p>\n    </div>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting Colombia · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`\n  }\n}];\n"
+      },
+      "id": "02218994-cc55-4dcb-a1f8-eb1a72346877",
+      "name": "Generar cuerpo HTML1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        576,
+        1456
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT asunto, cuerpo_html FROM informes ORDER BY fecha DESC LIMIT 1;",
+        "additionalFields": {}
+      },
+      "id": "e121a86f-43e5-4ade-a23b-23fca2272e87",
+      "name": "Leer último informe1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        1456
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "DN6ZsQBwtjGKcWee",
+          "name": "Conexion local"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8napg@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "={{$json[\"asunto\"]}}",
+        "html": "={{$json[\"cuerpo_html\"]}}",
+        "options": {}
+      },
+      "id": "fd3065c0-0f94-460a-b2bb-98ce8b8d44fc",
+      "name": "Enviar correo1",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        1456
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "7a8iRmMxXXrqNfNy",
+          "name": "Gmail Pruebas"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "informes",
+          "mode": "list",
+          "cachedResultName": "informes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "asunto": "={{ $json.mailSubject }}",
+            "cuerpo_html": "={{ $json.mailBody }}",
+            "fecha": "={{ $now.toFormat(\"yyyy-MM-dd HH:mm:ss\") }}\n",
+            "id": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "asunto",
+              "displayName": "asunto",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cuerpo_html",
+              "displayName": "cuerpo_html",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        800,
+        1456
+      ],
+      "id": "5efe80cf-e7ac-42d7-a2e3-eb927cf3f66a",
+      "name": "Insert rows in a table1",
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "DN6ZsQBwtjGKcWee",
+          "name": "Conexion local"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -544,
+        2032
+      ],
+      "id": "7cce5003-1d96-48b9-bdef-9006597da939",
+      "name": "Loop Over Items2",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        128,
+        1600
+      ],
+      "id": "8068b85e-29e3-49d9-b164-b78da8663898",
+      "name": "Loop Over Items3"
+    },
+    {
+      "parameters": {
+        "content": "Flujo PRD APP2\n",
+        "height": 80,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -976,
+        1664
+      ],
+      "typeVersion": 1,
+      "id": "640955c3-ec9c-4fd0-a84d-c8222128b282",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 7
+            },
+            {
+              "hour": 13
+            }
+          ]
+        }
+      },
+      "id": "d17ac0d5-cdf5-414d-a274-7a2609d4f7c4",
+      "name": "Cron personalizado 7am-1pm1",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        2032
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const resumen = items[0].json;\nreturn [{\n  json: {\n    mailSubject: `APP2 - Correos de usuarios mal cargados `,\n    mailBody: `\n\n<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\">\n<title> 1.3 Correos de usuarios mal cargados</title>\n<style>\n  body {\n    font-family: Arial, sans-serif;\n    background-color: #f4f4f4;\n    margin: 0;\n    padding: 0;\n  }\n  .container {\n    max-width: 600px;\n    margin: auto;\n    background: #fff;\n    padding: 20px;\n    border-radius: 8px;\n    box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n  }\n  .header {\n    text-align: center;\n    margin-bottom: 20px;\n  }\n  .company-name {\n    font-size: 24px;\n    font-weight: bold;\n    color: #921E30;\n  }\n  h1 {\n    color: #333;\n    margin-bottom: 10px;\n  }\n  .summary {\n    background: #fafafa;\n    border: 1px solid #ddd;\n    border-radius: 6px;\n    padding: 15px;\n    margin-bottom: 20px;\n  }\n  .summary p {\n    margin: 5px 0;\n    font-size: 14px;\n  }\n  .footer {\n    font-size: 12px;\n    color: #777;\n    text-align: center;\n    margin-top: 20px;\n  }\n</style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting Colombia</div>\n      <h1>Correos de usuarios mal cargados</h1>\n    </div>\n    <div class=\"summary\">\n      <p><strong>Resumen</strong></p>\n      <p>Mails corregidos: 0</p>\n      <p>Generado: ${new Date().toLocaleString(\"es-CO\", { timeZone: \"America/Bogota\" })}</p>\n    </div>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting Colombia · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`\n  }\n}];\n"
+      },
+      "id": "b6061812-6f68-4091-a7f6-cf368eac6820",
+      "name": "Generar cuerpo HTML",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        1792
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8napg@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "={{ $json.mailSubject }}",
+        "html": "={{ $json.mailBody }}",
+        "options": {}
+      },
+      "id": "fa9d18d1-caec-4fda-b1d5-cee658b82ea3",
+      "name": "Enviar correo",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        624,
+        2000
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "7a8iRmMxXXrqNfNy",
+          "name": "Gmail Pruebas"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "qszggU60yfEan2ZC",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "global": {
+      "logs": [
+        {
+          "ts": "2025-09-23T21:30:12.589Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:15.561Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:18.650Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:21.854Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:24.998Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:28.412Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:31.640Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 3
+        },
+        {
+          "ts": "2025-09-23T21:30:35.058Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 2
+        },
+        {
+          "ts": "2025-09-23T21:30:38.144Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 2
+        },
+        {
+          "ts": "2025-09-23T21:30:41.197Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 2
+        },
+        {
+          "ts": "2025-09-23T21:30:44.539Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 2
+        },
+        {
+          "ts": "2025-09-23T21:30:47.934Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 2
+        },
+        {
+          "ts": "2025-09-23T21:30:51.295Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:30:54.645Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 3
+        },
+        {
+          "ts": "2025-09-23T21:40:12.784Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:15.305Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:18.467Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:21.221Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:23.585Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:26.227Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:28.568Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:31.307Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:34.196Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:37.013Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:39.412Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:42.330Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:45.063Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:40:47.855Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:50:44.045Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:50:47.185Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:50:50.185Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:50:53.645Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:50:56.564Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:00.025Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:03.345Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:06.244Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:08.874Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:11.672Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:14.989Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:17.953Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:20.591Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T21:51:23.896Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:00:44.058Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:00:47.412Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:00:50.287Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:00:53.488Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:00:56.660Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:00:59.656Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:02.772Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:05.995Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:09.629Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:12.963Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:16.492Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:19.813Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:23.239Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-23T22:01:26.501Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:21.349Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:24.471Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:27.726Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:31.070Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:34.070Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:37.021Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:40.168Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:42.919Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:45.729Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:48.692Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:51.382Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:54.457Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:51:57.689Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-09-25T19:52:00.705Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:27:45.210Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:27:50.830Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:27:56.157Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:00.594Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:05.788Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:12.532Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:18.444Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:24.850Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:30.348Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:35.642Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:42.487Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:52.282Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:28:58.456Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-22T20:29:09.824Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:00:55.337Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:00:58.376Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:01.383Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:04.294Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:08.495Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:13.380Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:17.974Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:20.875Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:24.958Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:28.652Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:31.257Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:33.806Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:36.365Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T11:01:41.339Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:10.253Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 1
+        },
+        {
+          "ts": "2025-10-23T17:00:14.051Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:18.090Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 1
+        },
+        {
+          "ts": "2025-10-23T17:00:20.760Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:23.363Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:25.971Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:28.489Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:33.047Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 1
+        },
+        {
+          "ts": "2025-10-23T17:00:37.010Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:39.650Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 1
+        },
+        {
+          "ts": "2025-10-23T17:00:42.219Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:44.900Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:47.450Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-23T17:00:53.382Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:00.328Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:04.909Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:08.569Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:11.569Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:15.196Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:21.049Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:23.796Z",
+          "tipo": "SELECT",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:26.661Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:30.707Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:34.521Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:36.976Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:39.440Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:41.886Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        },
+        {
+          "ts": "2025-10-24T11:01:47.640Z",
+          "tipo": "UPDATE",
+          "sentencia": "N/A",
+          "filas": 0
+        }
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-01-27T20:41:36.740Z",
+  "versionId": "0ecf44d3-99ee-42db-8b98-627be0c831e4"
+}
