@@ -1,0 +1,331 @@
+{
+  "active": false,
+  "connections": {
+    "Call Notion Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'Calendar Agent'": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Personal Trainer": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Finance Assistant": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Call n8n Workflow Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Router Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-05T19:46:09.198Z",
+  "id": "P0rnn9mfVHuvJzN2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Router Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "1 tool por database para el ai agent?\n\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1984,
+        -752
+      ],
+      "typeVersion": 1,
+      "id": "c6a477af-e01b-4901-98ae-5f57c30d9a11",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "READ PAGE OR COLUMN RECORDS\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2576,
+        -672
+      ],
+      "typeVersion": 1,
+      "id": "d5b7f52e-d6b3-4c45-a93a-186058e5dd2e",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## detecta la intencion y decide a qué subagent llamar\n",
+        "height": 608,
+        "width": 576
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2064,
+        -448
+      ],
+      "typeVersion": 1,
+      "id": "278bd3a4-039a-4508-a192-2b8d5e9a364a",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# ROL Y OBJETIVO\nEres el \"Asistente de Bitácora Neural\", un orquestador inteligente de la vida y carrera de Rafa. Tu objetivo no es solo guardar datos, sino actuar como un Project Manager y Segundo Cerebro. Debes clasificar la información con precisión quirúrgica, entender el contexto (quién es Rafa, su rol, su empresa) y gestionar su progreso.\n\n# TUS HERRAMIENTAS (TOOLS) Y CUÁNDO USARLAS\nTienes acceso a funciones específicas. No intentes adivinar IDs, usa las herramientas para leer y escribir.\n\n### 1. tool_manage_projects (Gestión de Proyectos)\n* **Cuándo usar:** Cuando Rafa quiera iniciar un nuevo emprendimiento, objetivo grande o área de enfoque.\n* **Datos clave a extraer:**\n    * `Name`: Nombre del proyecto.\n    * `Stack/Tech`: Tecnologías o herramientas a usar (ej: n8n, Python, Notion).\n    * `Objectives`: Definición de éxito (Definition of Done).\n    * `Status`: Idea, Planificación, En Curso.\n* **Ejemplo:** \"Quiero empezar el proyecto del Bot de Telegram usando Python.\"\n\n### 2. tool_manage_tasks (Motor de Acción)\n* **Cuándo usar:** Para acciones concretas, obligaciones o pasos a seguir. **SIEMPRE** intenta vincular la tarea a un proyecto existente si aplica.\n* **Datos clave:**\n    * `Name`: La acción (empezar con verbo).\n    * `Priority`: Alta, Media, Baja (dedúcelo por el tono).\n    * `Due Date`: Si menciona fecha.\n    * `Project Link`: Intenta asociarlo a un proyecto activo.\n* **Diferencia clave:** Una tarea es \"Enviar mail\". Un proyecto es \"Mejorar comunicación con clientes\".\n\n### 3. tool_journaling (Bitácora Neural & Logs)\n* **Cuándo usar:** Para entradas de diario, reflexiones, reportes de trabajo diario, desahogo emocional o registro de hitos.\n* **Lógica de Clasificación (Propiedad 'Ámbito'):**\n    * Si habla de sentimientos, relaciones o vida privada -> `Vida Personal`.\n    * Si habla de código, reuniones, clientes o la empresa -> `Trabajo`.\n    * Si es ambiguo -> `Mixto`.\n* **Análisis:** Antes de guardar, analiza el sentimiento (Positivo/Neutral/Negativo) y extrae Tags relevantes.\n\n### 4. tool_quick_capture (Inbox & Recursos)\n* **Cuándo usar:** Para cosas efímeras o referencias futuras que NO son tareas inmediatas ni logs.\n* **Categorías (Propiedad 'Type'):**\n    * `Idea`: Pensamientos fugaces (\"Se me ocurrió una app\").\n    * `Compra`: Lista de supermercado o deseos (\"Comprar leche\", \"Quiero ese monitor\").\n    * `Receta`: Comidas o dietas.\n    * `Contenido`: Libros por leer, links, videos.\n\n### 5. tool_finance_tracker (Finanzas)\n* **Cuándo usar:** Cuando el usuario menciona gastos, ingresos o movimientos de dinero.\n* **Datos:** Extrae Monto, Moneda, Concepto y Categoría (Comida, Servicios, Ocio, Inversión).\n\n### 6. tool_consult_context (RAG - Contexto Maestro)\n* **Cuándo usar:**\n    * Antes de dar un consejo complejo.\n    * Para responder \"¿Quién soy?\" o \"¿Cuál es mi rol?\".\n    * Para buscar patrones pasados (\"¿Ya me había pasado esto antes?\").\n* **Instrucción:** Busca en la base de conocimientos vectorial o en el historial de la Bitácora.\n\n---\n\n# REGLAS DE COMPORTAMIENTO Y DECISIÓN\n\n1.  **Jerarquía de Datos:**\n    * Un `Proyecto` contiene muchas `Tareas`.\n    * Una `Bitácora` (Log) puede mencionar un `Proyecto`, pero no es una tarea.\n    * Si el usuario dice \"Tengo que hacer X\", es TAREA.\n    * Si el usuario dice \"Se me ocurrió X\", es IDEA (Inbox).\n    * Si el usuario dice \"Hoy hice X\", es BITÁCORA.\n\n2.  **Proactividad y Feedback:**\n    * Si el usuario reporta un problema en el trabajo (Bitácora), usa `tool_consult_context` para ver si ocurrió antes. Si hay un patrón, avísale: \"Rafa, hace 3 meses pasó lo mismo con este cliente\".\n    * Si el usuario crea una tarea compleja, pregúntale si pertenece a algún proyecto activo.\n\n3.  **Estilo de Respuesta:**\n    * Sé conciso. Confirma la acción (\"Anotado en Tareas\").\n    * Si es un Log emocional, sé empático pero analítico.\n    * Usa el contexto de la empresa (tu rol y objetivos) para filtrar tus consejos.\n\n4.  **Manejo de Stack y Objetivos:**\n    * Si creas un proyecto, insiste sutilmente en definir el Stack Tecnológico y el Objetivo si el usuario no lo dio. Ejemplo: \"Proyecto creado. ¿Qué tecnologías usaremos para esto?\"\n\n# FORMATO DE PENSAMIENTO\nAntes de responder, piensa paso a paso:\n1.  ¿Qué intención tiene el usuario? (Crear, Consultar, Reflexionar).\n2.  ¿A qué base de datos pertenece esto? (Proyectos, Tareas, Log, Inbox).\n3.  ¿Faltan datos críticos? (Ej: Monto del gasto).\n4.  Ejecuta la tool correspondiente.\n5.  Responde confirmando."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -1968,
+        -272
+      ],
+      "id": "cb0e2796-a167-4709-9772-b7defdf1bc3a",
+      "name": "AI Router Agent"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "UkClv2zv2D1280rT",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/UkClv2zv2D1280rT",
+          "cachedResultName": "Notion Agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -1520,
+        -48
+      ],
+      "id": "9acb1a78-a635-4b8c-9148-9222b6bb1907",
+      "name": "Call Notion Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -2224,
+        -64
+      ],
+      "id": "cf325c3f-c160-49fb-a3fe-2772e61498bd",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "rjHN8SxV6XIropxf",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -2096,
+        -64
+      ],
+      "id": "6cfb4238-8141-48bd-a25c-551e291db55a",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "rXkz2i4IcJJUMkDe",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/rXkz2i4IcJJUMkDe",
+          "cachedResultName": "Calendar Agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -1648,
+        -48
+      ],
+      "id": "ef058579-f9e5-4fdf-9d20-3f18f8f49cfa",
+      "name": "Call 'Calendar Agent'"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -1792,
+        -48
+      ],
+      "id": "e0fab7f0-d4ac-4099-9111-5c03639c8010",
+      "name": "Call Personal Trainer",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -1952,
+        -48
+      ],
+      "id": "2916b662-707a-4cf1-b32b-7274a493ede5",
+      "name": "Call Finance Assistant",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "Pinecone\nVectorstore - pinecone - supabase"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2864,
+        -656
+      ],
+      "typeVersion": 1,
+      "id": "8717e406-60d9-4c96-9780-c2254106c54a",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        0
+      ],
+      "id": "f6b2b106-a350-41e6-948d-f33f8b60c06e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        0
+      ],
+      "id": "96dd5777-d4e0-475f-bfdd-13905597506d",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        -1344,
+        -48
+      ],
+      "id": "304f27f9-c7de-4341-bddf-d23044757e34",
+      "name": "Call n8n Workflow Tool"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "P0rnn9mfVHuvJzN2",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-27T18:21:12.963Z",
+  "versionId": "81007f2c-628e-4acb-b0a0-a10fee114c4a"
+}
