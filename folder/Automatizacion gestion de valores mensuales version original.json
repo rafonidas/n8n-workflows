@@ -1,0 +1,287 @@
+{
+  "active": false,
+  "connections": {
+    "Cron mensual 1er día 3am": {
+      "main": [
+        [
+          {
+            "node": "Lista de scripts1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)": {
+      "main": [
+        [
+          {
+            "node": "Config Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config Variables": {
+      "main": [
+        [
+          {
+            "node": "Transformar y armar INSERT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transformar y armar INSERT": {
+      "main": [
+        [
+          {
+            "node": "Armar HTML correo",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Microsoft SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de scripts1": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar HTML correo": {
+      "main": [
+        [
+          {
+            "node": "Unificacion de datos de envio",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Unificacion de datos de envio": {
+      "main": [
+        [
+          {
+            "node": "Enviar mail de insercion exitosa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft SQL": {
+      "main": [
+        [
+          {
+            "node": "Unificacion de datos de envio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-23T17:01:04.414Z",
+  "id": "xno0Jhbk4eienimm",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Automatizacion gestion de valores mensuales version original",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "0 3 1 * *"
+            }
+          ]
+        }
+      },
+      "name": "Cron mensual 1er día 3am",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -112
+      ],
+      "id": "f2c2a7f4-1187-432e-bae6-499acc296ff9"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"script\"]}}"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -112
+      ],
+      "id": "2e24adce-3f25-4ea6-ad8b-5d8f6dea24fe",
+      "credentials": {
+        "microsoftSql": {
+          "id": "fJiH8DThwB6YtjLT",
+          "name": "Conexion SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "Pais",
+              "value": "CO"
+            },
+            {
+              "name": "Entorno",
+              "value": "APP3"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Config Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -112
+      ],
+      "id": "4b28229c-b300-4bfc-96c5-fd4e40d5a118"
+    },
+    {
+      "parameters": {
+        "functionCode": "const pais = $json[\"Pais\"] || \"Colombia\";\nconst entorno = $json[\"Entorno\"] || \"Producción\";\n\nconst resultados = $items(\"Ejecutar en SQL Server (SELECT)\", 0, 0);\n\nlet inserts = resultados.map(item => {\n  const row = item.json;\n  const anio = row.ano;\n  const mes = row.mes;\n  const cantidad = row.Emitidos || row.cantidad;\n\n  return {\n    insertSQL: `INSERT INTO ValoresCOMFIAR (Pais, Entorno, Anio, Mes, Cantidad)\n                VALUES ('${pais}', '${entorno}', ${anio}, ${mes}, ${cantidad});`,\n    registro: { pais, entorno, anio, mes, cantidad }\n  };\n});\n\n// Tomamos el último registro\nconst ultimo = inserts[inserts.length - 1];\n\nreturn [{\n  json: {\n    insertSQL: inserts.map(i => i.insertSQL).join(\"\\n\"),\n    ultimoRegistro: ultimo.registro\n  }\n}];\n"
+      },
+      "name": "Transformar y armar INSERT",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        656,
+        -112
+      ],
+      "id": "eae3ed6b-00d7-406e-8f06-7495dba4fa92"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  {\n    json: {\n      script: `SELECT DB_NAME() as entorno,\nYEAR(T.Fecha) as ano,\nMONTH(T.Fecha) as mes,\nCOUNT(C.CuitId) AS Emitidos\nFROM Comprobante AS C WITH(NOLOCK)\n  INNER JOIN rol \n    ON C.CuitId = Rol.CuitId \n   AND C.RolEmisorId = Rol.RolId \n   AND Rol.TipoRol = 1\n  INNER JOIN Transaccion AS T \n    ON T.CuitId = C.CuitId \n   AND T.TransaccionId = C.TransaccionId\nWHERE C.Resultado <> 'R'\n  AND YEAR(T.Fecha) = YEAR(GETDATE())\nGROUP BY YEAR(T.Fecha), MONTH(T.Fecha)\nORDER BY entorno, ano, mes`\n    }\n  }\n];"
+      },
+      "name": "Lista de scripts1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -112
+      ],
+      "id": "b29b8888-7281-4c49-9bc0-6feb475ba25d"
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $json[\"ultimoRegistro\"];\n\nconst mailSubject = `Informe de ejecución - Valores Mensuales`;\n\nlet mailBody;\n\nif (!r) {\n  mailBody = `\n  <!DOCTYPE html>\n  <html lang=\"es\">\n  <head>\n  <meta charset=\"UTF-8\">\n  <title>Informe Valores Mensuales</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #f4f4f4;\n      margin: 0;\n      padding: 0;\n    }\n    .container {\n      max-width: 600px;\n      margin: auto;\n      background: #fff;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n    }\n    .header {\n      text-align: center;\n      margin-bottom: 20px;\n    }\n    .company-name {\n      font-size: 24px;\n      font-weight: bold;\n      color: #921E30;\n    }\n    h1 {\n      color: #333;\n      margin-bottom: 10px;\n    }\n    .summary {\n      background: #fafafa;\n      border: 1px solid #ddd;\n      border-radius: 6px;\n      padding: 15px;\n      margin-bottom: 20px;\n      text-align: center;\n    }\n    .footer {\n      font-size: 12px;\n      color: #777;\n      text-align: center;\n      margin-top: 20px;\n    }\n  </style>\n  </head>\n  <body>\n    <div class=\"container\">\n      <div class=\"header\">\n        <div class=\"company-name\">APG Consulting Colombia</div>\n        <h1>Informe Valores Mensuales</h1>\n      </div>\n      <div class=\"summary\">\n        <p><strong>No se encontraron registros para insertar este mes.</strong></p>\n        <p>Generado: ${new Date().toLocaleString(\"es-CO\")}</p>\n      </div>\n      <div class=\"footer\">\n        © ${new Date().getFullYear()} APG Consulting Colombia · Este informe fue generado automáticamente.\n      </div>\n    </div>\n  </body>\n  </html>\n  `;\n} else {\n  mailBody = `\n  <!DOCTYPE html>\n  <html lang=\"es\">\n  <head>\n  <meta charset=\"UTF-8\">\n  <title>Informe Valores Mensuales</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #f4f4f4;\n      margin: 0;\n      padding: 0;\n    }\n    .container {\n      max-width: 600px;\n      margin: auto;\n      background: #fff;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n    }\n    .header {\n      text-align: center;\n      margin-bottom: 20px;\n    }\n    .company-name {\n      font-size: 24px;\n      font-weight: bold;\n      color: #921E30;\n    }\n    h1 {\n      color: #333;\n      margin-bottom: 10px;\n    }\n    table {\n      width: 100%;\n      border-collapse: collapse;\n      margin-bottom: 20px;\n    }\n    th, td {\n      border: 1px solid #ddd;\n      padding: 10px;\n      text-align: center;\n    }\n    th {\n      background-color: #f2f2f2;\n      color: #333;\n    }\n    .footer {\n      font-size: 12px;\n      color: #777;\n      text-align: center;\n      margin-top: 20px;\n    }\n  </style>\n  </head>\n  <body>\n    <div class=\"container\">\n      <div class=\"header\">\n        <div class=\"company-name\">APG Consulting Colombia</div>\n        <h1>Informe Valores Mensuales</h1>\n      </div>\n      <table>\n        <tr>\n          <th>País</th>\n          <th>Entorno</th>\n          <th>Año</th>\n          <th>Mes</th>\n          <th>Cantidad</th>\n        </tr>\n        <tr>\n          <td>${r.pais}</td>\n          <td>${r.entorno}</td>\n          <td>${r.anio}</td>\n          <td>${r.mes}</td>\n          <td>${r.cantidad}</td>\n        </tr>\n      </table>\n      <div class=\"footer\">\n        © ${new Date().getFullYear()} APG Consulting Colombia · Este informe fue generado automáticamente.\n      </div>\n    </div>\n  </body>\n  </html>\n  `;\n}\n\nreturn [{\n  json: {\n    mailSubject,\n    mailBody\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        0
+      ],
+      "id": "0f9f31b5-35cc-40fc-b7f7-46e3a314c0ec",
+      "name": "Armar HTML correo"
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8n@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "={{ $json.mailSubject }}",
+        "html": "={{ $json.mailBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1376,
+        -112
+      ],
+      "id": "7080d549-1c47-4610-aa1c-3bef4dd42913",
+      "name": "Enviar mail de insercion exitosa",
+      "webhookId": "dc767dcc-ee1a-4bb5-8452-1a915db98c6f",
+      "credentials": {
+        "smtp": {
+          "id": "7BCf6E4STzoP3zci",
+          "name": "APG SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1168,
+        -112
+      ],
+      "id": "b144461c-840c-44a6-ae37-c0ba48a4f7af",
+      "name": "Unificacion de datos de envio"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.insertSQL }}"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        912,
+        -256
+      ],
+      "id": "9a95efde-f957-4d6f-8e97-5279cac5a5b4",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "xno0Jhbk4eienimm",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-27T16:25:13.000Z",
+  "versionId": "26909bcd-c382-481a-95dd-cfb4b38e3b5b"
+}
