@@ -354,6 +354,19 @@
   "nodes": [
     {
       "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1392,
+        -160
+      ],
+      "typeVersion": 1,
+      "id": "61c7721c-16dd-435d-a830-5472c9752d13",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
         "rule": {
           "interval": [
             {
@@ -366,10 +379,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        448,
-        1504
+        -816,
+        1776
       ],
-      "id": "b0645a99-b6de-4d7e-9f5a-2ed90d1d8174",
+      "id": "0b590625-7fd5-4e23-b7cd-44e19fe49a39",
       "name": "Daily Trigger",
       "alwaysOutputData": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
@@ -381,10 +394,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        768,
-        720
+        -448,
+        992
       ],
-      "id": "da5f2d10-4850-4373-ad37-73b67757b534",
+      "id": "bcb0ddb3-e851-4779-829e-a482fe0e5a9b",
       "name": "Set Credentials"
     },
     {
@@ -396,10 +409,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2432,
-        752
+        1168,
+        1024
       ],
-      "id": "f9511965-70ed-4bec-ab65-87ba3f67fbd3",
+      "id": "df88fce4-f2fe-4f2b-a0d0-bc2dfc34126a",
       "name": "Query Loop"
     },
     {
@@ -407,8 +420,10 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "ncHyc8XHByDgMhAr",
-          "mode": "id"
+          "value": "LMbtWNGXPZLNnpdf",
+          "mode": "list",
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
         },
         "matchType": "allConditions",
         "filters": {
@@ -425,10 +440,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        1632,
-        752
+        368,
+        1024
       ],
-      "id": "27f6eada-debe-465f-af8a-51d93b9da026",
+      "id": "b593a45a-2954-433f-89e0-ef161e999401",
       "name": "Set Queries",
       "retryOnFail": true,
       "maxTries": 2,
@@ -441,10 +456,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1392,
-        736
+        128,
+        1008
       ],
-      "id": "e4d139d2-6e93-4882-9e56-da4346a41799",
+      "id": "0efad93f-9f85-4c53-9b0c-705405e7dd13",
       "name": "Credentials Loop"
     },
     {
@@ -454,10 +469,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3360,
-        752
+        2096,
+        1024
       ],
-      "id": "e61db251-2ed0-4688-ae7b-1f54c27cbdf7",
+      "id": "a1a9890c-97f0-43ae-89c5-f05eb8d2c30b",
       "name": "Map Results"
     },
     {
@@ -483,10 +498,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        3536,
-        512
+        2272,
+        784
       ],
-      "id": "836c191b-1f04-4783-a139-eb1f0c35a315",
+      "id": "0ef76661-4136-43c3-837f-ad97b580f460",
       "name": "Send Results",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": true,
@@ -505,10 +520,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        3984,
-        512
+        2720,
+        784
       ],
-      "id": "09c0d766-22bd-4ec2-adee-fb4061952713",
+      "id": "929856d6-d09f-4b93-a184-8826ec8718ba",
       "name": "Wait",
       "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a"
     },
@@ -529,10 +544,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        448,
-        1312
+        -816,
+        1584
       ],
-      "id": "2095797c-7719-4c4c-8711-acc93856640e",
+      "id": "b720182e-a63b-4860-b0c0-490a1a10854e",
       "name": "Weekly Trigger",
       "alwaysOutputData": true,
       "disabled": true
@@ -552,10 +567,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        448,
-        1168
+        -816,
+        1440
       ],
-      "id": "ee23050c-8f81-493a-9932-0578d588aaeb",
+      "id": "113af8fe-f972-439d-93b7-21f8de9ef97d",
       "name": "Monthly Trigger",
       "alwaysOutputData": true,
       "disabled": true
@@ -567,25 +582,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2208,
-        752
+        976,
+        1008
       ],
-      "id": "6188a35e-2171-4799-9503-c67e447597ed",
+      "id": "e23d00d8-c77d-4f6b-a3c7-a633de848cf5",
       "name": "Fan Out",
       "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "content": "Dashboards de datos especificos de la bbdd?\n"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        1392,
-        -160
-      ],
-      "typeVersion": 1,
-      "id": "61c7721c-16dd-435d-a830-5472c9752d13",
-      "name": "Sticky Note"
     },
     {
       "parameters": {
@@ -601,12 +603,11 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        448,
-        1024
+        -816,
+        1296
       ],
-      "id": "084a434a-e8fc-44f2-9527-460d00129804",
+      "id": "c8b3388c-42c4-491d-9082-9f33e701df27",
       "name": "Bi-hourly Trigger",
-      "disabled": true,
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
     {
@@ -616,10 +617,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3024,
-        528
+        1760,
+        800
       ],
-      "id": "a14cfaa9-6a7e-4b87-82e9-327b6fca3429",
+      "id": "e35d3eb6-f0e3-442a-a944-3e9da8cf148f",
       "name": "Set  HTML",
       "executeOnce": true,
       "alwaysOutputData": true,
@@ -632,10 +633,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2864,
-        528
+        1600,
+        800
       ],
-      "id": "de27b271-3441-472d-862c-5f70b7547871",
+      "id": "d4873904-6630-466d-9176-aa55e42973b8",
       "name": "Fan In",
       "alwaysOutputData": true
     },
@@ -653,10 +654,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        432,
-        544
+        -832,
+        816
       ],
-      "id": "6ad756b1-2f96-4fb6-886b-a9b601387c87",
+      "id": "732be17b-db8d-42bc-9a42-54c981cc2eeb",
       "name": "Nightly Trigger",
       "disabled": true,
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
@@ -668,10 +669,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1808,
-        752
+        544,
+        1024
       ],
-      "id": "250aa8f2-4d74-480a-b240-41ba1628bd1e",
+      "id": "27de361d-8b95-4303-9453-771506feb0d4",
       "name": "Filter Queries",
       "alwaysOutputData": true
     },
@@ -703,10 +704,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2032,
-        752
+        768,
+        1024
       ],
-      "id": "970e4e21-893f-4157-b14e-2211346a718f",
+      "id": "19dcabe8-1a9d-44e5-9dbf-c5c30363dd20",
       "name": "If"
     },
     {
@@ -737,10 +738,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3200,
-        528
+        1936,
+        800
       ],
-      "id": "f053b55c-9b58-4bac-973f-330cd217fd7b",
+      "id": "7e895bd6-2398-4dd2-9947-787315ebcb2d",
       "name": "If1"
     },
     {
@@ -757,10 +758,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        432,
-        400
+        -832,
+        672
       ],
-      "id": "fbb2939a-0ed0-41aa-ac12-ccade084089e",
+      "id": "a831fe74-83c7-4072-8ec5-b1d708e15331",
       "name": "Hourly Trigger"
     },
     {
@@ -770,10 +771,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3040,
-        752
+        1776,
+        1024
       ],
-      "id": "ab81b9c3-3cc1-4148-9b0b-006d5e09992a",
+      "id": "d54730c2-6bbe-4b27-b41e-a0a339001748",
       "name": "Audit End"
     },
     {
@@ -783,10 +784,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2688,
-        752
+        1424,
+        1024
       ],
-      "id": "7a281285-150a-42db-beda-9b077005147c",
+      "id": "315a1517-2ee2-4a56-ad5f-13b15996d73d",
       "name": "Audit Start"
     },
     {
@@ -794,13 +795,13 @@
         "operation": "executeQuery",
         "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
       },
-      "id": "559e0c07-e66a-4c21-a8c8-d1e3499d6562",
+      "id": "dc56bd20-82c2-464f-9b7c-bcc1449a5caa",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        2848,
-        752
+        1584,
+        1024
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
@@ -834,10 +835,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        432,
-        240
+        -832,
+        528
       ],
-      "id": "6f66fee7-d8b0-4c4f-99c8-b703ace0e0f3",
+      "id": "63ac12b2-373d-4369-a883-d8912dfd6d82",
       "name": "Four-hourly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -848,10 +849,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        752,
-        592
+        -512,
+        864
       ],
-      "id": "4bf7b1e2-804b-4c4d-8cc1-ef461a627636",
+      "id": "b8205745-dac1-444f-87d4-a9e2c4f3b312",
       "name": "Code in JavaScript"
     },
     {
@@ -862,11 +863,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2144,
-        160
+        880,
+        432
       ],
       "typeVersion": 1,
-      "id": "74c646ee-ac50-4f40-9da1-a477ac2ae61e",
+      "id": "4820b0bf-41d8-43dd-bfa3-dd29ed0c4f22",
       "name": "Sticky Note2"
     },
     {
@@ -876,10 +877,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        320,
-        720
+        -704,
+        992
       ],
-      "id": "ee875fc6-f220-43c4-ba4b-22cf9b9f6b40",
+      "id": "049f06c9-b513-4873-9dbc-1e4a4adbe6d6",
       "name": "When Executed by Another Workflow"
     },
     {
@@ -910,10 +911,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1008,
-        720
+        -256,
+        992
       ],
-      "id": "37dadd73-cbfa-4e49-a8b0-5653fdbe89a7",
+      "id": "0051db7e-5f24-46a1-af8c-76a9cf337c1f",
       "name": "If2"
     },
     {
@@ -923,10 +924,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1360,
-        512
+        96,
+        784
       ],
-      "id": "f7fde1e3-c65a-497b-a107-cb9ef09c394b",
+      "id": "c3c891a2-91dd-4549-9c20-ae7539eb90f1",
       "name": "Set Tasks"
     },
     {
@@ -1025,10 +1026,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1552,
-        512
+        288,
+        784
       ],
-      "id": "325cc882-154b-4e95-8071-001f5c7fff9a",
+      "id": "6b96311c-f71a-4cf3-a438-8d578635ec1f",
       "name": "Set Tasks State",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1161,10 +1162,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3200,
-        752
+        1936,
+        1024
       ],
-      "id": "6df69133-f7ee-4405-a30c-a2a7dcc2f04e",
+      "id": "30195f76-01b4-4ef8-bf9d-57df5bebcbec",
       "name": "Update Metrics",
       "alwaysOutputData": false,
       "retryOnFail": true,
@@ -1293,15 +1294,48 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3760,
-        512
+        2496,
+        784
       ],
-      "id": "eaadec2c-e70c-4aae-b729-f7f2d396b464",
+      "id": "97cd3218-1295-431a-a4bb-0bb1b9836a3c",
       "name": "Update Tasks",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
           "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        128,
+        112
+      ],
+      "typeVersion": 1,
+      "id": "e0f099bc-7eac-49af-a65d-10c7d0ed85dd",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT e.CuitId, e.TransaccionId, e.PuntoDeVentaId, e.TipoComprobanteId, e.NroCbte, e.Cod EstadoPublicacion, e.ErrorPDF, E.ErrorPDFMotivo, c.Resultado\nFROM comprobante C WITH(NOLOCK) \ninner join EstadoPublicacion E WITH(NOLOCK) on c.CuitId=e.CuitId and c.TransaccionId=e.TransaccionId and c.PuntoDeVentaId=e.PuntoDeVentaId and c.TipoComprobanteId=e.TipoComprobanteId and c.NroCbte=e.NroCbte\nWHERE c.FechaCbte > DATEADD(day, -5, GETDATE()) AND  Resultado != 'R' and c.TipoComprobanteId!=99 and UsuarioAnulacion is null  and ((c.error=0 and  c.ErrorDesc='El comprobante no puede generarse dado que el reporte o los datos no son válidos.' ) or e.ErrorPDF!=0)\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        1728,
+        448
+      ],
+      "id": "3e88e48e-6040-48be-84b8-ae432c3124a1",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
         }
       }
     }
@@ -1314,16 +1348,16 @@
     "availableInMCP": false,
     "saveExecutionProgress": true,
     "executionTimeout": 7200,
-    "timeSavedPerExecution": 60,
+    "timeSavedPerExecution": 20,
     "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
-      "createdAt": "2026-01-11T13:58:51.851Z",
-      "updatedAt": "2026-01-11T13:58:51.851Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "3Bmd3g640coLDTeO",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": {
@@ -1335,10 +1369,13 @@
     },
     "node:Four-hourly Trigger": {
       "recurrenceRules": []
+    },
+    "node:Bi-hourly Trigger": {
+      "recurrenceRules": []
     }
   },
   "tags": [],
-  "triggerCount": 3,
-  "updatedAt": "2026-01-23T23:44:49.000Z",
-  "versionId": "8cec1aa5-b45f-42e2-83db-cb04d95a49c4"
+  "triggerCount": 4,
+  "updatedAt": "2026-02-10T12:53:24.440Z",
+  "versionId": "1ac23dc7-a838-4b9e-8083-3684955f1ce5"
 }
