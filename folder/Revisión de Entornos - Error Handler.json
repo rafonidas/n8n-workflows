@@ -104,7 +104,7 @@
   },
   "createdAt": "2026-01-11T14:31:58.728Z",
   "id": "aggj1YZ7Lmhbv9Ct",
-  "isArchived": false,
+  "isArchived": true,
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -184,8 +184,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        656,
-        160
+        -224,
+        464
       ],
       "id": "6317a8d8-aba2-4f4e-9c0d-129ea1e29cac",
       "name": "When Executed by Another Workflow"
@@ -581,16 +581,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-01-11T14:31:58.731Z",
-      "updatedAt": "2026-01-11T14:31:58.731Z",
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
       "workflowId": "aggj1YZ7Lmhbv9Ct",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-16T17:35:09.000Z",
-  "versionId": "65d4ab3e-d603-46c4-8208-44b0b1667fe7"
+  "updatedAt": "2026-01-27T18:20:34.716Z",
+  "versionId": "f5a5577f-f23b-4da6-84ed-dbd6b65fd36d"
 }
