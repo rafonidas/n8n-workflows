@@ -5,7 +5,18 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Create blob",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create blob": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Azure Monitor HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -13,10 +24,12 @@
       ]
     }
   },
-  "createdAt": "2026-01-07T16:10:28.860Z",
-  "id": "ffjnIUTfBQ6NJacP",
+  "createdAt": "2026-02-13T17:35:00.470Z",
+  "id": "EP3EejNK0Pv3chUL",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "My workflow 8",
   "nodes": [
     {
@@ -27,39 +40,56 @@
         0,
         0
       ],
-      "id": "2870df92-115e-4b5b-919a-e78e8408f004",
+      "id": "845afe9b-ab28-436a-9ba2-8a54f19c60cc",
       "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "url": "https://apg.cloudviga.com/api",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW5Qcm95ZWN0IiwiQW5hbGlzdGEgcmVzb2x1dG9yIiwiQW5hbGlzdGEiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiUGVybWlzc2lvbnMiOlsiSW50ZXJubyIsIlZpZXdTdXBwb3J0IiwiRWRpdFN1cHBvcnQiLCJDcmVhdGVTdXBwb3J0IiwiRGVsZXRlU3VwcG9ydCIsIlZpZXdQcm9qZWN0IiwiRWRpdFByb2plY3QiLCJDcmVhdGVQcm9qZWN0IiwiVGltZVJlcG9ydCIsIlZpZXdDbGllbnQiLCJFZGl0Q2xpZW50IiwiQ3JlYXRlQ2xpZW50IiwiVmlld1VzZXIiLCJFZGl0VXNlciIsIkNyZWF0ZVVzZXIiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiRVJQIiwiSG9saWRheSIsIkFkbWluQmVlbGxpbmciLCJWaWV3RXJwIiwiVmlld09yaWdpbnMiLCJWaWV3V2ViU2l0ZSJdLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9hdXRoZW50aWNhdGlvbiI6Im5ld1VzZXItYXBnQ29yZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJOdcOxZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmMzhjNjBjNi0yNzNjLTQyMmMtYmQ4Yi00NWMyMjI2NmM1YjkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzY3ODE0NzQ3fQ.SN7LDgF_0XA4SJiDVIgO3tvB0TimC8cF95sp2sUl4GA"
-            },
-            {
-              "name": "Accept",
-              "value": "*/*"
-            }
-          ]
+        "resource": "blob",
+        "operation": "create",
+        "container": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
         },
-        "options": {
-          "response": {
-            "response": {}
-          }
-        }
+        "options": {},
+        "requestOptions": {}
       },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
+      "type": "n8n-nodes-base.azureStorage",
+      "typeVersion": 1,
       "position": [
         208,
         0
       ],
-      "id": "dbac6819-5d99-4f44-bf68-897e9df59d8b",
-      "name": "HTTP Request"
+      "id": "72b4d551-291a-423b-a5f5-66710a612fe3",
+      "name": "Create blob"
+    },
+    {
+      "parameters": {
+        "preBuiltAgentsCalloutHttpRequest": "",
+        "httpVariantWarning": "",
+        "curlImport": "",
+        "method": "GET",
+        "": "",
+        "url": "",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftAzureMonitorOAuth2Api",
+        "provideSslCertificates": false,
+        "sendQuery": false,
+        "sendHeaders": false,
+        "sendBody": false,
+        "options": {},
+        "infoMessage": ""
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "49f0f4cc-7f6b-4d39-9e93-cfbc44b63c55",
+      "name": "Microsoft Azure Monitor HTTP Request",
+      "extendsCredential": "microsoftAzureMonitorOAuth2Api"
     }
   ],
   "pinData": {},
@@ -68,16 +98,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-01-07T16:10:28.870Z",
-      "updatedAt": "2026-01-07T16:10:28.870Z",
+      "createdAt": "2026-02-13T17:35:00.470Z",
+      "updatedAt": "2026-02-13T17:35:00.470Z",
       "role": "workflow:owner",
-      "workflowId": "ffjnIUTfBQ6NJacP",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "workflowId": "EP3EejNK0Pv3chUL",
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-07T17:52:37.000Z",
-  "versionId": "aa679459-434c-4412-a845-b3c489fb7e75"
+  "updatedAt": "2026-02-18T15:51:50.483Z",
+  "versionId": "0f09cb5a-39ae-4313-bdca-9fc1ca25ca1c"
 }
