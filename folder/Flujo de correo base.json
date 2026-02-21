@@ -1,0 +1,565 @@
+{
+  "active": false,
+  "connections": {
+    "Evaluar resultados SELECT": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de SELECTs1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server2": {
+      "main": [
+        [
+          {
+            "node": "Normalizar salida SELECT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en log persistente1": {
+      "main": [
+        [
+          {
+            "node": "Evaluar resultados SELECT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de UPDATEs1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server3": {
+      "main": [
+        [
+          {
+            "node": "Guardar en log persistente2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Informe de ejecución1": {
+      "main": [
+        [
+          {
+            "node": "Generar cuerpo HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en log persistente2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF ejecutarUpdates": {
+      "main": [
+        [
+          {
+            "node": "Lista de UPDATEs1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Informe de ejecución1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar salida SELECT": {
+      "main": [
+        [
+          {
+            "node": "Guardar en log persistente1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar cuerpo HTML": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer último informe": {
+      "main": [
+        [
+          {
+            "node": "Enviar correo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "IF ejecutarUpdates",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Informe de ejecución1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron personalizado 7am-1pm": {
+      "main": [
+        [
+          {
+            "node": "Lista de SELECTs1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Leer último informe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-22T20:32:16.306Z",
+  "id": "UilHn5FQ93FuOGEQ",
+  "isArchived": false,
+  "meta": null,
+  "name": "Flujo de correo base",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nconst logs = sd.logs || [];\nconst selects = logs.filter(l => l.tipo === 'SELECT');\nconst filasSelectsValidas = selects.reduce((a, e) => a + (e.filas || 0), 0);\n\nreturn [{ json: { ejecutarUpdates: filasSelectsValidas > 0 } }];\n"
+      },
+      "id": "0b5b5b7d-88d5-4766-b402-a4c8f051f238",
+      "name": "Evaluar resultados SELECT",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const selects = [\n  // GMAIL mal escrito\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@gmial.com';`,\n\n  // HOTMAIL mal escrito (variantes)\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@hotamil.com';`,\n\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@hotmaill.com';`,\n\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@hotmal.com';`,\n\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%@homail.com';`,\n\n  // Usuarios sin correo y con restricciones\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '%sincorreo%'\n     AND Eliminado != 1\n     AND PublicacionComprobantes != 0;`,\n\n  // Correos con espacios o tabs\n  `SELECT COUNT(*) AS filasValidas\n   FROM usuario\n   WHERE mail LIKE '% %';`\n];\n\nreturn selects.map(s => ({\n  json: { tipo: 'SELECT', sentencia: s }\n}));"
+      },
+      "id": "09ec4236-f621-4343-940b-2f264c5f8d72",
+      "name": "Lista de SELECTs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1360,
+        464
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"sentencia\"]}}"
+      },
+      "id": "e6f6db4d-4483-4391-989b-dbb40c339190",
+      "name": "Ejecutar en SQL Server2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        560
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "DITSWqvLjnoODIqU",
+          "name": "Conexion Test Interno CR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nif (!sd.logs) sd.logs = [];\n\nitems.forEach(item => {\n  const json = item?.json || {};\n  const tipo = json.tipo || 'Desconocido';\n  const sentencia = json.sentencia || 'N/A';\n  const filas = json.filasValidas ?? json.filas ?? 0;\n  const ts = new Date().toISOString();\n\n  sd.logs.push({ ts, tipo, sentencia, filas });\n});\n\nreturn items;\n"
+      },
+      "id": "15b03bb6-5777-4f67-a3cf-d76285e952fc",
+      "name": "Guardar en log persistente1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const updates = [\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@gmial.com', mail)-1)+'@gmail.com' WHERE mail LIKE '%@gmial.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@hotamil.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@hotamil.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@hotmaill.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@hotmaill.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@hotmal.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@hotmal.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET mail = SUBSTRING(mail,1,CHARINDEX('@homail.com', mail)-1)+'@hotmail.com' WHERE mail LIKE '%@homail.com'; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario SET publicacioncomprobantes = 0 WHERE mail LIKE '%sincorreo%' AND Eliminado != 1 AND PublicacionComprobantes != 0; SELECT @@ROWCOUNT AS filas;`,\n  `UPDATE usuario\n   SET mail = REPLACE(REPLACE(mail, CHAR(9), ''), ' ', '')\n   WHERE mail LIKE '% %' OR mail LIKE '%' + CHAR(9) + '%';\n   SELECT @@ROWCOUNT AS filas;`\n];\n\nreturn updates.map(u => ({ json: { tipo: 'UPDATE', sentencia: u } }));;\n"
+      },
+      "id": "995a216a-65c8-400a-b2f6-da4cc8dbbe1f",
+      "name": "Lista de UPDATEs1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{$json[\"sentencia\"]}}"
+      },
+      "id": "128330e8-a5f4-4b01-ae7c-0b6e12652094",
+      "name": "Ejecutar en SQL Server3",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -96
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "DITSWqvLjnoODIqU",
+          "name": "Conexion Test Interno CR"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nconst logs = sd.logs || [];\nconst selects = logs.filter(l => l.tipo === 'SELECT');\nconst updates = logs.filter(l => l.tipo === 'UPDATE');\nconst resumen = {\n  totalOperaciones: logs.length,\n  totalSelects: selects.length,\n  totalUpdates: updates.length,\n  filasSelects: selects.reduce((a, e) => a + (e.filas || 0), 0),\n  filasUpdates: updates.reduce((a, e) => a + (e.filas || 0), 0),\n  detalle: logs\n};\nreturn [{ json: resumen }];"
+      },
+      "id": "8016e43b-5373-4932-b972-8dbecac2f5ce",
+      "name": "Informe de ejecución1",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        352
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "functionCode": "const sd = this.getWorkflowStaticData('global');\nif (!sd.logs) sd.logs = [];\n\nlet salida = [];\n\nif (!items || items.length === 0) {\n  // Iteración sin datos: crear ítem seguro\n  salida.push({\n    json: {\n      tipo: 'UPDATE',\n      sentencia: 'N/A',\n      filas: 0\n    }\n  });\n} else {\n  items.forEach((item, idx) => {\n    const json = item?.json || {};\n    const tipo = json.tipo || 'UPDATE';\n    const sentencia = json.sentencia || ($item(idx)?.$json?.sentencia) || 'N/A';\n    const filas = json.filasValidas ?? json.filas ?? 0;\n    const ts = new Date().toISOString();\n\n    sd.logs.push({ ts, tipo, sentencia, filas });\n\n    salida.push({ json: { tipo, sentencia, filas } });\n  });\n}\n\nreturn salida;\n"
+      },
+      "id": "b79d79ad-8c09-4e33-80ab-e2abf1fab6f6",
+      "name": "Guardar en log persistente2",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -96
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"ejecutarUpdates\"]}}",
+              "operation": "notEqual"
+            }
+          ]
+        }
+      },
+      "id": "18706483-f10e-4909-8d11-05b209c8364f",
+      "name": "IF ejecutarUpdates",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        336
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recupera la sentencia y tipo del ítem original\nconst sentencia = $item(0).$json.sentencia || 'N/A';\nconst tipo = $item(0).$json.tipo || 'SELECT';\n\n// items[0].json debe tener { filasValidas: N }\nconst filas = (() => {\n  const j = items?.[0]?.json;\n  if (j == null) return 0;\n  const v = j.filasValidas ?? j.rowCount ?? (Array.isArray(j) ? j.length : 0);\n  return Number(v) || 0;\n})();\n\nreturn [{\n  json: {\n    tipo,\n    sentencia,\n    filasValidas: filas,\n    filas: filas\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        560
+      ],
+      "id": "09474cd4-4b87-4425-923d-6bda29dd4bb9",
+      "name": "Normalizar salida SELECT"
+    },
+    {
+      "parameters": {
+        "functionCode": "const resumen = items[0].json;\nreturn [{\n  json: {\n    mailSubject: `Informe de ejecución - Correos de usuarios mal cargados `,\n    mailBody: `\n<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\">\n<title> 1.3 Correos de usuarios mal cargados</title>\n<style>\n  body {\n    font-family: Arial, sans-serif;\n    background-color: #f4f4f4;\n    margin: 0;\n    padding: 0;\n  }\n  .container {\n    max-width: 600px;\n    margin: auto;\n    background: #fff;\n    padding: 20px;\n    border-radius: 8px;\n    box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n  }\n  .header {\n    text-align: center;\n    margin-bottom: 20px;\n  }\n  .company-name {\n    font-size: 24px;\n    font-weight: bold;\n    color: #921E30;\n  }\n  h1 {\n    color: #333;\n    margin-bottom: 10px;\n  }\n  .summary {\n    background: #fafafa;\n    border: 1px solid #ddd;\n    border-radius: 6px;\n    padding: 15px;\n    margin-bottom: 20px;\n  }\n  .summary p {\n    margin: 5px 0;\n    font-size: 14px;\n  }\n  .footer {\n    font-size: 12px;\n    color: #777;\n    text-align: center;\n    margin-top: 20px;\n  }\n</style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting Colombia</div>\n      <h1>Correos de usuarios mal cargados</h1>\n    </div>\n    <div class=\"summary\">\n      <p><strong>Resumen</strong></p>\n      <p>Mails corregidos: ${$json.filasUpdates}</p>\n<p>Generado: ${new Date().toLocaleString(\"es-CO\", { timeZone: \"America/Bogota\" })}</p>\n    </div>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting Colombia · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`\n  }\n}];\n"
+      },
+      "id": "b6ef46f0-0acd-4070-8927-ec37c87b4f84",
+      "name": "Generar cuerpo HTML",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        160,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT asunto, cuerpo_html FROM informes ORDER BY fecha DESC LIMIT 1;",
+        "additionalFields": {}
+      },
+      "id": "e20df6ed-7723-4ca1-9d44-9ebc19e3d6cf",
+      "name": "Leer último informe",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        -1408,
+        816
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "DN6ZsQBwtjGKcWee",
+          "name": "Conexion local"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8napg@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "={{$json[\"asunto\"]}}",
+        "html": "={{$json[\"cuerpo_html\"]}}",
+        "options": {}
+      },
+      "id": "4b762007-25cb-42c3-b922-3a54aff6bb67",
+      "name": "Enviar correo",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        -1232,
+        816
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "6V3Vl9iuoEpHp8k8",
+          "name": "la.comfiar.co"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "informes",
+          "mode": "list",
+          "cachedResultName": "informes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "asunto": "={{ $json.mailSubject }}",
+            "cuerpo_html": "={{ $json.mailBody }}",
+            "fecha": "={{ $now.toFormat(\"yyyy-MM-dd HH:mm:ss\") }}\n",
+            "id": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "asunto",
+              "displayName": "asunto",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cuerpo_html",
+              "displayName": "cuerpo_html",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        384,
+        352
+      ],
+      "id": "66163938-19c9-432c-8d85-c67f8b35e5ec",
+      "name": "Insert rows in a table",
+      "executeOnce": true,
+      "credentials": {
+        "postgres": {
+          "id": "DN6ZsQBwtjGKcWee",
+          "name": "Conexion local"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1120,
+        464
+      ],
+      "id": "0cab54c7-c977-47c7-b074-7c6b8fc1e572",
+      "name": "Loop Over Items",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -96,
+        -112
+      ],
+      "id": "454b73f7-ccda-4a4a-91e6-968168bab153",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 7
+            },
+            {
+              "hour": 13
+            }
+          ]
+        }
+      },
+      "id": "cfafe68a-0fce-4f77-b58b-8cb93ba0069e",
+      "name": "Cron personalizado 7am-1pm",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -1744,
+        464
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "UilHn5FQ93FuOGEQ",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-22T20:32:16.306Z",
+  "versionId": "2e31136c-1642-485e-8709-2550c3d4832c"
+}
