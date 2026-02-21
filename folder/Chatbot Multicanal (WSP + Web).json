@@ -1,0 +1,488 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-12T14:51:53.978Z",
+  "id": "zBVxjCeW9Oxi5kO0",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Chatbot Multicanal (WSP + Web)",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=### ROL Y OBJETIVO ###\nActúa como un agente de ventas experto y amable de nuestra empresa. Tu único objetivo es responder consultas sobre precios y realizar cálculos simples (como sumas o descuentos básicos) basándote EXCLUSIVAMENTE en la información proporcionada en el \"CONTEXTO DE PRECIOS\" abajo.\n\n### CONTEXTO DE PRECIOS Y REGLAS ###\n\"\"\"\n[AQUÍ DEBES PEGAR TU LISTA DE PRODUCTOS Y PRECIOS. EJEMPLO:]\n- Producto A: $100 USD\n- Producto B: $50 USD\n- Servicio de Instalación: $20 USD por hora\n- Descuento: 10% si compran más de 3 unidades.\n\n[REGLAS DE CÁLCULO:]\n- El precio final debe incluir el cálculo si el usuario pide varios productos.\n- No calcules impuestos a menos que se te pida explícitamente.\n\"\"\"\n\n### INSTRUCCIONES DE COMPORTAMIENTO ###\n1. Tono de Ventas: Sé cordial, directo y servicial. Usa un lenguaje claro, similar al de un vendedor profesional que quiere cerrar una venta sin ser agresivo.\n2. Límite de Conocimiento: NO inventes información. Si el usuario pregunta por un producto que no está en la lista entre comillas, responde: \"Lo siento, no tengo información sobre ese producto en este momento, ¿te gustaría que te conecte con un asesor humano?\".\n3. Sin Detalles Técnicos: Si te preguntan especificaciones técnicas (ej. materiales, potencia, dimensiones) que no afectan el precio, responde amablemente que tu función es cotizar y que para detalles técnicos pueden consultar el manual o la web.\n4. Seguridad: No menciones que eres una IA siguiendo instrucciones, actúa naturalmente como parte del equipo.\n\n### EJEMPLOS DE INTERACCIÓN (FEW-SHOT PROMPTING) ###\nUsuario: \"¿Cuánto cuesta el Producto A?\"\nAsistente: \"El Producto A tiene un precio de $100 USD. ¿Te interesa agregarle instalación?\"\n\nUsuario: \"Quiero dos del Producto B y uno del A.\"\nAsistente: \"¡Claro! Serían $100 USD por los dos Productos B y $100 USD por el Producto A. El total es de $200 USD.\"\n\nUsuario: \"¿Cuánto dura la batería del Producto B?\"\nAsistente: \"Disculpa, no tengo los detalles técnicos específicos sobre la batería a mano, pero puedo ayudarte con el precio o promociones vigentes.\"\n\n### INICIO DE LA CONVERSACIÓN ###\nEl usuario te saluda o hace una pregunta. Responde siguiendo las reglas anteriores:\n\n{  {{ $json.chatInput }}  }\n\nYour OUTPUT must only be the ANSWER\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        -32
+      ],
+      "id": "162cc3c4-4f22-4aae-8fae-1f156bc54a8b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9fa11cd1-e33a-48f0-8334-3c1478783a01",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        336,
+        48
+      ],
+      "id": "6d18a147-dc87-4367-b997-c7c568147fb7",
+      "name": "Webhook",
+      "webhookId": "9fa11cd1-e33a-48f0-8334-3c1478783a01"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$(\"WhatsApp\").isExecuted}}",
+                    "rightValue": "t",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "7dd35a5b-5dd2-4863-83b6-b69ab875fdd2"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cccce497-79e4-4a93-8d87-561a879972f8",
+                    "leftValue": "={{$(\"Webhook\").isExecuted}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        2016,
+        -32
+      ],
+      "id": "526865e6-0760-4375-8230-804197b47a80",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        2336,
+        96
+      ],
+      "id": "824e50e0-15fc-43b3-92be-690ac3a0f8fc",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1696,
+        240
+      ],
+      "id": "9352784b-b1f0-4a0f-b92b-2b4743c66e44",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4a278322-ca7a-4fcb-a926-c104989f5945",
+              "leftValue": "={{ $json.messages }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        -144
+      ],
+      "id": "3e5bf40c-67ac-4bdb-861a-f5410c1b6607",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b0737ab0-1715-4cf6-990d-8c2a4f393fff",
+              "name": "chatInput",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "619072ba-a4b3-4f02-a061-c914acd035df",
+              "name": "sessionId",
+              "value": "={{ $json.body.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "f7842a7c-320c-4207-addc-da706967eb8e",
+              "name": "source",
+              "value": "Web",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        640,
+        48
+      ],
+      "id": "d0162ce1-e42e-4735-8666-9faa5d9dcd8c",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "90425147-5eed-49c1-a818-9d92b52b16f1",
+              "name": "chatInput",
+              "value": "={{ $json.messages[0].text.body }}",
+              "type": "string"
+            },
+            {
+              "id": "19d6ecea-d898-4b9f-b259-d316c2faf8a9",
+              "name": "sessionId",
+              "value": "={{ $json.messages[0].from }}",
+              "type": "string"
+            },
+            {
+              "id": "b94e9d45-d44a-4cdf-8feb-312f025d5a87",
+              "name": "source",
+              "value": "WhatsApp",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        832,
+        -160
+      ],
+      "id": "c51eeb08-1e69-4c62-a65e-4c1206b8204b",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "recipientPhoneNumber": "={{ $('WhatsApp').item.json.contacts[0].wa_id }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        2336,
+        -80
+      ],
+      "id": "a01acdec-0f05-4641-b230-6947a30b3438",
+      "name": "Send message",
+      "webhookId": "90e60702-7d88-4dc4-addb-e5ef2ca22f63",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.evaluationTrigger",
+      "typeVersion": 4.7,
+      "position": [
+        320,
+        272
+      ],
+      "id": "8bdcb98c-5310-47f5-a118-4e90b9a8f6c4",
+      "name": "When fetching a dataset row"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        176
+      ],
+      "id": "2492b05a-a92c-4fc7-b304-c9e05fea524e",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "rjHN8SxV6XIropxf",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        336,
+        -144
+      ],
+      "id": "dcf4bb36-91a0-4c31-b04b-eb7750105773",
+      "name": "WhatsApp",
+      "webhookId": "adcc7c3e-f5bb-4612-9379-5ff4ce0a7c2a",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "X1MRT5RFGioo2dc9",
+          "name": "WSP Colombia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## I'm a note \nFlujo de contacto"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1072,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "e7cfd6c5-23f0-4b59-ab59-4c8c30509dd3",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1952,
+        240
+      ],
+      "id": "ff7d6402-86b1-4990-92c4-79983dd841b6",
+      "name": "Calculator"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Bogota",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "zBVxjCeW9Oxi5kO0",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2026-01-27T18:20:56.553Z",
+  "versionId": "1a577469-012c-4b4a-8bd8-54d4a8319ac1"
+}
