@@ -12,11 +12,6 @@
         ]
       ]
     },
-    "Get Queries": {
-      "main": [
-        []
-      ]
-    },
     "Code in JavaScript4": {
       "main": [
         [
@@ -43,13 +38,7 @@
             "type": "main",
             "index": 0
           }
-        ],
-        []
-      ]
-    },
-    "Call Original": {
-      "main": [
-        []
+        ]
       ]
     },
     "Code in JavaScript": {
@@ -75,8 +64,8 @@
       ]
     }
   },
-  "createdAt": "2026-01-11T14:31:53.174Z",
-  "id": "ysRfqbMcFNKwxjPo",
+  "createdAt": "2026-01-27T20:05:54.499Z",
+  "id": "WAx9ZLzMbakrYUl2",
   "isArchived": false,
   "meta": null,
   "name": "Revisión de Entornos - Watchdog",
@@ -89,11 +78,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -816,
-        -32
+        0,
+        0
       ],
       "typeVersion": 1,
-      "id": "121ab24b-bdd8-4f7c-a32b-c09849f343fb",
+      "id": "a3fdedfe-f830-4093-868f-7652e7b76220",
       "name": "Sticky Note"
     },
     {
@@ -129,10 +118,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -320,
-        816
+        496,
+        848
       ],
-      "id": "0e44358e-f001-4c85-9048-e8bf3b9af405",
+      "id": "1a9223e5-be8f-4f7f-b4d8-2c552de2681c",
       "name": "Get pending",
       "alwaysOutputData": true,
       "credentials": {
@@ -147,20 +136,20 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "Zq3YDVYpBI4flDay",
+          "value": "LMbtWNGXPZLNnpdf",
           "mode": "list",
-          "cachedResultName": "Revisión-Entorno-Queries",
-          "cachedResultUrl": "/projects/JCfdNIqoFmwORPL2/datatables/Zq3YDVYpBI4flDay"
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
         },
         "returnAll": true
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -144,
-        464
+        672,
+        496
       ],
-      "id": "d1d190d3-279e-41bc-bd76-56ba383a45b5",
+      "id": "976f8dcc-b8ec-4807-b2c1-9c00ed3922b1",
       "name": "Get Queries"
     },
     {
@@ -169,11 +158,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -640,
-        320
+        176,
+        352
       ],
       "typeVersion": 1,
-      "id": "ac521801-d792-40c3-8253-e8c2d14f27f0",
+      "id": "a5d72351-4588-4c8e-b746-0c93c23dc16e",
       "name": "Sticky Note3"
     },
     {
@@ -183,10 +172,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -112,
-        816
+        704,
+        848
       ],
-      "id": "887f34eb-73b1-450e-b4bc-8a0de184d79f",
+      "id": "fb15692b-96a7-4bd6-af58-9d3440fd4ec3",
       "name": "Code in JavaScript4"
     },
     {
@@ -268,10 +257,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.3,
       "position": [
-        80,
-        800
+        896,
+        832
       ],
-      "id": "9e882ceb-dc5c-4e31-9fec-26926c39c2ea",
+      "id": "ed9e17e9-e1ee-48fe-a50c-355504fef993",
       "name": "Switch"
     },
     {
@@ -298,10 +287,10 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        576,
-        784
+        1392,
+        816
       ],
-      "id": "6cc900c3-74d1-476b-ab1d-f9dae7904fd1",
+      "id": "fcb12c75-f229-4af8-9132-5bbb6bb40b5a",
       "name": "Call Original"
     },
     {
@@ -326,10 +315,10 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        1168,
-        816
+        1984,
+        848
       ],
-      "id": "a3804da5-7565-434b-90e8-0e5de4d5c8da",
+      "id": "b5da5f7a-26bb-4774-b2e8-4a393a85fb3c",
       "name": "Call Error Handler"
     },
     {
@@ -339,10 +328,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        752,
-        944
+        1568,
+        976
       ],
-      "id": "c15218e4-9649-4ecc-ae2f-2ccab123897f",
+      "id": "f60b1a1b-daf0-484a-a29d-20ead174600a",
       "name": "Code in JavaScript"
     },
     {
@@ -359,608 +348,28 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -528,
-        816
+        288,
+        848
       ],
-      "id": "d7deaf3e-239f-4b96-9616-cd913e4533c3",
+      "id": "028507f0-6fb3-49fa-b7eb-83f7f1a3f24c",
       "name": "Daily Trigger"
     }
   ],
-  "pinData": {
-    "Get Queries": [
-      {
-        "json": {
-          "revisionQuery": "select count (*)from rol\nwhere CantidadIntentosBloqueo!=0 or CantidadMinimaLetras!=0 or CantidadMinimaNumeros!=0 or CantidadMinimaSimbolos!=0 or CantidadRepeticiones!=0 or CantidadSesionesSimultaneas!=0 or DiasVencimientoPassword!=0",
-          "correctionQuery": "select count (*)from rol\nwhere CantidadIntentosBloqueo!=0 or CantidadMinimaLetras!=0 or CantidadMinimaNumeros!=0 or CantidadMinimaSimbolos!=0 or CantidadRepeticiones!=0 or CantidadSesionesSimultaneas!=0 or DiasVencimientoPassword!=0\nbegin tran\nupdate Rol set CantidadIntentosBloqueo=0, CantidadMinimaLetras=0, CantidadMinimaNumeros=0, CantidadMinimaSimbolos=0, CantidadRepeticiones=0, CantidadSesionesSimultaneas=0,DiasVencimientoPassword=0\nwhere CantidadIntentosBloqueo!=0 or CantidadMinimaLetras!=0 or CantidadMinimaNumeros!=0 or CantidadMinimaSimbolos!=0 or CantidadRepeticiones!=0 or CantidadSesionesSimultaneas!=0 or DiasVencimientoPassword!=0\n--COMMIT",
-          "queryId": "4.1.0",
-          "country": "CO",
-          "description": "Cantidad de sesiones simultaneas",
-          "type": "Monthly",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 1,
-          "createdAt": "2025-11-04T18:27:04.970Z",
-          "updatedAt": "2025-12-29T20:57:38.700Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select usuarioXemisor.usuarioid, count(distinct(rol.tiporol)) ,min (tiporol),max(tiporol), max (rol.RolId) \nfrom usuario inner join usuarioXemisor on usuario.usuarioid=usuarioXemisor.usuarioid\ninner join rol on rol.cuitid=usuarioxemisor.cuitid and rol.rolid=usuarioxemisor.rolid\nwhere usuarioXemisor.UsuarioAutorizanteId is not null and usuario.Eliminado=0\ngroup by usuarioXemisor.usuarioid\nhaving count(distinct(rol.tiporol)) > 1",
-          "correctionQuery": "",
-          "queryId": "4.1.1",
-          "country": "CO",
-          "description": "Revisión de permisos de usuarios",
-          "type": "Monthly",
-          "pattern": "3",
-          "patternDescription": null,
-          "correction": "Si arroja resultados validar con los \nimplementadores que usuarios si deben tener ese rol y los demas mofificarlos.\nSe pueden pegar los resultados en la hoja 3 para pasar el query de correcciòn sin embargo si es un solo usuario se puede hacer el cambio por pantalla.",
-          "target_env": null,
-          "id": 2,
-          "createdAt": "2025-11-04T18:27:05.025Z",
-          "updatedAt": "2025-12-29T20:57:42.805Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select * from usuario where EsAdministrador = 1 and Eliminado != 1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%' and Mail not like '%comfiar%' and Mail not like '%la.consulting%';",
-          "correctionQuery": "select * from usuario where EsAdministrador =1 and Eliminado != 1 and Mail not \nlike '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nbegin tran\nupdate usuario set EsAdministrador = 0 where EsAdministrador =1 and Eliminado != 1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\n--COMMIT",
-          "queryId": "4.1.2",
-          "country": "CO",
-          "description": "Revisar que no existan usuarios que no sean de APG con permisos de AdministradoR",
-          "type": "Daily",
-          "pattern": "2",
-          "patternDescription": "Entregar resultados + script de update usuario",
-          "correction": null,
-          "target_env": null,
-          "id": 3,
-          "createdAt": "2025-11-04T18:27:05.082Z",
-          "updatedAt": "2025-12-29T20:57:46.520Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select usuarioid AS UsuarioId, SUBSTRING (mail,1,CHARINDEX ('@gmial.com' , mail )-1)+'@gmail.com' AS MailDetectado from usuario where mail like '%@gmial.com';\n---\nselect usuarioid AS UsuarioId, SUBSTRING (mail,1,CHARINDEX ('@hotamil.com' , mail )-1)+'@hotmail.com' AS MailDetectado from usuario where mail like '%@hotamil.com';\n---\nselect usuarioid AS UsuarioId, SUBSTRING (mail,1,CHARINDEX ('@hotmaill.com' , mail )-1)+'@hotmail.com' AS MailDetectado from usuario where mail like '%@hotmaill.com';\n---\nselect usuarioid AS UsuarioId, SUBSTRING (mail,1,CHARINDEX ('@hotmal.com' , mail )-1)+'@hotmail.com' AS MailDetectado from usuario where mail like '%@hotmal.com';\n---\nselect usuarioid AS UsuarioId, SUBSTRING (mail,1,CHARINDEX ('@homail.com' , mail )-1)+'@hotmail.com' AS MailDetectado from usuario where mail like '%@homail.com';\n---\nselect UsuarioId, Mail AS MailDetectado from usuario where mail like '%sincorreo%' and Eliminado !=1 and PublicacionComprobantes!=0;\n---\nselect usuarioid AS UsuarioId, ltrim(rtrim(replace(mail,char(9), ''))) AS MailDetectado from usuario where mail like '% %';\n",
-          "correctionQuery": "update usuario set mail=SUBSTRING (mail,1,CHARINDEX ('@gmial.com' , mail )-1)+'@gmail.com' where mail like '%@gmial.com'\n---\nupdate usuario set mail= SUBSTRING (mail,1,CHARINDEX ('@hotamil.com' , mail )-1)+'@hotmail.com' where mail like '%@hotamil.com'\n---\nupdate usuario set mail=SUBSTRING (mail,1,CHARINDEX \n('@hotmaill.com' , mail )-1)+'@hotmail.com' where mail like '%@hotmaill.com'\n---\nupdate usuario set mail=SUBSTRING (mail,1,CHARINDEX ('@hotmal.com' , mail )-1)+'@hotmail.com' where mail like '%@hotmal.com'\n---\nupdate usuario set mail=SUBSTRING (mail,1,CHARINDEX ('@homail.com' , mail )-1)+'@hotmail.com'where mail like '%@homail.com'\n---\nupdate usuario set publicacioncomprobantes=0 where mail like '%sincorreo%' and Eliminado !=1 and PublicacionComprobantes!=0\n---\nupdate usuario set mail=ltrim(rtrim(replace(mail,char(9), ''))) where mail like '% %'\n",
-          "queryId": "4.1.3",
-          "country": "CO",
-          "description": "Correos de usuarios mal cargados",
-          "type": "Daily",
-          "pattern": "2",
-          "patternDescription": "Entregar resultados + script de update usuario",
-          "correction": null,
-          "target_env": null,
-          "id": 4,
-          "createdAt": "2025-11-04T18:27:05.150Z",
-          "updatedAt": "2025-12-29T20:57:49.465Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "\nSELECT UsuarioId, COUNT(*) AS Cantidad \nFROM [Log] WITH (NOLOCK) \nWHERE Descripcion LIKE '%Inicio Sesion Facturador%' \nAND Fecha >= '2025-03-19 10:00:00.000' \nAND Fecha <= '2025-03-19 11:00:00.000' -- Aquí se agrega el límite de fecha\n--and usuarioid like 'genfar_ws'\nGROUP BY UsuarioId \nORDER BY Cantidad DESC;\n",
-          "correctionQuery": "",
-          "queryId": "4.1.4",
-          "country": "CO",
-          "description": "Cantidad de inicios de sesión",
-          "type": "Daily",
-          "pattern": "3",
-          "patternDescription": "Hubo X resultados. Validar con Infra",
-          "correction": "Validar con infraestructura, o validar si se puede bloquear el usuario.",
-          "target_env": null,
-          "id": 5,
-          "createdAt": "2025-11-04T18:27:05.215Z",
-          "updatedAt": "2025-12-29T20:57:53.849Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select * from usuario where ErrorAplicacion=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nselect * from usuario \nwhere DescargaComprobantes=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nselect * from usuario where DescargaComprobantesOtrosEmisores=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nselect * from usuario where ModificacionRolesUsuarios=1 and  Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'",
-          "correctionQuery": "select * from usuario where ErrorAplicacion=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nselect * from usuario where DescargaComprobantes=1 and \nMail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nselect * from usuario where DescargaComprobantesOtrosEmisores=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nselect * from usuario where ModificacionRolesUsuarios=1 and  Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\n begin Tran\nupdate usuario set ErrorAplicacion=0 where ErrorAplicacion=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nupdate usuario set DescargaComprobantes=0 where DescargaComprobantes=1 and \nMail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nupdate usuario set DescargaComprobantesOtrosEmisores=0 where DescargaComprobantesOtrosEmisores=1 and Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\nupdate usuario set ModificacionRolesUsuarios=0 where ModificacionRolesUsuarios=1 and  Mail not like '%apgconsulting%' and Mail not like '%apg-consulting%'and Mail not like '%comfiar%' and Mail not like '%la.consulting%'\n--commit",
-          "queryId": "4.1.5",
-          "country": "CO",
-          "description": "Notificación de los usuarios NO APG",
-          "type": "Monthly",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 6,
-          "createdAt": "2025-11-04T18:27:05.307Z",
-          "updatedAt": "2025-12-29T20:58:08.449Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "SELECT \n    E.CuitId, E.TransaccionId, E.Cod\nFROM \n    transaccion T WITH (NOLOCK)\n    INNER JOIN cuit C ON T.CuitId = C.CuitId\n    INNER JOIN EstadoPublicacion E WITH (NOLOCK) \n        ON E.CuitId = C.CuitId  \n        AND E.TransaccionId = T.TransaccionId \n        AND E.Motivo not LIKE '%Documento no enviado: receptor con tipo de identificación Cedula  (Código 13) y numero de identificación ''222222222222'' no válido para publicación.%'\n    INNER JOIN comprobante CO WITH (NOLOCK) \n        ON E.CuitId = CO.CuitId \n        AND E.TransaccionId = CO.TransaccionId \n        AND E.PuntoDeVentaId = CO.PuntoDeVentaId \n        AND E.TipoComprobanteId = CO.TipoComprobanteId \n        AND E.NroCbte = CO.NroCbte\n    INNER JOIN formato F WITH (NOLOCK) \n        ON F.FormatoId = T.FormatoId\nWHERE \n    C.NivelServicio = 2 \n    AND F.NivelServicio IN (2, 3) \n    AND F.PublicaAlAutorizar = 0 \n    AND F.PublicaAlTerminar = 0 \n    AND Fecha >= '2025-01-01' \n    AND E.Cod = 0\n    AND CO.Resultado <> 'R'\n    AND NOT EXISTS (\n        SELECT 1 \n        FROM envio EN WITH (NOLOCK) \n        WHERE EN.CuitEmisor = CO.CuitId \n          AND EN.TransaccionId = CO.TransaccionId \n          AND EN.PuntoDeVentaId = CO.PuntoDeVentaId \n          AND EN.TipoComprobanteId = CO.TipoComprobanteId \n          AND EN.NroComprobante = CO.NroCbte\n    );\n",
-          "correctionQuery": "Update estadopublicacion set  cod=1, Descripcion =NULL, ErrorPDFMotivo= NULL where cuitid= (Nit emisor) and transaccionid = (Numero de transacción)",
-          "queryId": "4.2.1",
-          "country": "CO",
-          "description": "Revisión documentos no publicables clientes nivel de servicio 2",
-          "type": "Daily",
-          "pattern": "2",
-          "patternDescription": "Entregar resultados + template del script Update estadopublicacion",
-          "correction": "Se debe ejecutar un update por cada linea, se deja un ejemplo:",
-          "target_env": null,
-          "id": 8,
-          "createdAt": "2025-11-04T18:27:05.490Z",
-          "updatedAt": "2025-12-29T20:58:12.489Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select * from conexion where Binding1Proxy not like '%DIAN_Qualification_Endpoint%'\nProducción:\nselect * from conexion where Binding1Proxy not like '%DIAN_Production_Endpoint%'",
-          "correctionQuery": "",
-          "queryId": "4.3.1",
-          "country": "CO",
-          "description": "Revisión de conexiones",
-          "type": "Monthly",
-          "pattern": "3",
-          "patternDescription": null,
-          "correction": "En caso de encontrar conexiones creadas, reportarlo al lider de equipo.",
-          "target_env": null,
-          "id": 10,
-          "createdAt": "2025-11-04T18:27:05.621Z",
-          "updatedAt": "2025-12-29T20:58:14.897Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaDesde DATE = DATEADD(WEEK, -1, getdate());\r\nDECLARE @FechaHasta DATE = DATEADD(DAY, -1, getdate());\r\n\r\nselect  a.CuitId, a.PuntoDeVentaId, a.TipoComprobanteId,a.NroCbte, a.FechaCbte,a.TransaccionId, a.Cae, a.Imp_Total, a.Resultado, a.Error, a.RolEmisorId, a.fechaanulacion\r\nfrom comprobante a with (nolock)\r\nwhere a.resultado <>'R' \r\n\tand a.FechaCbte >=@FechaDesde\r\n\tand a.FechaCbte < @FechaHasta\r\n\tand exists (select 1 from comprobante b \r\n\t\t\twhere a.cuitid=b.cuitid \r\n\t\t\tand a.PuntoDeVentaId=b.PuntoDeVentaId \r\n\t\t\tand a.TipoComprobanteId=b.TipoComprobanteId \r\n\t\t\tand a.NroCbte=b.NroCbte \r\n\t\t\tand a.TransaccionId <> b.TransaccionId \r\n\t\t\tand b.Resultado <>'R') \r\n\torder by a.CuitId, a.PuntoDeVentaId, a.TipoComprobanteId,a.NroCbte,a.TransaccionId,a.FechaCbte",
-          "correctionQuery": "select * from comprobante where cuitid = 800185781 and transaccionid in (3471,3531,3599,3702,1422354)\nselect * from Transaccion where CuitId = 800185781 and transaccionid in \n(3471,3531,3599,3702,1422354)\nbegin tran\nUPDATE COMPROBANTE SET   ERRORDESC = 'ya existe un documento autorizado', resultado='R',error= '10021' where cuitid = 800185781 and transaccionid in (3471,3531,3599,3702,1422354)\nupdate transaccion set  estadotransaccion = '7',error= 'ya existe un documento autorizado' where cuitid = 800185781 and transaccionid in (3471,3531,3599,3702,1422354)\n--commit",
-          "queryId": "4.4.0",
-          "country": "CO",
-          "description": "Documentos duplicados",
-          "type": "Daily",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 11,
-          "createdAt": "2025-11-04T18:27:05.695Z",
-          "updatedAt": "2025-12-29T20:58:17.360Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "Select CuitId, transaccionid, EstadoTransaccion, Fecha  \n\nfrom transaccion WITH(NOLOCK)  \n\nwhere EstadoTransaccion < 5 and fecha < DATEADD(MI, -10, GETDATE()) \n\norder by CuitId, TransaccionId ",
-          "correctionQuery": "",
-          "queryId": "4.4.1",
-          "country": "CO",
-          "description": "Transacciones en proceso",
-          "type": "Hourly",
-          "pattern": "3",
-          "patternDescription": "Hubo X resultados. Pedir reinicio de procesamiento",
-          "correction": "En caso de encontrar una transacción que se encuentre bloqueada pedir el reinicio del procesamiento del ambiente a infraestructura.\r\nEn caso de no depurar la transacción escalar con el lider de soporte.",
-          "target_env": null,
-          "id": 12,
-          "createdAt": "2025-11-04T18:27:05.761Z",
-          "updatedAt": "2025-12-29T21:20:09.504Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaDesde DATE = DATEADD(WEEK, -1, getdate());\r\nDECLARE @FechaHasta DATE = DATEADD(DAY, -1, getdate());\r\n\r\nSELECT C.cuitid, c.transaccionid, pv.descripcion, c.nrocbte, c.cae,\r\nf.Extension, t.EstadoTransaccion, t.Fecha,        CONVERT(varchar, c.FechaCbte, 126) as fecha\r\nFROM comprobante c \r\nINNER JOIN puntodeventa pv ON (c.cuitid = pv.cuitid AND c.puntodeventaid = pv.puntodeventaid) \r\nINNER JOIN transaccion t ON (c.cuitid = t.cuitid AND c.transaccionid = t.transaccionid)\r\nINNER JOIN Formato f ON (t.formatoid = f.formatoid)\r\nWHERE c.FechaCbte >=@FechaDesde\r\n\tand c.FechaCbte < @FechaHasta\r\n\tAND c.errordesc LIKE '%Error de conexión con la DIAN%'  \r\n\tAND c.Resultado <> 'A'  \r\n-- Filtrar primero  \r\n\tAND NOT EXISTS (    \r\n\t\tSELECT 1 FROM Comprobante c2     \r\n\t\tWHERE c.CuitId = c2.CuitId       \r\n\t\tAND c.tipocomprobanteid = c2.TipoComprobanteId       \r\n\t\tAND c.PuntoDeVentaId = c2.PuntoDeVentaId       \r\n\t\tAND c.NroCbte = c2.nrocbte       \r\n\t\tAND c.transaccionid <> c2.TransaccionId       \r\n\t\tAND c2.Resultado = 'A'   ) ",
-          "correctionQuery": "",
-          "queryId": "4.4.2",
-          "country": "CO",
-          "description": "Comprobantes con error conexión DIAN",
-          "type": "Weekly",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": " Cuando la consulta termine , cargar el SCRIPT que se genera en la carpeta Logs de la aplicación, en un ticket a infraestructura e indicar que reinicien procesamiento.\r\nDar click para redirigir al instructivo de cargue de ticket ",
-          "target_env": null,
-          "id": 13,
-          "createdAt": "2025-11-04T18:27:05.816Z",
-          "updatedAt": "2025-12-29T20:58:21.627Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension, t.fecha, c.resultado\nfrom comprobante c with(nolock)\ninner join Transaccion t on c.TransaccionId = t.TransaccionId and c.cuitId = t.cuitId\ninner join observacion o with(nolock) on c.cuitid=o.CuitId and c.TransaccionId=o.TransaccionId and\nc.PuntoDeVentaId=o.PuntoDeVentaId and c.TipoComprobanteId=o.TipoComprobanteId and c.NroCbte=o.NroCbte\ninner join puntodeventa pv with(nolock) on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid)\ninner join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere o.Codigo=35 and o.Mensaje<>'ELIMINADO'  and t.EstadoTransaccion=7 and (c.EstadoEmision <> 3 or t.EstadoPostProceso<>0)",
-          "correctionQuery": "dice cargar el delete pero no hay",
-          "queryId": "4.4.3",
-          "country": "CO",
-          "description": " Revisión tabla \"Observacion\"",
-          "type": "",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": "cargar el delete a  infraestructura sin reinicio\r\nse debe usar toda la \r\nclave en el where. Cuitid, transaccionid, puntodeventaid, tipocomprobanteid, nrocbte",
-          "target_env": null,
-          "id": 14,
-          "createdAt": "2025-11-04T18:27:05.872Z",
-          "updatedAt": "2025-12-29T20:58:23.667Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaDesde DATE = DATEADD(WEEK, -1, getdate());\r\nDECLARE @FechaHasta DATE = DATEADD(DAY, -1, getdate());\r\n\r\nSelect O.* \r\nfrom Transaccion t \r\n\tinner join Observacion o \r\n\t\ton t.CuitId=o.CuitId \r\n\t\tand t.TransaccionId=o.TransaccionId \r\n\tinner join Comprobante c \r\n\t\ton c.CuitId=o.CuitId \r\n\t\tand c.TransaccionId=o.TransaccionId \r\n\t\tand c.TipoComprobanteId=o.TipoComprobanteId \r\n\t\tand c.PuntoDeVentaId=o.PuntoDeVentaId\r\n\t\tand c.NroCbte=o.NroCbte\r\nwhere t.Fecha>=@FechaDesde\r\n\tand t.Fecha < @FechaHasta\r\n\tand o.Codigo=35 \r\n\tand t.EstadoTransaccion=3\r\norder by t.Fecha asc",
-          "correctionQuery": "",
-          "queryId": "4.4.4",
-          "country": "CO",
-          "description": "Limpieza tabla Observación",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": "Entregar resultados para usar en App Consulta VP",
-          "correction": "Consultar los documentos con la aplicación VP, recordar incluir el query de la tabla observación en el script",
-          "target_env": null,
-          "id": 15,
-          "createdAt": "2025-11-04T18:27:05.931Z",
-          "updatedAt": "2025-12-29T20:58:25.648Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaDesde DATE = DATEADD(WEEK, -1, getdate());\r\nDECLARE @FechaHasta DATE = DATEADD(DAY, -1, getdate());\r\n\r\nselect  C.Cuitid, c.TransaccionId, pv.Descripcion, c.NroCbte, c.Cae,  f.Extension, c.ErrorDesc\r\nfrom comprobante as c \r\ninner join puntodeventa as pv \r\n\ton (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \r\ninner join transaccion as t \r\n\ton (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\r\ninner join Formato as f on (t.formatoid = f.formatoid)\r\nwhere  t.EstadoTransaccion = 6 \r\nand c.resultado = 'A' \r\nand c.FechaCbte>=@FechaDesde\r\nand c.FechaCbte<@FechaHasta",
-          "correctionQuery": "",
-          "queryId": "4.4.5",
-          "country": "CO",
-          "description": "Revisión transacciones canceladas",
-          "type": "Weekly",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": " De encontrar resultados, se debe realizar la consulta de los documentos por la Aplicación \"Paso2-APPConsultPendientesConsultaVP\"   y cargar los respectivos scripts para actualizar los documentos, una vez realizada esta actualización validar nuevamente que no aparezcan estos documentos,\r\nEn caso de volver aparecer validar con Simon Dorfman.",
-          "target_env": null,
-          "id": 16,
-          "createdAt": "2025-11-04T18:27:05.999Z",
-          "updatedAt": "2025-12-29T20:58:27.726Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaDesde DATE = DATEADD(WEEK, -1, getdate());\nDECLARE @FechaHasta DATE = DATEADD(DAY, -1, getdate());\n\nselect  C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension\nfrom comprobante c \ninner join puntodeventa pv on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \ninner join transaccion t on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\ninner join Formato f on (t.formatoid = f.formatoid)\nwhere t.error like '%deadlocked%' \nand c.FechaCbte>=@FechaDesde\nand c.FechaCbte<@FechaHasta\n\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')",
-          "correctionQuery": "",
-          "queryId": "4.4.6",
-          "country": "CO",
-          "description": "Revision de errores DeadLock",
-          "type": "Weekly",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": " De encontrar resultados, se debe realizar la consulta de los documentos por la Aplicación \"Paso2-APPConsultPendientesConsultaVP\"   y cargar los respectivos scripts para actualizar los documentos, una vez realizada esta actualización validar nuevamente que no aparezcan estos documentos,\r\nEn caso de volver aparecer validar con Simon Dorfman.",
-          "target_env": null,
-          "id": 17,
-          "createdAt": "2025-11-04T18:27:06.071Z",
-          "updatedAt": "2025-12-29T20:58:29.541Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select   C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension , t.EstadoTransaccion, c.Resultado, C.FECHACBTE--, t.EstadoTransaccion, t.Fecha--, convert(varchar,c.FechaCbte, 126) as fecha\n from comprobante c with(nolock)\n inner join puntodeventa pv with(nolock) on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid)\n inner join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\n inner join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere   \nc.resultado='R' and c.Error=500 and c.fechacbte >'2025-01-01 00:00:00.000' \nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')",
-          "correctionQuery": "",
-          "queryId": "4.4.7",
-          "country": "CO",
-          "description": "Revisión de errores 500",
-          "type": "Weekly",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": " Cuando la consulta termine , cargar el SCRIPT que se genera en la carpeta Logs de la aplicación, en un ticket a infraestructura e indicar que reinicien procesamiento.\r\nDar click para redirigir al instructivo de cargue de ticket ",
-          "target_env": null,
-          "id": 18,
-          "createdAt": "2025-11-04T18:27:06.145Z",
-          "updatedAt": "2025-12-29T20:58:31.319Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "\n-- PARTE 1\nselect  C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension,c.FechaCbte--, t.EstadoTransaccion, t.Fecha--, convert(varchar,c.FechaCbte, 126) as fecha\nfrom comprobante c with(nolock)\nleft join puntodeventa pv with(nolock) on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \nleft join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\nleft join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere  C.Resultado ='R' and c.ErrorDesc = 'Validación contiene errores en campos mandatorios.'\nand c.fechacbte >= DATEADD(DAY, 1, EOMONTH(getdate(), -1)) and c.cuitid =860002120\nand not exists ( select 1 from Comprobante c2 with(nolock) where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand not exists ( select 1 from Comprobante c2 with(nolock) where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand exists ( select 1 from COL_Cabecera c2 with(nolock) where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid=c2.TransaccionId and c2.XmlRespuesta like '%Regla: 90, Rechazo: Documento procesado anteriormente.%');\n",
-          "correctionQuery": "",
-          "queryId": "4.4.8",
-          "country": "CO",
-          "description": "Documentos con error en campos mandatorios IBM (APP) ",
-          "type": "Nightly",
-          "pattern": "1",
-          "patternDescription": "Entregar resultados para usar en App Consulta VP",
-          "correction": " Cuando la consulta termine , cargar el SCRIPT que se genera en la carpeta Logs de la aplicación, Se debe cargar un ticket con el titulo Transacciones actualizadas IBM a infraestructura e indicar que reinicien procesamiento.\r\n- NOTIFICAR SIEMPRE A IBM CUANDO SE CORRIJAN DOCUMENTOS.",
-          "target_env": "APP",
-          "id": 19,
-          "createdAt": "2025-11-04T18:27:06.223Z",
-          "updatedAt": "2025-12-29T20:58:33.040Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "SELECT \n    C.cuitid, \n    c.transaccionid, \n    pv.descripcion,\n    c.nrocbte, \n    c.cae, \n    f.Extension,\n    c.FechaCbte\nFROM comprobante c WITH(NOLOCK)\nLEFT JOIN puntodeventa pv WITH(NOLOCK) ON (c.cuitid = pv.cuitid AND c.puntodeventaid = pv.puntodeventaid)\nLEFT JOIN transaccion t WITH(NOLOCK) ON (c.cuitid = t.cuitid AND c.transaccionid = t.transaccionid)\nLEFT JOIN Formato f WITH(NOLOCK) ON (t.formatoid = f.formatoid)\nWHERE C.Resultado ='R' \n    AND c.ErrorDesc = 'Validación contiene errores en campos mandatorios.'\n    -- MEJORA 1: Ventana deslizante de 7 días para n8n (evita procesar basura vieja)\n    AND c.fechacbte >= DATEADD(DAY, -7, EOMONTH(getdate(), -1)) \n    AND c.cuitid != 860002120 \n    -- MEJORA 2: Filtros de formato excluidos en la parte 2\n    AND f.FormatoId NOT IN ('114', '97') \n    -- EXCLUSIÓN: Si ya existe una versión Aceptada, no me interesa\n    AND NOT EXISTS (\n        SELECT 1 FROM Comprobante c2 WITH(NOLOCK) \n        WHERE c.CuitId = c2.CuitId \n        AND c.TipoComprobanteId = c2.TipoComprobanteId \n        AND c.PuntoDeVentaId = c2.PuntoDeVentaId \n        AND (c.NroCbte = c2.nrocbte OR c.cae = c2.cae)\n        AND c2.Resultado = 'A'\n    )\n    -- VALIDACIÓN: Solo los que la DIAN dijo que ya tenía (Regla 90)\n    AND EXISTS (\n        SELECT 1 FROM COL_Cabecera c2 WITH(NOLOCK) \n        WHERE c.CuitId = c2.CuitId \n        AND c.transaccionid = c2.TransaccionId \n        AND c2.XmlRespuesta LIKE '%Regla: 90%'\n    );",
-          "correctionQuery": "",
-          "queryId": "4.4.9",
-          "country": "CO",
-          "description": "Revisión de documentos con error en campos mandatorios",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": "Entregar resultados para usar en App Consulta VP",
-          "correction": "Consultar los documentos con la aplicación VP, recordar incluir el query de la tabla observación en el script",
-          "target_env": null,
-          "id": 20,
-          "createdAt": "2025-11-04T18:27:06.296Z",
-          "updatedAt": "2025-12-29T20:58:34.929Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "\n\nselect   C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension , t.EstadoTransaccion, c.Resultado--, t.EstadoTransaccion, t.Fecha--, convert(varchar,c.FechaCbte, 126) as fecha\n from comprobante c with(nolock)\n inner join puntodeventa pv with(nolock) on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid)\n inner join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\n inner join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere   c.FechaCbte >='2024-09-01'  and Resultado='' and  f.FormatoId != '114' and f.FormatoId != '97' \nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid<>c2.TransaccionId and \nc2.Resultado='A')\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A');\n\n\n\n",
-          "correctionQuery": "",
-          "queryId": "4.5.0",
-          "country": "CO",
-          "description": "Comprobantes sin resultado sin ibm y sin planeta",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": "Consultar los documentos con la aplicación VP, recordar incluir el query de la tabla observación en el script",
-          "target_env": null,
-          "id": 21,
-          "createdAt": "2025-11-04T18:27:06.370Z",
-          "updatedAt": "2025-12-29T20:58:37.678Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaDesde DATE = DATEADD(WEEK, -1, GETDATE()); \n\nSELECT\n    (SELECT COUNT(1) FROM comprobante c3 WITH(NOLOCK) \n     WHERE c3.TransaccionId = t.TransaccionId AND c3.CuitId = t.CuitId) as NroCbtes,\n    \n    (SELECT COUNT(1) FROM Observacion o WITH(NOLOCK) \n     WHERE o.TransaccionId = c.TransaccionId \n       AND o.CuitId = c.CuitId \n       AND o.PuntoDeVentaId = c.PuntoDeVentaId \n       AND o.TipoComprobanteId = c.TipoComprobanteId \n       AND o.NroCbte = c.NroCbte \n       AND o.Codigo IN (35, 350000, 350100)) as NroTuplasEnOffline,\n    \n    c.CuitId, c.TransaccionId, c.PuntoDeVentaId, c.TipoComprobanteId, c.NroCbte, \n    c.Cae, c.Resultado, c.FechaCbte, f.Extension, t.Fecha, t.EstadoTransaccion\nFROM Transaccion t WITH(NOLOCK)\nINNER JOIN Comprobante c WITH(NOLOCK) \n    ON t.TransaccionId = c.TransaccionId AND c.CuitId = t.CuitId\nINNER JOIN Formato f WITH(NOLOCK) \n    ON f.FormatoId = t.FormatoId\nWHERE \n    t.Fecha >= @FechaDesde\n    AND t.EstadoTransaccion = 7 \n    AND c.Resultado = 'A'\n    AND NOT EXISTS (\n        SELECT 1 \n        FROM ContenidoTransaccion ct WITH(NOLOCK)\n        WHERE ct.TransaccionId = t.TransaccionId \n          AND ct.CuitId = t.CuitId \n          AND ct.EsIn = 0\n    )\n    AND NOT EXISTS (\n        SELECT 1 \n        FROM Comprobante c2 WITH(NOLOCK)\n        WHERE c2.TransaccionId = c.TransaccionId \n          AND c2.CuitId = c.CuitId \n          AND (c2.Resultado = 'R' OR LTRIM(RTRIM(c2.Resultado)) = '')\n    )\nORDER BY t.Fecha DESC, c.TransaccionId;",
-          "correctionQuery": "select  C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension, t.EstadoTransaccion, c.Resultado--, convert(varchar,c.FechaCbte, 126) as fecha\nfrom comprobante c \nleft join puntodeventa pv on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \ninner join transaccion t on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\nleft join Formato f on (t.formatoid = f.formatoid)\nwhere  c.cuitid= 860006160 \tand c.transaccionid in (154971)",
-          "queryId": "4.5.1",
-          "country": "CO",
-          "description": "Validación de documentos con estado 35",
-          "type": "Weekly",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": " De encontrar resultados, se debe realizar la consulta de los documentos \r\npor la Aplicación \"Paso2-APPConsultPendientesConsultaVP\"   y cargar los respectivos scripts para actualizar los documentos, una vez realizada esta actualización validar nuevamente que no aparezcan estos documentos,\r\nEn caso de volver aparecer validar con Simon Dorfman.",
-          "target_env": null,
-          "id": 22,
-          "createdAt": "2025-11-04T18:27:06.429Z",
-          "updatedAt": "2025-12-29T20:58:39.355Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "\nselect  comprobante.transaccionid, comprobante.cuitid, comprobante.cae, comprobante.fechacbte, comprobante.RolEmisorId \nfrom comprobante with(nolock) inner join transaccion on comprobante.cuitid=transaccion.cuitid and comprobante.transaccionid=transaccion.transaccionid  \nwhere comprobante.resultado <>'R' and Transaccion.EstadoTransaccion=5 and Transaccion.FileOut='' and comprobante.FechaCbte>='2025-05-01'\nand not exists (select 1 from  ContenidoTransaccion where Transaccion.cuitid=ContenidoTransaccion.cuitid and transaccion.TransaccionId=ContenidoTransaccion.TransaccionId and ContenidoTransaccion.EsIn=0);\n",
-          "correctionQuery": "select * from Transaccion where CuitId = 800202522 and TransaccionId= 77343\nbegin tran\nUPDATE [dbo].[Transaccion]   SET EstadoTransaccion = '4'  WHERE CuitId = 800202522 and TransaccionId= 77343\n--commit",
-          "queryId": "4.5.2",
-          "country": "",
-          "description": "Comprobantes sin Out ",
-          "type": "",
-          "pattern": "2",
-          "patternDescription": "Entregar resultados + script de UPDATE [dbo].[Transaccion]",
-          "correction": null,
-          "target_env": null,
-          "id": 23,
-          "createdAt": "2025-11-04T18:27:06.486Z",
-          "updatedAt": "2026-01-05T12:42:12.045Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "\nselect * from transaccion where error='This SqlTransaction has completed; it is no longer usable.'\nand fecha >'2025-07-01';\n",
-          "correctionQuery": "",
-          "queryId": "4.5.3",
-          "country": "CO",
-          "description": "Revisión error  This SqlTransaction",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": "Entregar resultados para usar en App Consulta VP",
-          "correction": "Pasar por la App de Consulta y cargar ticket a infra con los resultados.",
-          "target_env": null,
-          "id": 24,
-          "createdAt": "2025-11-04T18:27:06.546Z",
-          "updatedAt": "2025-12-29T20:58:51.277Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "",
-          "correctionQuery": "",
-          "queryId": "4.5.4",
-          "country": "CO",
-          "description": null,
-          "type": "Weekly",
-          "pattern": null,
-          "patternDescription": null,
-          "correction": "Al llegar una nueva transacción a comfiar se publicaran todos los pendientes de forma automatica.Enviar en excel los resultados a infraestructura.",
-          "target_env": null,
-          "id": 25,
-          "createdAt": "2025-11-04T18:27:06.598Z",
-          "updatedAt": "2025-12-29T20:58:52.979Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select  C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension,c.FechaCbte--, t.EstadoTransaccion, t.Fecha--, convert(varchar,c.FechaCbte, 126) as fecha\nfrom comprobante c with(nolock)\nleft join puntodeventa pv with(nolock) \non (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \nleft join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\nleft join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere  C.Resultado ='R' and c.ErrorDesc = 'Validación contiene errores en campos mandatorios.'\nand c.fechacbte > '2024-11-01 00:00:00.000' and c.cuitid =860002120 and  f.FormatoId != '114' and f.FormatoId != '97' \nand not exists ( select 1 from Comprobante c2 with(nolock) where c.CuitId=c2.CuitId\nand c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand exists ( select 1 from COL_Cabecera c2 with(nolock) where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId\nand c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid=c2.TransaccionId and c2.XmlRespuesta like '%Regla: 90, Rechazo: Documento procesado anteriormente.%');\n",
-          "correctionQuery": "",
-          "queryId": "4.4.8.2",
-          "country": "CO",
-          "description": "",
-          "type": "Nightly",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": "APP",
-          "id": 26,
-          "createdAt": "2025-11-11T13:07:33.168Z",
-          "updatedAt": "2025-12-29T20:58:55.898Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select  C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension,c.FechaCbte--, t.EstadoTransaccion, t.Fecha--, convert(varchar,c.FechaCbte, 126) as fecha\nfrom comprobante c with(nolock)\nleft join puntodeventa pv with(nolock) \non (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid) \nleft join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\nleft join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere  C.Resultado ='R' and c.ErrorDesc = 'Validación contiene errores en campos mandatorios.'\nand c.fechacbte > '2024-11-01 00:00:00.000' and c.cuitid!=860002120 and  f.FormatoId != '114' and f.FormatoId != '97' \nand not exists ( select 1 from Comprobante c2 with(nolock) where c.CuitId=c2.CuitId\nand c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand exists ( select 1 from COL_Cabecera c2 with(nolock) where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId\nand c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid=c2.TransaccionId and c2.XmlRespuesta like '%Regla: 90, Rechazo: Documento procesado anteriormente.%');",
-          "correctionQuery": "",
-          "queryId": "4.4.9.2",
-          "country": "CO",
-          "description": "",
-          "type": "",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 27,
-          "createdAt": "2025-11-11T13:08:41.261Z",
-          "updatedAt": "2025-12-29T20:58:57.496Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select   C.cuitid, c.transaccionid, pv.descripcion,c.nrocbte, c.cae,  f.Extension , t.EstadoTransaccion, c.Resultado--, t.EstadoTransaccion, t.Fecha--, convert(varchar,c.FechaCbte, 126) as fecha\n from comprobante c with(nolock)\n inner join puntodeventa pv with(nolock) on (c.cuitid = pv.cuitid and c.puntodeventaid = pv.puntodeventaid)\n inner join transaccion t with(nolock) on (c.cuitid = t.cuitid and c.transaccionid = t.transaccionid)\n inner join Formato f with(nolock) on (t.formatoid = f.formatoid)\nwhere   c.FechaCbte >='2024-09-01'  and Resultado='' \nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId \nand c.PuntoDeVentaId=c2.PuntoDeVentaId and c.NroCbte=c2.nrocbte and c.transaccionid<>c2.TransaccionId and c2.Resultado='A')\nand not exists ( select 1 from Comprobante c2 where c.CuitId=c2.CuitId and c.tipocomprobanteid=c2.TipoComprobanteId and c.PuntoDeVentaId=c2.PuntoDeVentaId and c.cae=c2.cae and c.transaccionid<>c2.TransaccionId and c2.Resultado='A');",
-          "correctionQuery": "",
-          "queryId": "4.5.0.2",
-          "country": "CO",
-          "description": "",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 28,
-          "createdAt": "2025-11-11T13:09:27.454Z",
-          "updatedAt": "2025-12-29T20:58:59.425Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "IF EXISTS (SELECT 1 FROM transaccion WITH(NOLOCK) \n           WHERE EstadoTransaccion < 5 \n           AND fecha < DATEADD(MI, -10, GETDATE()))\nBEGIN\n    -- Caso: SI hay datos\n    SELECT CuitId, transaccionid, EstadoTransaccion, Fecha \n    FROM transaccion WITH(NOLOCK) \n    WHERE EstadoTransaccion < 5 \n    AND fecha < DATEADD(MI, -10, GETDATE()) \n    ORDER BY CuitId, TransaccionId\nEND\nELSE\nBEGIN\n    -- Devuelve un objeto vacío\n    SELECT TOP 0 CuitId, transaccionid, EstadoTransaccion, Fecha \n    FROM transaccion WITH(NOLOCK)\nEND",
-          "correctionQuery": null,
-          "queryId": "1.1.0",
-          "country": "AR",
-          "description": "Transacciones Bloqueadas o Pendientes",
-          "type": "Bi-hourly",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": "APP, Cines",
-          "id": 29,
-          "createdAt": "2025-12-11T12:36:56.904Z",
-          "updatedAt": "2025-12-29T20:59:02.693Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "IF (SELECT count(*) FROM comprobante WITH(NOLOCK) WHERE FechaCbte > DATEADD(WK, -1, GETDATE()) AND ErrorDesc='El comprobante no puede generarse dado que el reporte o los datos no son válidos.' AND Resultado <> 'R' AND Cae!='') > 0\nBEGIN\n    SELECT CuitId, TransaccionId, TipoComprobanteId, PuntoDeVentaId, NroCbte, FechaCbte\n    FROM comprobante WITH(NOLOCK) \n    WHERE FechaCbte > DATEADD(WK, -1, GETDATE()) \n    AND ErrorDesc='El comprobante no puede generarse dado que el reporte o los datos no son válidos.' \n    AND Resultado <> 'R' AND Cae!=''\nEND\nELSE\nBEGIN\n    -- Devuelve un objeto vacío\n    SELECT TOP 0 CuitId, TransaccionId, TipoComprobanteId, PuntoDeVentaId, NroCbte, FechaCbte \n    FROM comprobante WITH(NOLOCK)\nEND",
-          "correctionQuery": null,
-          "queryId": "1.1.2",
-          "country": "AR",
-          "description": "Errores en Generación de Comprobantes",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": "APP, Cines",
-          "id": 30,
-          "createdAt": "2025-12-11T12:47:50.693Z",
-          "updatedAt": "2025-12-29T20:59:04.792Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "-- SELECT \nSELECT CuitId, UsuarioId \nFROM UsuarioXReceptor \nWHERE CuitId in (30694376432,30565786306,30594494187) \nAND FechaAutorizacion IS NOT NULL \nAND UsuarioAutorizanteId IS NOT NULL \nAND RecibeComprobanteComoAdjunto=0",
-          "correctionQuery": "begin tran \nUpdate UsuarioXReceptor \nset RecibeComprobanteComoAdjunto=1 \nwhere CuitId in (30694376432,30565786306,30594494187)\nand FechaAutorizacion is not null \nand UsuarioAutorizanteId is not null \nand RecibeComprobanteComoAdjunto=0\n-- commit",
-          "queryId": "1.1.3",
-          "country": "AR",
-          "description": "Envío de Comprobantes como Adjunto",
-          "type": "Daily",
-          "pattern": "2",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": "APP",
-          "id": 31,
-          "createdAt": "2025-12-11T12:48:44.408Z",
-          "updatedAt": "2025-12-30T11:36:36.324Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "DECLARE @FechaInicio DATE = DATEADD(DAY, -1, GETDATE());\nDECLARE @FechaFin    DATE = GETDATE();\n;WITH Data AS \n(\n    SELECT \n        C.CuitId,\n        COUNT(*) AS Procesados,\n        SUM(CASE WHEN C.Resultado != 'R' THEN 1 ELSE 0 END) AS Aprobados\n    FROM Comprobante C\n    INNER JOIN Transaccion T \n        ON C.CuitId = T.CuitId \n       AND C.TransaccionId = T.TransaccionId\n    WHERE T.Fecha >= @FechaInicio\n      AND T.Fecha <  @FechaFin\n    GROUP BY C.CuitId\n),\nData2 AS\n(\n    SELECT\n        D.CuitId,\n        D.Procesados,\n        COALESCE(D.Aprobados, 0) AS Aprobados,\n        (D.Procesados - COALESCE(D.Aprobados, 0)) AS Erroneos\n    FROM Data D\n)\nSELECT  \n    D2.CuitId,\n    C.RazonSocial,\n    S.ConceptoComfiar AS Concepto,\n    D2.Procesados,\n    D2.Aprobados,\n    D2.Erroneos,\n    FORMAT(\n        CASE WHEN D2.Procesados = 0 THEN 1.0 ELSE D2.Erroneos * 1.0 / D2.Procesados END,\n        'P2','es-AR'\n    ) AS PorcentajeError,\n    FORMAT(\n        D2.Erroneos *\n        CASE WHEN D2.Procesados = 0 THEN 100.0 ELSE (D2.Erroneos * 100.0 / D2.Procesados) END,\n        'N0','es-AR'\n    ) AS Ponderacion\nFROM Data2 D2\nINNER JOIN\n    Cuit as C ON D2.CuitId=c.CuitId\nINNER JOIN \n(\n    SELECT DISTINCT CuitId, FechaServDesde, FechaServHasta, ConceptoComfiar\n    FROM ServicioComfiar\n) S\n    ON S.CuitId = D2.CuitId\n   AND DATEFROMPARTS(YEAR(@FechaInicio), MONTH(@FechaInicio), 1)\n       BETWEEN DATEFROMPARTS(YEAR(S.FechaServDesde), MONTH(S.FechaServDesde), 1)\n           AND \nISNULL(DATEFROMPARTS(YEAR(S.FechaServHasta), MONTH(S.FechaServHasta), 1), '9999-12-31')\nWHERE D2.Erroneos <> 0\nORDER BY \n    D2.Erroneos *\n    CASE WHEN D2.Procesados = 0 THEN 100.0 ELSE (D2.Erroneos * 100.0 / D2.Procesados) END DESC;",
-          "correctionQuery": null,
-          "queryId": "9.1.0",
-          "country": "ALL",
-          "description": "Revisión General",
-          "type": "Daily",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": "ALL",
-          "id": 32,
-          "createdAt": "2025-12-12T16:05:50.723Z",
-          "updatedAt": "2026-01-05T15:03:03.955Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select c.cuitid, c.TransaccionId,  c.puntodeventaid, c.tipocomprobanteid, c.NroCbte, c.estadoemision, c.resultado, c.rolemisorid, c.fechacbte, cr.clave,  \n\nCASE WHEN cr.XMLRespuesta='' THEN '1' ELSE '0' END AS XML_RESPUESTA   \n\nfrom comprobante as c with(nolock) inner join cr_Cabecera as cr with(nolock) on c.TransaccionId=cr.TransaccionId and c.CuitId=cr.cuitid and c.PuntoDeVentaId=cr.PuntoDeVentaId and c.TipoComprobanteId=cr.TipoComprobanteId and c.NroCbte=cr.NroCbte   \n\nwhere  c.fechacbte >=getdate()-7  and  c.resultado <>'R'  c.fechacbte < DATEADD(MI, -30, GETDATE()) \n\norder by c.fechacbte desc ",
-          "correctionQuery": null,
-          "queryId": null,
-          "country": null,
-          "description": null,
-          "type": "asd",
-          "pattern": null,
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 33,
-          "createdAt": "2025-12-24T11:47:46.599Z",
-          "updatedAt": "2025-12-24T11:56:35.845Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "Select CuitId, transaccionid, EstadoTransaccion, Fecha  \n\nfrom transaccion WITH(NOLOCK)  \n\nwhere EstadoTransaccion < 5 and fecha < DATEADD(MI, -5, GETDATE()) \n\norder by CuitId, TransaccionId ",
-          "correctionQuery": null,
-          "queryId": "9.5.1",
-          "country": "CR, AR, PE, BO, EC",
-          "description": null,
-          "type": "Hourly",
-          "pattern": "1",
-          "patternDescription": null,
-          "correction": null,
-          "target_env": null,
-          "id": 34,
-          "createdAt": "2025-12-29T20:36:16.957Z",
-          "updatedAt": "2026-01-02T11:22:50.651Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select CONCAT('update rol set CantidadIntentosBloqueo=0, CantidadMinimaLetras=0, CantidadMinimaNumeros=0, CantidadMinimaSimbolos=0, CantidadRepeticiones=0, CantidadSesionesSimultaneas=0, DiasVencimientoPassword=0',' where rolid=','''', rolid ,'''',' and cuitid=',cuitid) \r\n\r\nfrom rol \r\n\r\nwhere CantidadIntentosBloqueo!=0 or CantidadMinimaLetras!=0 or CantidadMinimaNumeros!=0 or CantidadMinimaSimbolos!=0 or CantidadRepeticiones!=0 or CantidadSesionesSimultaneas!=0 or DiasVencimientoPassword!=0 ",
-          "correctionQuery": null,
-          "queryId": "4.1.6",
-          "country": "CO",
-          "description": "Usuarios con distintos tipos de rol",
-          "type": "Daily",
-          "pattern": null,
-          "patternDescription": null,
-          "correction": "\r\nCuando un usuario tiene distintos tipos de rol, emisor, receptor, pago a proveedores, emisor proveedor, algunas pantallas de comfiar no funcionan como deberían. \r\n\r\nMostrar los resultados. La gente de soporte debe separar los usuarios para que un usuario no tenga tantos roles \r\n\r\n",
-          "target_env": null,
-          "id": 36,
-          "createdAt": "2025-12-29T21:08:56.825Z",
-          "updatedAt": "2025-12-30T11:30:12.295Z"
-        }
-      },
-      {
-        "json": {
-          "revisionQuery": "select CONCAT('update rol set CantidadIntentosBloqueo=0, CantidadMinimaLetras=0, CantidadMinimaNumeros=0, CantidadMinimaSimbolos=0, CantidadRepeticiones=0, CantidadSesionesSimultaneas=0, DiasVencimientoPassword=0',' where rolid=','''', rolid ,'''',' and cuitid=',cuitid) \n\nfrom rol \n\nwhere CantidadIntentosBloqueo!=0 or CantidadMinimaLetras!=0 or CantidadMinimaNumeros!=0 or CantidadMinimaSimbolos!=0 or CantidadRepeticiones!=0 or CantidadSesionesSimultaneas!=0 or DiasVencimientoPassword!=0 ",
-          "correctionQuery": null,
-          "queryId": "5.1.0",
-          "country": "CR",
-          "description": "Usuarios con distintos tipos de rol",
-          "type": "Daily",
-          "pattern": null,
-          "patternDescription": null,
-          "correction": "\r\nCuando un usuario tiene distintos tipos de rol, emisor, receptor, pago a proveedores, emisor proveedor, algunas pantallas de comfiar no funcionan como deberían. \r\n\r\nMostrar los resultados. La gente de soporte debe separar los usuarios para que un usuario no tenga tantos roles \r\n\r\n",
-          "target_env": null,
-          "id": 37,
-          "createdAt": "2025-12-29T21:09:26.118Z",
-          "updatedAt": "2025-12-30T11:30:11.311Z"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
-      "createdAt": "2026-01-11T14:31:53.177Z",
-      "updatedAt": "2026-01-11T14:31:53.177Z",
+      "createdAt": "2026-01-27T20:05:54.499Z",
+      "updatedAt": "2026-01-27T20:05:54.499Z",
       "role": "workflow:owner",
-      "workflowId": "ysRfqbMcFNKwxjPo",
-      "projectId": "JCfdNIqoFmwORPL2"
+      "workflowId": "WAx9ZLzMbakrYUl2",
+      "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": {
@@ -970,6 +379,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-01-23T14:44:19.000Z",
-  "versionId": "ec07d5c6-f16d-4193-b902-5ad2550f7426"
+  "updatedAt": "2026-01-27T20:48:32.405Z",
+  "versionId": "37bee2a6-919b-45c8-b2aa-9e0a31fff2b5"
 }
