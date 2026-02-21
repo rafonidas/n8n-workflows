@@ -1,0 +1,283 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Range",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Range": {
+      "main": [
+        [
+          {
+            "node": "Generate ID Array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate ID Array": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "Build Folder Path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF File Exists": {
+      "main": [
+        [
+          {
+            "node": "Read ZIP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read ZIP": {
+      "main": [
+        [
+          {
+            "node": "Decompress ZIP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decompress ZIP": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-02-17T16:01:26.900Z",
+  "id": "glQH1ZJCkWm3utZ7",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AFM - Batch Loop Resumen Gemini",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e191a541-b7f3-4419-a941-2e6bb4f2dc0a",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1664,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "start_id",
+              "value": 39890
+            },
+            {
+              "name": "end_id",
+              "value": 39900
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9d3c1bc6-4e0c-43a8-92d4-4d90171c5124",
+      "name": "Set Range",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1456,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const start = $json.start_id;\nconst end = $json.end_id;\n\nconst items = [];\nfor (let i = start; i <= end; i++) {\n  items.push({ json: { id: i } });\n}\n\nreturn items;"
+      },
+      "id": "39292f66-efa2-4112-96a0-a94094c5e2cc",
+      "name": "Generate ID Array",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1264,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "775fda9f-831b-4ff7-b535-15397f3282d8",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1056,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const id = $json.id;\n\n// Nivel 1\nlet nivel1 = Math.floor(id / 10000) * 10000;\nnivel1 = nivel1.toString().padStart(6, '0');\n\n// Nivel 2\nlet nivel2 = Math.floor((id % 10000) / 100) * 100;\nnivel2 = nivel2.toString();\n\nconst basePath = `/data/afm_docs/files/000000000/${nivel1}/${nivel2}/`;\nconst pattern = `${id}-*-0.*.zip`;\n\nreturn [{\n  json: {\n    id,\n    nivel1,\n    nivel2,\n    basePath,\n    pattern\n  }\n}];"
+      },
+      "id": "d7e4e9dd-37bb-41e3-8053-e86c8386f096",
+      "name": "Build Folder Path",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -864,
+        -16
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "741f3a18-c44c-4641-918a-2fb860b73b9c",
+      "name": "Search ZIP File",
+      "type": "n8n-nodes-base.localFile",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{$json.name}}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "df148f11-d5e4-40a8-98dd-50e180456e38",
+      "name": "IF File Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -464,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "={{$json.path}}"
+      },
+      "id": "3a6e1bab-2f3c-4349-9078-0a2a802ca7bf",
+      "name": "Read ZIP",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -112
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f1dbdbb7-34c1-40ad-9f2e-c7c34f7b9e7e",
+      "name": "Decompress ZIP",
+      "type": "n8n-nodes-base.compression",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append"
+      },
+      "id": "e2af362b-96cb-4fea-9cde-8c61a76ab255",
+      "name": "Append Excel",
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 1,
+      "position": [
+        352,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "Analiza el documento adjunto. Genera un resumen de 1 línea con Tipo, Fecha y Montos",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -368
+      ],
+      "id": "cd4d78c5-f330-4f21-b862-e35acd51bd65",
+      "name": "Analyze document",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "iQjKOxvBwrdAjzt5",
+          "name": "Cuenta Julian"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-02-17T16:01:26.900Z",
+      "updatedAt": "2026-02-17T16:01:26.900Z",
+      "role": "workflow:owner",
+      "workflowId": "glQH1ZJCkWm3utZ7",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-02-17T17:42:37.422Z",
+  "versionId": "75071516-4e14-40bb-bbd5-6ecd8b4c6a44"
+}
