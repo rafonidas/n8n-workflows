@@ -1,0 +1,309 @@
+{
+  "active": false,
+  "connections": {
+    "Token Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Create metadata and load content",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Page Added Trigger": {
+      "main": [
+        [
+          {
+            "node": "Notion - Retrieve Page Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion - Retrieve Page Content": {
+      "main": [
+        [
+          {
+            "node": "Filter Non-Text Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Non-Text Content": {
+      "main": [
+        [
+          {
+            "node": "Summarize - Concatenate Notion's blocks content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize - Concatenate Notion's blocks content": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create metadata and load content": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store2",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-12-10T20:13:08.559Z",
+  "id": "F2lumS0EY4sa0aod",
+  "isArchived": false,
+  "meta": null,
+  "name": "Notion-Pinecone-Update",
+  "nodes": [
+    {
+      "parameters": {
+        "chunkSize": 256,
+        "chunkOverlap": 30
+      },
+      "id": "1aefd869-a4bd-47ba-8967-6dd32f6c1060",
+      "name": "Token Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+      "position": [
+        1104,
+        416
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "17b11930-c10f-8000-a545-ece7cade03f9",
+          "cachedResultUrl": "https://www.notion.so/17b11930c10f8000a545ece7cade03f9",
+          "cachedResultName": "Embeddings"
+        },
+        "simple": false
+      },
+      "id": "0ddee68e-2ab7-4307-88fb-1b32c93383cf",
+      "name": "Notion - Page Added Trigger",
+      "type": "n8n-nodes-base.notionTrigger",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "operation": "getAll",
+        "blockId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ $json.url }}"
+        },
+        "returnAll": true
+      },
+      "id": "1ea0d484-77b6-4064-9f0c-2d8b2e9b94f2",
+      "name": "Notion - Retrieve Page Content",
+      "type": "n8n-nodes-base.notion",
+      "position": [
+        224,
+        0
+      ],
+      "typeVersion": 2.2,
+      "credentials": {
+        "notionApi": {
+          "id": "JCu6cpXvEKR5YiQH",
+          "name": "Rafa-Notion"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 1,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "e5b605e5-6d05-4bca-8f19-a859e474620f",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              },
+              "leftValue": "={{ $json.type }}",
+              "rightValue": "image"
+            },
+            {
+              "id": "c7415859-5ffd-4c78-b497-91a3d6303b6f",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              },
+              "leftValue": "={{ $json.type }}",
+              "rightValue": "video"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5ce66f97-f34a-4c8a-92a6-9a0d6060de9e",
+      "name": "Filter Non-Text Content",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        432,
+        0
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "content",
+              "separateBy": "\n"
+            }
+          ]
+        },
+        "options": {
+          "outputFormat": "separateItems"
+        }
+      },
+      "id": "df89de5d-99aa-4825-8694-f92080ff2623",
+      "name": "Summarize - Concatenate Notion's blocks content",
+      "type": "n8n-nodes-base.summarize",
+      "position": [
+        704,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.concatenated_content }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "pageId",
+                "value": "={{ $('Notion - Page Added Trigger').item.json.id }}"
+              },
+              {
+                "name": "createdTime",
+                "value": "={{ $('Notion - Page Added Trigger').item.json.created_time }}"
+              },
+              {
+                "name": "pageTitle",
+                "value": "={{ $('Notion - Page Added Trigger').item.json.properties.Name.title[0].text.content }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "e8c93c60-5e09-44af-b257-36fae207c32e",
+      "name": "Create metadata and load content",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "position": [
+        1104,
+        240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "mode": "list",
+          "value": "notion-pages",
+          "cachedResultName": "notion-pages"
+        },
+        "options": {}
+      },
+      "id": "55bc200d-ec5d-495c-bc9c-4add61527cb0",
+      "name": "Pinecone Vector Store2",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "position": [
+        976,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        976,
+        176
+      ],
+      "id": "9b01490e-870c-43c0-88d6-f0df568b607a",
+      "name": "Embeddings Ollama2"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "F2lumS0EY4sa0aod",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-27T18:21:07.074Z",
+  "versionId": "81823e65-5d36-4826-9e32-a0ee117c2afb"
+}
