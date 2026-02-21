@@ -1,0 +1,391 @@
+{
+  "active": true,
+  "connections": {
+    "Disparador Mensual": {
+      "main": [
+        [
+          {
+            "node": "Configurar Ambientes y Rutas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Manual": {
+      "main": [
+        [
+          {
+            "node": "Configurar Ambientes y Rutas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configurar Ambientes y Rutas": {
+      "main": [
+        [
+          {
+            "node": "Loop x Ambiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop x Ambiente": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Verificar Existencia Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar Existencia Local": {
+      "main": [
+        [
+          {
+            "node": "¿Existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Existe?": {
+      "main": [
+        [
+          {
+            "node": "Leer Archivo TXT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preparar Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer Archivo TXT": {
+      "main": [
+        [
+          {
+            "node": "Subir a SharePoint (ID Directo)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subir a SharePoint (ID Directo)": {
+      "main": [
+        [
+          {
+            "node": "Notificar Link Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar Link Teams": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Log": {
+      "main": [
+        [
+          {
+            "node": "Escribir Log Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escribir Log Local": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Loop": {
+      "main": [
+        [
+          {
+            "node": "Loop x Ambiente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-04T19:08:17.444Z",
+  "id": "iysoAD8nsw7L6U70",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Flujo envio de txt",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": 5,
+              "triggerAtHour": 14
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1840,
+        -208
+      ],
+      "id": "bef47ddc-169b-4764-98ce-3cb1f63c11b1",
+      "name": "Disparador Mensual"
+    },
+    {
+      "parameters": {},
+      "id": "b058d820-4787-4f7d-80a8-8783aebf8076",
+      "name": "Trigger Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1840,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1) Configuración de Ambientes\nconst environments = ['AR','BO','CO','CO2','CO3','CR','EC','PE'];\n\n// -------------------------------------------------------------\n// 2) MAPEO MAESTRO: ID SHAREPOINT + ID CANAL TEAMS\n// -------------------------------------------------------------\nconst channelMap = {\n  'AR':  { \n    name: 'Argentina - APP', \n    spId: '01HWKKASXFJOHNNKRITZFYVTXSOF2VZ6K7', \n    teamsId: '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2' \n  },\n  'BO':  { \n    name: 'Bolivia - APP',   \n    spId: '01HWKKAST2AVTCXU4QOJGY6FRPUOVAHIYF', \n    teamsId: '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2' \n  },\n  'CO':  { \n    name: 'Colombia - APP',  \n    spId: '01HWKKASSEZYVFULZFWBCIGB7AACVTYK3N', \n    teamsId: '19:af378cf202564cfc87591f580cd70935@thread.tacv2' \n  },\n  'CO2': { \n    name: 'Colombia - APP2', \n    spId: '01HWKKASS3LKA6P44CT5BKZBRDBC6WOI7G', \n    teamsId: '19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2' \n  },\n  'CO3': { \n    name: 'Colombia - APP3', \n    spId: '01HWKKASRV2W4DJ4YQJFE3AOIBMQD3CBMT', \n    teamsId: '19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2' \n  },\n  'CR':  { \n    name: 'Costa Rica - APP',\n    spId: '01HWKKASUFWHODOYG6TNAZANBKSP2EXIXC', \n    teamsId: '19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2' \n  },\n  'EC':  { \n    name: 'Ecuador - APP',   \n    spId: '01HWKKASTMHFO5ZNCYWZDZLMU2L6SUBHK7', \n    teamsId: '19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2' \n  },\n  'PE':  { \n    name: 'Peru - APP',      \n    spId: '01HWKKASRH3EFVYY2HQFE2H5XLVBDR6HJO', \n    teamsId: '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2' \n  },\n  \n  // Fallback\n  'DEFAULT': { \n    name: 'General', \n    spId: 'PON_AQUI_UN_ID_DEFAULT_SI_QUIERES', \n    teamsId: '19:e2644020e0de42b0b55da552614c8ea5@thread.tacv2' \n  }\n};\n\n// 3) Cálculo de Fecha Dinámica\nconst date = new Date();\ndate.setMonth(date.getMonth() - 1); \n\nconst year = date.getFullYear();\nconst month = String(date.getMonth() + 1).padStart(2, '0'); \nconst dateSuffix = `${year}${month}`; // Ej: 202602\n\nreturn environments.map(env => {\n  const config = channelMap[env] || channelMap['DEFAULT'];\n\n  return {\n    json: {\n      env,\n      dateSuffix,\n      fileName: `ListadoDeReportes_${env}_APP_${dateSuffix}.txt`,\n      fullPath: `/files_host/XML_Mails_error/${env}/ListadoDeReportes_${env}_APP_${dateSuffix}.txt`,\n      logPath: `/files_host/XML_Mails_error/Resultados/Log_Ausencias_${dateSuffix}.txt`,\n      \n      // Datos maestros\n      folderName: config.name,\n      folderId: config.spId,\n      teamsChannelId: config.teamsId\n    }\n  };\n});"
+      },
+      "id": "a7230d42-1cd3-45f6-acf5-35616ae31149",
+      "name": "Configurar Ambientes y Rutas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1616,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "e775405d-cb9c-4b53-a360-85f41bed8f86",
+      "name": "Loop x Ambiente",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1408,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=test -f \"{{ $json.fullPath }}\" && echo \"EXISTS\" || echo \"MISSING\""
+      },
+      "id": "32cbee5d-7ed2-4a5c-aef6-0066d68d6012",
+      "name": "Verificar Existencia Local",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout.trim() }}",
+              "operation": "equal",
+              "value2": "EXISTS"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "82ee60cc-65f8-4ae5-ac10-50cb0a5f5476",
+      "name": "¿Existe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $('Loop x Ambiente').item.json.fullPath }}"
+      },
+      "id": "e6d0651b-b391-4ce9-b14b-3a2872480fe7",
+      "name": "Leer Archivo TXT",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -256
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "site": {
+          "__rl": true,
+          "value": "apgcon.sharepoint.com,8c77454a-477c-49d8-8e8e-d36eb1e878f3,e9ee4b3b-2e5a-4b8c-9ea7-0e4bbc344c5c",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "folder": {
+          "__rl": true,
+          "value": "={{ $('Loop x Ambiente').item.json.folderId }}",
+          "mode": "id"
+        },
+        "fileName": "={{ $('Loop x Ambiente').item.json.fileName }}",
+        "fileContents": "data",
+        "requestOptions": {}
+      },
+      "id": "061613b7-d95f-407e-9537-6c600403e8c1",
+      "name": "Subir a SharePoint (ID Directo)",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -256
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "yGpzald5d5ehr6Pz",
+          "name": "Sharepoint notificaciones APG"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $('Loop x Ambiente').item.json.teamsChannelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "=<h3>✅ Validacion tamaño rpt por ambiente -  Reporte Mensual Cargado</h3>\n<p>El archivo para <strong>{{ $('Loop x Ambiente').item.json.env }}</strong> ya está disponible.</p>\n<p>📂 <strong>Carpeta:</strong> {{ $('Loop x Ambiente').item.json.folderName }}</p>\n<p>🔗 <a href=\"{{ $json.webUrl }}\"><strong>Click aquí para abrir el archivo</strong></a></p>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        -256
+      ],
+      "id": "6c14349a-3c8c-4ab0-b390-b65d46f4dc71",
+      "name": "Notificar Link Teams",
+      "webhookId": "415af6af-2dac-47b4-8ef2-0f60b133c664",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const loopData = $('Loop x Ambiente').item.json;\nconst timestamp = new Date().toISOString();\n\nconst logLine = `[${timestamp}] MISSING: No se encontró ${loopData.fileName} en ${loopData.fullPath}\\n`;\n\nreturn {\n  json: {\n    logLine,\n    logPath: loopData.logPath\n  }\n};"
+      },
+      "id": "4d34559b-cb17-40a7-aed4-f4f66719806d",
+      "name": "Preparar Log",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append"
+      },
+      "id": "aefe731b-d69c-4774-bd10-4f71dca55716",
+      "name": "Escribir Log Local",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -16
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8d5bbcd8-c2ed-45ce-ac04-c4bf72b6b268",
+      "name": "Merge Loop",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -64,
+        -112
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-02-04T19:08:17.444Z",
+      "updatedAt": "2026-02-04T19:08:17.444Z",
+      "role": "workflow:owner",
+      "workflowId": "iysoAD8nsw7L6U70",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Disparador Mensual": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-09T19:14:33.234Z",
+  "versionId": "fbacfc10-9a85-4c15-be71-94e315987592"
+}
