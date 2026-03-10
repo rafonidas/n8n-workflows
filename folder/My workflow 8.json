@@ -1,95 +1,26 @@
 {
   "active": false,
-  "connections": {
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Create blob",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Create blob": {
-      "main": [
-        [
-          {
-            "node": "Microsoft Azure Monitor HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  },
-  "createdAt": "2026-02-13T17:35:00.470Z",
-  "id": "EP3EejNK0Pv3chUL",
+  "connections": {},
+  "createdAt": "2026-03-09T13:26:12.112Z",
+  "id": "zreauexuD0kaHEIs",
   "isArchived": false,
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
+  "meta": null,
   "name": "My workflow 8",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        0,
-        0
-      ],
-      "id": "845afe9b-ab28-436a-9ba2-8a54f19c60cc",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
       "parameters": {
-        "resource": "blob",
-        "operation": "create",
-        "container": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "options": {},
-        "requestOptions": {}
+        "path": "c5349d02-c274-4dc8-9b05-cb8c9952dd15",
+        "options": {}
       },
-      "type": "n8n-nodes-base.azureStorage",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
       "position": [
-        208,
-        0
+        -96,
+        -32
       ],
-      "id": "72b4d551-291a-423b-a5f5-66710a612fe3",
-      "name": "Create blob"
-    },
-    {
-      "parameters": {
-        "preBuiltAgentsCalloutHttpRequest": "",
-        "httpVariantWarning": "",
-        "curlImport": "",
-        "method": "GET",
-        "": "",
-        "url": "",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "microsoftAzureMonitorOAuth2Api",
-        "provideSslCertificates": false,
-        "sendQuery": false,
-        "sendHeaders": false,
-        "sendBody": false,
-        "options": {},
-        "infoMessage": ""
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        416,
-        0
-      ],
-      "id": "49f0f4cc-7f6b-4d39-9e93-cfbc44b63c55",
-      "name": "Microsoft Azure Monitor HTTP Request",
-      "extendsCredential": "microsoftAzureMonitorOAuth2Api"
+      "id": "a6edbeac-8ef5-45a7-ae5c-0756467a75a2",
+      "name": "Webhook",
+      "webhookId": "c5349d02-c274-4dc8-9b05-cb8c9952dd15"
     }
   ],
   "pinData": {},
@@ -98,16 +29,16 @@
   },
   "shared": [
     {
-      "createdAt": "2026-02-13T17:35:00.470Z",
-      "updatedAt": "2026-02-13T17:35:00.470Z",
+      "createdAt": "2026-03-09T13:26:12.112Z",
+      "updatedAt": "2026-03-09T13:26:12.112Z",
       "role": "workflow:owner",
-      "workflowId": "EP3EejNK0Pv3chUL",
+      "workflowId": "zreauexuD0kaHEIs",
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-02-18T15:51:50.483Z",
-  "versionId": "0f09cb5a-39ae-4313-bdca-9fc1ca25ca1c"
+  "updatedAt": "2026-03-09T13:26:12.112Z",
+  "versionId": "f9848252-032a-4d53-92b9-0e06adb63351"
 }
