@@ -1,0 +1,224 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "lastFriday?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "month end",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "week end",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lastFriday?": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-03-03T14:43:39.461Z",
+  "id": "0VPY8fmBMkupSZXn",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Time-Report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                5
+              ],
+              "triggerAtHour": 16
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        80
+      ],
+      "id": "109362a5-2261-4f5d-8dec-32889d8cff3f",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "content": "## TIME REPORT - WEEKLY REMINDER\n",
+        "height": 80,
+        "width": 576
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -192,
+        -48
+      ],
+      "typeVersion": 1,
+      "id": "8f0cb0f9-4d7a-4cde-84a1-0a0cb50c474b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d291a64a-e158-4b16-92e9-07d0764c952b",
+              "leftValue": "={{ $json.esUltimo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        80
+      ],
+      "id": "469dd5bc-9a6f-4cab-96a8-0ff27e46dc8a",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const hoy = new Date();\nconst mesActual = hoy.getMonth();\n\n// Sumamos 7 días a la fecha actual\nconst proximoViernes = new Date(hoy);\nproximoViernes.setDate(hoy.getDate() + 7);\n\n// Si el mes del próximo viernes es distinto al actual, \n// significa que este es el último viernes del mes.\nconst esUltimoViernes = proximoViernes.getMonth() !== mesActual;\n\nreturn {\n  esUltimo: esUltimoViernes,\n  mesNombre: hoy.toLocaleString('es-ES', { month: 'long' })\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        80
+      ],
+      "id": "bc20d162-37e3-4197-a86e-c2e99d47c742",
+      "name": "lastFriday?"
+    },
+    {
+      "parameters": {
+        "fromEmail": "Notificaciones@apg-consulting.com",
+        "toEmail": "todosapg@apgconsulting.com.ar",
+        "subject": "RECORDATORIO | Time Report",
+        "html": "=<div style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\">\n  <p>Hola a todos, soy el asistente de automatización de <strong>APG Consulting</strong> ⚙️.</p>\n  \n  <p>Paso por aquí para recordarles que hoy cierra el mes y es necesario tener el <strong>Time Report del mes, ¡completo!</strong></p>\n\n  <p style=\"background-color: #f9f9f9; padding: 10px; border-left: 4px solid #ffd700;\">\n    💡 <strong>Tip del Bot:</strong> Si cargás tus horas al final del día, ¡tardás menos de 5 minutos!\n  </p>\n\n  <p>Si ya lo hiciste, ignorá este mensaje (estoy programado para ser insistente, no tengo acceso a la base de datos... aún... 🦾).</p>\n\n  <p>¡Gracias y buen fin de semana!<br>\n  <strong>Saludos automáticos.</strong></p>\n</div>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        608,
+        -48
+      ],
+      "id": "bc19adf8-bf68-4f4b-8c55-a95271180ab8",
+      "name": "month end",
+      "webhookId": "5216d33f-d719-45d3-96eb-e50a783f1908",
+      "credentials": {
+        "smtp": {
+          "id": "Uw4CpnQjIbsNpVhT",
+          "name": "SMTP account"
+        }
+      },
+      "notes": "\"Agustín Barbosa\" <abarbosa@apg-consulting.com>, \"Alexander  Navarro\" <anavarro@apg-consulting.com>, \"Andrea Prieto\" <aprieto@apgconsulting.com.ar>, \"Andrea Ravenna\" <aravenna@apg-consulting.com>, \"Audrey  Barrientos\" <abarrientos@apg-consulting.com>, \"Azul Domini\" <adomini@apg-consulting.com>, \"Carlos  Rolando\" <crolando@apg-consulting.com>, \"Carolina Quinta\" <cquinta@apg-consulting.com>, \"Diego Peña\" <dpena@apg-consulting.com>, \"Eduardo Canizales\" <ecanizales@apg-consulting.com>, \"Edwin Yachachin\" <eyachachin@apg-consulting.com>, \"Ezequiel Gulman\" <egulman@apg-consulting.com>, \"Facundo Carollo\" <fcarollo@apg-consulting.com>, \"German Suarez\" <gsuarez@apg-consulting.com>, \"Gian Giorgio de Gennaro Sousa\" <gian@apg-consulting.com>, \"Guiancarlo Luna\" <gluna@apg-consulting.com>, \"Hugo Cherepinsky\" <hcherep@apg-consulting.com>, \"Ivan Rodriguez\" <irodriguez@apg-consulting.com>, \"Jader Sanchez\" <jsanchez@apg-consulting.com>, \"John Arevalo\" <jarevalo@apg-consulting.com>, \"Jose Luis Cubillos\" <jcubillos@apg-consulting.com>, \"Juan Cruz Bianchini\" <jcbianchini@apg-consulting.com>, \"Juan Jose Parada\" <jparada@apg-consulting.com>, \"Juan Pablo Cordero\" <jcordero@apg-consulting.com>, \"Julian Jimenez\" <jJimenez@apg-consulting.com>, \"Lucas Vallejo\" <lvallejo@apg-consulting.com>, \"Macarena Cekauskas\" <mcekauskas@apg-consulting.com>, \"Mariana Otondo\" <motondo@apg-consulting.com>, \"Martin Benitez\" <mbenitez@apg-consulting.com>, \"Matias Cherepinsky\" <matias@apg-consulting.com>, \"Matias Piloni\" <mpiloni@apg-consulting.com>, \"Matilde Lapaco\" <mlapaco@apgconsulting.com.ar>, \"Monica Cherepinsky\" <mcherep@apg-consulting.com>, \"Nicolas Cabo\" <ncabo@apg-consulting.com>, \"Noelia Albanese\" <nalbanese@apg-consulting.com>, \"Rafael Nuñez\" <rnunez@apg-consulting.com>, \"Roberto Marcano\" <rmarcano@apg-consulting.com>, \"Ronald Garcia\" <rgarcia@apg-consulting.com>, \"Simon Dorfman\" <sdorfman@apg-consulting.com>, \"Steeven Apaza\" <sapaza@apg-consulting.com>, \"Tania Beltran\" <tbeltran@apg-consulting.com>, \"Tatiana Gutierrez\" <tgutierrez@apg-consulting.com>, \"Valentina Maza\" <vmaza@apg-consulting.com>, \"Vanessa Rodriguez\" <vrodriguez@apg-consulting.com>, \"Veronica Paz\" <vpaz@apg-consulting.com>, \"William Peña\" <wpena@apg-consulting.com>, \"Wilson Molina\" <wmolina@apg-consulting.com>, \"Zaida Ruiz\" <zruiz@apg-consulting.com>"
+    },
+    {
+      "parameters": {
+        "fromEmail": "Notificaciones@apg-consulting.com",
+        "toEmail": "todosapg@apgconsulting.com.ar",
+        "subject": "RECORDATORIO | Time Report",
+        "html": "=<div style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px;\">\n  <p>Hola a todos, por aquí  <strong>el asistente de automatización</strong> 🤖.</p>\n  \n  <p>Antes de que cierren la computadora y activen el modo <strong>\"descanso\"</strong>, paso a recordarles la carga del <strong>Time Report</strong> de esta semana.</p>\n\n  <div style=\"background-color: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;\">\n    <p style=\"margin-top: 0;\"><strong>Mantener esto al día nos ayuda a todos a:</strong></p>\n    <ul style=\"margin-bottom: 0;\">\n      <li>📉 <strong>No acumular trabajo</strong> para el cierre de mes.</li>\n      <li>🧠 <strong>Liberar la mente</strong> (¡es más fácil anotar hoy que el lunes!).</li>\n      <li>📊 Tener <strong>datos reales</strong> para que los proyectos fluyan mejor.</li>\n    </ul>\n  </div>\n\n  <p>Si ya completaste tus horas, ¡excelente trabajo! 🚀<br>\n  Disfrutá mucho de tu merecido descanso.</p>\n\n  <p>¡Buen fin de semana para todos!<br>\n  <strong>Atentamente, los circuitos de la oficina.</strong> ⚙️⚡</p>\n</div>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        608,
+        144
+      ],
+      "id": "494fb1d8-1376-44e0-a7d6-c678bb4ba7b1",
+      "name": "week end",
+      "webhookId": "4e434505-ce4c-4f98-baf2-e70a209d0bfa",
+      "credentials": {
+        "smtp": {
+          "id": "Uw4CpnQjIbsNpVhT",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-03-03T14:43:39.461Z",
+      "updatedAt": "2026-03-03T14:43:39.461Z",
+      "role": "workflow:owner",
+      "workflowId": "0VPY8fmBMkupSZXn",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2026-02-22T15:41:09.896Z",
+      "updatedAt": "2026-02-22T15:41:09.896Z",
+      "id": "9JTNtucyisgoOCMZ",
+      "name": "Rafa"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-03-09T20:05:37.878Z",
+  "versionId": "20297db0-392b-40c3-aab9-c48ff8069ddd"
+}
