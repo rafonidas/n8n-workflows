@@ -96,7 +96,7 @@
       "main": [
         [
           {
-            "node": "Switch",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -209,6 +209,24 @@
           }
         ]
       ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-12-26T18:45:45.418Z",
@@ -237,7 +255,7 @@
       "name": "Return",
       "type": "n8n-nodes-base.set",
       "position": [
-        2384,
+        2592,
         576
       ],
       "typeVersion": 3.3
@@ -261,7 +279,7 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        1712,
+        1680,
         368
       ],
       "typeVersion": 1
@@ -287,7 +305,7 @@
       "name": "Create new file",
       "type": "n8n-nodes-base.github",
       "position": [
-        2128,
+        2336,
         368
       ],
       "webhookId": "b440dead-fad0-4546-8ca7-201aa2ea2936",
@@ -321,7 +339,7 @@
       "name": "Edit existing file",
       "type": "n8n-nodes-base.github",
       "position": [
-        2128,
+        2336,
         208
       ],
       "webhookId": "1dfc4103-7c23-4814-a0b5-dd4f5a96d36b",
@@ -361,11 +379,10 @@
       "name": "Filter",
       "type": "n8n-nodes-base.filter",
       "position": [
-        400,
-        560
+        384,
+        368
       ],
-      "typeVersion": 2.2,
-      "disabled": true
+      "typeVersion": 2.2
     },
     {
       "parameters": {
@@ -453,7 +470,7 @@
       "name": "Switch",
       "type": "n8n-nodes-base.switch",
       "position": [
-        1840,
+        2160,
         352
       ],
       "typeVersion": 3.2
@@ -467,7 +484,7 @@
       "name": "Get Workflows",
       "type": "n8n-nodes-base.n8n",
       "position": [
-        176,
+        -176,
         368
       ],
       "typeVersion": 1,
@@ -515,7 +532,7 @@
       "name": "Config",
       "type": "n8n-nodes-base.set",
       "position": [
-        -48,
+        -400,
         368
       ],
       "typeVersion": 3.4
@@ -631,7 +648,7 @@
       "name": "Starting Message",
       "type": "n8n-nodes-base.slack",
       "position": [
-        -272,
+        -624,
         368
       ],
       "webhookId": "c02eb407-5547-4aa0-9ebf-46dab67b63b6",
@@ -686,7 +703,7 @@
       "name": "Schedule Trigger1",
       "type": "n8n-nodes-base.scheduleTrigger",
       "position": [
-        -496,
+        -848,
         368
       ],
       "typeVersion": 1.2
@@ -696,11 +713,59 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -480,
+        -832,
         656
       ],
       "id": "da99e7c2-a45e-456e-abcb-d13db723e7d3",
       "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Al obtener los flujos, detectar si "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        368,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "66f6e904-b95c-43d7-81df-efc7d2b01f45",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d415c217-7d11-414a-aa1e-f03737e1d337",
+              "leftValue": "={{$json.last}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1888,
+        368
+      ],
+      "id": "dbaf7ec6-d275-4105-b312-0d4301e30bed",
+      "name": "If"
     }
   ],
   "pinData": {},
@@ -724,8 +789,15 @@
       "recurrenceRules": []
     }
   },
-  "tags": [],
+  "tags": [
+    {
+      "createdAt": "2026-02-22T15:41:09.896Z",
+      "updatedAt": "2026-02-22T15:41:09.896Z",
+      "id": "9JTNtucyisgoOCMZ",
+      "name": "Rafa"
+    }
+  ],
   "triggerCount": 1,
-  "updatedAt": "2026-02-21T21:55:47.215Z",
-  "versionId": "1e2271f9-f412-4ccc-b15d-435ea091353e"
+  "updatedAt": "2026-03-09T18:59:04.363Z",
+  "versionId": "4b289259-1798-4a77-aead-5bb277971623"
 }
