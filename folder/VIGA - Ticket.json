@@ -98,41 +98,8 @@
         ],
         [
           {
-            "node": "Generar Lote IDs1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Generar Lote IDs1": {
-      "main": [
-        [
-          {
             "node": "GET Ticket API1",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenRouter Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Embeddings Ollama1": {
-      "ai_embedding": [
-        [
-          {
-            "node": "SUPABASE TOOL",
-            "type": "ai_embedding",
             "index": 0
           }
         ]
@@ -194,17 +161,6 @@
         ]
       ]
     },
-    "Upload your file here": {
-      "main": [
-        [
-          {
-            "node": "Read File",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Default Data Loader": {
       "ai_document": [
         [
@@ -238,17 +194,6 @@
         ]
       ]
     },
-    "Get many rows in Supabase": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "AI Agent": {
       "main": [
         [
@@ -264,8 +209,63 @@
       "main": [
         [
           {
+            "node": "Get chat message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query in Postgres": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "SUPABASE TOOL",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get chat message": {
+      "main": [
+        [
+          {
             "node": "AI Agent",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
             "index": 0
           }
         ]
@@ -283,8 +283,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -480,
-        688
+        -240,
+        1040
       ],
       "id": "23c6eb62-0454-49f5-8b70-962dfa36ab97",
       "name": "When clicking ‘Execute workflow’"
@@ -314,8 +314,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        384,
-        256
+        624,
+        608
       ]
     },
     {
@@ -347,8 +347,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        784,
-        272
+        1024,
+        624
       ]
     },
     {
@@ -398,8 +398,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        976,
-        272
+        1216,
+        624
       ]
     },
     {
@@ -449,8 +449,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        576,
-        272
+        816,
+        624
       ],
       "id": "4f527336-fae0-4839-8b61-1cfd1b5d1196",
       "name": "GET User Info"
@@ -464,8 +464,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        272,
-        464
+        512,
+        816
       ]
     },
     {
@@ -493,21 +493,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -320,
-        688
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "const startId = $input.first().json.next_start_id;\nconst batchSize = 1000;\nconst newItems = [];\n\nfor (let i = 0; i < batchSize; i++) {\n  const currentId = startId - i;\n  if (currentId > 0) {\n    newItems.push({\n      json: { \n        id: currentId,\n        batch_start_reference: startId \n      }\n    });\n  }\n}\nreturn newItems;"
-      },
-      "id": "0dcabbcb-21bc-4ca4-a7a1-c5472025b801",
-      "name": "Generar Lote IDs1",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        272,
-        704
+        0,
+        1040
       ]
     },
     {
@@ -519,8 +506,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        768,
-        592
+        1008,
+        944
       ]
     },
     {
@@ -534,8 +521,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        1856,
-        704
+        2320,
+        1152
       ]
     },
     {
@@ -547,8 +534,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        976,
-        704
+        1216,
+        1056
       ]
     },
     {
@@ -558,8 +545,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1680,
-        192
+        1856,
+        1152
       ],
       "webhookId": "42f7471b-86aa-4e14-a9a3-35b2bb5c206f"
     },
@@ -592,8 +579,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1904,
-        192
+        2080,
+        1152
       ]
     },
     {
@@ -607,21 +594,21 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        1216,
-        16
+        1664,
+        1152
       ],
       "id": "4c8da0e8-db0a-4d46-8432-a6f035c403da",
       "name": "Read/Write Files from Disk"
     },
     {
       "parameters": {
-        "url": "=https://apg.cloudviga.com:8500/api/ticket/45000",
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/46000",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzcwNDIxOTE2fQ.XUU_dYdv2WcKOxfI8hjLt_ZF7R74eUHfVW8ZQZNZOcs"
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzcyMjQyOTkwfQ.zt4jlDFQ5amoMvViKHfz0CnxDWVdN5hzPyR1Ir_-4So"
             }
           ]
         },
@@ -630,8 +617,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        480,
-        704
+        720,
+        1056
       ],
       "id": "c5257ba7-e560-4f4c-9c82-b0ba50acc120",
       "name": "GET Ticket API1"
@@ -642,8 +629,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -576,
-        448
+        -336,
+        800
       ],
       "typeVersion": 1,
       "id": "5627b6c8-4980-41ed-945f-e5ae27ac4f8b",
@@ -689,8 +676,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        48,
-        688
+        288,
+        1040
       ],
       "id": "30668351-528d-41be-b717-00580fa413c0",
       "name": "Loop Over Items"
@@ -702,14 +689,16 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        976,
-        592
+        1216,
+        944
       ],
       "id": "df641c7d-38af-408d-9d9e-5065c56e15ee",
       "name": "Code in JavaScript"
     },
     {
       "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.content.replace(/^<p>/, '').replace(/<\\/p>$/, '') }}",
         "options": {
           "systemMessage": "System Prompt del Agente de Soporte:\n\"Eres un experto analista de soporte técnico Nivel 2. Tu objetivo es ayudar a técnicos junior a resolver problemas basándote ESTRICTAMENTE en el historial de tickets de la empresa.\n\nREGLAS CRÍTICAS:\n\nTienes herramientas de búsqueda de base de datos. Úsalas para buscar información antes de responder.\n\nSi el usuario pregunta por un cliente específico, usa el nombre exacto que te dio para el parámetro 'filtro_cliente' de tu herramienta.\n\nLos estados válidos para filtrar son SOLO: 'abierto', 'en proceso', 'finalizado', 'cancelado'. Si el usuario menciona uno, úsalo en 'filtro_estado'.\n\nNEGATIVA PLAUSIBLE: Si después de buscar no encuentras información que resuelva la duda (o si la similitud de los resultados es muy baja), DEBES decir: 'No cuento con información documentada sobre este caso'. BAJO NINGUNA CIRCUNSTANCIA inventes soluciones técnicas, rutas de carpetas o comandos SQL que no estén en el contexto recuperado.\n\nCuando des una solución, intenta citar el ID del ticket de donde sacaste la información (ej. 'Basado en el ticket 40001...').\""
         }
@@ -717,7 +706,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        1936,
+        2144,
         1408
       ],
       "id": "d5fff9b9-38be-460d-b82f-a2c52b98a0a0",
@@ -757,33 +746,6 @@
     },
     {
       "parameters": {
-        "model": "arcee-ai/trinity-large-preview:free",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-      "typeVersion": 1,
-      "position": [
-        1824,
-        1616
-      ],
-      "id": "ad20bf66-95fa-4525-9967-ca8a8073acd7",
-      "name": "OpenRouter Chat Model"
-    },
-    {
-      "parameters": {
-        "model": "nomic-embed-text:latest"
-      },
-      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
-      "typeVersion": 1,
-      "position": [
-        2000,
-        1856
-      ],
-      "id": "40e73565-e1bf-4967-90e9-f3350886e783",
-      "name": "Embeddings Ollama1"
-    },
-    {
-      "parameters": {
         "content": "## Como veo qué hace o piensa la ia cuando tarda mucho ?"
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -801,9 +763,9 @@
         "toolDescription": "Retrieve data from a Supabase Vector Store that the user requested",
         "tableName": {
           "__rl": true,
-          "value": "tickets_duplicate",
+          "value": "tickets_nomic",
           "mode": "list",
-          "cachedResultName": "tickets_duplicate"
+          "cachedResultName": "tickets_nomic"
         },
         "options": {
           "queryName": "match_documents",
@@ -818,11 +780,17 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.3,
       "position": [
-        2000,
+        2208,
         1696
       ],
       "id": "bccb1561-2c73-4f46-aa94-98d783952f51",
-      "name": "SUPABASE TOOL"
+      "name": "SUPABASE TOOL",
+      "credentials": {
+        "supabaseApi": {
+          "id": "5a4Jac8AkTHXEHko",
+          "name": "rafa-supabase"
+        }
+      }
     },
     {
       "parameters": {
@@ -880,31 +848,6 @@
     },
     {
       "parameters": {
-        "formTitle": "data",
-        "formFields": {
-          "values": [
-            {
-              "fieldLabel": "data",
-              "fieldType": "file",
-              "acceptFileTypes": ".pdf, .csv, .json",
-              "requiredField": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.formTrigger",
-      "typeVersion": 2.2,
-      "position": [
-        256,
-        1440
-      ],
-      "id": "64adea53-1d8c-412d-b8bf-c9ac8e11e28b",
-      "name": "Upload your file here",
-      "webhookId": "82848bc4-5ea2-4e5a-8bb6-3c09b94a8c5d"
-    },
-    {
-      "parameters": {
         "jsonMode": "expressionData",
         "jsonData": "=Asunto: {{ $json.titulo }}\nDescripción: {{ $json.problema_inicial }}\nSolución: {{ $json.solucion_detectada }}",
         "textSplittingMode": "custom",
@@ -947,7 +890,8 @@
         1648
       ],
       "id": "51dcfd8e-afef-42f5-a3cb-b1e648b98688",
-      "name": "Embeddings Ollama"
+      "name": "Embeddings Ollama",
+      "disabled": true
     },
     {
       "parameters": {
@@ -968,31 +912,8 @@
         1456
       ],
       "id": "db1ef894-f2cf-4639-b926-3ba0beb450ff",
-      "name": "Supabase Vector Store"
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "tableId": "tickets_nomic",
-        "limit": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "metadata",
-              "condition": "ilike",
-              "keyValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('conditions0_Field_Value', ``, 'string') }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.supabaseTool",
-      "typeVersion": 1,
-      "position": [
-        2368,
-        1696
-      ],
-      "id": "a9df6fff-5795-4b29-9eca-9105b79fff9d",
-      "name": "Get many rows in Supabase"
+      "name": "Supabase Vector Store",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1015,16 +936,16 @@
         "event": "newChatMessage",
         "chatId": {
           "__rl": true,
-          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110@unq.gbl.spaces",
+          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
           "mode": "list",
-          "cachedResultName": "Rafael Nuñez, Andrea Ravenna (oneOnOne)",
-          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+          "cachedResultName": "Rafael Nuñez, APG Consulting Notificaciones (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
         }
       },
       "type": "n8n-nodes-base.microsoftTeamsTrigger",
       "typeVersion": 1,
       "position": [
-        1728,
+        1568,
         1408
       ],
       "id": "6662ce75-9561-4e56-a643-6f304206ce09",
@@ -1032,8 +953,8 @@
       "webhookId": "82c27cfe-d8d6-4296-8b08-d9a796e41509",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
         }
       }
     },
@@ -1042,18 +963,18 @@
         "resource": "chatMessage",
         "chatId": {
           "__rl": true,
-          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110@unq.gbl.spaces",
+          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
           "mode": "list",
-          "cachedResultName": "Rafael Nuñez, Andrea Ravenna (oneOnOne)",
-          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_f96b6dc9-e548-4910-9a88-12914eadc110%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+          "cachedResultName": "Rafael Nuñez, APG Consulting Notificaciones (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
         },
-        "message": "hola",
+        "message": "={{$json}}",
         "options": {}
       },
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2288,
+        2496,
         1408
       ],
       "id": "cce47787-f288-4552-8bd5-bf3039f7ed6e",
@@ -1061,10 +982,111 @@
       "webhookId": "f3318ca7-0808-4113-9593-dced1aee5b06",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, content, metadata \nFROM tickets_nomic \nWHERE \n  (metadata->>'ticket_id' = '{{ $fromAI(\"ticket_id\", \"0\", \"string\") }}' OR '{{ $fromAI(\"ticket_id\", \"0\", \"string\") }}' = '0')\n  AND (metadata->>'cliente' ILIKE '%' || '{{ $fromAI(\"cliente_nombre\", \"\", \"string\") }}' || '%')\n  AND (metadata->>'estado' ILIKE '%' || '{{ $fromAI(\"estado_ticket\", \"\", \"string\") }}' || '%')\nLIMIT {{ $fromAI(\"limit\", 5, \"number\") }};",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.6,
+      "position": [
+        2528,
+        1600
+      ],
+      "id": "c442be9f-9ce7-4b2d-a3aa-1de1d9a761fb",
+      "name": "Execute a SQL query in Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "DN6ZsQBwtjGKcWee",
+          "name": "Conexion local"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-embedding-001"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2304,
+        1904
+      ],
+      "id": "f7e310b7-ba69-4b20-a148-f7066d47871c",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ZJmgBZh9xCXuMgg4",
+          "name": "Rafa-Gemin"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2016,
+        1616
+      ],
+      "id": "12c85614-817c-4f2c-b8bf-d62f5cddbcb0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ZJmgBZh9xCXuMgg4",
+          "name": "Rafa-Gemin"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "operation": "get",
+        "chatId": {
+          "__rl": true,
+          "value": "={{ $json[\"@odata.id\"].split(\"'\")[1] }}",
+          "mode": "id"
+        },
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1856,
+        1408
+      ],
+      "id": "243a9ac4-1721-464b-86d2-45978d9e7647",
+      "name": "Get chat message",
+      "webhookId": "483e618b-0bd6-46b2-a8bf-19613f84311a",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Get chat message').item.json.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2080,
+        1824
+      ],
+      "id": "28f28592-3b57-46c2-a4d4-a20f4347f7f6",
+      "name": "Simple Memory"
     }
   ],
   "pinData": {},
@@ -1080,9 +1102,11 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:receives chat message": {}
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-02-20T20:37:42.545Z",
-  "versionId": "9c6957ea-9fbd-4565-b34f-dfe2d8f5d43d"
+  "triggerCount": 1,
+  "updatedAt": "2026-03-09T19:13:33.182Z",
+  "versionId": "31875440-8f77-4531-978f-bc41fdee19c2"
 }
