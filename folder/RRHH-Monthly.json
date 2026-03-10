@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Check Dates": {
       "main": [
@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "Cargar datos",
+            "node": "Get Rows",
             "type": "main",
             "index": 0
           }
@@ -34,11 +34,49 @@
         ]
       ]
     },
-    "Cargar datos": {
+    "Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "Get Rows": {
       "main": [
         [
           {
             "node": "Check Dates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
+      "main": [
+        [
+          {
+            "node": "Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listen Message": {
+      "main": [
+        [
+          {
+            "node": "Get Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Message": {
+      "main": [
+        [
+          {
+            "node": "Format Data",
             "type": "main",
             "index": 0
           }
@@ -69,8 +107,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -144,
-        -320
+        368,
+        -128
       ],
       "id": "8deb70d1-b006-4ca6-bcfe-ce8b80e8397b",
       "name": "Schedule Trigger"
@@ -82,8 +120,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -224,
-        -368
+        -640,
+        -432
       ],
       "typeVersion": 1,
       "id": "faef259d-8408-4bbb-a2b7-239da28a9ae2",
@@ -97,8 +135,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        64,
-        -224
+        -608,
+        -336
       ],
       "typeVersion": 1,
       "id": "cbdb31fe-4d66-4b71-94a3-dba4da287753",
@@ -111,8 +149,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        352,
-        -320
+        -384,
+        -400
       ],
       "typeVersion": 1,
       "id": "0e17c62b-677f-4bc2-9a1a-2e729c42b407",
@@ -125,8 +163,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        416,
-        -144
+        736,
+        -128
       ],
       "id": "b4aedc03-fe25-4d2e-adb0-e8a879575282",
       "name": "Check Dates"
@@ -144,8 +182,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1056,
-        -144
+        1104,
+        -128
       ],
       "id": "1f012e00-6f84-4521-bbc3-cdc46f933b19",
       "name": "Send email",
@@ -164,8 +202,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        800,
-        -144
+        912,
+        -128
       ],
       "id": "b9857ce7-38ca-4888-9e76-ab0693144675",
       "name": "Generate HTML"
@@ -173,12 +211,12 @@
     {
       "parameters": {
         "content": "Genera el código HTML para el mail\n",
-        "height": 208
+        "height": 80
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        736,
-        -208
+        896,
+        -560
       ],
       "typeVersion": 1,
       "id": "31d97209-bf2f-4cb5-9b9f-299afb9fa220",
@@ -187,38 +225,17 @@
     {
       "parameters": {
         "content": "ENVÍO DE MAIL\n",
-        "height": 208,
+        "height": 80,
         "width": 150
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1024,
-        -208
+        1152,
+        -560
       ],
       "typeVersion": 1,
       "id": "d8002eeb-4813-40e2-8fea-2277e58e705b",
       "name": "Sticky Note4"
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "value": "cSs09EiaOhVKa40t",
-          "mode": "list",
-          "cachedResultName": "Nomina_Completa",
-          "cachedResultUrl": "/projects/JCfdNIqoFmwORPL2/datatables/cSs09EiaOhVKa40t"
-        },
-        "returnAll": true
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [
-        112,
-        -144
-      ],
-      "id": "50cc9701-b2a5-41c8-875d-2491c7c7dd05",
-      "name": "Cargar datos"
     },
     {
       "parameters": {
@@ -227,502 +244,207 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        400,
-        -672
+        -112,
+        -400
       ],
       "typeVersion": 1,
       "id": "fafbcc88-602d-4fb5-a23f-71bf04802d58",
       "name": "Sticky Note5"
-    }
-  ],
-  "pinData": {
-    "Cargar datos": [
-      {
-        "json": {
-          "Nombre": "Juan Cruz Bianchini",
-          "Country": "Argentina",
-          "AdmissionDate": "2025-11-03T05:00:00.000Z",
-          "BirthdayDate": "2000-12-13T05:00:00.000Z",
-          "id": 1,
-          "createdAt": "2025-11-14T19:55:49.859Z",
-          "updatedAt": "2025-11-26T18:36:40.652Z"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1d5bBIOzbe1ksxD8i9bcL7V1cT8Nm2xKDLqn4PrJ26LM",
+          "mode": "list",
+          "cachedResultName": "NOMINA-APG",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1d5bBIOzbe1ksxD8i9bcL7V1cT8Nm2xKDLqn4PrJ26LM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1d5bBIOzbe1ksxD8i9bcL7V1cT8Nm2xKDLqn4PrJ26LM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "admissionDate",
+              "displayName": "admissionDate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "birthdayDate",
+              "displayName": "birthdayDate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        432,
+        -592
+      ],
+      "id": "00075015-5343-4ae4-b3f9-b0fd9cc254c5",
+      "name": "Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
         }
       },
-      {
-        "json": {
-          "Nombre": "Noelia Albanese",
-          "Country": "Argentina",
-          "AdmissionDate": "2025-10-16T05:00:00.000Z",
-          "BirthdayDate": "1993-09-16T05:00:00.000Z",
-          "id": 2,
-          "createdAt": "2025-11-14T19:55:49.868Z",
-          "updatedAt": "2025-11-26T18:36:40.904Z"
-        }
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1d5bBIOzbe1ksxD8i9bcL7V1cT8Nm2xKDLqn4PrJ26LM",
+          "mode": "list",
+          "cachedResultName": "NOMINA-APG",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1d5bBIOzbe1ksxD8i9bcL7V1cT8Nm2xKDLqn4PrJ26LM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1d5bBIOzbe1ksxD8i9bcL7V1cT8Nm2xKDLqn4PrJ26LM/edit#gid=0"
+        },
+        "combineFilters": "OR",
+        "options": {}
       },
-      {
-        "json": {
-          "Nombre": "Mariana Otondo",
-          "Country": "Argentina",
-          "AdmissionDate": "2025-10-06T05:00:00.000Z",
-          "BirthdayDate": "1995-03-09T05:00:00.000Z",
-          "id": 3,
-          "createdAt": "2025-11-14T19:55:49.868Z",
-          "updatedAt": "2025-11-26T18:36:41.076Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Nicolas Cabo",
-          "Country": "Argentina",
-          "AdmissionDate": "2025-08-18T05:00:00.000Z",
-          "BirthdayDate": "1985-03-14T05:00:00.000Z",
-          "id": 4,
-          "createdAt": "2025-11-14T19:55:49.869Z",
-          "updatedAt": "2025-11-26T18:36:41.143Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Macarena Cekauskas",
-          "Country": "Argentina",
-          "AdmissionDate": "2025-08-18T05:00:00.000Z",
-          "BirthdayDate": "2003-01-06T05:00:00.000Z",
-          "id": 5,
-          "createdAt": "2025-11-14T19:55:49.870Z",
-          "updatedAt": "2025-11-26T18:36:41.267Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Audrey Barrientos",
-          "Country": "Argentina",
-          "AdmissionDate": "2025-06-18T05:00:00.000Z",
-          "BirthdayDate": "2002-09-24T05:00:00.000Z",
-          "id": 6,
-          "createdAt": "2025-11-14T19:55:49.870Z",
-          "updatedAt": "2025-11-26T18:36:41.353Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Delfina Schlossberg",
-          "Country": "Argentina",
-          "AdmissionDate": "2024-05-06T05:00:00.000Z",
-          "BirthdayDate": "1998-01-17T05:00:00.000Z",
-          "id": 7,
-          "createdAt": "2025-11-14T19:55:49.871Z",
-          "updatedAt": "2025-11-26T18:36:41.416Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Veronica Paz",
-          "Country": "Argentina",
-          "AdmissionDate": "2022-07-04T05:00:00.000Z",
-          "BirthdayDate": "1985-09-03T05:00:00.000Z",
-          "id": 8,
-          "createdAt": "2025-11-14T19:55:49.872Z",
-          "updatedAt": "2025-11-26T18:36:41.520Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Diego Peña",
-          "Country": "Argentina",
-          "AdmissionDate": "2020-11-09T05:00:00.000Z",
-          "BirthdayDate": "1978-12-07T05:00:00.000Z",
-          "id": 9,
-          "createdAt": "2025-11-14T19:55:49.874Z",
-          "updatedAt": "2025-11-26T18:36:41.759Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Azul Danae Domini",
-          "Country": "Argentina",
-          "AdmissionDate": "2019-06-24T05:00:00.000Z",
-          "BirthdayDate": "1997-07-05T05:00:00.000Z",
-          "id": 10,
-          "createdAt": "2025-11-14T19:55:49.877Z",
-          "updatedAt": "2025-11-26T18:36:41.872Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Claudia Carolina Quinta",
-          "Country": "Argentina",
-          "AdmissionDate": "2019-06-03T05:00:00.000Z",
-          "BirthdayDate": "1982-01-12T05:00:00.000Z",
-          "id": 11,
-          "createdAt": "2025-11-14T19:55:49.877Z",
-          "updatedAt": "2025-11-26T18:36:41.950Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Valentina Maza",
-          "Country": "Argentina",
-          "AdmissionDate": "2019-02-06T05:00:00.000Z",
-          "BirthdayDate": "1991-03-10T05:00:00.000Z",
-          "id": 12,
-          "createdAt": "2025-11-14T19:55:49.878Z",
-          "updatedAt": "2025-11-26T18:36:42.038Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Andrea Ravenna",
-          "Country": "Argentina",
-          "AdmissionDate": "2018-10-01T05:00:00.000Z",
-          "BirthdayDate": "1997-08-22T05:00:00.000Z",
-          "id": 13,
-          "createdAt": "2025-11-14T19:55:49.879Z",
-          "updatedAt": "2025-11-26T18:36:42.128Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Andrea Prieto",
-          "Country": "Argentina",
-          "AdmissionDate": "2016-07-01T05:00:00.000Z",
-          "BirthdayDate": "1985-08-10T05:00:00.000Z",
-          "id": 14,
-          "createdAt": "2025-11-14T19:55:49.880Z",
-          "updatedAt": "2025-11-26T18:36:42.219Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Simon Dorfman",
-          "Country": "Argentina",
-          "AdmissionDate": "2011-05-01T05:00:00.000Z",
-          "BirthdayDate": "1980-02-23T05:00:00.000Z",
-          "id": 15,
-          "createdAt": "2025-11-14T19:55:49.880Z",
-          "updatedAt": "2025-11-26T18:36:42.361Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Matías Piloni",
-          "Country": "Argentina",
-          "AdmissionDate": "2012-11-01T05:00:00.000Z",
-          "BirthdayDate": "1989-01-16T05:00:00.000Z",
-          "id": 16,
-          "createdAt": "2025-11-14T19:55:49.881Z",
-          "updatedAt": "2025-11-26T18:36:42.498Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Martin Benitez",
-          "Country": "Argentina",
-          "AdmissionDate": "1995-02-01T05:00:00.000Z",
-          "BirthdayDate": "1978-02-26T05:00:00.000Z",
-          "id": 17,
-          "createdAt": "2025-11-14T19:55:49.882Z",
-          "updatedAt": "2025-11-26T18:36:42.633Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Matías Cherepinsky",
-          "Country": "Argentina",
-          "AdmissionDate": "2005-06-01T05:00:00.000Z",
-          "BirthdayDate": "1985-10-11T05:00:00.000Z",
-          "id": 18,
-          "createdAt": "2025-11-14T19:55:49.882Z",
-          "updatedAt": "2025-11-26T18:36:42.718Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Ezequiel Gulman",
-          "Country": "Argentina",
-          "AdmissionDate": "1994-12-01T05:00:00.000Z",
-          "BirthdayDate": "1974-04-06T05:00:00.000Z",
-          "id": 19,
-          "createdAt": "2025-11-14T19:55:49.883Z",
-          "updatedAt": "2025-11-26T18:36:42.821Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Matilde Alculumbre",
-          "Country": "Argentina",
-          "AdmissionDate": "1994-05-12T05:00:00.000Z",
-          "BirthdayDate": "1955-02-27T05:00:00.000Z",
-          "id": 20,
-          "createdAt": "2025-11-14T19:55:49.884Z",
-          "updatedAt": "2025-11-26T18:36:43.269Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Carlos Rolando",
-          "Country": "Argentina",
-          "AdmissionDate": "2004-01-13T05:00:00.000Z",
-          "BirthdayDate": "1961-09-05T05:00:00.000Z",
-          "id": 21,
-          "createdAt": "2025-11-14T19:55:49.885Z",
-          "updatedAt": "2025-11-26T18:36:43.455Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Juan Pablo Cordero",
-          "Country": "Bolivia",
-          "AdmissionDate": "2022-07-01T05:00:00.000Z",
-          "BirthdayDate": "1980-06-26T05:00:00.000Z",
-          "id": 22,
-          "createdAt": "2025-11-14T19:55:49.885Z",
-          "updatedAt": "2025-11-26T18:36:43.743Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Wilson Molina",
-          "Country": "Bolivia",
-          "AdmissionDate": "2022-05-19T05:00:00.000Z",
-          "BirthdayDate": "1973-01-29T05:00:00.000Z",
-          "id": 23,
-          "createdAt": "2025-11-14T19:55:49.886Z",
-          "updatedAt": "2025-11-26T18:36:43.842Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "William Peña",
-          "Country": "Bolivia",
-          "AdmissionDate": "2021-04-05T05:00:00.000Z",
-          "BirthdayDate": "1997-01-06T05:00:00.000Z",
-          "id": 24,
-          "createdAt": "2025-11-14T19:55:49.887Z",
-          "updatedAt": "2025-11-26T18:36:43.975Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "German Suarez",
-          "Country": "Bolivia",
-          "AdmissionDate": "2020-11-01T05:00:00.000Z",
-          "BirthdayDate": "1972-09-23T05:00:00.000Z",
-          "id": 25,
-          "createdAt": "2025-11-14T19:55:49.887Z",
-          "updatedAt": "2025-11-26T18:36:44.051Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Lucas Vallejo",
-          "Country": "Bolivia",
-          "AdmissionDate": "2019-10-01T05:00:00.000Z",
-          "BirthdayDate": "1989-04-23T05:00:00.000Z",
-          "id": 26,
-          "createdAt": "2025-11-14T19:55:49.888Z",
-          "updatedAt": "2025-11-26T18:36:44.125Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Zaida Ruiz",
-          "Country": "Colombia",
-          "AdmissionDate": "2024-12-23T05:00:00.000Z",
-          "BirthdayDate": "1990-04-25T05:00:00.000Z",
-          "id": 27,
-          "createdAt": "2025-11-14T19:55:49.889Z",
-          "updatedAt": "2025-11-26T18:36:44.200Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Jose Luis Cubillos",
-          "Country": "Colombia",
-          "AdmissionDate": "2022-06-15T05:00:00.000Z",
-          "BirthdayDate": "1993-06-11T05:00:00.000Z",
-          "id": 28,
-          "createdAt": "2025-11-14T19:55:49.889Z",
-          "updatedAt": "2025-11-26T18:36:44.295Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Tania Beltan",
-          "Country": "Colombia",
-          "AdmissionDate": "2022-11-11T05:00:00.000Z",
-          "BirthdayDate": "1991-11-08T05:00:00.000Z",
-          "id": 29,
-          "createdAt": "2025-11-14T19:55:49.890Z",
-          "updatedAt": "2025-11-26T18:36:44.650Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Julian Mateo Jimenez Sanchez",
-          "Country": "Colombia",
-          "AdmissionDate": "2022-02-15T05:00:00.000Z",
-          "BirthdayDate": "1996-04-21T05:00:00.000Z",
-          "id": 30,
-          "createdAt": "2025-11-14T19:55:49.891Z",
-          "updatedAt": "2025-11-26T18:36:44.852Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Tatiana Gutiérrez",
-          "Country": "Colombia",
-          "AdmissionDate": "2021-05-18T05:00:00.000Z",
-          "BirthdayDate": "1995-01-30T05:00:00.000Z",
-          "id": 31,
-          "createdAt": "2025-11-14T19:55:49.891Z",
-          "updatedAt": "2025-11-26T18:36:45.046Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Angie Palomeque",
-          "Country": "Colombia",
-          "AdmissionDate": "2020-11-30T05:00:00.000Z",
-          "BirthdayDate": "1993-09-16T05:00:00.000Z",
-          "id": 32,
-          "createdAt": "2025-11-14T19:55:49.892Z",
-          "updatedAt": "2025-11-26T18:36:45.169Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Jader Sanchez",
-          "Country": "Colombia",
-          "AdmissionDate": "2019-06-04T05:00:00.000Z",
-          "BirthdayDate": "1972-05-11T05:00:00.000Z",
-          "id": 33,
-          "createdAt": "2025-11-14T19:55:49.892Z",
-          "updatedAt": "2025-11-26T18:36:45.250Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Alexander Navarro",
-          "Country": "Colombia",
-          "AdmissionDate": "2019-06-06T05:00:00.000Z",
-          "BirthdayDate": "1975-07-09T05:00:00.000Z",
-          "id": 34,
-          "createdAt": "2025-11-14T19:55:49.896Z",
-          "updatedAt": "2025-11-26T18:36:45.408Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Vanessa Rodriguez",
-          "Country": "Colombia",
-          "AdmissionDate": "2018-09-20T05:00:00.000Z",
-          "BirthdayDate": "1994-11-23T05:00:00.000Z",
-          "id": 35,
-          "createdAt": "2025-11-14T19:55:49.897Z",
-          "updatedAt": "2025-11-26T18:36:45.883Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Nataly Suarez",
-          "Country": "Colombia",
-          "AdmissionDate": "2018-05-21T05:00:00.000Z",
-          "BirthdayDate": "1990-01-02T05:00:00.000Z",
-          "id": 36,
-          "createdAt": "2025-11-14T19:55:49.898Z",
-          "updatedAt": "2025-11-26T18:36:46.143Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Juan José Parada",
-          "Country": "Colombia",
-          "AdmissionDate": "2017-12-15T05:00:00.000Z",
-          "BirthdayDate": "1983-10-07T05:00:00.000Z",
-          "id": 37,
-          "createdAt": "2025-11-14T19:55:49.900Z",
-          "updatedAt": "2025-11-26T18:36:46.312Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Ivan Rodríguez",
-          "Country": "Colombia",
-          "AdmissionDate": "2017-05-23T05:00:00.000Z",
-          "BirthdayDate": "1982-04-22T05:00:00.000Z",
-          "id": 38,
-          "createdAt": "2025-11-14T19:55:49.902Z",
-          "updatedAt": "2025-11-26T18:36:46.485Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "John Arevalo",
-          "Country": "España",
-          "AdmissionDate": "2020-11-23T05:00:00.000Z",
-          "BirthdayDate": "1978-11-26T05:00:00.000Z",
-          "id": 39,
-          "createdAt": "2025-11-14T19:55:49.903Z",
-          "updatedAt": "2025-11-26T18:36:46.860Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Guiancarlo Luna",
-          "Country": "Peru",
-          "AdmissionDate": "2022-04-18T05:00:00.000Z",
-          "BirthdayDate": "1994-11-19T05:00:00.000Z",
-          "id": 40,
-          "createdAt": "2025-11-14T19:55:49.904Z",
-          "updatedAt": "2025-11-26T18:36:47.216Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Eduardo Canizales",
-          "Country": "Peru",
-          "AdmissionDate": "2021-03-15T05:00:00.000Z",
-          "BirthdayDate": "1983-09-25T05:00:00.000Z",
-          "id": 41,
-          "createdAt": "2025-11-14T19:55:49.908Z",
-          "updatedAt": "2025-11-26T18:36:47.399Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Ronald Garcia",
-          "Country": "Peru",
-          "AdmissionDate": "2019-01-11T05:00:00.000Z",
-          "BirthdayDate": "1983-04-30T05:00:00.000Z",
-          "id": 42,
-          "createdAt": "2025-11-14T19:55:49.911Z",
-          "updatedAt": "2025-11-26T18:36:47.623Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Roberto Marcano",
-          "Country": "Peru",
-          "AdmissionDate": "2018-07-16T05:00:00.000Z",
-          "BirthdayDate": "1982-05-01T05:00:00.000Z",
-          "id": 43,
-          "createdAt": "2025-11-14T19:55:49.912Z",
-          "updatedAt": "2025-11-26T18:36:47.819Z"
-        }
-      },
-      {
-        "json": {
-          "Nombre": "Gian Giorgio De Gennaro",
-          "Country": "Peru",
-          "AdmissionDate": "2016-09-01T05:00:00.000Z",
-          "BirthdayDate": "1965-11-22T05:00:00.000Z",
-          "id": 44,
-          "createdAt": "2025-11-14T19:55:49.912Z",
-          "updatedAt": "2025-11-26T18:36:48.229Z"
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        -128
+      ],
+      "id": "f0c8346e-376e-49c8-b49c-3efdfc35e354",
+      "name": "Get Rows",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Google Sheets account"
         }
       }
-    ]
-  },
+    },
+    {
+      "parameters": {
+        "content": "## Actualiza automaticamente cuando noee manda un mensaje al chat\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -176,
+        -800
+      ],
+      "typeVersion": 1,
+      "id": "3c6857f8-62d2-42bb-bea3-4e81f305509e",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Lista de países\nconst countriesList = [\"Argentina\", \"Colombia\", \"Perú\", \"Costa Rica\", \"Bolivia\", \"Ecuador\", \"España\"];\n\n// Función para quitar acentos y dejar en minúsculas (Normalización)\nconst normalize = (text) => {\n  return text.normalize(\"NFD\")\n             .replace(/[\\u0300-\\u036f]/g, \"\")\n             .toLowerCase()\n             .trim();\n};\n\n// 2. Obtener el contenido y limpiar HTML de Teams\nlet rawContent = items[0].json.body.content.replace(/<[^>]*>/g, \"\");\n\n// 3. Separar por comas\nlet parts = rawContent.split(',').map(p => p.trim()).filter(p => p !== \"\");\n\nlet country = \"\";\nlet dates = [];\nlet nameParts = [];\n\n// 4. Procesamiento\nfor (let part of parts) {\n    let normalizedPart = normalize(part);\n    \n    // ¿Es un país? Comparamos versiones normalizadas\n    let foundCountry = countriesList.find(c => normalize(c) === normalizedPart);\n    \n    if (foundCountry) {\n        country = foundCountry; // Guardamos el nombre \"bonito\" (Perú)\n        continue;\n    }\n\n    // ¿Es una fecha? (dd/mm/yyyy)\n    if (/^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$/.test(part)) {\n        let [day, month, year] = part.split('/');\n        dates.push({\n            original: part,\n            dateObj: new Date(year, month - 1, day)\n        });\n        continue;\n    }\n\n    // Si no es país ni fecha, es el nombre\n    nameParts.push(part);\n}\n\n// 5. Lógica de fechas\nlet birthdayDate = \"\";\nlet admissionDate = \"\";\n\nif (dates.length >= 2) {\n    dates.sort((a, b) => a.dateObj - b.dateObj);\n    birthdayDate = dates[0].original;\n    admissionDate = dates[1].original;\n} else if (dates.length === 1) {\n    admissionDate = dates[0].original;\n}\n\nreturn {\n    name: nameParts.join(\" \"),\n    country: country,\n    birthdayDate: birthdayDate,\n    admissionDate: admissionDate\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        -592
+      ],
+      "id": "6338a46e-e79b-4611-8e16-f3835efeab2b",
+      "name": "Format Data",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "event": "newChatMessage",
+        "watchAllChats": true
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -592
+      ],
+      "id": "a78a26b2-51a7-4b47-91e2-6296eeaba367",
+      "name": "Listen Message",
+      "webhookId": "69254e38-5fcb-4783-84e3-a60f99a49b79",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "disabled": true,
+      "notes": "19:0a3d8024-1ea6-452a-99de-b81e0ee02139_3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2@unq.gbl.spaces"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "operation": "get",
+        "chatId": {
+          "__rl": true,
+          "value": "=19:0a3d8024-1ea6-452a-99de-b81e0ee02139_3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2@unq.gbl.spaces",
+          "mode": "id"
+        },
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        16,
+        -592
+      ],
+      "id": "4ce86b48-51a1-4a91-ae99-2d6f8b4688fd",
+      "name": "Get Message",
+      "webhookId": "8e3fed5b-da7b-49a2-94de-b39271e52dbf",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
@@ -741,10 +463,15 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
+    },
+    "node:Microsoft Teams Trigger": {},
+    "node:Listen Message": {},
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-01-27T18:20:58.497Z",
-  "versionId": "0e87e44f-d89d-499b-88d1-2fa47640beef"
+  "updatedAt": "2026-03-09T14:10:31.163Z",
+  "versionId": "930eab0f-a4cc-4911-b5a9-799a86ef93b4"
 }
