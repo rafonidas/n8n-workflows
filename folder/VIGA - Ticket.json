@@ -314,8 +314,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        624,
-        608
+        368,
+        224
       ]
     },
     {
@@ -1107,6 +1107,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-03-09T19:13:33.182Z",
-  "versionId": "31875440-8f77-4531-978f-bc41fdee19c2"
+  "updatedAt": "2026-03-11T20:18:47.092Z",
+  "versionId": "2f08fe1e-2787-4019-b58f-47a394435f74"
 }
