@@ -313,8 +313,8 @@
           "item": [
             {
               "mode": "everyMonth",
-              "hour": 5,
-              "minute": 3
+              "hour": 10,
+              "minute": 30
             }
           ]
         }
@@ -323,8 +323,8 @@
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
       "position": [
-        -1072,
-        -32
+        -1120,
+        64
       ],
       "id": "1ca0bfad-f89b-4ddb-8c32-0b7c20af1e42"
     },
@@ -1222,12 +1222,39 @@
           "anio": 2026,
           "mes": 1,
           "cantidad": 534737
+        },
+        {
+          "ts": "2026-03-01T10:04:17.577Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 2,
+          "cantidad": 164619
+        },
+        {
+          "ts": "2026-03-01T10:04:44.704Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 2,
+          "cantidad": 443834
+        },
+        {
+          "ts": "2026-03-01T10:07:34.465Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 2,
+          "cantidad": 532801
         }
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-02-04T18:56:41.879Z",
-  "versionId": "7fa80f14-b0f1-4f96-a2a1-c4741cb151d0"
+  "updatedAt": "2026-03-11T17:27:26.828Z",
+  "versionId": "87216cfb-cd6c-47e3-961f-a781959a1e7e"
 }
