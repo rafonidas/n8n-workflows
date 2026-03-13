@@ -270,6 +270,39 @@
           }
         ]
       ]
+    },
+    "1. Login2": {
+      "main": [
+        [
+          {
+            "node": "JWT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JWT": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Endpoint",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-12T22:23:56.201Z",
@@ -1087,6 +1120,69 @@
       ],
       "id": "28f28592-3b57-46c2-a4d4-a20f4347f7f6",
       "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "decode",
+        "token": "={{ $json.token.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.jwt",
+      "typeVersion": 1,
+      "position": [
+        560,
+        224
+      ],
+      "id": "cb1fbb3e-2ab2-4e7b-8f40-422560d4420d",
+      "name": "JWT",
+      "credentials": {
+        "jwtAuth": {
+          "id": "ILLD0X7MWwqdPFjd",
+          "name": "JWT Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9cbe1bb6-7eca-4ead-a8ad-e610858a261b",
+              "name": "InstanceId",
+              "value": "={{ $json.payload.InstanceId }}",
+              "type": "string"
+            },
+            {
+              "id": "48436490-a28a-4061-b1fc-3c58984ccc22",
+              "name": "token",
+              "value": "={{ $('1. Login2').item.json.token.token }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        768,
+        224
+      ],
+      "id": "bcae15a4-6619-4230-a350-b52b828ab880",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        224
+      ],
+      "id": "e05828b6-3014-48c6-9e8c-a119a6b1b3f7",
+      "name": "Endpoint"
     }
   ],
   "pinData": {},
@@ -1107,6 +1203,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-03-11T20:18:47.092Z",
-  "versionId": "2f08fe1e-2787-4019-b58f-47a394435f74"
+  "updatedAt": "2026-03-12T14:46:44.833Z",
+  "versionId": "1f4e9ed4-577a-401e-909c-5e1aa57c2e3b"
 }
