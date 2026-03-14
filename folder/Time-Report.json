@@ -165,7 +165,7 @@
     {
       "parameters": {
         "fromEmail": "Notificaciones@apg-consulting.com",
-        "toEmail": "todosapg@apgconsulting.com.ar",
+        "toEmail": "todosapg@apg-consulting.com",
         "subject": "RECORDATORIO | Time Report",
         "html": "=<div style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px;\">\n  <p>Hola a todos, por aquí  <strong>el asistente de automatización</strong> 🤖.</p>\n  \n  <p>Antes de que cierren la computadora y activen el modo <strong>\"descanso\"</strong>, paso a recordarles la carga del <strong>Time Report</strong> de esta semana.</p>\n\n  <div style=\"background-color: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;\">\n    <p style=\"margin-top: 0;\"><strong>Mantener esto al día nos ayuda a todos a:</strong></p>\n    <ul style=\"margin-bottom: 0;\">\n      <li>📉 <strong>No acumular trabajo</strong> para el cierre de mes.</li>\n      <li>🧠 <strong>Liberar la mente</strong> (¡es más fácil anotar hoy que el lunes!).</li>\n      <li>📊 Tener <strong>datos reales</strong> para que los proyectos fluyan mejor.</li>\n    </ul>\n  </div>\n\n  <p>Si ya completaste tus horas, ¡excelente trabajo! 🚀<br>\n  Disfrutá mucho de tu merecido descanso.</p>\n\n  <p>¡Buen fin de semana para todos!<br>\n  <strong>Atentamente, los circuitos de la oficina.</strong> ⚙️⚡</p>\n</div>",
         "options": {
@@ -219,6 +219,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-03-09T20:05:37.878Z",
-  "versionId": "20297db0-392b-40c3-aab9-c48ff8069ddd"
+  "updatedAt": "2026-03-13T20:10:32.490Z",
+  "versionId": "9501d2b9-8007-44ba-8b56-680a88689a5b"
 }
