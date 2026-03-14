@@ -1,0 +1,325 @@
+{
+  "active": true,
+  "connections": {
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Execute1": {
+      "main": [
+        [
+          {
+            "node": "Generate HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "SQL Execute1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate HTML": {
+      "main": [
+        [
+          {
+            "node": "Send Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Date": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-03-03T17:25:44.456Z",
+  "id": "YoIY78ttQ3xqiCdQ",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Eze-SQL",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 6 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -336,
+        1648
+      ],
+      "id": "1a36514f-6a15-48cc-afc2-43de5fb9527b",
+      "name": "Daily Trigger",
+      "alwaysOutputData": true,
+      "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "DECLARE @FechaInicio DATE = DATEADD(DAY, -1, GETDATE());\nDECLARE @FechaFin    DATE = GETDATE();\n;WITH Data AS \n(\n    SELECT \n        C.CuitId,\n        COUNT(*) AS Procesados,\n        SUM(CASE WHEN C.Resultado != 'R' THEN 1 ELSE 0 END) AS Aprobados\n    FROM Comprobante C\n    INNER JOIN Transaccion T \n        ON C.CuitId = T.CuitId \n       AND C.TransaccionId = T.TransaccionId\n    WHERE T.Fecha >= @FechaInicio\n      AND T.Fecha <  @FechaFin\n    GROUP BY C.CuitId\n),\nData2 AS\n(\n    SELECT\n        D.CuitId,\n        D.Procesados,\n        COALESCE(D.Aprobados, 0) AS Aprobados,\n        (D.Procesados - COALESCE(D.Aprobados, 0)) AS Erroneos\n    FROM Data D\n)\nSELECT  \n    D2.CuitId,\n    C.RazonSocial,\n    S.ConceptoComfiar AS Concepto,\n    FORMAT(D2.Procesados,'N0','es-AR') as Procesados,\n    FORMAT(D2.Aprobados,'N0','es-AR') as Aprobados,\n    FORMAT(D2.Erroneos,'N0','es-AR') as Erroneos,\n    FORMAT(\n        CASE WHEN D2.Procesados = 0 THEN 1.0 ELSE D2.Erroneos * 1.0 / D2.Procesados END,\n        'P2','es-AR'\n    ) AS PorcentajeError,\n    FORMAT(\n        D2.Erroneos *\n        CASE WHEN D2.Procesados = 0 THEN 100.0 ELSE (D2.Erroneos * 100.0 / D2.Procesados) END,\n        'N0','es-AR'\n    ) AS Ponderacion\nFROM Data2 D2\nINNER JOIN\n    Cuit as C ON D2.CuitId=c.CuitId\nINNER JOIN \n(\n    SELECT DISTINCT CuitId, FechaServDesde, FechaServHasta, ConceptoComfiar\n    FROM ServicioComfiar\n) S\n    ON S.CuitId = D2.CuitId\n   AND DATEFROMPARTS(YEAR(@FechaInicio), MONTH(@FechaInicio), 1)\n       BETWEEN DATEFROMPARTS(YEAR(S.FechaServDesde), MONTH(S.FechaServDesde), 1)\n           AND ISNULL(DATEFROMPARTS(YEAR(S.FechaServHasta), MONTH(S.FechaServHasta), 1), '9999-12-31')\nWHERE D2.Erroneos <> 0\nORDER BY \n    D2.Erroneos *\n    CASE WHEN D2.Procesados = 0 THEN 100.0 ELSE (D2.Erroneos * 100.0 / D2.Procesados) END DESC;"
+      },
+      "id": "50fb391c-7faa-43d6-a7f1-a0d185185d06",
+      "name": "SQL Execute1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        576,
+        1664
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        320,
+        1648
+      ],
+      "id": "62e5934a-c923-48f6-b63c-f589db772c50",
+      "name": "Credentials Loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "const serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    // { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    // { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    // { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    // { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    // { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    // { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        1648
+      ],
+      "id": "1b2cf074-289c-4258-bcb4-a28448e9b854",
+      "name": "Set Credentials"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all();\nconst env = $(\"Credentials Loop\").item.json;\n\n// 1. Validación mejorada: Detecta array vacío [] o array con objeto vacío [{}]\nconst hasData = results.length > 0 && Object.keys(results[0].json).length > 0;\n\nif (!hasData) {\n  return { \n    json: { \n      htmlContent: `<div style=\"font-family: Arial; padding: 15px; color: green; font-weight: bold;\">✅ No hubo errores en el entorno ${env.country} - ${env.entorno}</div>`, \n      channelId: env.channelId \n    } \n  };\n}\n\nlet html = `<div style=\"font-family: Arial; border: 1px solid #ccc; padding: 15px;\">`;\nhtml += `<p style=\"font-size: 20px; font-weight: bold; color: #000; margin: 0;\">País y Entorno: ${env.country} - ${env.entorno}</p><br>`;\n\nhtml += `<table border=\"1\" style=\"border-collapse: collapse; width: 100%; text-align: left;\">`;\nhtml += `<tr style=\"background: #f2f2f2;\"><th>CuitId</th><th>RazonSocial</th><th>Concepto</th><th>Procesados</th><th>Aprobados</th><th>Erroneos</th><th>PorcentajeError</th><th>Ponderacion</th></tr>`;\n\nfor (const row of results) {\n  // 2. Uso de operadores de respaldo para evitar el \"undefined\"\n  html += `<tr>\n    <td>${row.json.CuitId ?? ''}</td>\n    <td>${row.json.RazonSocial ?? ''}</td>\n    <td>${row.json.Concepto ?? ''}</td>\n    <td>${row.json.Procesados ?? 0}</td>\n    <td>${row.json.Aprobados ?? 0}</td>\n    <td>${row.json.Erroneos ?? 0}</td>\n    <td>${row.json.PorcentajeError ?? '0%'}</td>\n    <td>${row.json.Ponderacion ?? ''}</td>\n  </tr>`;\n}\n\nhtml += `</table></div>`;\n\nreturn { json: { htmlContent: html, channelId: env.channelId } };"
+      },
+      "id": "395d3bf0-1f95-4be7-a94c-468ae4f0062d",
+      "name": "Generate HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        1664
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        1424
+      ],
+      "id": "b1a691a3-8252-4119-b000-3433f5921067",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "389ab60c-4f23-4a7f-9764-841485242703",
+          "mode": "list",
+          "cachedResultName": "IT APG"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:1cf614345cc64242b89e005bc2a986bc@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Estadísticas de Errores de Comprobantes",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A1cf614345cc64242b89e005bc2a986bc%40thread.tacv2/Estad%C3%ADsticas%20de%20Errores%20de%20Comprobantes?groupId=389ab60c-4f23-4a7f-9764-841485242703&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<div style=\"font-size: 30px; color: #000000; font-weight: bold;\">\n  ☀️ {{ $now.setLocale('es').format(\"EEEE, d 'de' MMMM\").toUpperCase() }}\n</div>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        1648
+      ],
+      "id": "4f5152c5-306c-4081-8368-46e2bcee4226",
+      "name": "Send Date",
+      "webhookId": "0b88435e-7493-4165-9091-64f1aff8e0d7",
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "notes": "{{ $(\"Credentials Loop\").first().json.channelId }}"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "389ab60c-4f23-4a7f-9764-841485242703",
+          "mode": "list",
+          "cachedResultName": "IT APG"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:1cf614345cc64242b89e005bc2a986bc@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Estadísticas de Errores de Comprobantes",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A1cf614345cc64242b89e005bc2a986bc%40thread.tacv2/Estad%C3%ADsticas%20de%20Errores%20de%20Comprobantes?groupId=389ab60c-4f23-4a7f-9764-841485242703&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        1664
+      ],
+      "id": "1dc245e2-9abe-4792-95da-58da58fc5de9",
+      "name": "Send Results",
+      "webhookId": "0b88435e-7493-4165-9091-64f1aff8e0d7",
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "notes": "{{ $(\"Credentials Loop\").first().json.channelId }}"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "saveExecutionProgress": true,
+    "executionTimeout": 7200,
+    "timeSavedPerExecution": 20,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-03-03T17:25:44.456Z",
+      "updatedAt": "2026-03-03T17:25:44.456Z",
+      "role": "workflow:owner",
+      "workflowId": "YoIY78ttQ3xqiCdQ",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Daily Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Four-hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Bi-hourly Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2026-02-22T15:41:09.896Z",
+      "updatedAt": "2026-02-22T15:41:09.896Z",
+      "id": "9JTNtucyisgoOCMZ",
+      "name": "Rafa"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-03-13T12:16:53.125Z",
+  "versionId": "a4ff8f68-ed08-472a-93fb-4dd895136c58"
+}
