@@ -511,7 +511,7 @@
           "name": "N8N-TeamsAccount"
         }
       },
-      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+      "notes": "{{ $(\"Credentials Loop\").first().json.channelId }}"
     },
     {
       "parameters": {
@@ -595,7 +595,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 9-18/2 * * 1-5"
+              "expression": "0 8-18/2 * * 1-5"
             }
           ]
         }
@@ -1034,7 +1034,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -1173,7 +1173,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -1299,10 +1299,11 @@
       ],
       "id": "97cd3218-1295-431a-a4bb-0bb1b9836a3c",
       "name": "Update Tasks",
+      "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -1376,6 +1377,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-02-10T12:53:24.440Z",
-  "versionId": "1ac23dc7-a838-4b9e-8083-3684955f1ce5"
+  "updatedAt": "2026-03-15T21:52:24.474Z",
+  "versionId": "ec5299f3-7e10-4c15-a3bf-0406268e748f"
 }
