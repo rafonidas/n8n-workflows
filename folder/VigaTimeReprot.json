@@ -375,7 +375,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -445,7 +445,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -524,7 +524,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -791,7 +791,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -900,7 +900,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -1017,7 +1017,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -1087,7 +1087,7 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
@@ -1197,9 +1197,30 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "LMbtWNGXPZLNnpdf",
+          "mode": "list",
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        144,
+        144
+      ],
+      "id": "d1859d25-16d6-492f-a7c9-9ebc9975291e",
+      "name": "Get row(s)"
     }
   ],
   "pinData": {},
@@ -1218,6 +1239,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-13T20:42:07.170Z",
-  "versionId": "dfb7e1d9-0b12-4cfa-93a5-ad810391918a"
+  "updatedAt": "2026-03-16T18:05:18.948Z",
+  "versionId": "51a5eb4b-fa52-43d2-8e4e-6642338c2a54"
 }
