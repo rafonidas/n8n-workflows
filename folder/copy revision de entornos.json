@@ -1,17 +1,6 @@
 {
   "active": false,
   "connections": {
-    "Daily Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Query Loop": {
       "main": [
         [
@@ -68,7 +57,7 @@
       "main": [
         [
           {
-            "node": "UPDATE",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -86,44 +75,11 @@
         ]
       ]
     },
-    "Weekly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Monthly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Fan Out": {
       "main": [
         [
           {
             "node": "Query Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Bi-hourly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
             "type": "main",
             "index": 0
           }
@@ -146,17 +102,6 @@
         [
           {
             "node": "Set  HTML",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Nightly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
             "type": "main",
             "index": 0
           }
@@ -265,22 +210,6 @@
         ]
       ]
     },
-    "Four-hourly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Append or update row in sheet1": {
-      "main": [
-        []
-      ]
-    },
     "UPDATE": {
       "main": [
         [
@@ -292,24 +221,371 @@
         ]
       ]
     },
-    "Set Tasks": {
+    "Set Credentials": {
       "main": [
         [
           {
-            "node": "List Tasks",
+            "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "List Tasks": {
+    "Send Results1": {
       "main": [
+        [
+          {
+            "node": "Teams Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
         []
       ]
     },
-    "Set Credentials": {
+    "If2": {
       "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Send Results2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bi-hourly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Four-hourly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Tasks": {
+      "main": [
+        [
+          {
+            "node": "Set Tasks State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Metrics": {
+      "main": [
+        [
+          {
+            "node": "Map Results1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Tasks": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Wait": {
+      "main": [
+        [
+          {
+            "node": "Send Results3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials1": {
+      "main": [
+        [
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Loop1": {
+      "main": [
+        [
+          {
+            "node": "Fan In1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit Start1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Queries1": {
+      "main": [
+        [
+          {
+            "node": "Filter Queries1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Set Queries1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Results1": {
+      "main": [
+        [
+          {
+            "node": "Query Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results3": {
+      "main": [
+        [
+          {
+            "node": "Update Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan Out1": {
+      "main": [
+        [
+          {
+            "node": "Query Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set  HTML1": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan In1": {
+      "main": [
+        [
+          {
+            "node": "Set  HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Queries1": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Fan Out1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Random Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hourly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit End1": {
+      "main": [
+        [
+          {
+            "node": "Update Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit Start1": {
+      "main": [
+        [
+          {
+            "node": "SQL Execute1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Execute1": {
+      "main": [
+        [
+          {
+            "node": "Audit End1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Set Tasks",
@@ -317,7 +593,29 @@
             "index": 0
           },
           {
-            "node": "Credentials Loop",
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Set Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
             "type": "main",
             "index": 0
           }
@@ -333,28 +631,6 @@
   },
   "name": "copy revision de entornos",
   "nodes": [
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 0 7 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        1024
-      ],
-      "id": "8ed3c4f4-148a-4f9d-8213-5359b1b6ce3e",
-      "name": "Daily Trigger",
-      "alwaysOutputData": true,
-      "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
-    },
     {
       "parameters": {
         "options": {
@@ -375,8 +651,10 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "ncHyc8XHByDgMhAr",
-          "mode": "id"
+          "value": "LMbtWNGXPZLNnpdf",
+          "mode": "list",
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
         },
         "matchType": "allConditions",
         "filters": {
@@ -400,7 +678,8 @@
       "name": "Set Queries",
       "retryOnFail": true,
       "maxTries": 2,
-      "waitBetweenTries": 5000
+      "waitBetweenTries": 5000,
+      "disabled": true
     },
     {
       "parameters": {
@@ -422,7 +701,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1488,
+        1696,
         656
       ],
       "id": "8f0d050a-97f9-4def-b3b6-2eeb27e3017d",
@@ -445,7 +724,7 @@
           "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
         },
         "contentType": "html",
-        "message": "={{ $json.htmlContent }}",
+        "message": "={{ $json.htmlContent. }}",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -453,13 +732,13 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        1664,
-        416
+        1760,
+        192
       ],
       "id": "f5ecef8c-ce91-4653-bf80-17a6a8d5fd37",
       "name": "Send Results",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
-      "retryOnFail": true,
+      "retryOnFail": false,
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
@@ -475,59 +754,12 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2112,
+        2320,
         416
       ],
       "id": "9e611281-d71d-4eb4-aabf-ab59c9ce3165",
       "name": "Wait",
-      "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "weeks",
-              "triggerAtDay": [
-                2
-              ],
-              "triggerAtHour": 9
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        864
-      ],
-      "id": "13e352c7-7bca-4beb-9248-e8ce277438bf",
-      "name": "Weekly Trigger",
-      "alwaysOutputData": true,
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "months",
-              "triggerAtDayOfMonth": "={{ 1 || 2 }}",
-              "triggerAtHour": 7
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        720
-      ],
-      "id": "ec875b2c-af0c-43fa-aa05-a3a304e742d1",
-      "name": "Monthly Trigger",
-      "alwaysOutputData": true,
+      "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a",
       "disabled": true
     },
     {
@@ -543,28 +775,6 @@
       "id": "92de35ea-d477-404b-9d24-f47a2f860a25",
       "name": "Fan Out",
       "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 9-18/2 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        576
-      ],
-      "id": "1aca7ff9-5c9e-4a27-a0be-0428d25f1d7e",
-      "name": "Bi-hourly Trigger",
-      "disabled": true,
-      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
     {
       "parameters": {
@@ -595,28 +805,6 @@
       "id": "76906db5-1c2c-458b-96fb-11b4f55c91f0",
       "name": "Fan In",
       "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 23 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        432
-      ],
-      "id": "a0fdb4fb-1708-4139-9ac4-3cc6818b0182",
-      "name": "Nightly Trigger",
-      "disabled": true,
-      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
     {
       "parameters": {
@@ -705,8 +893,7 @@
         "rule": {
           "interval": [
             {
-              "field": "cronExpression",
-              "expression": "0 9-18/1 * * 1-5"
+              "field": "seconds"
             }
           ]
         }
@@ -714,8 +901,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1568,
-        288
+        -1552,
+        640
       ],
       "id": "0f58b87f-1300-4be2-977f-0bc421e069a7",
       "name": "Hourly Trigger"
@@ -731,7 +918,8 @@
         656
       ],
       "id": "add32750-cd64-4f29-969d-d2f9a7dd9aa1",
-      "name": "Audit End"
+      "name": "Audit End",
+      "disabled": true
     },
     {
       "parameters": {
@@ -744,19 +932,20 @@
         656
       ],
       "id": "9e17f294-4d56-48e1-8105-e0a6fa69616a",
-      "name": "Audit Start"
+      "name": "Audit Start",
+      "disabled": true
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+        "query": "select cuitid, puntodeventaid, fechainicioevento, EstadoEvento  \n\n  from bolfe_eventos with(Nolock) where ESTADOEVENTO in ('INICIADA','EN PROCESO') "
       },
       "id": "e9fcf7cc-b119-4d06-becf-83bcd16a7b31",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        992,
+        880,
         656
       ],
       "notesInFlow": false,
@@ -764,8 +953,8 @@
       "retryOnFail": true,
       "credentials": {
         "microsoftSql": {
-          "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
+          "id": "7G3SN0kKPTZvCl0e",
+          "name": "SQL-04"
         }
       }
     },
@@ -893,7 +1082,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1344,
+        1552,
         1040
       ],
       "id": "98016bfe-8061-4179-a6fb-070653e12e45",
@@ -904,31 +1093,10 @@
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       },
       "disabled": true
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "30 9 * * 1-5 comando"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1568,
-        128
-      ],
-      "id": "286d21fb-c081-41fd-aa12-f43056018f25",
-      "name": "Four-hourly Trigger",
-      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
     {
       "parameters": {
@@ -944,35 +1112,6 @@
       "typeVersion": 1,
       "id": "d1c8e619-0eda-4b1a-9ada-c5a339ad5112",
       "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
-        "operation": "appendOrUpdate",
-        "documentId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "sheetName": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        1904,
-        -160
-      ],
-      "id": "d1807e6e-8a85-4328-a58a-c243d387cb01",
-      "name": "Append or update row in sheet1",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1080,29 +1219,346 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1888,
-        416
+        2048,
+        336
       ],
       "id": "ea89adc9-90b3-4845-a6ab-c932935edee1",
       "name": "UPDATE",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
-        "jsCode": "const now = $now\nconst today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: now\n    }\n  };\n});"
+        "jsCode": "const serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1088,
-        464
+        -1264,
+        640
       ],
-      "id": "7889cd56-8579-48b4-9118-6f4f4ff45582",
+      "id": "15507e07-e49a-4767-bc74-09b8198c3443",
+      "name": "Set Credentials"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4f709539-c00d-42e0-b5d4-b25b535d2493",
+              "name": "outpot",
+              "value": "{{$json}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2032,
+        192
+      ],
+      "id": "befcb256-9bea-46c8-941b-0e4d6ca93675",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        -160
+      ],
+      "id": "cab7e3c7-55e3-47d8-b999-98b2b16a16ac",
+      "name": "Send Results1",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2000,
+        -480
+      ],
+      "id": "27a90c2e-0ef8-4baf-845a-44c3e61b12f3",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 30) + 1 }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        -176
+      ],
+      "id": "55bf5657-ce3d-4606-a47d-1c3602b4727f",
+      "name": "Wait1",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09d00dc8-81c3-45a4-8d52-c4e8cd69b1a3",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "No authorization information present on the request.",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1968,
+        -80
+      ],
+      "id": "17e5c192-16d8-4bcf-b5a4-38caeb663803",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ $item(\"0\").$node[\"Send Results1\"].json[\"error\"] }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        48
+      ],
+      "id": "40c463ca-623e-47c1-a583-d6d55a404534",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "amount": "=30"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2288,
+        -192
+      ],
+      "id": "f79b39fb-2c00-4d85-b0f3-f3b5e3a4fdab",
+      "name": "Wait2",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "=53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "=19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $item(\"0\").$node[\"Send Results2\"].json[\"htmlContent\"] }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        2464,
+        -192
+      ],
+      "id": "43ae73a5-e3de-4d10-8c73-97efe5f8c3f1",
+      "name": "Send Results2",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": false,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        960,
+        -1888
+      ],
+      "typeVersion": 1,
+      "id": "19457282-b86f-4390-8a2c-361544444b51",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 5 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1984,
+        -656
+      ],
+      "id": "3084a04d-0dea-44ce-b0c2-0c753ad8797f",
+      "name": "Daily Trigger",
+      "alwaysOutputData": true,
+      "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "10 8-18/2 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1936,
+        -96
+      ],
+      "id": "e70c72e8-a47d-4182-a14c-51dfc4f9cd7e",
+      "name": "Bi-hourly Trigger",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 9 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 13 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 17 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1968,
+        -480
+      ],
+      "id": "48ae5137-a261-45cb-8b38-7541c12fbefd",
+      "name": "Four-hourly Trigger",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger1\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\n// Configuración ARGENTINA\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"test\", country: \"AR\", channelId : \"\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"test\", country: \"PE\", channelId : \" \"},\n    { db: \"test.comfiar.co.cr\", entorno: \"test\", country: \"CR\", channelId : \" \"},\n    { db: \"test.comfiar.com.bo\", entorno: \"test\", country: \"BO\", channelId : \" \"},\n    { db: \"test.comfiar.com.ec\", entorno: \"test\", country: \"EC\", channelId : \" \"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Configuración COLOMBIA\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"test\", country: \"CO\", channelId : \"\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\n// Función auxiliar para mapear\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,     // ESTE CAMPO ES CLAVE PARA EL FILTRO\n          channelId: db.channelId,\n          country: db.country,\n          \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n// Retornamos la lista combinada (ARG + COL)\nreturn [...dbsArg, ...dbsCol, ...dbsCol4];\n//"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        272
+      ],
+      "id": "c6f3d298-0b51-406c-a964-2e1136f14627",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1984,
+        -848
+      ],
+      "id": "43ad504d-8853-44e5-9bc6-814c00061bde",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials1').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials1').all();\n\nif (executionType !== \"Daily\") {\n  return null;\n}\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        -1056
+      ],
+      "id": "e289aa4b-58fb-4143-914b-4546c58c4be0",
       "name": "Set Tasks"
     },
     {
@@ -1124,7 +1580,9 @@
         },
         "columns": {
           "mappingMode": "autoMapInputData",
-          "value": {},
+          "value": {
+            "Ultima_Actualizacion": "="
+          },
           "matchingColumns": [],
           "schema": [
             {
@@ -1199,33 +1657,979 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -896,
-        464
+        -352,
+        -1056
       ],
-      "id": "636a1ed0-9ea8-4bd5-8894-ee50acd52e4f",
-      "name": "List Tasks",
+      "id": "bab445c9-bb96-4f14-9239-e0184af06147",
+      "name": "Set Tasks State",
+      "alwaysOutputData": false,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
-          "name": "Google Sheets account"
+          "name": "Rafa-Sheets"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"test.comfiar.com.ec\", entorno: \"test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nreturn [...dbsArg, ...dbsCol, ...dbsCol4];\n"
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0",
+          "mode": "list",
+          "cachedResultName": "query_metrics",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1504,
+        -704
+      ],
+      "id": "815c4310-7856-4576-b45a-e05275da58fb",
+      "name": "Update Metrics",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Estado": "OK",
+            "ID_Unico": "={{ $node[\"Credentials Loop1\"].json.country }}_{{ $node[\"Credentials Loop1\"].json.entorno }}_{{ $node[\"Credentials Loop1\"].json.type }}_{{ $today.format('yyyy-MM-dd') }}",
+            "Ultima_Actualizacion": "={{$now}}"
+          },
+          "matchingColumns": [
+            "ID_Unico"
+          ],
+          "schema": [
+            {
+              "id": "ID_Unico",
+              "displayName": "ID_Unico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pais",
+              "displayName": "Pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Frecuencia",
+              "displayName": "Frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ultima_Actualizacion",
+              "displayName": "Ultima_Actualizacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2208,
+        -768
+      ],
+      "id": "7ed46fb9-2130-4e03-a894-ca4b559c85d3",
+      "name": "Update Tasks",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -304,
+        -1616
+      ],
+      "typeVersion": 1,
+      "id": "60347322-7ae2-45cd-be25-4c911b23c731",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT e.CuitId, e.TransaccionId, e.PuntoDeVentaId, e.TipoComprobanteId, e.NroCbte, e.Cod EstadoPublicacion, e.ErrorPDF, E.ErrorPDFMotivo, c.Resultado\nFROM comprobante C WITH(NOLOCK) \ninner join EstadoPublicacion E WITH(NOLOCK) on c.CuitId=e.CuitId and c.TransaccionId=e.TransaccionId and c.PuntoDeVentaId=e.PuntoDeVentaId and c.TipoComprobanteId=e.TipoComprobanteId and c.NroCbte=e.NroCbte\nWHERE c.FechaCbte > DATEADD(day, -5, GETDATE()) AND  Resultado != 'R' and c.TipoComprobanteId!=99 and UsuarioAnulacion is null  and ((c.error=0 and  c.ErrorDesc='El comprobante no puede generarse dado que el reporte o los datos no son válidos.' ) or e.ErrorPDF!=0)\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        1296,
+        -1280
+      ],
+      "id": "11f82ad7-2508-4e44-b40b-393c988bcd4a",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 30) + 1 }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1712,
+        -992
+      ],
+      "id": "d7265332-19cd-49d9-b02a-941443d7cc37",
+      "name": "Random Wait",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger1\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         -1264,
-        640
+        -720
       ],
-      "id": "15507e07-e49a-4767-bc74-09b8198c3443",
-      "name": "Set Credentials"
+      "id": "a4003dba-1ae5-4e2e-b7a4-a4abf33a2a14",
+      "name": "Set Credentials1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Query Loop1'].context['done']}}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        736,
+        -704
+      ],
+      "id": "d4d0afa0-5caa-4fe1-8948-b23fdabbf146",
+      "name": "Query Loop1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "LMbtWNGXPZLNnpdf",
+          "mode": "list",
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "=type",
+              "condition": "=eq",
+              "keyValue": "={{ $json.type }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -704
+      ],
+      "id": "efa275df-39e0-4768-b499-ffbd0b2ce17c",
+      "name": "Set Queries1",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -304,
+        -720
+      ],
+      "id": "60352f3d-8e6a-4819-82ef-3dcb1d4705ba",
+      "name": "Credentials Loop1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sqlResults = $(\"SQL Execute1\").all().map(i => i.json);\n\nconst contextItem = $node[\"Query Loop1\"].json;\n\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\nreturn { json: outputItem };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        -704
+      ],
+      "id": "3dd9f217-d4f7-418a-90b2-7a2b880494ca",
+      "name": "Map Results1"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $(\"Credentials Loop1\").first().json.channelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        -928
+      ],
+      "id": "17422503-0c1c-4d33-b531-3317e36e6270",
+      "name": "Send Results3",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "disabled": true,
+      "onError": "continueErrorOutput",
+      "notes": "{{ $(\"Credentials Loop\").first().json.channelId }}"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2384,
+        -768
+      ],
+      "id": "69a804d7-bdfc-4870-b329-9dffff4694fb",
+      "name": "Wait3",
+      "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN OUT - DIVISOR]\n// MODO: Run Once for ALL Items\n\nconst allOutputItems = [];\nconst separatorRegex = /\\s*-{2,3}\\s*[\\r\\n]+/; \n\nfor (const item of items) {\n  const parentItem = item;\n  const json = parentItem.json;\n  \n  const revQuery = json.revisionQuery || '';\n  const corQuery = json.correctionQuery || '';\n  const queryId = json.queryId;\n\n  const revQueriesParts = revQuery.split(separatorRegex).filter(p => p.trim().length > 0);\n\n  if (revQueriesParts.length > 1) {\n    // --- CASO 1: Query Particionada (1.3) ---\n    const corQueriesParts = corQuery ? corQuery.split(separatorRegex).filter(p => p.trim().length > 0) : [];\n\n    revQueriesParts.forEach((subRevQuery, index) => {\n      const newItem = JSON.parse(JSON.stringify(json));\n      newItem.revisionQuery = subRevQuery.trim();\n      \n      let associatedCor = null;\n      if (corQueriesParts.length > 0 && corQueriesParts[index]) {\n        associatedCor = corQueriesParts[index].trim();\n      }\n      newItem.associatedCorrection = associatedCor;\n\n      newItem.queryType = 'revision';\n      newItem.subQueryIndex = index;\n      newItem.parentGroupId = queryId; \n      \n      delete newItem.correctionQuery; // Aquí SÍ borramos porque está partida\n      allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n    });\n\n  } else {\n    // --- CASO 2: Query Normal (1.2, etc) ---\n    const newItem = JSON.parse(JSON.stringify(json));\n    \n    newItem.revisionQuery = revQuery.trim();\n    // CORRECCIÓN AQUÍ: Mantenemos correctionQuery original para que llegue al HTML\n    newItem.correctionQuery = corQuery.trim(); \n    \n    // Opcional: dejamos associatedCorrection por si alguna lógica futura lo usa\n    newItem.associatedCorrection = corQuery.trim();\n\n    newItem.queryType = 'revision';\n    newItem.subQueryIndex = 0;\n    \n    delete newItem.parentGroupId; \n    // ELIMINADO: delete newItem.correctionQuery;  <-- ESTA LÍNEA CAUSABA EL ERROR\n\n    allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n  }\n}\n\nreturn allOutputItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -704
+      ],
+      "id": "69520e3f-570b-4aae-8b09-9f62f53688af",
+      "name": "Fan Out1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: Set HTML - Versión Ultra-Ligera]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\nlet frequency = \"\"\n\nlet reportType = \"General\";\ntry { \n    reportType = $(\"Credentials Loop1\").first().json[\"type\"] || \"General\"; \n} catch(e) {}\n\n// Si no hay ítems de entrada, validamos anti-spam básico\nif (allItems.length === 0) {\n    if (['Bi-hourly', 'Hourly'].includes(reportType)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\n\n// --- 1. ESTILOS MÍNIMOS (Centralizados para evitar repetición) ---\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    table: 'width:100%;border-collapse:collapse;', // El resto se maneja con atributos nativos\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n    const results = item.result;\n    \n    let isEmpty = false;\n    if (!results) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150; // AHORA PUEDES SUBIR ESTE LÍMITE\n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    // USO DE ATRIBUTOS NATIVOS: border, cellpadding y cellspacing para ahorrar bytes por celda\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`; // CERO estilos aquí, hereda del contenedor\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// --- 3. REPORTE FINAL ---\nlet finalHtml = `<div style=\"${styles.container}\">`;\n// --- 3. LÓGICA ANTI-SPAM FINAL ---\n// Si es Bi-hourly o Hourly y no hay contenido relevante, no enviamos nada (Array vacío)\nif (['Bi-hourly', 'Hourly'].includes(reportType) && validHtmlParts.length === 0) {\n    return [];\n}\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\nif (reportType === \"Daily\") {\n   frequency = \"Diaria\"\n} if (reportType === \"Four-hourly\") {\n   frequency = \"cada 4 horas\"\n} if (reportType === \"Hourly\") {\n   frequency = \"cada 1 hora\"\n}\n\n\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la Revisión de Entornos ${frequency} </h2>`;\n\nif (validHtmlParts.length === 0) {\n    let reportType = \"General\";\n    try { reportType = $(\"Credentials Loop1\").first().json[\"type\"] || \"General\"; } catch(e){}\n    if (['Bi-hourly', 'Nightly'].includes(reportType)) return []; \n\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades.</div>`;\n} else {\n    // Hr simplificado\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    \n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\nfinalHtml += `</div>`;\n\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: parentPairedItem\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        -928
+      ],
+      "id": "30cc00d8-fd68-46df-a3b9-f9cd563886a1",
+      "name": "Set  HTML1",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "notes": "// [NODO: Set HTML]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n// Si no llegó nada al nodo, salimos con un mensaje básico.\nif (allItems.length === 0) {\n  return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\n// --- Obtener el tipo de reporte (Daily, Weekly, etc.) ---\nlet reportType = \"General\";\ntry {\n  // Intentamos leer el tipo desde el primer item del Loop de Credenciales\n  reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\";\n} catch (error) {\n  // Si falla, usamos el valor por defecto\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; // Aquí acumularemos solo los reportes que tengan datos\n\n// --- Configuración Visual (Estilos para Teams/Email) ---\nconst MAX_ROWS = 20;\nconst MAX_COLS = 6;\n\nconst styles = {\n  table: 'border-collapse: collapse; margin-bottom: 10px; width: 100%;', \n  th: 'padding: 5px; text-align: left; font-weight: bold; border: 1px solid #ddd;', \n  td: 'padding: 5px; vertical-align: top; border: 1px solid #ddd;',\n  p: 'font-size: 14px; margin: 0 0 10px 0;',\n  p_notice: 'font-size: 12px; font-style: italic; color: #666;',\n  h3: 'margin-bottom: 5px; font-size: 16px; font-weight: bold; color: #000;',\n  pre: 'font-family: monospace; white-space: pre-wrap; word-wrap: break-word; font-size: 11px; margin-top: 0;',\n  hr: 'border: 0; border-top: 1px solid #ccc; margin: 15px 0;',\n  queryLabel: 'font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 0; margin-top: 10px;',\n  mainTitle: 'font-size: 24px; font-weight: bold; color: #000; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;'\n};\n\n// --- Construcción del Título Principal ---\nconst reportTypeFormatted = reportType.charAt(0).toUpperCase() + reportType.slice(1);\nlet combinedHtml = `<h1 style=\"${styles.mainTitle}\">Resultados de revisión ${reportTypeFormatted}</h1>`;\n\n// --- Bucle Principal sobre cada Query ---\nfor (const item of allQueries) {\n  const results = item.result;\n  \n  // 1. FILTRO DE RESULTADOS VACÍOS\n  // Verificamos si results es null, vacío o un array con un objeto vacío.\n  let isEmpty = false;\n  if (!results) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 0) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 1) {\n    const firstItem = results[0];\n    if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n      isEmpty = true;\n    }\n  }\n\n  // REGLA: \"No se muestre nada si el punto no da resultado\"\n  if (isEmpty) {\n    continue; // Saltamos a la siguiente iteración inmediatamente\n  }\n\n  // --- Si llegamos aquí, ES PORQUE HAY DATOS PARA MOSTRAR ---\n  let itemHtml = \"\";\n\n  // Título del Punto\n  itemHtml += `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n  // 2. CONSTRUCCIÓN DE LA TABLA\n  let data = results;\n  let limitedRows = false;\n  let limitedCols = false;\n\n  // Lógica de límites (filas)\n  if (results.length > MAX_ROWS) {\n    data = results.slice(0, MAX_ROWS);\n    limitedRows = true;\n  }\n\n  // Obtener cabeceras\n  let headers = Object.keys(data[0] || {});\n  \n  // Lógica de límites (columnas)\n  if (headers.length > MAX_COLS) {\n    headers = headers.slice(0, MAX_COLS);\n    limitedCols = true;\n  }\n\n  // HTML de la Tabla\n  itemHtml += `<table border=\"1\" style=\"${styles.table}\">`;\n  itemHtml += '<thead><tr>';\n  for (const header of headers) itemHtml += `<th style=\"${styles.th}\">${header}</th>`;\n  itemHtml += \"</tr></thead>\";\n  \n  itemHtml += \"<tbody>\";\n  for (const row of data) {\n    itemHtml += \"<tr>\";\n    for (const header of headers) {\n      // Manejo seguro de null/undefined y escape de caracteres HTML\n      const value = (row[header] === null || typeof row[header] === \"undefined\") \n        ? \"\" \n        : String(row[header]).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n      itemHtml += `<td style=\"${styles.td}\">${value}</td>`;\n    }\n    itemHtml += \"</tr>\";\n  }\n  itemHtml += \"</tbody></table>\";\n\n  // Avisos de recorte de datos\n  let notices = \"\";\n  if (limitedRows) notices += `(Se muestran ${MAX_ROWS} filas de ${results.length}). `;\n  if (limitedCols) notices += `(Se muestran ${MAX_COLS} columnas de ${Object.keys(results[0]).length}).`;\n  if (notices) itemHtml += `<p style=\"${styles.p_notice}\">${notices.trim()}</p>`;\n\n  // 3. LÓGICA DE PATRONES (1, 2, 3)\n  // Convertimos a string por seguridad\n  const pattern = String(item.pattern || \"0\").trim();\n\n  // REGLA: Solo mostramos queries si el patrón es '2'\n  if (pattern === '2') {\n    const selectQuery = item.revisionQuery || \"(No se proporcionó SELECT)\";\n    const correctionQuery = item.correctionQuery || \"(No se proporcionó UPDATE)\";\n    const combinedQueryText = `\n    -- SELECT --\n    ${selectQuery}\n\n    -- UPDATE --\n    ${correctionQuery}\n    `.trim();\n\n    itemHtml += `<div style=\"margin-top: 10px;\">`;\n    itemHtml += `<p style=\"${styles.queryLabel}\">Script:</p>`;\n    // Renderizamos UNA SOLA caja <pre> con todo el contenido\n    itemHtml += `<pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    itemHtml += `</div>`;\n  }\n  // Pattern 1 y 3 (y otros) no muestran nada aquí.\n\n  validHtmlParts.push(itemHtml);\n}\n  \n// --- GENERACIÓN FINAL ---\n\nif (validHtmlParts.length === 0) {\n  // Caso: Se ejecutó el flujo, pero todas las queries vinieron vacías.\n  // Mensaje final indicando que todo está limpio.\n  combinedHtml += `<p style=\"${styles.p}\">No se encontraron novedades ni datos para revisar en este entorno el día de hoy.</p>`;\n} else {\n  // Unimos todas las partes válidas con un separador <hr>\n  combinedHtml += validHtmlParts.join(`<hr style=\"${styles.hr}\">`);\n}\n\n// Retornamos el contenido para el siguiente nodo (Teams/Email)\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\n\nreturn { \n    json: { htmlContent: combinedHtml },\n    pairedItem: parentPairedItem\n};"
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN IN - AGREGADOR]\n// MODO: Run Once for All Items\n\nconst groupedItems = new Map();\nconst finalOutput = [];\n\nconst hasData = (sqlResultData) => {\n  if (!sqlResultData || !Array.isArray(sqlResultData) || sqlResultData.length === 0) return false;\n  return sqlResultData.some(row => (row && Object.keys(row).length > 0));\n};\n\nfor (const item of items) {\n  const json = item.json;\n  const parentId = json.parentGroupId;\n\n  // --- CASO 1: ITEM NORMAL ---\n  if (!parentId) {\n    finalOutput.push(item);\n    continue;\n  }\n\n  // --- CASO 2: ITEM PARTICIONADO ---\n  if (hasData(json.result)) {\n    if (!groupedItems.has(parentId)) {\n      const baseItem = JSON.parse(JSON.stringify(item));\n      if (baseItem.json.associatedCorrection) {\n         baseItem.json.correctionQuery = baseItem.json.associatedCorrection;\n      }\n      baseItem.json.revisionQuery = (baseItem.json.revisionQuery || '').trim();\n      baseItem.json.correctionQuery = (baseItem.json.correctionQuery || '').trim();\n      groupedItems.set(parentId, baseItem);\n    } else {\n      const groupItem = groupedItems.get(parentId);\n      const currentJson = json;\n      groupItem.json.result.push(...currentJson.result);\n      \n      if (currentJson.revisionQuery) {\n        groupItem.json.revisionQuery += '\\n\\n' + currentJson.revisionQuery.trim();\n      }\n      const currentCorrection = currentJson.associatedCorrection || currentJson.correctionQuery;\n      if (currentCorrection) {\n        const prevCorrection = groupItem.json.correctionQuery;\n        groupItem.json.correctionQuery = prevCorrection \n          ? prevCorrection + '\\n\\n' + currentCorrection.trim() \n          : currentCorrection.trim();\n      }\n    }\n  }\n}\n\n// Volcamos los grupos al array final\nfor (const groupItem of groupedItems.values()) {\n  const json = groupItem.json;\n  delete json.parentGroupId;\n  delete json.subQueryIndex;\n  delete json.queryType;\n  delete json.associatedCorrection;\n  groupItem.json = json;\n  finalOutput.push(groupItem);\n}\n\n// CORRECCIÓN DE ORDEN: Ordenamos por queryId (ej: 1.2, 1.3, 1.4)\n// Asumimos que queryId es un string como \"1.2\", \"1.3\", \"4.9\". \n// Usamos localeCompare con 'numeric: true' para que ordene bien números (2 vs 10).\nfinalOutput.sort((a, b) => {\n    const idA = String(a.json.queryId || '');\n    const idB = String(b.json.queryId || '');\n    return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });\n});\n\nreturn finalOutput;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -928
+      ],
+      "id": "4658c2b8-9b13-4e8c-b88e-1eccaeaaa5a0",
+      "name": "Fan In1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Accedemos a las credenciales de la iteración actual del bucle\nconst loopItem = $('Credentials Loop1').item.json;\n\n// IMPORTANTE: Aquí corregí 'env' por 'entorno' para coincidir con tu nodo Set Credentials\nconst currentEnv = (loopItem.entorno || '').toString().trim().toUpperCase();\nconst currentCountry = (loopItem.country || '').toString().trim().toUpperCase();\n\n// Filtramos las queries que vienen del Data Table\nreturn items.filter(item => {\n  const query = item.json;\n\n  // --- 1. LÓGICA DE PAÍS ---\n  // Si la celda está vacía o dice ALL, asumimos que es para todos\n  let queryCountries = (query.country || 'ALL').toString().toUpperCase().trim();\n  if (queryCountries === '') queryCountries = 'ALL';\n  \n  let isCountryValid = false;\n\n  if (queryCountries === 'ALL') {\n    isCountryValid = true;\n  } else {\n    // Convierte \"ARG, COL\" en [\"ARG\", \"COL\"] y busca si el actual está incluido\n    const countryList = queryCountries.split(',').map(c => c.trim());\n    isCountryValid = countryList.includes(currentCountry);\n  }\n\n  // --- 2. LÓGICA DE ENTORNO (target_env) ---\n  let queryEnvs = (query.target_env || 'ALL').toString().toUpperCase().trim();\n  if (queryEnvs === '') queryEnvs = 'ALL';\n  \n  let isEnvValid = false;\n\n  if (queryEnvs === 'ALL') {\n    isEnvValid = true;\n  } else {\n    // Convierte \"APP, CINES\" en [\"APP\", \"CINES\"] y busca si el actual está incluido\n    const envList = queryEnvs.split(',').map(e => e.trim());\n    isEnvValid = envList.includes(currentEnv);\n  }\n\n  // La query pasa SOLO si cumple con el País Y con el Entorno\n  return isCountryValid && isEnvValid;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        112,
+        -704
+      ],
+      "id": "5b489713-2d5b-46dd-9497-b25f3b91bbf7",
+      "name": "Filter Queries1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e949076c-37b9-4e5b-8c6a-73c9bcf6c3b4",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        336,
+        -704
+      ],
+      "id": "723193c4-506d-4a65-9081-803d8a11a1a8",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d074c4b-1844-4125-90f1-002e421f57db",
+              "leftValue": "={{$json.htmlContent}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1504,
+        -928
+      ],
+      "id": "a29c1b32-e728-4739-8ff4-585c6a08328e",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "5 9-18/1 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1968,
+        -304
+      ],
+      "id": "c4d09acc-4bf4-4933-9ea2-f6bd955fa927",
+      "name": "Hourly Trigger1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Buscamos el tiempo de inicio (Audit_Start)\nconst startTime = $('Audit Start1').first().json.audit_startTime;\n\n// 2. Buscamos los datos de los loops previos\nconst envData = $('Credentials Loop1').item.json;\nconst queryData = $('Query Loop1').item.json;\n\n// 3. Calculamos el peso de los datos\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Manejo de resultados vacíos del SQL\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\n// 5. Formateo de Fecha y Hora por separado\nconst now = new Date();\nconst timeOptions = { timeZone: \"America/Argentina/Buenos_Aires\" };\n\nconst fecha = now.toLocaleDateString(\"es-AR\", timeOptions);\nconst hora = now.toLocaleTimeString(\"es-AR\", timeOptions);\n\nreturn [{\n  json: {\n    pais: envData.country || 'Desconocido',\n    entorno: envData.entorno || 'Desconocido',\n    query: queryData.queryId || 'N/A',\n    description: queryData.description || 'Sin descripción',\n    // Nuevo campo: Frecuencia\n    frecuencia: queryData.type || 'N/A', \n    // Campos separados: Fecha y Hora\n    fecha: fecha,\n    hora: hora,\n    tiempo: parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso: parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -704
+      ],
+      "id": "45811544-3ac5-4f08-bccc-8b0ddf49ec9f",
+      "name": "Audit End1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop1\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat('yyyy-MM-dd HH:mm:ss');\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        -704
+      ],
+      "id": "037ce0e8-f2c1-4f8c-afac-4a38b9c66158",
+      "name": "Audit Start1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+      },
+      "id": "e047e198-3333-416b-9802-2348e1fc98bc",
+      "name": "SQL Execute1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        -704
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## chekear \n## notificaciones de error\n## retrys - paths - \n## queries - set credentials\n## credenciales correctas\n##\n##",
+        "height": 320,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        448,
+        -1296
+      ],
+      "typeVersion": 1,
+      "id": "c065b35d-489b-4010-88ff-0b2d910a7c21",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "54983ce0-25f1-4a9a-9726-8a2b34aa4c5e",
+              "leftValue": "={{ $(\"When Executed by Another Workflow\").isExecuted }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -688,
+        -736
+      ],
+      "id": "08bdd9d5-be26-4d66-bf71-92e61c198f65",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$(\"Daily Trigger\").isExecuted}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "a18c9405-369b-4809-a11d-12d1802f5f15"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c4879cfc-0bbf-4a06-8c27-19f12ef6bd1b",
+                    "leftValue": "={{$(\"Hourly Trigger\").isExecuted}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2e60988a-6010-4493-a3f9-56cc9ec05a4e",
+                    "leftValue": "={{$(\"Four-hourly Trigger\").isExecuted}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "996333e4-3583-417d-b528-19c0452940ca",
+                    "leftValue": "={{$(\"When Executed by Another Workflow\").isExecuted}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -1088,
+        -1040
+      ],
+      "id": "ae5654e4-e3f9-4002-87a9-74824ee72d2e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "operation": "getAll",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:NQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Notificaciones de error",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3ANQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1%40thread.tacv2/n8n%20notifications?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        128
+      ],
+      "id": "9e8e15c0-5ff4-4966-9452-122ac0c390ed",
+      "name": "Get many messages",
+      "webhookId": "5a4bb707-6a84-47d5-8dc1-c780b417005a",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "83a1defd-581d-4c39-ba54-d35a48b527ed",
+              "name": "message",
+              "value": "={{ $json.body.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        128
+      ],
+      "id": "2e32974b-cad6-4770-a05b-be513bf6d0ec",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/beta/teams/53f577e2-4094-42b5-8a8b-695b91d0d74f/channels/19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"body\": {\n      \"contentType\": \"html\",\n      \"content\": $json.htmlContent\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1664,
+        -176
+      ],
+      "id": "793860a9-bb3c-4898-9213-4abd742b12a9",
+      "name": "Teams Message",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users?$select=id,displayName,userPrincipalName",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1440,
+        -336
+      ],
+      "id": "2c932196-57f9-41b4-b06c-269b0ea1df6d",
+      "name": "Get user ids",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Send Results1": [
+      {
+        "json": {
+          "htmlContent": "<div style=\"font-family:sans-serif;font-size:13px;color:#000;\"><h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Resultados de la Revisión de Entornos  </h2><div style=\"margin-top:15px;font-size:12px;border-top:1px solid #eee;\">✅ Sin novedades.</div></div>",
+          "error": "No authorization information present on the request."
+        }
+      }
+    ],
+    "Send Results2": [
+      {
+        "json": {
+          "htmlContent": "<div style=\"font-family:sans-serif;font-size:13px;color:#000;\"><h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Resultados de la Revisión de Entornos  </h2><div style=\"margin-top:15px;font-size:12px;border-top:1px solid #eee;\">✅ Sin novedades.</div></div>",
+          "error": "No authorization information present on the request."
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1241,9 +2645,19 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Daily Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Four-hourly Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-01-27T18:20:09.854Z",
-  "versionId": "f03ad395-7f32-49c1-8343-94f5d44ab74c"
+  "triggerCount": 1,
+  "updatedAt": "2026-03-17T19:36:08.782Z",
+  "versionId": "5ce01dbf-3e8a-41e9-a8de-6e0e9b98ba2b"
 }
