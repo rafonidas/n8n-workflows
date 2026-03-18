@@ -5,11 +5,12 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "Wait",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Code in JavaScript": {
@@ -56,6 +57,17 @@
       "main": [
         []
       ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-11-06T16:21:04.697Z",
@@ -71,7 +83,7 @@
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
       "position": [
-        -784,
+        -1056,
         -112
       ],
       "id": "a969e218-2ad8-47a8-a766-3ba76e47ff37",
@@ -84,7 +96,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        16,
+        224,
         -128
       ],
       "id": "e3c81e12-2498-41d3-b3be-31a31b597f36",
@@ -107,7 +119,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -304,
+        -96,
         -128
       ],
       "id": "c0dde7c7-a10d-43cd-bbc7-a2237b04497f",
@@ -141,7 +153,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -576,
+        -368,
         -112
       ],
       "id": "49be1152-e84a-4912-a37d-9aab65563722",
@@ -187,12 +199,14 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        -304,
-        32
+        -112,
+        48
       ],
       "id": "27e698d0-d3ff-4a62-8eb3-6e263ce18b00",
       "name": "Generic Notification",
       "webhookId": "f2501279-44ce-46e3-9031-9d48e047cbb4",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
@@ -211,10 +225,10 @@
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "value": "19:NQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1@thread.tacv2",
           "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+          "cachedResultName": "Notificaciones de error",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3ANQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1%40thread.tacv2/n8n%20notifications?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
         "contentType": "html",
         "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $json.meta.timestamp.toDateTime().format('yyyy-MM-dd HH:mm') }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error }}<br>\n<br>\n<br><br><small><b>Technical Stack:</b> {{ $json.alerta.stack }}...</small>",
@@ -225,19 +239,34 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        304,
+        512,
         -128
       ],
       "id": "8d7f91a5-e57a-45ad-8933-8724923acffe",
       "name": "Specific Notification",
       "webhookId": "1b3f1c79-8ee3-4c8a-aa2a-db8ed12341a4",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
           "name": "N8N-TeamsAccount"
         }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
       },
-      "disabled": true
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -768,
+        -112
+      ],
+      "id": "f66ffec7-fc3e-40a6-a957-f161e14b83c9",
+      "name": "Wait",
+      "webhookId": "3b3b4c10-4385-412b-8cee-73f771330251"
     }
   ],
   "pinData": {},
@@ -256,6 +285,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-01-29T18:02:08.393Z",
-  "versionId": "e6bd99dd-efb4-4f0b-ae8e-a0e77f2ff427"
+  "updatedAt": "2026-03-17T16:18:50.705Z",
+  "versionId": "f60a49e8-38b3-498a-b23b-37b612b7649c"
 }
