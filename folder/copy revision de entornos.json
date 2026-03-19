@@ -621,6 +621,27 @@
           }
         ]
       ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2026-01-14T18:39:13.443Z",
@@ -712,16 +733,14 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
-          "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "value": "=2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+          "value": "=19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2",
+          "mode": "id"
         },
         "contentType": "html",
         "message": "={{ $json.htmlContent. }}",
@@ -1273,9 +1292,9 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
-          "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "value": "=53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
         },
         "channelId": {
           "__rl": true,
@@ -1330,8 +1349,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        560,
-        -176
+        768,
+        -336
       ],
       "id": "55bf5657-ce3d-4606-a47d-1c3602b4727f",
       "name": "Wait1",
@@ -2610,6 +2629,113 @@
           "name": "N8N-TeamsAccount"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -208
+      ],
+      "id": "23cbb96b-b0ba-4c01-9d8e-3e9f4a52140a",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        464,
+        -208
+      ],
+      "id": "2f9d8e57-f0d2-42b6-a667-2a4af7095c21",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ca11e4f2-593b-4366-a341-d6a4212300a5",
+              "name": "value[0].id",
+              "value": "={{ $json.value[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "7f417577-a362-4208-bbb2-cbde8c9d6d73",
+              "name": "value[0].displayName",
+              "value": "={{ $json.value[0].displayName }}",
+              "type": "string"
+            },
+            {
+              "id": "38729514-2a23-41b8-98c7-c92c44a07409",
+              "name": "value[0].userPrincipalName",
+              "value": "={{ $json.value[0].userPrincipalName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        816,
+        -64
+      ],
+      "id": "772548bd-a210-40e1-9948-85283787987a",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "jsCode": "// El input llega como un solo ítem con una propiedad \"value\" que es un array\nconst users = items[0].json.value;\n\n// Retornamos cada elemento del array como un nuevo ítem de n8n\nreturn users.map(user => {\n  return {\n    json: {\n      id: user.id,\n      name: user.displayName,\n      email: user.userPrincipalName\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        -208
+      ],
+      "id": "06e174f3-373d-4401-a2f2-bbac81a8a34f",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/teams/2f7e4d78-5cc0-4b00-bb44-372596f96fcf/channels/19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2/messages/1773735645079/replies",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1664,
+        -336
+      ],
+      "id": "ab2cc8d7-2933-4b17-bf8b-c9b3ff63e89f",
+      "name": "Get user ids1",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
     }
   ],
   "pinData": {
@@ -2626,6 +2752,470 @@
         "json": {
           "htmlContent": "<div style=\"font-family:sans-serif;font-size:13px;color:#000;\"><h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Resultados de la Revisión de Entornos  </h2><div style=\"margin-top:15px;font-size:12px;border-top:1px solid #eee;\">✅ Sin novedades.</div></div>",
           "error": "No authorization information present on the request."
+        }
+      }
+    ],
+    "Code in JavaScript1": [
+      {
+        "json": {
+          "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users(id,displayName,userPrincipalName)",
+          "value": [
+            {
+              "id": "c507a727-1ce4-4731-b137-56500d39edd2",
+              "displayName": "Agustín Barbosa",
+              "userPrincipalName": "abarbosa@apg-consulting.com"
+            },
+            {
+              "id": "81558e1f-5aa0-4c99-b108-d66e5bbd0a51",
+              "displayName": "Audrey  Barrientos",
+              "userPrincipalName": "abarrientos@apg-consulting.com"
+            },
+            {
+              "id": "0f55fa82-a653-4576-bf9f-678c4189aa88",
+              "displayName": "Andres Blanco",
+              "userPrincipalName": "Ablanco@apg-consulting.com"
+            },
+            {
+              "id": "cc18d3a5-4c30-42e0-83c9-542b1da8c174",
+              "displayName": "APG Consulting S.R.L.",
+              "userPrincipalName": "admin@apgcon.onmicrosoft.com"
+            },
+            {
+              "id": "ae5c38e8-5459-48e9-acd0-59a01bc9008f",
+              "displayName": "Azul Domini",
+              "userPrincipalName": "adomini@apg-consulting.com"
+            },
+            {
+              "id": "ad0a017e-d2c9-49ef-978a-1f8daf194aad",
+              "displayName": "Alan Martinez",
+              "userPrincipalName": "amartinez@apgconsulting.com.ar"
+            },
+            {
+              "id": "1f891253-4e60-4e29-8020-5faadf030c6c",
+              "displayName": "Alexander  Navarro",
+              "userPrincipalName": "anavarro@apg-consulting.com"
+            },
+            {
+              "id": "51e248f3-298a-48cd-9aff-6669b418de10",
+              "displayName": "Angie Palomeque",
+              "userPrincipalName": "apalomeque@apg-consulting.com"
+            },
+            {
+              "id": "9398da0a-a03e-47b6-a2e2-2e297cc524ea",
+              "displayName": "Alejandro Pedrozo",
+              "userPrincipalName": "apedrozo@apgconsulting.com.ar"
+            },
+            {
+              "id": "c0e5bc7f-c97b-42b7-b940-f54a2e3daa19",
+              "displayName": "APG",
+              "userPrincipalName": "APG1@apgconsulting.com.ar"
+            },
+            {
+              "id": "0ca8f8c1-3bff-44dc-86fc-833ed067606d",
+              "displayName": "apgconsulting",
+              "userPrincipalName": "apgconsulting@apgconsulting.com.ar"
+            },
+            {
+              "id": "57e61a71-c9f5-4a49-80ed-04cc7b22b3c4",
+              "displayName": "APG CONSULTING",
+              "userPrincipalName": "APGCONSULTING1@apgconsulting.com.ar"
+            },
+            {
+              "id": "c6fa323b-ce63-4daf-afc9-73a06f1a90b2",
+              "displayName": "Andrea Prieto",
+              "userPrincipalName": "aprieto@apgconsulting.com.ar"
+            },
+            {
+              "id": "f96b6dc9-e548-4910-9a88-12914eadc110",
+              "displayName": "Andrea Ravenna",
+              "userPrincipalName": "aravenna@apg-consulting.com"
+            },
+            {
+              "id": "9ae092fe-8bb1-42af-9224-e7269eb88bfe",
+              "displayName": "Alejandro Roitman",
+              "userPrincipalName": "aroitman@apg-consulting.com"
+            },
+            {
+              "id": "725bf645-6393-4c3f-b2c7-3c9b7d22515d",
+              "displayName": "Acriz Romero",
+              "userPrincipalName": "aromero@apg-consulting.com"
+            },
+            {
+              "id": "7a620396-3b02-4a22-bb78-89067b118da5",
+              "displayName": "Cecilia Ferraro",
+              "userPrincipalName": "cferraro@apg-consulting.com"
+            },
+            {
+              "id": "e786734e-ca5e-44f6-b908-9eedfa6bbf3b",
+              "displayName": "Carolina Quinta",
+              "userPrincipalName": "cquinta@apg-consulting.com"
+            },
+            {
+              "id": "8345d2a7-fb5d-4e9d-af16-c53b1372d045",
+              "displayName": "Camilo Rodriguez",
+              "userPrincipalName": "crodriguez@apg-consulting.com"
+            },
+            {
+              "id": "0ca5d449-c38d-41a3-ad4e-392538a65dc3",
+              "displayName": "Carlos  Rolando",
+              "userPrincipalName": "crolando@apg-consulting.com"
+            },
+            {
+              "id": "e9e01a1c-5ae4-49d6-9dc7-b57d9e4d4adb",
+              "displayName": "Christian Ruedas",
+              "userPrincipalName": "cruedas@apgconsulting.com.ar"
+            },
+            {
+              "id": "3f0b59b1-e732-406a-bfc0-43747179210b",
+              "displayName": "Diego Peña",
+              "userPrincipalName": "dpena@apg-consulting.com"
+            },
+            {
+              "id": "ccfc0500-a159-47e2-b7cd-ebaa47759214",
+              "displayName": "Delfina Schlossberg",
+              "userPrincipalName": "dschlossberg@apg-consulting.com"
+            },
+            {
+              "id": "9eb9e7c1-f1fe-4e39-a81a-081d9238a799",
+              "displayName": "Diego Sierra",
+              "userPrincipalName": "dsierra@apg-consulting.com"
+            },
+            {
+              "id": "0d034d9c-956c-46fb-b28f-94c337560cd5",
+              "displayName": "dyesuron",
+              "userPrincipalName": "dyesuron_licenciasonline.com#EXT#@apgcon.onmicrosoft.com"
+            },
+            {
+              "id": "7fda7b0e-380b-4a11-84e0-f135a5304cd5",
+              "displayName": "Eduardo Canizales",
+              "userPrincipalName": "ecanizales@apg-consulting.com"
+            },
+            {
+              "id": "12d53d05-c357-4d11-8464-004c9a76b40c",
+              "displayName": "Ezequiel Gulman",
+              "userPrincipalName": "egulman@apg-consulting.com"
+            },
+            {
+              "id": "71bc0be0-257c-4c16-854c-89b55b23283c",
+              "displayName": "Enrique Urcullo",
+              "userPrincipalName": "eurcullo@apg-consulting.com"
+            },
+            {
+              "id": "ff404a37-0307-42aa-b992-e4c4b76076b9",
+              "displayName": "Edwin Yachachin",
+              "userPrincipalName": "eyachachin@apg-consulting.com"
+            },
+            {
+              "id": "76982948-3808-4262-b242-ff68570538eb",
+              "displayName": "Facundo Carollo",
+              "userPrincipalName": "fcarollo@apg-consulting.com"
+            },
+            {
+              "id": "18d05dd8-b739-4446-a8e1-bdeb5ca1390a",
+              "displayName": "Facundo Fandino",
+              "userPrincipalName": "ffandino@apgconsulting.com.ar"
+            },
+            {
+              "id": "44b01c40-21b3-421a-93c6-6937d0861a16",
+              "displayName": "Funcional",
+              "userPrincipalName": "funcional@apg-consulting.com"
+            },
+            {
+              "id": "9e302264-c67d-4986-b253-68c544a49301",
+              "displayName": "Gian Giorgio de Gennaro Sousa",
+              "userPrincipalName": "gian@apg-consulting.com"
+            },
+            {
+              "id": "19b44405-6603-4087-b898-1e831101d924",
+              "displayName": "Guiancarlo Luna",
+              "userPrincipalName": "gluna@apg-consulting.com"
+            },
+            {
+              "id": "8e2e4254-5ca7-40f2-93ce-6bdab99002a9",
+              "displayName": "Gonzalo Salgado",
+              "userPrincipalName": "gsalgado@apg-consulting.com"
+            },
+            {
+              "id": "f0c992f8-81c3-425b-9f1b-8d280b5494e0",
+              "displayName": "German Suarez",
+              "userPrincipalName": "gsuarez@apg-consulting.com"
+            },
+            {
+              "id": "4df511a8-181f-49a8-b66c-4453f67d9fba",
+              "displayName": "Hugo Cherepinsky",
+              "userPrincipalName": "hcherep@apg-consulting.com"
+            },
+            {
+              "id": "ced24981-b7e6-432a-a7c6-f7f52a62b954",
+              "displayName": "Horacio Sagredo",
+              "userPrincipalName": "hSagredo@apg-consulting.com"
+            },
+            {
+              "id": "ea550ac0-ed58-4fdf-86eb-7094fd9987e5",
+              "displayName": "Ivan Rodriguez",
+              "userPrincipalName": "irodriguez@apg-consulting.com"
+            },
+            {
+              "id": "bb6cf0e5-8e39-4ea0-8e16-0e35e5f2dca4",
+              "displayName": "John Arevalo",
+              "userPrincipalName": "jarevalo@apg-consulting.com"
+            },
+            {
+              "id": "11f86904-294f-4cef-91ec-8f2cf0e7c599",
+              "displayName": "Jose Benavente",
+              "userPrincipalName": "jBenavente@apg-consulting.com"
+            },
+            {
+              "id": "8850953e-f5bf-45a8-86d2-8f55a2369e27",
+              "displayName": "Juan Cruz Bianchini",
+              "userPrincipalName": "jcbianchini@apg-consulting.com"
+            },
+            {
+              "id": "52faff68-3cbe-4565-800b-9dbc26080da7",
+              "displayName": "Juan Pablo Cordero",
+              "userPrincipalName": "jcordero@apg-consulting.com"
+            },
+            {
+              "id": "c0ba3d77-3399-4849-9051-725fdacdc0a2",
+              "displayName": "Jose Luis Cubillos",
+              "userPrincipalName": "jcubillos@apg-consulting.com"
+            },
+            {
+              "id": "327dcb61-dd4e-43a5-af9d-39f2445d0796",
+              "displayName": "Julian Jimenez",
+              "userPrincipalName": "jJimenez@apg-consulting.com"
+            },
+            {
+              "id": "bd4a3eb7-7af7-408d-b097-5a5b14115960",
+              "displayName": "Juan Jose Parada",
+              "userPrincipalName": "jparada@apg-consulting.com"
+            },
+            {
+              "id": "2aef2540-2e18-4697-bc56-ad91290324f6",
+              "displayName": "Jader Sanchez",
+              "userPrincipalName": "jsanchez@apg-consulting.com"
+            },
+            {
+              "id": "b61d76d1-d025-44bd-aa26-74019703ae33",
+              "displayName": "Javier Sozoniuk",
+              "userPrincipalName": "jsozoniuk@apg-consulting.com"
+            },
+            {
+              "id": "f2c8f11a-1fde-4b96-996d-adc51688e9a2",
+              "displayName": "Jesus Suniaga",
+              "userPrincipalName": "jsuniaga@apg-consulting.com"
+            },
+            {
+              "id": "c3fbf276-1933-4d4b-ba6d-a9fe08fc8049",
+              "displayName": "Julian Zacipa",
+              "userPrincipalName": "jzacipa@apg-consulting.com"
+            },
+            {
+              "id": "16213598-9c4e-40c5-8a5d-e86c4d277bed",
+              "displayName": "Luz Dary Lopez Chinome",
+              "userPrincipalName": "llopez@apg-consulting.com"
+            },
+            {
+              "id": "6db4c97f-c0d1-43d6-82a4-64bceb4d280f",
+              "displayName": "Lucas Vallejo",
+              "userPrincipalName": "lvallejo@apg-consulting.com"
+            },
+            {
+              "id": "6d1f19e0-7956-4252-bf64-af510dd3e33a",
+              "displayName": "Matias Cherepinsky",
+              "userPrincipalName": "matias@apg-consulting.com"
+            },
+            {
+              "id": "d50a24d1-d836-44de-a21d-582189b668a9",
+              "displayName": "Martin Benitez",
+              "userPrincipalName": "mbenitez@apg-consulting.com"
+            },
+            {
+              "id": "901d2b9f-0f56-4e84-9bdb-e738f52827e4",
+              "displayName": "Macarena Cekauskas",
+              "userPrincipalName": "mcekauskas@apg-consulting.com"
+            },
+            {
+              "id": "1b6870ca-7f6e-478b-be38-05d097ccc0c5",
+              "displayName": "Monica Cherepinsky",
+              "userPrincipalName": "mcherep@apg-consulting.com"
+            },
+            {
+              "id": "9bdb3a64-5a15-4427-8f58-b3b470de4ddf",
+              "displayName": "Mauricio  Diaz",
+              "userPrincipalName": "mdiaz@apg-consulting.com"
+            },
+            {
+              "id": "d992df49-3333-4b68-88e9-fab387cf8c30",
+              "displayName": "Mateo Diaz Echenique",
+              "userPrincipalName": "mechenique@apgconsulting.com.ar"
+            },
+            {
+              "id": "133c08b6-7497-468c-8615-d9e40b65dab0",
+              "displayName": "Mioara Tofaleanu",
+              "userPrincipalName": "mioara@apg-consulting.com"
+            },
+            {
+              "id": "294c91cd-6254-4d17-b68b-402e2c573afb",
+              "displayName": "Matilde Lapaco",
+              "userPrincipalName": "mlapaco@apgconsulting.com.ar"
+            },
+            {
+              "id": "224e5c8c-027f-49ab-9ee7-081b9d4b51af",
+              "displayName": "Mariana Otondo",
+              "userPrincipalName": "motondo@apg-consulting.com"
+            },
+            {
+              "id": "22be5760-845e-4475-ae80-22f93cec5cdf",
+              "displayName": "Matias Piloni",
+              "userPrincipalName": "mpiloni@apg-consulting.com"
+            },
+            {
+              "id": "0a3d8024-1ea6-452a-99de-b81e0ee02139",
+              "displayName": "Noelia Albanese",
+              "userPrincipalName": "nalbanese@apg-consulting.com"
+            },
+            {
+              "id": "17dfacaf-8273-40e9-ad18-cba18d3c3f29",
+              "displayName": "Nicolas Cabo",
+              "userPrincipalName": "ncabo@apg-consulting.com"
+            },
+            {
+              "id": "dc249723-4f57-4995-bdc6-836ab587c0fd",
+              "displayName": "APG Consulting Notificaciones",
+              "userPrincipalName": "notificacionesAPG@apg-consulting.com"
+            },
+            {
+              "id": "c8b506ca-535d-4716-8191-beb0299a3313",
+              "displayName": "Nataly Suarez",
+              "userPrincipalName": "nsuarez@apg-consulting.com"
+            },
+            {
+              "id": "522cb5c9-4f0a-4829-ac4f-2a4609bc2cd7",
+              "displayName": "Rebeca Echegoy",
+              "userPrincipalName": "rechegoy@apg-consulting.com"
+            },
+            {
+              "id": "ef706d84-047d-46e6-b3dd-ba72cabb3644",
+              "displayName": "Reservar un momento para reunirse conmigo",
+              "userPrincipalName": "Reservarunmomentoparareunirseconmigo@apgconsulting.com.ar"
+            },
+            {
+              "id": "a47af0d0-cdd3-493f-8788-118299475cd0",
+              "displayName": "Ronald Garcia",
+              "userPrincipalName": "rgarcia@apg-consulting.com"
+            },
+            {
+              "id": "f689100b-e598-4181-bdd7-81a2296215ee",
+              "displayName": "Rolando Gonzalez",
+              "userPrincipalName": "rgonzalez@apg-consulting.com"
+            },
+            {
+              "id": "3ca9aa1d-4bab-40af-9e69-26b28becbdc7",
+              "displayName": "Roberto Marcano",
+              "userPrincipalName": "rmarcano@apg-consulting.com"
+            },
+            {
+              "id": "3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2",
+              "displayName": "Rafael Nuñez",
+              "userPrincipalName": "rnunez@apg-consulting.com"
+            },
+            {
+              "id": "f77c9200-46df-49cb-ade3-439f8a3ff65c",
+              "displayName": "Steeven Apaza",
+              "userPrincipalName": "sapaza@apg-consulting.com"
+            },
+            {
+              "id": "59004d62-3714-4078-83bc-11584490c606",
+              "displayName": "Simon Dorfman",
+              "userPrincipalName": "sdorfman@apg-consulting.com"
+            },
+            {
+              "id": "5f23e0e5-5561-4de4-b071-67c1b2a42d46",
+              "displayName": "Soporte APG Consulting",
+              "userPrincipalName": "soporte@apgconsulting.com.ar"
+            },
+            {
+              "id": "7f194b14-ee39-4ede-a012-caf63aff1ca3",
+              "displayName": "Soporte AFM",
+              "userPrincipalName": "soporteafm@apgconsulting.com.ar"
+            },
+            {
+              "id": "7911f009-345a-45c5-9337-f10bf090c36d",
+              "displayName": "Soporte APG Core",
+              "userPrincipalName": "soporteapgcore@apgconsulting.com.ar"
+            },
+            {
+              "id": "8f507cd7-aa20-4f1f-b8d3-1ec7247d48e2",
+              "displayName": "Tania Beltran",
+              "userPrincipalName": "tbeltran@apg-consulting.com"
+            },
+            {
+              "id": "ad9069d3-c422-47ee-9b5d-2c85c20c3197",
+              "displayName": "Testing",
+              "userPrincipalName": "testing@apg-consulting.com"
+            },
+            {
+              "id": "d68fd971-e1b5-43e0-84cd-e8c3308b6633",
+              "displayName": "Tiago Giannotti",
+              "userPrincipalName": "tgiannotti@apg-consulting.com"
+            },
+            {
+              "id": "ae8cef98-c3f6-493a-98a2-f9f8a8d10e69",
+              "displayName": "Tatiana Gutierrez",
+              "userPrincipalName": "tgutierrez@apg-consulting.com"
+            },
+            {
+              "id": "4f3d73f8-5a9e-492f-bf45-4834d4dca4d9",
+              "displayName": "Teresita Manzo",
+              "userPrincipalName": "tmanzo@apgconsulting.com.ar"
+            },
+            {
+              "id": "875c5e6b-db0a-4218-9161-1afd1b3a82f9",
+              "displayName": "AKS Dev Read",
+              "userPrincipalName": "useraksread@apg-consulting.com"
+            },
+            {
+              "id": "037710a2-3900-4263-b837-45b9268630fd",
+              "displayName": "UX",
+              "userPrincipalName": "ux@apg-consulting.com"
+            },
+            {
+              "id": "e230435a-ec4d-4571-bf11-ede5f38830b3",
+              "displayName": "Valentina Maza",
+              "userPrincipalName": "vmaza@apg-consulting.com"
+            },
+            {
+              "id": "93aa370b-0891-4772-ab60-1da89b9c5408",
+              "displayName": "Veronica Paz",
+              "userPrincipalName": "vpaz@apg-consulting.com"
+            },
+            {
+              "id": "84588ca8-8a08-4972-9558-7453f8b0bbcc",
+              "displayName": "Vanessa Rodriguez",
+              "userPrincipalName": "vrodriguez@apg-consulting.com"
+            },
+            {
+              "id": "67afefe8-a931-46df-82a8-3d056e62b4c7",
+              "displayName": "Wilson Molina",
+              "userPrincipalName": "wmolina@apg-consulting.com"
+            },
+            {
+              "id": "24731108-b7f2-44d6-bee6-9e8d830fa7a3",
+              "displayName": "William Peña",
+              "userPrincipalName": "wpena@apg-consulting.com"
+            },
+            {
+              "id": "636f1c0b-c3f6-4216-90d3-d03693d9e4e4",
+              "displayName": "Yazmin Gutierrez",
+              "userPrincipalName": "ygutierrez@apg-consulting.com"
+            },
+            {
+              "id": "207edf7b-ab77-46a8-bcc3-70eb47834c4e",
+              "displayName": "Zaida Ruiz",
+              "userPrincipalName": "zruiz@apg-consulting.com"
+            }
+          ]
         }
       }
     ]
@@ -2658,6 +3248,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-03-17T19:36:08.782Z",
-  "versionId": "5ce01dbf-3e8a-41e9-a8de-6e0e9b98ba2b"
+  "updatedAt": "2026-03-18T17:39:06.135Z",
+  "versionId": "002ebf1b-f510-47f6-aab7-571196bce447"
 }
