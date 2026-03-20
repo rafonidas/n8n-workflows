@@ -19,19 +19,18 @@
             "node": "Endpoint",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
     },
     "Endpoint": {
       "main": [
-        [
-          {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "notificationLogs": {
@@ -47,43 +46,7 @@
     },
     "Edit Fields1": {
       "main": [
-        [
-          {
-            "node": "Get Users",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields1",
-            "type": "main",
-            "index": 0
-          }
-        ],
         []
-      ]
-    },
-    "Create chat message": {
-      "main": [
-        [
-          {
-            "node": "notificationLogs",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "TEAMS-ERROR",
-            "type": "main",
-            "index": 0
-          }
-        ]
       ]
     },
     "TEAMS-ERROR": {
@@ -160,38 +123,10 @@
     },
     "GetViga": {
       "main": [
-        [
-          {
-            "node": "Edit Fields2",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "GetTeams": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields2": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
       "main": [
         []
       ]
@@ -200,7 +135,170 @@
       "main": [
         [
           {
-            "node": "Edit Fields3",
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        []
+      ]
+    },
+    "Create message": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Check Length",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Length": {
+      "main": [
+        [
+          {
+            "node": "GET TEAMS ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "no notifications log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "no notifications log": {
+      "main": [
+        [
+          {
+            "node": "Early Check Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET TEAMS ID": {
+      "main": [
+        [
+          {
+            "node": "Get CHAT ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Catch Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Catch Error": {
+      "main": [
+        [
+          {
+            "node": "notification_log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "notification_log": {
+      "main": [
+        [
+          {
+            "node": "heartBeat3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Log info": {
+      "main": [
+        [
+          {
+            "node": "Write Log Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Set Log info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get CHAT ID": {
+      "main": [
+        [
+          {
+            "node": "Send CHAT MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Chat message": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Send CHAT MESSAGE": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -235,7 +333,8 @@
           "id": "ILLD0X7MWwqdPFjd",
           "name": "JWT Auth account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -264,7 +363,8 @@
         112
       ],
       "id": "fde78693-b1c7-4f4d-85bc-5f22c822a437",
-      "name": "Edit Fields"
+      "name": "Edit Fields",
+      "disabled": true
     },
     {
       "parameters": {
@@ -297,10 +397,11 @@
       "typeVersion": 4.2,
       "position": [
         -1200,
-        112
+        336
       ],
       "id": "24fbfc87-433e-4b7b-b3d9-f1e8fa0daa44",
-      "name": "Endpoint"
+      "name": "Endpoint",
+      "disabled": true
     },
     {
       "parameters": {
@@ -313,8 +414,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -2016,
-        496
+        -1952,
+        640
       ],
       "id": "6d46decf-ec6d-4a39-bb0f-f728556f3036",
       "name": "Schedule Trigger"
@@ -416,8 +517,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -48,
-        0
+        464,
+        -1008
       ],
       "id": "b62a1984-994b-4b67-9f28-5a9e289e09cd",
       "name": "notificationLogs",
@@ -565,8 +666,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1520,
-        704
+        -784,
+        -976
       ],
       "id": "52b31f57-47fd-4259-9488-d45b58caee5f",
       "name": "userMapping",
@@ -586,6 +687,12 @@
               "name": "data",
               "value": "={{$json.data}}",
               "type": "object"
+            },
+            {
+              "id": "f31c40aa-5640-4ba0-981f-6d8327474fd7",
+              "name": "owedHours",
+              "value": "={{ $json.expectedHours - $json.totalHours }}",
+              "type": "string"
             }
           ]
         },
@@ -594,73 +701,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -832,
-        -32
+        -1248,
+        -160
       ],
       "id": "9f578a5e-75b8-4d64-8944-84e99edf51a1",
       "name": "Edit Fields1"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "58ebee95-9e41-4d17-8ad9-9f5ab39cf97a",
-              "leftValue": "={{ $json.data.length > 0 }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -1024,
-        112
-      ],
-      "id": "33b810ca-5270-4b34-a65d-1d3e280f9174",
-      "name": "If"
-    },
-    {
-      "parameters": {
-        "resource": "chatMessage",
-        "chatId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.microsoftTeams",
-      "typeVersion": 2,
-      "position": [
-        -320,
-        16
-      ],
-      "id": "a97ccf7f-ac41-44ba-948d-28c7c7186035",
-      "name": "Create chat message",
-      "webhookId": "2a959e11-5185-404f-9fd4-a4514955404a",
-      "credentials": {
-        "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
-        }
-      },
-      "disabled": true,
-      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -669,8 +714,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        -48,
-        176
+        672,
+        -880
       ],
       "id": "6be8e448-b6c1-4164-bc9c-8736c1b88df7",
       "name": "TEAMS-ERROR",
@@ -694,8 +739,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -2112,
-        112
+        -2352,
+        64
       ],
       "id": "90a7d52b-bd0e-4ee1-b564-992af87669f1",
       "name": "Schedule Trigger1"
@@ -808,8 +853,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -416,
-        -208
+        -224,
+        -464
       ],
       "id": "024bcb7c-e930-4f7f-b94d-0778daa8b88b",
       "name": "notificationLogs1",
@@ -917,8 +962,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1776,
-        496
+        -1712,
+        640
       ],
       "id": "3b1de940-c146-49c6-abc2-2ad8cde39d9a",
       "name": "notificationLogs2",
@@ -936,8 +981,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1568,
-        496
+        -1504,
+        640
       ],
       "id": "e815254e-f947-4511-8670-d58813d19591",
       "name": "Code in JavaScript1"
@@ -970,8 +1015,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1360,
-        496
+        -1296,
+        640
       ],
       "id": "3297242a-a9ec-4ca6-b1f1-fe1297c8da2d",
       "name": "If1"
@@ -1034,8 +1079,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -320,
-        224
+        -384,
+        -960
       ],
       "id": "4437b81e-2a26-4525-a589-e50bed0d0bc2",
       "name": "heartBeat1",
@@ -1104,8 +1149,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        192,
-        0
+        864,
+        -1008
       ],
       "id": "cf7d3b53-c369-4c5b-bbf5-1a4097453dd1",
       "name": "heartBeat2",
@@ -1141,8 +1186,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1856,
-        320
+        -2320,
+        256
       ],
       "disabled": true
     },
@@ -1173,7 +1218,8 @@
       "position": [
         -1856,
         112
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {},
@@ -1214,8 +1260,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -576,
-        -32
+        352,
+        -976
       ],
       "id": "6d51ae64-321e-4e4b-baff-f795b3ea7e27",
       "name": "Get Users",
@@ -1241,8 +1287,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        144,
-        144
+        -112,
+        -928
       ],
       "id": "d1859d25-16d6-492f-a7c9-9ebc9975291e",
       "name": "Get row(s)"
@@ -1268,8 +1314,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1120,
-        -448
+        -1088,
+        -1136
       ],
       "id": "2f230471-0a8d-49e3-837e-7fa4fa0de6d9",
       "name": "GetViga",
@@ -1301,8 +1347,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1120,
-        -272
+        -1088,
+        -960
       ],
       "id": "dc9497e3-0f5a-464f-971e-c3378823f9f0",
       "name": "GetTeams",
@@ -1315,20 +1361,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -720,
-        -352
-      ],
-      "id": "6cd536d0-cf53-4fdb-b3ef-6c0b09c0ac60",
-      "name": "Edit Fields2",
-      "disabled": true
-    },
-    {
-      "parameters": {
         "aggregate": "aggregateAllItemData",
         "include": "specifiedFields",
         "options": {}
@@ -1336,24 +1368,11 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        -576,
-        -496
+        -592,
+        -976
       ],
       "id": "458ce987-18e1-4d5f-a943-1a9d9255119e",
       "name": "Aggregate"
-    },
-    {
-      "parameters": {
-        "jsCode": "const vigaItems = $(\"GetViga\").all();\nconst teamsItems = $(\"GetTeams\").all();\n\n// Función para crear una \"huella digital\" del nombre (ignora orden y acentos)\nconst getNameKey = (name) => {\n  if (!name) return \"\";\n  return name\n    .toLowerCase()\n    .normalize(\"NFD\")\n    .replace(/[\\u0300-\\u036f]/g, \"\") // Quita acentos\n    .replace(/[^a-z0-9\\s]/g, \"\")     // Quita símbolos\n    .split(/\\s+/)                    // Divide en palabras\n    .filter(word => word.length > 2) // Ignora palabras cortas (de, la, el)\n    .sort()                          // Ordena alfabéticamente\n    .join(\"\");                       // Une todo: \"cekauskamacarena\"\n};\n\n// Función para obtener alias limpio\nconst getAlias = (email) => {\n  if (!email) return \"\";\n  return email.split('@')[0].toLowerCase().trim().replace(/[^a-z]/g, \"\");\n};\n\nreturn vigaItems.map(vigaItem => {\n  const viga = vigaItem.json;\n  const vigaNameKey = getNameKey(viga.name);\n  const vigaAlias = getAlias(viga.email);\n\n  // Intentamos encontrar el match en Teams\n  const match = teamsItems.find(t => {\n    const teams = t.json;\n    const teamsNameKey = getNameKey(teams.teamsName);\n    const teamsAlias = getAlias(teams.email);\n\n    // CRITERIOS DE CRUCE:\n    // 1. Nombres coinciden (sin importar el orden)\n    if (vigaNameKey === teamsNameKey && vigaNameKey !== \"\") return true;\n\n    // 2. Un alias de email contiene al otro (ej: mcekauska en mcekauskas)\n    if (vigaAlias !== \"\" && teamsAlias !== \"\") {\n       if (vigaAlias.includes(teamsAlias) || teamsAlias.includes(vigaAlias)) {\n         // Si además el nombre coincide parcialmente (al menos el apellido)\n         const vigaLastName = viga.name.split(\" \")[0].toLowerCase();\n         if (teams.teamsName.toLowerCase().includes(vigaLastName)) return true;\n       }\n    }\n    \n    return false;\n  });\n\n  return {\n    json: {\n      name: viga.name,\n      email: viga.email,\n      vigaId: viga.vigaId,\n      teamsId: match ? match.json.teamsId : null\n    }\n  };\n});"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -512,
-        -352
-      ],
-      "id": "ccf6e696-1c5a-49d5-81a5-365ba4eba960",
-      "name": "Code in JavaScript"
     },
     {
       "parameters": {
@@ -1375,8 +1394,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        -1616,
-        -448
+        -1744,
+        -912
       ],
       "id": "57f8ee37-1f04-47cf-94c9-04177d71522e",
       "name": "Get many messages",
@@ -1396,8 +1415,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1408,
-        -448
+        -1536,
+        -912
       ],
       "id": "601c95aa-4c17-48a5-8629-de33c56e7b81",
       "name": "Webhook",
@@ -1410,8 +1429,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1536,
-        -160
+        -1200,
+        112
       ],
       "id": "5fed7233-b1ce-4f76-8479-e29e05b3a997",
       "name": "Code in JavaScript2"
@@ -1457,11 +1476,697 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1328,
-        -160
+        -1456,
+        -624
       ],
       "id": "03ad9791-17c4-4788-bbd5-a0270a5fb050",
       "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f31c40aa-5640-4ba0-981f-6d8327474fd7",
+              "name": "owedHours",
+              "value": "={{ $json.expectedHours - $json.totalHours }}",
+              "type": "string"
+            },
+            {
+              "id": "d82d3fac-d0ac-4c7e-a2e8-a4d68a250b20",
+              "name": "executionId",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b7e684a7-2ced-417c-a14f-dfd142993552",
+              "name": "errorDetail",
+              "value": "={{$json.error}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -544,
+        736
+      ],
+      "id": "df074112-14f0-447e-b8e4-2d534bf3f357",
+      "name": "notification_logs"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $now }}",
+          "mode": "id"
+        },
+        "message": "asd",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -1856,
+        -1200
+      ],
+      "id": "6bc7fe46-a454-4e76-b2a4-4bbcef932417",
+      "name": "Create message",
+      "webhookId": "dbf98dc4-83b5-4d13-af56-67c26e50c164",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        112
+      ],
+      "id": "d0d6d70c-0f91-4074-9d14-5c4497a59a6d",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "90aaf707-164b-4afb-8ebf-5f503b82433c",
+              "leftValue": "={{ $json.notify }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -864,
+        112
+      ],
+      "id": "6d008dfc-8ecf-4403-b687-41c2e1c462af",
+      "name": "Filter",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a7516c83-6819-43bd-a5a8-74b61d8ec664",
+              "leftValue": "={{$json.isNotEmpty()}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -672,
+        112
+      ],
+      "id": "3de00ec0-08ec-4e1c-8294-516f5ab2f3ed",
+      "name": "Check Length"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -224,
+        128
+      ],
+      "id": "f245077e-4ddf-44b1-b450-374653c26363",
+      "name": "Early Check Out",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -464,
+        128
+      ],
+      "id": "52d64c76-40de-429a-bec7-a8382d6cbf0b",
+      "name": "no notifications log"
+    },
+    {
+      "parameters": {
+        "content": "## De aquí salen x cantidad de items a notificar\n",
+        "height": 192,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -736,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "ee45b112-1c47-495f-9e8c-109e6f2246e9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Como voy a retomar correctamente el id al que debo enviar por teams, con la info que me llega de VIGA?\nFiltrar y relacionar\n",
+        "height": 320,
+        "width": 326
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -768,
+        -720
+      ],
+      "typeVersion": 1,
+      "id": "7b2d9c98-2693-4c14-a7a0-78f52eb585e3",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1I9F4h9Z-kTiMK1GwTTgqjQNLbrIqf2RwxKa6be-n7SU",
+          "mode": "list",
+          "cachedResultName": "usersID",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1I9F4h9Z-kTiMK1GwTTgqjQNLbrIqf2RwxKa6be-n7SU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 925111803,
+          "mode": "list",
+          "cachedResultName": "combined",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1I9F4h9Z-kTiMK1GwTTgqjQNLbrIqf2RwxKa6be-n7SU/edit#gid=925111803"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "email",
+              "lookupValue": "={{$json.email}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -560,
+        -288
+      ],
+      "id": "6fc5f56e-a8c4-46ce-b957-9aaf51b049fa",
+      "name": "GET TEAMS ID",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "49901d6d-58b4-4378-b7ae-bf5beb16d2ab",
+              "leftValue": "=ERROR",
+              "rightValue": "={{ $json.error }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        -96
+      ],
+      "id": "ae7abc4d-e337-4748-85cf-e529d89cc951",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "35b8412a-99d8-4cbc-bf16-0a5581a93907",
+              "name": "error",
+              "value": "={{$json.error}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        368,
+        -80
+      ],
+      "id": "c469c035-cde6-4f79-b5df-d35f6c612d8e",
+      "name": "Catch Error"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        592,
+        -80
+      ],
+      "id": "27a53d51-c071-4545-a3a7-ed989c37c96d",
+      "name": "notification_log",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        752,
+        -80
+      ],
+      "id": "5533ef0f-1f6a-4fe5-8383-11aff8f6ef02",
+      "name": "heartBeat3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Podemos ejecutar 1 vez la query sql que escriba en ambas tablas los resultados?\n",
+        "height": 224,
+        "width": 400
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        528,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "b06517c0-382d-430f-8d54-2323bfef5e20",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        112,
+        -992
+      ],
+      "id": "e2def6b9-0a71-4b39-abcf-54720e4e182c",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e417b3e4-1994-415a-af0c-4a33f3110bdb",
+              "name": "fullName",
+              "value": "={{ $('Filter').item.json.fullName }}",
+              "type": "string"
+            },
+            {
+              "id": "208a5f1a-83d8-48ea-a198-fd5dcc98ae7d",
+              "name": "email",
+              "value": "={{ $('Filter').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "bae91372-d8c6-439d-99dd-85f32f20cb65",
+              "name": "expectedHours",
+              "value": "={{ $('Filter').item.json.expectedHours }}",
+              "type": "number"
+            },
+            {
+              "id": "c5306199-a3df-4187-9f6e-801cd9aafc96",
+              "name": "totalHours",
+              "value": "={{ $('Filter').item.json.totalHours }}",
+              "type": "number"
+            },
+            {
+              "id": "e53695e7-6b59-42f5-b06a-78933a8adeb5",
+              "name": "owedHours",
+              "value": "={{ $('Filter').item.json.expectedHours - $('Filter').item.json.totalHours }}",
+              "type": "string"
+            },
+            {
+              "id": "2336b2e1-a05c-4f3f-a8e8-f0651a304c33",
+              "name": "completionPercentage",
+              "value": "={{ $('Filter').item.json.completionPercentage }}",
+              "type": "number"
+            },
+            {
+              "id": "e2d278e1-c3df-4778-86a0-389f12901665",
+              "name": "notifiedAt",
+              "value": "={{ $('Send CHAT MESSAGE').item.json.createdDateTime }}",
+              "type": "string"
+            },
+            {
+              "id": "caeb7e3e-3043-4614-bb01-fe4702602b57",
+              "name": "status",
+              "value": "sent",
+              "type": "string"
+            },
+            {
+              "id": "9615d855-63f8-4fb3-b233-bbe959d90704",
+              "name": "notificationType",
+              "value": "normal",
+              "type": "string"
+            },
+            {
+              "id": "1db3be6a-996c-4cb1-a34d-a4bedaed3cac",
+              "name": "executionId",
+              "value": "={{$execution.id}}",
+              "type": "string"
+            },
+            {
+              "id": "8a636b1d-fd1a-40b2-b4cb-94f0c686e9ed",
+              "name": "executionAt",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "994768ab-fdf3-44fe-abed-f18afceadad1",
+              "name": "errorDetail",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        -544
+      ],
+      "id": "00aea964-2294-42b0-a4f1-0bf3ded9dd5d",
+      "name": "Set Log info"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        544,
+        -544
+      ],
+      "id": "578d5d4b-82aa-44de-a59c-cf5ba00835d6",
+      "name": "Write Log Info",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        544,
+        -672
+      ],
+      "id": "e3ae0d42-c2ae-4f4f-b922-f991ca7df751",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Este código asume que el nodo se ejecuta DESPUÉS de Teams\n// y queremos combinar info del nodo 'HTTP Request' y del nodo actual.\n\nconst endpointItems = $('Filter').all(); // Trae todos los datos del inicio\nconst currentItems = $input.all(); // Trae los datos que llegan de Teams (con el status)\n\nreturn currentItems.map((item, index) => {\n  // Intentamos buscar el ítem correspondiente por índice o por una clave única (email)\n  const originalData = endpointItems.find(e => e.json.email === item.json.email);\n\n  return {\n    json: {\n      email: item.json.email,\n      teams_status: item.json.success ? 'Sent' : 'Error',\n      endpoint_payload: originalData ? originalData.json : {},\n      timestamp: new Date().toISOString(),\n      execution_id: $execution.id\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        -544
+      ],
+      "id": "73b628a3-3c2e-4788-ac55-136abab3efc9",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/me",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        576,
+        480
+      ],
+      "id": "d9f9196f-af6c-4d7a-9f82-d362c3e0fc1e",
+      "name": "HTTP Request2",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/chats",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chatType\": \"oneOnOne\",\n  \"members\": [\n    {\n      \"@odata.type\": \"#microsoft.graph.aadUserConversationMember\",\n      \"roles\": [\"owner\"],\n      \"user@odata.bind\": \"https://graph.microsoft.com/v1.0/users('dc249723-4f57-4995-bdc6-836ab587c0fd')\"\n    },\n    {\n      \"@odata.type\": \"#microsoft.graph.aadUserConversationMember\",\n      \"roles\": [\"owner\"],\n      \"user@odata.bind\": \"https://graph.microsoft.com/v1.0/users('{{ $json.teamsId }}')\"\n    }\n  ]\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -304,
+        -288
+      ],
+      "id": "fa9bddfc-b49b-450b-9b86-60f808eebd21",
+      "name": "Get CHAT ID",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/chats/{{$json.id}}/messages",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"body\": {\n    \"content\": \"Hola, debes {{ ($('Check Length').item.json.expectedHours - $('Check Length').item.json.totalHours).toFixed(2)}} horas en el time report de VIGA.\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        784,
+        480
+      ],
+      "id": "dfbb3924-fef7-4f58-a100-e8ff0f14f267",
+      "name": "Send Chat message",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "message": "=Hola, debes {{ ($('Check Length').item.json.expectedHours - $('Check Length').item.json.totalHours).toFixed(2)}} horas en el time report de VIGA.",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        -288
+      ],
+      "id": "26036c35-ab7e-44c4-b761-0cd1afa29aa6",
+      "name": "Send CHAT MESSAGE",
+      "webhookId": "7aaf5ae6-7acc-4cdf-9b00-e87fdab870b0",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "content": "## En este punto se filtran los empleados que sí deben ese x porcentaje de horas\n## Y que cumplen con la condición de ser notificados\n",
+        "height": 256,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1040,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "a89f82cf-81fb-4ff6-930e-5897ce0d274c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Aquí verificamos que haya al menos 1 empleado que deba ser notificado, si no lo hay, guardamos un log que indique que TODOS los empleados estuvieron al día con sus horas\n",
+        "height": 144,
+        "width": 720
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -560,
+        560
+      ],
+      "typeVersion": 1,
+      "id": "bb32fa92-4919-4e7a-9038-179062ec9ec5",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {
@@ -3966,21 +4671,24 @@
               "email": "vmaza@la.apgconsulting.com.ar",
               "expectedHours": 72,
               "totalHours": 68.45,
-              "completionPercentage": 95.1
+              "completionPercentage": 95.1,
+              "notify": 0
             },
             {
               "fullName": "Carollo Facundo",
               "email": "fcarollo@apg-consulting.com",
               "expectedHours": 72,
               "totalHours": 52.48,
-              "completionPercentage": 72.9
+              "completionPercentage": 72.9,
+              "notify": 0
             },
             {
               "fullName": "Palomeque Angie",
               "email": "apalomeque@la.apg-consulting.com",
               "expectedHours": 72,
               "totalHours": 32,
-              "completionPercentage": 44.4
+              "completionPercentage": 44.4,
+              "notify": 0
             },
             {
               "fullName": "diaz DAna",
@@ -4186,6 +4894,22 @@
               "completionPercentage": 0
             },
             {
+              "fullName": "Rafael Núñez",
+              "email": "rnunez@apg-consulting.com",
+              "expectedHours": 72,
+              "totalHours": 7.2,
+              "completionPercentage": 10,
+              "notify": 1
+            },
+            {
+              "fullName": "Rafael Núñez2",
+              "email": "rnunez@apg-consulting.com",
+              "expectedHours": 72,
+              "totalHours": 70,
+              "completionPercentage": 98,
+              "notify": 1
+            },
+            {
               "fullName": "Ravenna Andrea",
               "email": "andre@hotmail.com",
               "expectedHours": 72,
@@ -4293,6 +5017,162 @@
           ]
         }
       }
+    ],
+    "Filter": [
+      {
+        "json": {
+          "fullName": "Rafael Núñez",
+          "email": "rnunez@apg-consulting.com",
+          "expectedHours": 72,
+          "totalHours": 7.2,
+          "completionPercentage": 10,
+          "notify": 1
+        }
+      },
+      {
+        "json": {
+          "fullName": "Rafael Núñez2",
+          "email": "rnunez@apg-consulting.com",
+          "expectedHours": 72,
+          "totalHours": 70,
+          "completionPercentage": 98,
+          "notify": 1
+        }
+      }
+    ],
+    "Send CHAT MESSAGE": [
+      {
+        "json": {
+          "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#chats('19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces')/messages/$entity",
+          "id": "1773952363320",
+          "replyToId": null,
+          "etag": "1773952363320",
+          "messageType": "message",
+          "createdDateTime": "2026-03-19T20:32:43.32Z",
+          "lastModifiedDateTime": "2026-03-19T20:32:43.32Z",
+          "lastEditedDateTime": null,
+          "deletedDateTime": null,
+          "subject": null,
+          "summary": null,
+          "chatId": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "importance": "normal",
+          "locale": "en-us",
+          "webUrl": null,
+          "channelIdentity": null,
+          "policyViolation": null,
+          "eventDetail": null,
+          "from": {
+            "application": null,
+            "device": null,
+            "user": {
+              "@odata.type": "#microsoft.graph.teamworkUserIdentity",
+              "id": "dc249723-4f57-4995-bdc6-836ab587c0fd",
+              "displayName": "APG Consulting Notificaciones",
+              "userIdentityType": "aadUser",
+              "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336"
+            }
+          },
+          "body": {
+            "contentType": "text",
+            "content": "Hola, debes 64.80 horas en el time report de VIGA."
+          },
+          "attachments": [],
+          "mentions": [],
+          "reactions": []
+        }
+      },
+      {
+        "json": {
+          "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#chats('19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces')/messages/$entity",
+          "id": "1773952363876",
+          "replyToId": null,
+          "etag": "1773952363876",
+          "messageType": "message",
+          "createdDateTime": "2026-03-19T20:32:43.876Z",
+          "lastModifiedDateTime": "2026-03-19T20:32:43.876Z",
+          "lastEditedDateTime": null,
+          "deletedDateTime": null,
+          "subject": null,
+          "summary": null,
+          "chatId": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "importance": "normal",
+          "locale": "en-us",
+          "webUrl": null,
+          "channelIdentity": null,
+          "policyViolation": null,
+          "eventDetail": null,
+          "from": {
+            "application": null,
+            "device": null,
+            "user": {
+              "@odata.type": "#microsoft.graph.teamworkUserIdentity",
+              "id": "dc249723-4f57-4995-bdc6-836ab587c0fd",
+              "displayName": "APG Consulting Notificaciones",
+              "userIdentityType": "aadUser",
+              "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336"
+            }
+          },
+          "body": {
+            "contentType": "text",
+            "content": "Hola, debes 2.00 horas en el time report de VIGA."
+          },
+          "attachments": [],
+          "mentions": [],
+          "reactions": []
+        }
+      }
+    ],
+    "Get CHAT ID": [
+      {
+        "json": {
+          "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#chats/$entity",
+          "id": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "topic": null,
+          "createdDateTime": "2026-03-06T20:25:42.503Z",
+          "lastUpdatedDateTime": "2026-03-19T20:27:04.445Z",
+          "chatType": "oneOnOne",
+          "webUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336",
+          "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336",
+          "isHiddenForAllMembers": false,
+          "viewpoint": null,
+          "onlineMeetingInfo": null
+        }
+      },
+      {
+        "json": {
+          "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#chats/$entity",
+          "id": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "topic": null,
+          "createdDateTime": "2026-03-06T20:25:42.503Z",
+          "lastUpdatedDateTime": "2026-03-19T20:27:04.445Z",
+          "chatType": "oneOnOne",
+          "webUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336",
+          "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336",
+          "isHiddenForAllMembers": false,
+          "viewpoint": null,
+          "onlineMeetingInfo": null
+        }
+      }
+    ],
+    "GET TEAMS ID": [
+      {
+        "json": {
+          "row_number": 33,
+          "name": "Nuñez Rafael",
+          "email": "rnunez@apg-consulting.com",
+          "vigaId": "f38c60c6-273c-422c-bd8b-45c22266c5b9",
+          "teamsId": "3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2"
+        }
+      },
+      {
+        "json": {
+          "row_number": 33,
+          "name": "Nuñez Rafael",
+          "email": "rnunez@apg-consulting.com",
+          "vigaId": "f38c60c6-273c-422c-bd8b-45c22266c5b9",
+          "teamsId": "3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2"
+        }
+      }
     ]
   },
   "settings": {
@@ -4310,6 +5190,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-18T20:49:10.256Z",
-  "versionId": "bd4684c6-6264-45f6-baed-2f4044652049"
+  "updatedAt": "2026-03-19T20:58:28.153Z",
+  "versionId": "8921364a-bbb7-4468-b42e-3e4be9958a05"
 }
