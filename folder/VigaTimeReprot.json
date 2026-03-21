@@ -1697,7 +1697,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -768,
+        -736,
         -720
       ],
       "typeVersion": 1,
@@ -2167,6 +2167,77 @@
       "typeVersion": 1,
       "id": "bb32fa92-4919-4e7a-9038-179062ec9ec5",
       "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    t.name AS NombreTabla,\n    c.name AS NombreColumna,\n    ty.name AS TipoDato,\n    c.max_length AS Longitud,\n    c.is_nullable AS PermiteNulos\nFROM \n    sys.tables t\nINNER JOIN \n    sys.columns c ON t.object_id = c.object_id\nINNER JOIN \n    sys.types ty ON c.user_type_id = ty.user_type_id\nORDER BY \n    t.name, c.column_id;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        -656
+      ],
+      "id": "577c4da6-3c95-4cf7-a88e-8103e00d26f3",
+      "name": "Microsoft SQL2",
+      "credentials": {
+        "microsoftSql": {
+          "id": "rDH0EClblto49len",
+          "name": "SQL-04"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "task",
+        "groupId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "planId": {
+          "__rl": true,
+          "value": "={{  }}",
+          "mode": "id"
+        },
+        "bucketId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d806375d-d154-487b-a64b-d90bd0d9f9c7",
+      "name": "Create task",
+      "webhookId": "3c3f83f8-437a-4e56-aac2-92c03f154cb0",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "a77d1ab4-9d1b-49f8-95b4-52b4358bef26",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1520,
+        -160
+      ],
+      "id": "6edae9a0-2fd5-4c2d-8239-cb1f210aca60",
+      "name": "Webhook1",
+      "webhookId": "a77d1ab4-9d1b-49f8-95b4-52b4358bef26"
     }
   ],
   "pinData": {
@@ -5190,6 +5261,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-19T20:58:28.153Z",
-  "versionId": "8921364a-bbb7-4468-b42e-3e4be9958a05"
+  "updatedAt": "2026-03-20T19:44:43.377Z",
+  "versionId": "c49620eb-9a18-4aef-99e5-3c59a811f90b"
 }
