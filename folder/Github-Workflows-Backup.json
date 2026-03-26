@@ -484,7 +484,7 @@
       "name": "Get Workflows",
       "type": "n8n-nodes-base.n8n",
       "position": [
-        -176,
+        208,
         368
       ],
       "typeVersion": 1,
@@ -532,7 +532,7 @@
       "name": "Config",
       "type": "n8n-nodes-base.set",
       "position": [
-        -400,
+        -16,
         368
       ],
       "typeVersion": 3.4
@@ -648,7 +648,7 @@
       "name": "Starting Message",
       "type": "n8n-nodes-base.slack",
       "position": [
-        -624,
+        -240,
         368
       ],
       "webhookId": "c02eb407-5547-4aa0-9ebf-46dab67b63b6",
@@ -703,7 +703,7 @@
       "name": "Schedule Trigger1",
       "type": "n8n-nodes-base.scheduleTrigger",
       "position": [
-        -848,
+        -464,
         368
       ],
       "typeVersion": 1.2
@@ -713,7 +713,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -832,
+        -448,
         656
       ],
       "id": "da99e7c2-a45e-456e-abcb-d13db723e7d3",
@@ -798,6 +798,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-03-09T18:59:04.363Z",
-  "versionId": "4b289259-1798-4a77-aead-5bb277971623"
+  "updatedAt": "2026-03-25T19:48:44.694Z",
+  "versionId": "c9dc0914-8b33-47ac-bb0f-5471edad2797"
 }
