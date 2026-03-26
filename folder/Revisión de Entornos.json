@@ -405,12 +405,12 @@
       "main": [
         [
           {
-            "node": "Credentials Loop",
+            "node": "Set Tasks",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Set Tasks",
+            "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
@@ -926,19 +926,6 @@
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Nightly Trigger\").isExecuted) {\n  executionType = \"Nightly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n}\n\n// Configuración ARGENTINA\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"test\", country: \"AR\", channelId : \"\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"test\", country: \"PE\", channelId : \" \"},\n    { db: \"test.comfiar.co.cr\", entorno: \"test\", country: \"CR\", channelId : \" \"},\n    { db: \"test.comfiar.com.bo\", entorno: \"test\", country: \"BO\", channelId : \" \"},\n    { db: \"test.comfiar.com.ec\", entorno: \"test\", country: \"EC\", channelId : \" \"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n// Configuración COLOMBIA\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"test\", country: \"CO\", channelId : \"\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\n// Función auxiliar para mapear\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,     // ESTE CAMPO ES CLAVE PARA EL FILTRO\n          channelId: db.channelId,\n          country: db.country,\n          \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n// Retornamos la lista combinada (ARG + COL)\nreturn [...dbsArg, ...dbsCol, ...dbsCol4];\n//"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -288,
-        448
-      ],
-      "id": "b8205745-dac1-444f-87d4-a9e2c4f3b312",
-      "name": "Code in JavaScript"
-    },
-    {
-      "parameters": {
         "content": "## chekear \n## notificaciones de error\n## retrys - paths - \n## queries - set credentials\n## credenciales correctas\n##\n##",
         "height": 320,
         "width": 448
@@ -967,7 +954,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
+        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\nif (executionType === \"Backup\") {\n  return []; \n}\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -996,9 +983,15 @@
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
         },
         "columns": {
-          "mappingMode": "autoMapInputData",
+          "mappingMode": "defineBelow",
           "value": {
-            "Ultima_Actualizacion": "="
+            "Ultima_Actualizacion": "={{ $json.Ultima_Actualizacion }}",
+            "ID_Unico": "={{ $json.ID_Unico }}",
+            "Pais": "={{ $json.Pais }}",
+            "Entorno": "={{ $json.Entorno }}",
+            "Frecuencia": "={{ $json.Frecuencia }}",
+            "Fecha": "={{ $json.Fecha }}",
+            "Estado": "={{ $json.Estado }}"
           },
           "matchingColumns": [
             "ID_Unico"
@@ -1374,26 +1367,6 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT e.CuitId, e.TransaccionId, e.PuntoDeVentaId, e.TipoComprobanteId, e.NroCbte, e.Cod EstadoPublicacion, e.ErrorPDF, E.ErrorPDFMotivo, c.Resultado\nFROM comprobante C WITH(NOLOCK) \ninner join EstadoPublicacion E WITH(NOLOCK) on c.CuitId=e.CuitId and c.TransaccionId=e.TransaccionId and c.PuntoDeVentaId=e.PuntoDeVentaId and c.TipoComprobanteId=e.TipoComprobanteId and c.NroCbte=e.NroCbte\nWHERE c.FechaCbte > DATEADD(day, -5, GETDATE()) AND  Resultado != 'R' and c.TipoComprobanteId!=99 and UsuarioAnulacion is null  and ((c.error=0 and  c.ErrorDesc='El comprobante no puede generarse dado que el reporte o los datos no son válidos.' ) or e.ErrorPDF!=0)\n"
-      },
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1.1,
-      "position": [
-        1728,
-        448
-      ],
-      "id": "3e88e48e-6040-48be-84b8-ae432c3124a1",
-      "name": "Microsoft SQL",
-      "credentials": {
-        "microsoftSql": {
-          "id": "OJnhwvNxTV90RYTs",
-          "name": "SQL-02"
-        }
-      }
-    },
-    {
-      "parameters": {
         "amount": "={{ Math.floor(Math.random() * 30) + 1 }}"
       },
       "type": "n8n-nodes-base.wait",
@@ -1476,8 +1449,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2992,
-        304
+        3184,
+        352
       ],
       "id": "f9c97587-d788-4295-b968-b206f447e8e8",
       "name": "Send Results Retry",
@@ -1626,7 +1599,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
     "saveExecutionProgress": true,
-    "executionTimeout": 7200,
+    "executionTimeout": 10800,
     "timeSavedPerExecution": 20,
     "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
@@ -1655,6 +1628,6 @@
   },
   "tags": [],
   "triggerCount": 3,
-  "updatedAt": "2026-03-20T20:56:02.921Z",
-  "versionId": "fe53f724-b681-4b9b-981d-1501e090c43a"
+  "updatedAt": "2026-03-25T15:26:38.789Z",
+  "versionId": "72685024-55b5-4a7c-b3d9-89dc3d6e9fa7"
 }
