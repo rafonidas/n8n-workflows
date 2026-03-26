@@ -267,6 +267,35 @@
       "id": "f66ffec7-fc3e-40a6-a957-f161e14b83c9",
       "name": "Wait",
       "webhookId": "3b3b4c10-4385-412b-8cee-73f771330251"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -96,
+        -288
+      ],
+      "id": "91a9b399-00f8-4edc-80a0-13aff08ff663",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -285,6 +314,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-17T16:18:50.705Z",
-  "versionId": "f60a49e8-38b3-498a-b23b-37b612b7649c"
+  "updatedAt": "2026-03-25T19:33:46.465Z",
+  "versionId": "03b81e40-2e46-4d10-ba63-46184c43b644"
 }
