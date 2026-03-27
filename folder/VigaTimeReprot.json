@@ -255,6 +255,17 @@
           }
         ]
       ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-03-09T13:26:12.112Z",
@@ -1685,8 +1696,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -112,
-        -928
+        -1760,
+        -608
       ],
       "id": "d1859d25-16d6-492f-a7c9-9ebc9975291e",
       "name": "Get row(s)"
@@ -2276,6 +2287,59 @@
       ],
       "id": "1c31c467-77e3-4c30-b3e5-c87a6cee3d2c",
       "name": "Execution Log"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23693c28-784f-4267-bd79-99402a39000a",
+              "name": "queryId",
+              "value": "={{ $json.queryId }}",
+              "type": "string"
+            },
+            {
+              "id": "aa9213c2-eb1f-4342-899c-9429ac0aa51d",
+              "name": "revisionQuery",
+              "value": "={{ $json.revisionQuery }}",
+              "type": "string"
+            },
+            {
+              "id": "314352ef-0372-48cf-9a2e-b5a0ae0d57ee",
+              "name": "type",
+              "value": "={{ $json.type }}",
+              "type": "string"
+            },
+            {
+              "id": "3b4e198c-2699-4000-b65b-5554a1326ca1",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "20c8e326-908f-4428-8a9f-9ee59875bb1f",
+              "name": "country",
+              "value": "={{ $json.country }}",
+              "type": "string"
+            },
+            {
+              "id": "ce7df481-53af-4721-bc42-9d509967dec3",
+              "name": "targetEnv",
+              "value": "={{ $json.target_env }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1456,
+        -512
+      ],
+      "id": "efe8b9ce-1bad-45ad-9648-d773bfc53e3e",
+      "name": "Edit Fields1"
     }
   ],
   "pinData": {
@@ -2767,6 +2831,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-25T20:59:47.098Z",
-  "versionId": "1d6c9d92-d5e7-4c5c-96e7-cd8ad900c086"
+  "updatedAt": "2026-03-26T16:00:54.692Z",
+  "versionId": "ceb87147-496a-415b-833f-9d986315d9c1"
 }
