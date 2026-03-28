@@ -16,11 +16,6 @@
       "main": [
         [
           {
-            "node": "Endpoint",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Code in JavaScript2",
             "type": "main",
             "index": 0
@@ -30,7 +25,13 @@
     },
     "Endpoint": {
       "main": [
-        []
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "notificationLogs2": {
@@ -339,8 +340,7 @@
               "value": "=5F373264-4128-4429-821F-3F97C1779BEA"
             },
             {
-              "name": "percentage",
-              "value": "100"
+              "name": "percentage"
             }
           ]
         },
@@ -349,7 +349,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{$json.token}}"
+              "value": "=Bearer {{$json.token.token}}"
             }
           ]
         },
@@ -362,8 +362,7 @@
         336
       ],
       "id": "24fbfc87-433e-4b7b-b3d9-f1e8fa0daa44",
-      "name": "Endpoint",
-      "disabled": true
+      "name": "Endpoint"
     },
     {
       "parameters": {
@@ -680,10 +679,9 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1856,
+        -1824,
         112
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {},
@@ -2831,6 +2829,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-26T16:00:54.692Z",
-  "versionId": "ceb87147-496a-415b-833f-9d986315d9c1"
+  "updatedAt": "2026-03-27T20:14:06.296Z",
+  "versionId": "1ee819c9-d1be-4e93-97a9-c63d72ee8a8c"
 }
