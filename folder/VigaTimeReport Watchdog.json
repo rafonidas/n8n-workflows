@@ -1,0 +1,215 @@
+{
+  "active": false,
+  "connections": {
+    "Watchdog Trigger": {
+      "main": [
+        [
+          {
+            "node": "SQL Check Heartbeat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Check Heartbeat": {
+      "main": [
+        [
+          {
+            "node": "IF Heartbeat OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Heartbeat OK": {
+      "main": [
+        [
+          {
+            "node": "Teams Alert Admin",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-06T12:57:30.020Z",
+  "id": "8nyEbrjKK8QuPxlX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "VigaTimeReport Watchdog",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 11 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "1e5c3b22-fd35-4779-98ec-d9791c812187",
+      "name": "Watchdog Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        80
+      ],
+      "notes": "11:00 AM Lunes-Viernes — verifica que el flujo principal corrio"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT COUNT(*) as ran_today\nFROM execution_logs\nWHERE workflowName = 'VigaTimeReport_V2'\n  AND dateTime >= CAST(GETDATE() AS DATE)\n  AND dateTime < DATEADD(day, 1, CAST(GETDATE() AS DATE))"
+      },
+      "id": "b7a17320-16fa-4bf8-ad07-a91668684607",
+      "name": "SQL Check Heartbeat",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        848,
+        80
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c995a28-d44f-4a4d-9581-68ce7d31c85d",
+              "leftValue": "={{ $json.ran_today }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8b963fc2-eee2-4513-9e1e-20ad6850b254",
+      "name": "IF Heartbeat OK",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1072,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+        },
+        "message": "=<b>WATCHDOG ALERT — Viga TimeReport</b><br>\nEl flujo <b>VigaTimeReport V2</b> NO se ejecutó hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).<br>\nSe esperaba ejecucion a las 9:00 AM. Por favor verificar manualmente.<br>\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "8cdfec13-8efb-439d-97a9-a3bffe6a542b",
+      "name": "Teams Alert Admin",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        -16
+      ],
+      "webhookId": "3313d8a2-187d-49f8-a56a-ffec4520e967",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      },
+      "notes": "Reemplazar teamId y channelId"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { status: 'OK', message: 'VigaTimeReport corrio correctamente hoy' } }]"
+      },
+      "id": "21b8d11d-23fb-40d4-9908-042ff87ec875",
+      "name": "No Action",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Watchdog — VigaTimeReport\nSe ejecuta a las 11:00 AM todos los dias habiles.\nVerifica que haya al menos 1 registro en workflow_heartbeat del dia de hoy.\nSi no hay -> alerta a Teams.\nSi hay -> no hace nada.\n\nConfigurar teamId y channelId en Teams Alert Admin.",
+        "height": 180,
+        "width": 380
+      },
+      "id": "41bab4fa-c4c2-4f8b-92d5-cc13eb863679",
+      "name": "Note Watchdog",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        624,
+        -224
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-06T12:57:30.020Z",
+      "updatedAt": "2026-04-06T12:57:30.020Z",
+      "role": "workflow:owner",
+      "workflowId": "8nyEbrjKK8QuPxlX",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-06T13:00:55.893Z",
+  "versionId": "6844331a-ca15-4f9f-a38c-9685f30e7281"
+}
