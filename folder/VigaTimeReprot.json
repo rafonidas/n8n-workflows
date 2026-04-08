@@ -129,12 +129,6 @@
         []
       ]
     },
-    "If": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "Catch Error": {
       "main": [
         []
@@ -185,38 +179,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "TEAMS-ERROR": {
-      "main": [
-        [
-          {
-            "node": "heartBeat2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "notificationLogs": {
-      "main": [
-        [
-          {
-            "node": "heartBeat2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter Teams IDs": {
-      "main": [
-        []
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        []
       ]
     },
     "No Log Mapping": {
@@ -987,40 +949,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "49901d6d-58b4-4378-b7ae-bf5beb16d2ab",
-              "leftValue": "={{ $json.error }}",
-              "rightValue": "=Not Found.",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -2960,
-        -1232
-      ],
-      "id": "ae7abc4d-e337-4748-85cf-e529d89cc951",
-      "name": "If"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -1520,21 +1448,6 @@
     },
     {
       "parameters": {
-        "path": "2f166fd6-d811-4b78-9fa5-904641bcc04d",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        -3136,
-        -608
-      ],
-      "id": "601c95aa-4c17-48a5-8629-de33c56e7b81",
-      "name": "Webhook",
-      "webhookId": "2f166fd6-d811-4b78-9fa5-904641bcc04d"
-    },
-    {
-      "parameters": {
         "resource": "channelMessage",
         "operation": "getAll",
         "teamId": {
@@ -1696,81 +1609,11 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -2592,
-        -1872
+        -2832,
+        -1888
       ],
       "id": "6d51ae64-321e-4e4b-baff-f795b3ea7e27",
       "name": "Get Users",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1uLjQ6nPvCiBYyfaUzLNeGb6Mlw3zgk77ye5rdXa93tU",
-          "mode": "list",
-          "cachedResultName": "timeReport",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uLjQ6nPvCiBYyfaUzLNeGb6Mlw3zgk77ye5rdXa93tU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 1678189117,
-          "mode": "list",
-          "cachedResultName": "executionHeartbeat",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uLjQ6nPvCiBYyfaUzLNeGb6Mlw3zgk77ye5rdXa93tU/edit#gid=1678189117"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "executionDate",
-              "displayName": "executionDate",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "totalNotified",
-              "displayName": "totalNotified",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -2080,
-        -1904
-      ],
-      "id": "cf7d3b53-c369-4c5b-bbf5-1a4097453dd1",
-      "name": "heartBeat2",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
@@ -1847,27 +1690,6 @@
           "name": "Rafa-Sheets"
         }
       }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [
-        -2272,
-        -1776
-      ],
-      "id": "6be8e448-b6c1-4164-bc9c-8736c1b88df7",
-      "name": "TEAMS-ERROR",
-      "webhookId": "35545867-ff84-4471-a8d4-23c7a0378e3e",
-      "credentials": {
-        "smtp": {
-          "id": "Uw4CpnQjIbsNpVhT",
-          "name": "SMTP account"
-        }
-      },
-      "disabled": true
     },
     {
       "parameters": {
@@ -1950,115 +1772,6 @@
     },
     {
       "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1uLjQ6nPvCiBYyfaUzLNeGb6Mlw3zgk77ye5rdXa93tU",
-          "mode": "list",
-          "cachedResultName": "timeReport",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uLjQ6nPvCiBYyfaUzLNeGb6Mlw3zgk77ye5rdXa93tU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "notificationLogs",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uLjQ6nPvCiBYyfaUzLNeGb6Mlw3zgk77ye5rdXa93tU/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "vigaEmail",
-              "displayName": "vigaEmail",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "vigaId",
-              "displayName": "vigaId",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "teamsId",
-              "displayName": "teamsId",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "sentAt",
-              "displayName": "sentAt",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "status",
-              "displayName": "status",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "hoursPending",
-              "displayName": "hoursPending",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -2480,
-        -1904
-      ],
-      "id": "b62a1984-994b-4b67-9f28-5a9e289e09cd",
-      "name": "notificationLogs",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      }
-    },
-    {
-      "parameters": {
         "fieldsToSummarize": {
           "values": [
             {}
@@ -2077,51 +1790,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "8dd8c675-5666-4294-951f-7467ee2c7924",
-              "leftValue": "={{ $json.teamsId }}",
-              "rightValue": "=",
-              "operator": {
-                "type": "string",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "d85831fb-a291-496c-893f-cdb9832aa152",
-              "leftValue": "={{ $json.teamsId.length == 36 }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2.2,
-      "position": [
-        -2768,
-        -1600
-      ],
-      "id": "468314a2-58a1-448f-ae49-7ff1ce1c329b",
-      "name": "Filter Teams IDs",
-      "notes": "Descarta los ids que estén vacíos o tengan un length menor a 36 caracteres\n"
-    },
-    {
-      "parameters": {
         "content": "## Query SQL que traiga de la lista USERS. Los ids de teams cuyo registro contenga el email que viene de VIGA, siendo este length mayor a 36 caracteres\n\n## notify = 1 ",
         "height": 336,
         "width": 288
@@ -2134,19 +1802,6 @@
       "typeVersion": 1,
       "id": "b997d6a0-b725-48a7-bfff-c6170e1d1c5f",
       "name": "Sticky Note5"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -2496,
-        -480
-      ],
-      "id": "83118ae7-21e1-47a2-a6ea-7d56c61e6a3a",
-      "name": "Code in JavaScript"
     },
     {
       "parameters": {
@@ -2466,7 +2121,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "-- 1. Verificamos si ya existe para evitar errores de clave duplicada\nIF NOT EXISTS (SELECT 1 FROM dbo.NotiViga_userInfo WHERE email = 'rnunez@apg-consulting.com')\nBEGIN\n    INSERT INTO dbo.NotiViga_userInfo (teamsId, name, email, rrhh, notify)\n    VALUES (\n        '327dcb61-dd4e-43a5-af9d-39f2445d0796', -- teamsId (varchar/uniqueidentifier)\n        'diaz DAna',                         -- name (nvarchar)\n        'dana@diaz.com',            -- email (varchar)\n        'rnunez@apg-consulting.com',            -- rrhh (varchar)\n        1                                       -- notify (bit/int)\n    );\n    PRINT 'Registro insertado correctamente.';\nEND\nELSE\nBEGIN\n    PRINT 'El usuario ya existe en la base de datos.';\nEND\n\n-- 2. Verificación final\nSELECT * FROM dbo.NotiViga_userInfo WHERE email = 'rnunez@apg-consulting.com';"
+        "query": "INSERT INTO dbo.NotiViga_userInfo (teamsId, name, email, rrhh, notify)\nVALUES \n-- Registro OK\n('3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2', 'OK', 'OK@apg-consulting.com', 'rnunez@apg-consulting.com', 1),\n\n-- Registro No notificar\n('3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2', 'No notificar', 'NoNotificar@apg-consulting.com', 'rnunez@apg-consulting.com', 0),\n\n-- ID Erróneo (Posiblemente truncado o mal formato)\n('3bcfa8fe-c819-4cb1-82cf-5dc8da30c', 'ID ERRONEO', 'erroneo@APG.com', 'rnunez@apg-consulting.com', 1),\n\n-- Duplicado 1\n('3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2', 'DUPLICADO', 'duplicado@empresa.com', 'rnunez@apg-consulting.com', 1),\n\n-- Duplicado 2 (Mismo ID, distinto valor de notify)\n('3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2', 'DUPLICADO', 'duplicado@empresa.com', 'rnunez@apg-consulting.com', 0);"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -3073,18 +2728,6 @@
         }
       }
     ],
-    "Filter Teams IDs": [
-      {
-        "json": {
-          "row_number": 52,
-          "name": "Nuñez Rafael",
-          "email": "rnunez@apgConsulting.com",
-          "vigaId": "",
-          "teamsId": "3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2",
-          "notify": 1
-        }
-      }
-    ],
     "Split Out": [
       {
         "json": {
@@ -3148,6 +2791,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-01T18:56:46.240Z",
-  "versionId": "6c6a95d1-ea17-42d6-b4f9-fdc63d6c1397"
+  "updatedAt": "2026-04-07T21:53:03.337Z",
+  "versionId": "cd1e5734-c0d5-4358-a82d-6c1cd5b8fb2b"
 }
