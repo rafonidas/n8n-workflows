@@ -1,0 +1,77 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get an execution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-08T15:38:04.242Z",
+  "id": "xZ2GCvIfrOoJB47G",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 11",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b6437f67-46c2-4b9c-9fa0-b69fd3d038ad",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "execution",
+        "operation": "get",
+        "executionId": "2335",
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a28ddd6b-1fba-43ec-8496-ec17266a51c7",
+      "name": "Get an execution",
+      "credentials": {
+        "n8nApi": {
+          "id": "y9PDEDAKrPqrNrgj",
+          "name": "n8n account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-08T15:38:04.242Z",
+      "updatedAt": "2026-04-08T15:38:04.242Z",
+      "role": "workflow:owner",
+      "workflowId": "xZ2GCvIfrOoJB47G",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-08T15:38:04.242Z",
+  "versionId": "ee7fd125-5f1e-40a0-b151-333b4637eeee"
+}
