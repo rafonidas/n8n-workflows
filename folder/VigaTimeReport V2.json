@@ -276,7 +276,7 @@
       "main": [
         [
           {
-            "node": "VIGA ENDPOINT",
+            "node": "VIGA ENDPOINT1",
             "type": "main",
             "index": 0
           }
@@ -303,31 +303,19 @@
     },
     "VIGA ENDPOINT": {
       "main": [
-        [
-          {
-            "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "get user info": {
       "main": [
         [
           {
-            "node": "Set Merge Data",
+            "node": "Validate Error",
             "type": "main",
             "index": 0
           }
         ],
-        [
-          {
-            "node": "Set SQL Error",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Loop Over Items": {
@@ -438,6 +426,35 @@
           },
           {
             "node": "GET EXECUTIONS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VIGA ENDPOINT1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Error": {
+      "main": [
+        [
+          {
+            "node": "Set Merge Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set SQL Error",
             "type": "main",
             "index": 0
           }
@@ -594,7 +611,8 @@
       "position": [
         352,
         1584
-      ]
+      ],
+      "disabled": true
     },
     {
       "parameters": {
@@ -655,8 +673,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1616,
-        1088
+        1840,
+        1040
       ]
     },
     {
@@ -689,7 +707,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1840,
+        2048,
         1088
       ]
     },
@@ -709,7 +727,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2016,
+        2224,
         992
       ],
       "credentials": {
@@ -729,7 +747,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2464,
+        2672,
         1184
       ]
     },
@@ -752,7 +770,7 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2240,
+        2448,
         896
       ],
       "webhookId": "171c1abc-4ec3-4911-a1a1-f5d214283cfd",
@@ -773,46 +791,46 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2464,
+        2672,
         992
       ]
     },
     {
       "parameters": {
-        "jsCode": "const input = $input.first().json\n\n// const ctx = $('Set Context').first().json;\nreturn [{ json: {\n  // executionId: ctx.executionId,\n  email: input.email || '',\n  fullName: input.fullName || '',\n  expectedHours: input.expectedHours ?? null,\n  totalHours: input.totalHours ?? null,\n  completionPercentage: input.completionPercentage ?? null,\n  teamsId: null, rrhh: null,\n  status: 'ERROR_SQL',\n  errorDetail: input.error,\n  notifiedAt: null\n}} ];"
+        "jsCode": "const input = $(\"Loop Over Items\").first().json\n// const ctx = $('Set Context').first().json;\nreturn [{ json: {\n  // executionId: ctx.executionId,\n  email: input.email || '',\n  fullName: input.fullName || '',\n  expectedHours: input.expectedHours ?? null,\n  totalHours: input.totalHours ?? null,\n  completionPercentage: input.completionPercentage ?? null,\n  teamsId: null, rrhh: null,\n  status: 'ERROR_SQL',\n  errorDetail: input.error,\n  notifiedAt: null\n}} ];"
       },
       "id": "c563f0ed-4b1e-4954-a718-b80d40c8aac1",
       "name": "Set SQL Error",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2464,
+        2672,
         1568
       ]
     },
     {
       "parameters": {
-        "jsCode": "const m = $('Set Merge Data').item.json;\nreturn [{ json: { ...m, status: 'SUCCESS', errorDetail: null, notifiedAt: $now }}];"
+        "jsCode": "const m = $('Set Merge Data').item.json;\nreturn [{ json: { ...m, status: 'SUCCESS', errorDetail: null, notifiedAt: $now.toFormat('yyyy-MM-dd HH:mm:ss.SSS') }}];"
       },
       "id": "3269b4e7-f2e3-435f-8d57-ab19e6966010",
       "name": "Set SUCCESS",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2464,
+        2672,
         800
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Nodo central: normaliza todos los paths en un registro unificado\nconst item = $input.first().json;\nconst esc = v => String(v ?? '').replace(/'/g, \"''\").slice(0, 500);\nconst num = v => (v !== null && v !== undefined && v !== '') ? parseFloat(v) : null;\n\nconst eId    = esc(item.executionId);\nconst name   = esc(item.fullName);\nconst email  = esc(item.email);\nconst expH   = num(item.expectedHours);\nconst totH   = num(item.totalHours);\nconst pct    = num(item.completionPercentage);\nconst status = esc(item.status || 'UNKNOWN');\nconst detail = esc(item.errorDetail || '');\n\nconst sql = `INSERT INTO dbo.NotiViga_notification_logs (executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES ('${eId}', '${name}', '${email}', ${expH !== null ? expH : 'NULL'}, ${totH !== null ? totH : 'NULL'}, ${pct !== null ? pct : 'NULL'}, '${status}', '${detail}', GETDATE())`;\n\nreturn [{ json: { ...item, _sql: sql } }];"
+        "jsCode": "// Nodo central: normaliza todos los paths en un registro unificado\nconst item = $input.first().json;\nconst esc = v => String(v ?? '').replace(/'/g, \"''\").slice(0, 500);\nconst num = v => (v !== null && v !== undefined && v !== '') ? parseFloat(v) : null;\n\nconst eId    =  $execution.id;\nconst name   = esc(item.fullName);\nconst email  = esc(item.email);\nconst expH   = num(item.expectedHours);\nconst totH   = num(item.totalHours);\nconst pct    = num(item.completionPercentage);\nconst status = esc(item.status || 'UNKNOWN');\nconst detail = esc(item.errorDetail || '');\nconst notifiedAt = esc(item.notifiedAt)\n\nconst sql = `INSERT INTO dbo.NotiViga_notification_logs (executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES ('${eId}', '${name}', '${email}', ${expH !== null ? expH : 'NULL'}, ${totH !== null ? totH : 'NULL'}, ${pct !== null ? pct : 'NULL'}, '${status}', '${detail}', '${notifiedAt !== null ? notifiedAt : 'NULL'}')`;\n\nreturn [{ json: { ...item, _sql: sql } }];"
       },
       "id": "1870fe55-c7e5-414b-8240-935f5eb96a14",
       "name": "The Brain",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2688,
+        2896,
         1184
       ],
       "notes": "Único punto de convergencia - construye INSERT dinámico"
@@ -820,7 +838,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "=SELECT n.email, u.rrhh, COUNT(*) as notif_count\nFROM notifications n\nLEFT JOIN dbo.NotiViga_userInfo u ON u.email = n.email\nWHERE n.status = 'SUCCESS'\n  AND n.notifiedAt >= DATEADD(day, -5, GETDATE())\nGROUP BY n.email, u.rrhh\nHAVING COUNT(*) >= 2"
+        "query": "=SELECT n.email, u.rrhh, COUNT(*) as notif_count\nFROM dbo.NotiViga_notification_logs n\nLEFT JOIN dbo.NotiViga_userInfo u ON u.email = n.email\nWHERE n.status = 'SUCCESS'\n  AND n.notifiedAt >= DATEADD(day, -5, GETDATE())\nGROUP BY n.email, u.rrhh\nHAVING COUNT(*) >= 2"
       },
       "id": "929141bd-63ab-45c4-a7c0-44ba9ef4d645",
       "name": "SQL Reincidence",
@@ -881,11 +899,12 @@
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "value": "19:NQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1@thread.tacv2",
           "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+          "cachedResultName": "Notificaciones de error",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3ANQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1%40thread.tacv2/n8n%20notifications?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
+        "contentType": "html",
         "message": "=⚠️ <b>Escalamiento Nivel 2 - VigaTimeReport</b><br>El usuario <b>{{ $json.email }}</b> ha sido notificado <b>{{ $json.notif_count }} veces</b> en los últimos 5 días.<br>RRHH asignado: {{ $json.rrhh || 'No asignado' }}",
         "options": {
           "includeLinkToWorkflow": false
@@ -896,8 +915,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        304,
-        2624
+        336,
+        2752
       ],
       "webhookId": "428574e3-87f4-4985-abc6-db95f48f77ca",
       "credentials": {
@@ -910,14 +929,14 @@
     },
     {
       "parameters": {
-        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain').all();\n  totalSuccess = brainItems.filter(i => i.json._status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json._status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  status\n}}];"
+        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain').all();\n  totalSuccess = brainItems.filter(i => i.json.status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json.status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  status\n}}];"
       },
       "id": "7f4ff889-1266-4420-8f68-de88c0a12701",
       "name": "Set Exec Summary",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1680,
+        1888,
         1568
       ]
     },
@@ -931,7 +950,7 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        2128,
+        2336,
         1968
       ],
       "credentials": {
@@ -1037,7 +1056,8 @@
               "rightValue": 0,
               "operator": {
                 "type": "number",
-                "operation": "equals"
+                "operation": "empty",
+                "singleValue": true
               }
             }
           ],
@@ -1061,8 +1081,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        144,
-        192
+        160,
+        -832
       ],
       "id": "85d5e0bf-2064-4985-bcc9-57b33c2fa9a5",
       "name": "Code in JavaScript"
@@ -1078,8 +1098,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -336,
-        2528
+        -400,
+        2640
       ],
       "id": "8b29b73c-1fd8-47bb-b34e-ee9dcb683d46",
       "name": "Schedule Trigger1"
@@ -1092,10 +1112,11 @@
       "typeVersion": 2,
       "position": [
         800,
-        1488
+        1184
       ],
       "id": "39f6c4e6-22ef-4371-ac19-b809d131aeaa",
-      "name": "VIGA ENDPOINT"
+      "name": "VIGA ENDPOINT",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1105,8 +1126,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -608,
-        432
+        -592,
+        -592
       ],
       "id": "17e34052-5c3c-4983-a52c-92e276f4e8da",
       "name": "insert user info",
@@ -1120,13 +1141,13 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT teamsId, name, email, rrhh\nFROM dbo.NotiViga_userInfo\nWHERE email = '{{ $json.email }}';"
+        "query": "SELECT teamsId, name, email, rrhh\nFROM dbo.NotiViga_userInfo\nWHERE email = '{{ $json.email }}';\n"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        1312,
-        1104
+        1280,
+        1152
       ],
       "id": "c7ddf85a-fce4-4818-8899-98b276ddfc01",
       "name": "get user info",
@@ -1137,7 +1158,7 @@
           "name": "Utiles-Viga"
         }
       },
-      "onError": "continueErrorOutput"
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -1160,8 +1181,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        304,
-        592
+        320,
+        -432
       ],
       "id": "7023cd19-fcfb-4f2e-aa32-c1d8a1244032",
       "name": "WAS NOTIFIED",
@@ -1214,8 +1235,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        512,
-        592
+        528,
+        -432
       ],
       "id": "08a2edd9-4784-401a-9dec-ed6aa214140a",
       "name": "If"
@@ -1267,8 +1288,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -384,
-        432
+        -368,
+        -592
       ],
       "id": "e89c674e-6f27-45fe-9f9b-111f8672c8c1",
       "name": "INSERT NOTIFICATION LOG",
@@ -1286,8 +1307,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -160,
-        432
+        -144,
+        -592
       ],
       "id": "23afb3ce-2c49-43b6-90f0-37ce232eac8d",
       "name": "INSERT EXECUTION LOG",
@@ -1307,7 +1328,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2464,
+        2672,
         1376
       ]
     },
@@ -1321,7 +1342,7 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        2912,
+        3120,
         1600
       ],
       "credentials": {
@@ -1355,8 +1376,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        416,
-        880
+        432,
+        -144
       ],
       "credentials": {
         "microsoftSql": {
@@ -1375,8 +1396,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        640,
-        880
+        656,
+        -144
       ],
       "credentials": {
         "microsoftSql": {
@@ -1392,8 +1413,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        128,
-        880
+        144,
+        -144
       ],
       "id": "40b27540-a29c-4d66-a4cd-6c81df7eb36a",
       "name": "Code in JavaScript1"
@@ -1406,8 +1427,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -720,
-        688
+        -704,
+        -336
       ],
       "id": "f2dbb5de-08f6-4d0f-9f60-2fe37cdf3a28",
       "name": "GET NOTIFICATIONS",
@@ -1426,8 +1447,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -480,
-        688
+        -464,
+        -336
       ],
       "id": "e0c62573-2aeb-4723-98fa-9e669888347f",
       "name": "GET EXECUTIONS",
@@ -1446,8 +1467,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -944,
-        688
+        -928,
+        -336
       ],
       "id": "240d4b92-1e02-4f1a-bf61-84bb1f28a6be",
       "name": "GET USERS",
@@ -1466,8 +1487,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -720,
-        912
+        -704,
+        -112
       ],
       "id": "886f0cbd-377d-4917-944b-5a0449e0e0e1",
       "name": "DELETE NOTIFICATIONS1",
@@ -1486,8 +1507,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -480,
-        912
+        -464,
+        -112
       ],
       "id": "d7d5cf07-dd15-4979-9cca-b6cd46ef80b5",
       "name": "DELETE EXECUTIONS1",
@@ -1505,8 +1526,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -880,
-        912
+        -864,
+        -112
       ],
       "id": "77d34b47-f967-4272-91e3-5f4685a9a462",
       "name": "DELETE USERS1",
@@ -1518,36 +1539,210 @@
       }
     },
     {
-      "parameters": {},
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1136,
-        448
+        -1120,
+        -576
       ],
       "id": "c39a42bb-3691-4f6f-bf8a-46154bfd6775",
       "name": "GET TABLES"
+    },
+    {
+      "parameters": {
+        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain').all();\n  totalSuccess = brainItems.filter(i => i.json._status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json._status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  status\n}}];"
+      },
+      "id": "317c318c-99f1-4723-a097-7e6ee6884f73",
+      "name": "Set Exec Summary1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        2432
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=IF NOT EXISTS (SELECT 1 FROM workflow_heartbeat WHERE executionId = '{{ $json.executionId }}')\nINSERT INTO workflow_heartbeat (executionId, workflowName, dateTime, totalProcessed, totalSuccess, totalErrors)\nVALUES ('{{ $json.executionId }}', 'VigaTimeReport_V2', GETDATE(), {{ $json.totalProcessed }}\n\n\n--, {{ $json.totalSuccess }}, {{ $json.totalErrors }})"
+      },
+      "id": "eba8a838-f16b-4772-90c9-13f652e6e998",
+      "name": "SQL Heartbeat2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        976,
+        2432
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { \"fullName\": \"OK\", \"email\": \"'OK@apg-consulting.com'\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  { \"fullName\": \"OK\", \"email\": \"OK@111pg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },    \n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        1328
+      ],
+      "id": "32587afe-422b-4b47-9299-05bef096d908",
+      "name": "VIGA ENDPOINT1"
+    },
+    {
+      "parameters": {
+        "content": "## Posible mejora:\n## Intentar el envio del mensaje antes de crear el chat, si esto falla y el error es epecificamente el que sale cuando no pudimosmandar el mensaje,  ahi creamos el chat y reintentamos el envío\nPara no crear chats innecesariamente",
+        "height": 400,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1904,
+        512
+      ],
+      "typeVersion": 1,
+      "id": "610802a8-3396-4e9e-b38b-57fcec51fe31",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "fromEmail": "Notificaciones@apg-consulting.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "Time Report",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1072,
+        2848
+      ],
+      "id": "4ec85190-f3ec-4bc1-bf2c-1730efaa41d9",
+      "name": "Send email",
+      "webhookId": "a2e3c789-3ec5-4d53-bf39-e4322cdb75f0",
+      "credentials": {
+        "smtp": {
+          "id": "Uw4CpnQjIbsNpVhT",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Que otros datos necesito a la hora de enviar notificacion de reincidencia?\n",
+        "height": 144,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -224,
+        2480
+      ],
+      "typeVersion": 1,
+      "id": "d255f339-92d7-4ca3-aa4f-d0a0d94d25ee",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Donde guardamos los logs de notificación de reincidencias?\n## En notification logs?"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        960,
+        2656
+      ],
+      "typeVersion": 1,
+      "id": "b91f1fe8-2e52-4d42-ae5f-39b191f0f3fb",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e43ca063-d644-4c3e-b490-04a91dad710a",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1488,
+        1152
+      ],
+      "id": "406aa92b-f3ba-4981-874e-ed5e184b2419",
+      "name": "Validate Error"
+    },
+    {
+      "parameters": {
+        "content": "## ¿Cómo diferenciamos un error de ejecución de una ausencia legítima de datos? (El nodo SQL devuelve un objeto vacío en ambos casos si no se maneja bien)\n",
+        "height": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1184,
+        528
+      ],
+      "typeVersion": 1,
+      "id": "3e416cff-82b9-4abf-a9c9-29bd57f8742b",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## 0327dc56-965a-47eb-9ed1-8a2c021384d0"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -368,
+        1488
+      ],
+      "typeVersion": 1,
+      "id": "7e0759e5-e2d2-4ea2-95a0-46a1cc5a901c",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "width": 368
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1328,
+        960
+      ],
+      "typeVersion": 1,
+      "id": "099ad4a2-5f8b-42a0-985c-522764853fd1",
+      "name": "Sticky Note11"
     }
   ],
   "pinData": {
-    "GET EXECUTIONS": [
-      {
-        "json": {
-          "executionId": 0,
-          "totalNotified": 0,
-          "dateTime": "2026-04-07T23:28:41.680Z",
-          "status": "ERROR"
-        }
-      },
-      {
-        "json": {
-          "executionId": 2321,
-          "totalNotified": 0,
-          "dateTime": "2026-04-07T23:20:21.210Z",
-          "status": "NO_DEUDORES"
-        }
-      }
-    ],
     "GET USERS": [
       {
         "json": {
@@ -1599,6 +1794,76 @@
           "notify": false
         }
       }
+    ],
+    "SQL Reincidence": [
+      {
+        "json": {
+          "email": "OK@apg-consulting.com",
+          "rrhh": "rnunez@apg-consulting.com",
+          "notif_count": 6
+        }
+      }
+    ],
+    "Manual Trigger": [
+      {
+        "json": {}
+      }
+    ],
+    "VIGA ENDPOINT": [
+      {
+        "json": {
+          "fullName": "OK",
+          "email": "OK@apg-consulting.com",
+          "expectedHours": 40,
+          "totalHours": 10,
+          "completionPercentage": 25
+        }
+      },
+      {
+        "json": {
+          "fullName": "ID Erroneo",
+          "email": "erroneo@APG.com",
+          "expectedHours": 40,
+          "totalHours": 5,
+          "completionPercentage": 12.5
+        }
+      },
+      {
+        "json": {
+          "fullName": "No notificar",
+          "email": "NoNotificar@apg-consulting.com",
+          "expectedHours": 40,
+          "totalHours": 20,
+          "completionPercentage": 50
+        }
+      },
+      {
+        "json": {
+          "fullName": "Not in SQL",
+          "email": "missing@empresa.com",
+          "expectedHours": 40,
+          "totalHours": 30,
+          "completionPercentage": 75
+        }
+      },
+      {
+        "json": {
+          "fullName": "Duplicado Viga",
+          "email": "duplicado@empresa.com",
+          "expectedHours": 40,
+          "totalHours": 30,
+          "completionPercentage": 75
+        }
+      },
+      {
+        "json": {
+          "fullName": "Duplicado Viga",
+          "email": "duplicado@empresa.com",
+          "expectedHours": 40,
+          "totalHours": 30,
+          "completionPercentage": 75
+        }
+      }
     ]
   },
   "settings": {
@@ -1616,6 +1881,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-08T03:04:17.298Z",
-  "versionId": "38e323b0-ed99-49c9-9bd4-5d3c1b3a75a0"
+  "updatedAt": "2026-04-08T20:17:49.501Z",
+  "versionId": "ef7f3d60-5886-4563-b52c-6321126338b5"
 }
