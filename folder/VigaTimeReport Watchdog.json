@@ -5,18 +5,7 @@
       "main": [
         [
           {
-            "node": "SQL Check Heartbeat",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "SQL Check Heartbeat": {
-      "main": [
-        [
-          {
-            "node": "IF Heartbeat OK",
+            "node": "SQL Check Executions",
             "type": "main",
             "index": 0
           }
@@ -35,6 +24,17 @@
         [
           {
             "node": "No Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Check Executions": {
+      "main": [
+        [
+          {
+            "node": "IF Heartbeat OK",
             "type": "main",
             "index": 0
           }
@@ -70,26 +70,6 @@
         80
       ],
       "notes": "11:00 AM Lunes-Viernes — verifica que el flujo principal corrio"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "=SELECT COUNT(*) as ran_today\nFROM dbo.NotiViga_execution_logs\nWHERE dateTime >= CAST(GETDATE() AS DATE)\n  AND dateTime < DATEADD(day, 1, CAST(GETDATE() AS DATE))"
-      },
-      "id": "b7a17320-16fa-4bf8-ad07-a91668684607",
-      "name": "SQL Check Heartbeat",
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1,
-      "position": [
-        848,
-        80
-      ],
-      "credentials": {
-        "microsoftSql": {
-          "id": "hL9EZkFVhAg4kqAo",
-          "name": "Utiles-Viga"
-        }
-      }
     },
     {
       "parameters": {
@@ -178,8 +158,8 @@
     },
     {
       "parameters": {
-        "content": "## Watchdog — VigaTimeReport\nSe ejecuta a las 11:00 AM todos los dias habiles.\nVerifica que haya al menos 1 registro en workflow_heartbeat del dia de hoy.\nSi no hay -> alerta a Teams.\nSi hay -> no hace nada.\n\nConfigurar teamId y channelId en Teams Alert Admin.",
-        "height": 180,
+        "content": "## Watchdog — VigaTimeReport\nSe ejecuta a las 11:00 AM todos los dias habiles.\nVerifica que haya al menos 1 registro en dbo.NotiViga_execution_logs del dia de hoy.\nSi no hay -> alerta a Teams.\nSi hay -> no hace nada.",
+        "height": 212,
         "width": 380
       },
       "id": "41bab4fa-c4c2-4f8b-92d5-cc13eb863679",
@@ -190,6 +170,26 @@
         624,
         -224
       ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT COUNT(*) as ran_today\nFROM dbo.NotiViga_execution_logs\nWHERE dateTime >= CAST(GETDATE() AS DATE)\n  AND dateTime < DATEADD(day, 1, CAST(GETDATE() AS DATE))"
+      },
+      "id": "b7a17320-16fa-4bf8-ad07-a91668684607",
+      "name": "SQL Check Executions",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        848,
+        80
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -211,6 +211,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-08T03:04:40.903Z",
-  "versionId": "99363913-0295-4134-9fda-853d103063a6"
+  "updatedAt": "2026-04-09T14:36:20.692Z",
+  "versionId": "270742ec-57de-4bb1-80e0-0709663df292"
 }
