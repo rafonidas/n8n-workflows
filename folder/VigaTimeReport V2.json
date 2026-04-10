@@ -103,11 +103,6 @@
         ]
       ]
     },
-    "Split Out": {
-      "main": [
-        []
-      ]
-    },
     "Set Merge Data": {
       "main": [
         [
@@ -177,7 +172,7 @@
       "main": [
         [
           {
-            "node": "The Brain",
+            "node": "brain v2",
             "type": "main",
             "index": 0
           }
@@ -188,7 +183,7 @@
       "main": [
         [
           {
-            "node": "The Brain",
+            "node": "The Brain v1",
             "type": "main",
             "index": 0
           }
@@ -199,7 +194,7 @@
       "main": [
         [
           {
-            "node": "The Brain",
+            "node": "The Brain v1",
             "type": "main",
             "index": 0
           }
@@ -210,18 +205,7 @@
       "main": [
         [
           {
-            "node": "The Brain",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "The Brain": {
-      "main": [
-        [
-          {
-            "node": "SQL notification_log INSERT",
+            "node": "The Brain v1",
             "type": "main",
             "index": 0
           }
@@ -276,7 +260,7 @@
       "main": [
         [
           {
-            "node": "VIGA ENDPOINT1",
+            "node": "VIGA ENDPOINT",
             "type": "main",
             "index": 0
           }
@@ -303,7 +287,13 @@
     },
     "VIGA ENDPOINT": {
       "main": [
-        []
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "get user info": {
@@ -361,7 +351,7 @@
       "main": [
         [
           {
-            "node": "The Brain",
+            "node": "The Brain v1",
             "type": "main",
             "index": 0
           }
@@ -372,7 +362,7 @@
       "main": [
         [
           {
-            "node": "Loop Over Items",
+            "node": "Set Exec Summary",
             "type": "main",
             "index": 0
           }
@@ -434,13 +424,7 @@
     },
     "VIGA ENDPOINT1": {
       "main": [
-        [
-          {
-            "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Validate Error": {
@@ -455,6 +439,28 @@
         [
           {
             "node": "Set SQL Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "The Brain v1": {
+      "main": [
+        [
+          {
+            "node": "SQL notification_log INSERT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "brain v2": {
+      "main": [
+        [
+          {
+            "node": "SQL notification_log INSERT",
             "type": "main",
             "index": 0
           }
@@ -486,8 +492,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -544,
-        1616
+        -528,
+        1648
       ],
       "notes": "Lunes-Viernes 9:00 AM"
     },
@@ -499,7 +505,7 @@
       "typeVersion": 1,
       "position": [
         -528,
-        1920
+        1808
       ]
     },
     {
@@ -527,8 +533,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -320,
-        1712
+        -272,
+        1648
       ],
       "disabled": true,
       "onError": "continueErrorOutput",
@@ -545,8 +551,7 @@
       "position": [
         -96,
         1632
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -560,7 +565,7 @@
             },
             {
               "name": "percentage",
-              "value": "100"
+              "value": "50"
             }
           ]
         },
@@ -583,7 +588,6 @@
         128,
         1632
       ],
-      "disabled": true,
       "onError": "continueErrorOutput",
       "notes": "Obtiene lista de deudores de VIGA"
     },
@@ -602,7 +606,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const r = $input.first().json;\nconst arr = Array.isArray(r) ? r : (Array.isArray(r.data) ? r.data : []);\nreturn [{ json: { deudores: arr, count: arr.length }}];"
+        "jsCode": "const r = $input.first().json;\nconst arr = Array.isArray(r.data) ? r.data : [];\n\nreturn arr.map(item => {\n  return {\n    json: item\n  };\n});"
       },
       "id": "dc4f998d-d975-4b0a-a3e4-1fc65c75e9e8",
       "name": "Normalize Response",
@@ -611,8 +615,7 @@
       "position": [
         352,
         1584
-      ],
-      "disabled": true
+      ]
     },
     {
       "parameters": {
@@ -652,20 +655,6 @@
     },
     {
       "parameters": {
-        "fieldToSplitOut": "deudores",
-        "options": {}
-      },
-      "id": "68d71e59-82a5-4575-94b0-006d32f8dcc6",
-      "name": "Split Out",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        576,
-        1360
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "const sql = $input.first().json;\nconst viga = $('Loop Over Items').item.json;\nreturn [{ json: {\n  executionId: $execution.id ,\n  email: viga.email || '',\n  fullName: viga.fullName || '',\n  expectedHours: viga.expectedHours ?? null,\n  totalHours: viga.totalHours ?? null,\n  completionPercentage:viga.completionPercentage ?? null,\n  teamsId: sql.teamsId || null,\n  rrhh: sql.rrhh || null\n}}];"
       },
       "id": "7c5dacda-6dde-4381-ada9-bad0719bb5b1",
@@ -673,7 +662,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1840,
+        2048,
         1040
       ]
     },
@@ -707,7 +696,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2048,
+        2256,
         1088
       ]
     },
@@ -727,7 +716,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2224,
+        2432,
         992
       ],
       "credentials": {
@@ -747,7 +736,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2672,
+        2880,
         1184
       ]
     },
@@ -770,7 +759,7 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2448,
+        2656,
         896
       ],
       "webhookId": "171c1abc-4ec3-4911-a1a1-f5d214283cfd",
@@ -791,20 +780,20 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2672,
+        2880,
         992
       ]
     },
     {
       "parameters": {
-        "jsCode": "const input = $(\"Loop Over Items\").first().json\n// const ctx = $('Set Context').first().json;\nreturn [{ json: {\n  // executionId: ctx.executionId,\n  email: input.email || '',\n  fullName: input.fullName || '',\n  expectedHours: input.expectedHours ?? null,\n  totalHours: input.totalHours ?? null,\n  completionPercentage: input.completionPercentage ?? null,\n  teamsId: null, rrhh: null,\n  status: 'ERROR_SQL',\n  errorDetail: input.error,\n  notifiedAt: null\n}} ];"
+        "jsCode": "const input = $(\"Loop Over Items\").first().json\n// const ctx = $('Set Context').first().json;\nreturn [{ json: {\n  // executionId: ctx.executionId,\n  email: input.email || null,\n  fullName: input.fullName || null,\n  expectedHours: input.expectedHours ?? null,\n  totalHours: input.totalHours ?? null,\n  completionPercentage: input.completionPercentage ?? null,\n  teamsId: null, rrhh: null,\n  status: 'ERROR_SQL',\n  errorDetail: input.error,\n  notifiedAt: null\n}} ];"
       },
       "id": "c563f0ed-4b1e-4954-a718-b80d40c8aac1",
       "name": "Set SQL Error",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2672,
+        2880,
         1568
       ]
     },
@@ -817,23 +806,9 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2672,
+        2880,
         800
       ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Nodo central: normaliza todos los paths en un registro unificado\nconst item = $input.first().json;\nconst esc = v => String(v ?? '').replace(/'/g, \"''\").slice(0, 500);\nconst num = v => (v !== null && v !== undefined && v !== '') ? parseFloat(v) : null;\n\nconst eId    =  $execution.id;\nconst name   = esc(item.fullName);\nconst email  = esc(item.email);\nconst expH   = num(item.expectedHours);\nconst totH   = num(item.totalHours);\nconst pct    = num(item.completionPercentage);\nconst status = esc(item.status || 'UNKNOWN');\nconst detail = esc(item.errorDetail || '');\nconst notifiedAt = esc(item.notifiedAt)\n\nconst sql = `INSERT INTO dbo.NotiViga_notification_logs (executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES ('${eId}', '${name}', '${email}', ${expH !== null ? expH : 'NULL'}, ${totH !== null ? totH : 'NULL'}, ${pct !== null ? pct : 'NULL'}, '${status}', '${detail}', '${notifiedAt !== null ? notifiedAt : 'NULL'}')`;\n\nreturn [{ json: { ...item, _sql: sql } }];"
-      },
-      "id": "1870fe55-c7e5-414b-8240-935f5eb96a14",
-      "name": "The Brain",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        2896,
-        1184
-      ],
-      "notes": "Único punto de convergencia - construye INSERT dinámico"
     },
     {
       "parameters": {
@@ -845,8 +820,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -144,
-        2640
+        -160,
+        2768
       ],
       "credentials": {
         "microsoftSql": {
@@ -915,8 +890,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        336,
-        2752
+        304,
+        2672
       ],
       "webhookId": "428574e3-87f4-4985-abc6-db95f48f77ca",
       "credentials": {
@@ -929,15 +904,15 @@
     },
     {
       "parameters": {
-        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain').all();\n  totalSuccess = brainItems.filter(i => i.json.status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json.status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  status\n}}];"
+        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain v1').all();\n  totalSuccess = brainItems.filter(i => i.json.status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json.status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalItems = $input.all();\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  count: totalItems.length,\n  status\n}}];"
       },
       "id": "7f4ff889-1266-4420-8f68-de88c0a12701",
       "name": "Set Exec Summary",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1888,
-        1568
+        2016,
+        1584
       ]
     },
     {
@@ -950,8 +925,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        2336,
-        1968
+        2560,
+        1840
       ],
       "credentials": {
         "microsoftSql": {
@@ -1098,8 +1073,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -400,
-        2640
+        -416,
+        2768
       ],
       "id": "8b29b73c-1fd8-47bb-b34e-ee9dcb683d46",
       "name": "Schedule Trigger1"
@@ -1112,11 +1087,10 @@
       "typeVersion": 2,
       "position": [
         800,
-        1184
+        1440
       ],
       "id": "39f6c4e6-22ef-4371-ac19-b809d131aeaa",
-      "name": "VIGA ENDPOINT",
-      "disabled": true
+      "name": "VIGA ENDPOINT"
     },
     {
       "parameters": {
@@ -1146,7 +1120,7 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        1280,
+        1488,
         1152
       ],
       "id": "c7ddf85a-fce4-4818-8899-98b276ddfc01",
@@ -1270,17 +1244,6 @@
       "name": "Sticky Note1"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -16,
-        1200
-      ],
-      "typeVersion": 1,
-      "id": "16497c97-9865-434b-8c69-8ed51370d031",
-      "name": "Sticky Note4"
-    },
-    {
       "parameters": {
         "operation": "executeQuery",
         "query": "INSERT INTO dbo.NotiViga_notification_logs\n(executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES\n-- Registro OK\n('2001', 'Maza Valentina', 'vmaza@la.apgconsulting.com.ar', 40, 10, 25.0, 'SUCCESS', NULL, NULL)"
@@ -1321,14 +1284,14 @@
     },
     {
       "parameters": {
-        "jsCode": "const item = $input.first().json;\nconst status = !item.teamsId ? 'MISMATCH_TEAMS' : 'NOTIFY_DISABLED';\nconst detail = !item.teamsId\n  ? 'No se encontró teamsId para este email en dbo.NotiViga_userInfo'\n  : 'Usuario tiene notify=0 en la base de datos';\nreturn [{ json: { ...item, status: status, errorDetail: detail }}];"
+        "jsCode": "const item = $(\"Loop Over Items\").first().json\nconst status = !item.teamsId ? 'MISMATCH_TEAMS' : 'NOTIFY_DISABLED';\nconst detail = !item.teamsId\n  ? 'No se encontró teamsId para este email en dbo.NotiViga_userInfo'\n  : 'Usuario tiene notify=0 en la base de datos';\nreturn [{ json: { ...item, status: status, errorDetail: detail }}];"
       },
       "id": "7209b66d-6f18-4994-9f34-774c259f26b4",
       "name": "Set Skip Status",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2672,
+        2880,
         1376
       ]
     },
@@ -1342,9 +1305,12 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        3120,
+        3328,
         1600
       ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
       "credentials": {
         "microsoftSql": {
           "id": "hL9EZkFVhAg4kqAo",
@@ -1422,7 +1388,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT * \nFROM dbo.NotiViga_notification_logs"
+        "query": "SELECT * FROM dbo.NotiViga_notification_logs \n--WHERE errorDetail IS NULL;"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -1557,7 +1523,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain').all();\n  totalSuccess = brainItems.filter(i => i.json._status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json._status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  status\n}}];"
+        "jsCode": "let totalSuccess = 0, totalErrors = 0;\ntry {\n  const brainItems = $('The Brain v1').all();\n  totalSuccess = brainItems.filter(i => i.json._status === 'SUCCESS').length;\n  totalErrors  = brainItems.filter(i => i.json._status !== 'SUCCESS').length;\n} catch(e) {}\nconst totalProcessed = totalSuccess + totalErrors;\nconst status = totalErrors === 0 ? 'SUCCESS' : (totalSuccess === 0 ? 'ERROR' : 'PARTIAL');\nreturn [{ json: {\n  executionId: $execution.id,\n  totalNotified: totalSuccess,\n  totalProcessed,\n  totalSuccess,\n  totalErrors,\n  status\n}}];"
       },
       "id": "317c318c-99f1-4723-a097-7e6ee6884f73",
       "name": "Set Exec Summary1",
@@ -1595,8 +1561,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        800,
-        1328
+        624,
+        1120
       ],
       "id": "32587afe-422b-4b47-9299-05bef096d908",
       "name": "VIGA ENDPOINT1"
@@ -1626,8 +1592,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1072,
-        2848
+        1216,
+        2432
       ],
       "id": "4ec85190-f3ec-4bc1-bf2c-1730efaa41d9",
       "name": "Send email",
@@ -1647,8 +1613,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -224,
-        2480
+        1232,
+        2656
       ],
       "typeVersion": 1,
       "id": "d255f339-92d7-4ca3-aa4f-d0a0d94d25ee",
@@ -1695,7 +1661,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1488,
+        1696,
         1152
       ],
       "id": "406aa92b-f3ba-4981-874e-ed5e184b2419",
@@ -1721,8 +1687,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -368,
-        1488
+        32,
+        1440
       ],
       "typeVersion": 1,
       "id": "7e0759e5-e2d2-4ea2-95a0-46a1cc5a901c",
@@ -1730,16 +1696,63 @@
     },
     {
       "parameters": {
-        "width": 368
+        "content": "## Agregar el manejo de errores en este punto\n"
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1328,
-        960
+        3488,
+        1568
       ],
       "typeVersion": 1,
-      "id": "099ad4a2-5f8b-42a0-985c-522764853fd1",
-      "name": "Sticky Note11"
+      "id": "0767ca3a-9252-452a-9f8f-d47dc484b2e6",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "S\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        3456,
+        1136
+      ],
+      "id": "47531737-3e12-457f-8abb-48d8946103f1",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo central: normaliza todos los paths en un registro unificado\nconst item = $input.first().json;\nconst esc = v => String(v ?? '').replace(/'/g, \"''\").slice(0, 500);\nconst num = v => (v !== null && v !== undefined && v !== '') ? parseFloat(v) : null;\n\nconst eId    =  $execution.id;\nconst name   = esc(item.fullName);\nconst email  = esc(item.email);\nconst expH   = num(item.expectedHours);\nconst totH   = num(item.totalHours);\nconst pct    = num(item.completionPercentage);\nconst status = esc(item.status || 'UNKNOWN');\nconst detail = esc(item.errorDetail || '');\nconst notifiedAt = esc(item.notifiedAt || '')\n\nconst sql = `INSERT INTO dbo.NotiViga_notification_logs (executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES ('${eId}', '${name}', '${email}', ${expH !== null ? expH : 'NULL'}, ${totH !== null ? totH : 'NULL'}, ${pct !== null ? pct : 'NULL'}, '${status}', '${detail}', '${notifiedAt !== null ? notifiedAt : 'NULL'}')`;\n\nreturn [{ json: { ...item, _sql: sql } }];"
+      },
+      "id": "1870fe55-c7e5-414b-8240-935f5eb96a14",
+      "name": "The Brain v1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3104,
+        1184
+      ],
+      "notes": "Único punto de convergencia - construye INSERT dinámico"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo central: normaliza todos los paths en un registro unificado\nconst item = $input.first().json;\n\n// Función para Strings: Si es nulo/vacío devuelve NULL (palabra clave), si no, escapa y pone comillas\nconst escSQL = v => {\n    if (v === null || v === undefined || v === '') return 'NULL';\n    const clean = String(v).replace(/'/g, \"''\").slice(0, 500);\n    return `'${clean}'`;\n};\n\n// Función para Números: Si no es un número válido, devuelve NULL (palabra clave)\nconst numSQL = v => {\n    const parsed = parseFloat(v);\n    return isNaN(parsed) ? 'NULL' : parsed;\n};\n\nconst eId    = $execution.id;\nconst name   = escSQL(item.fullName);\nconst email  = escSQL(item.email);\nconst expH   = numSQL(item.expectedHours);\nconst totH   = numSQL(item.totalHours);\nconst pct    = numSQL(item.completionPercentage);\nconst status = escSQL(item.status || 'UNKNOWN');\nconst detail = escSQL(item.errorDetail); // Ya no forzamos ''\nconst notifiedAt = escSQL(item.notifiedAt);\n\n// Nota: Quitamos las comillas fijas de los valores que ya vienen procesados por escSQL y numSQL\nconst sql = `INSERT INTO dbo.NotiViga_notification_logs \n(executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES \n('${eId}', ${name}, ${email}, ${expH}, ${totH}, ${pct}, ${status}, ${detail}, ${notifiedAt})`;\n\nreturn [{ json: { ...item, _sql: sql } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3312,
+        912
+      ],
+      "id": "a7610281-4ee6-4aa3-94ed-55572d6936c9",
+      "name": "brain v2"
     }
   ],
   "pinData": {
@@ -1812,6 +1825,15 @@
     "VIGA ENDPOINT": [
       {
         "json": {
+          "fullName": "sqlError",
+          "email": "'OK@apg-consulting.com'",
+          "expectedHours": 40,
+          "totalHours": 10,
+          "completionPercentage": 25
+        }
+      },
+      {
+        "json": {
           "fullName": "OK",
           "email": "OK@apg-consulting.com",
           "expectedHours": 40,
@@ -1864,6 +1886,362 @@
           "completionPercentage": 75
         }
       }
+    ],
+    "Set Context": [
+      {
+        "json": {
+          "executionId": "2418",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiQWRtaW5Qcm95ZWN0IiwiQW5hbGlzdGEgcmVzb2x1dG9yIiwiQW5hbGlzdGEiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiUGVybWlzc2lvbnMiOlsiSW50ZXJubyIsIlZpZXdTdXBwb3J0IiwiRWRpdFN1cHBvcnQiLCJDcmVhdGVTdXBwb3J0IiwiRGVsZXRlU3VwcG9ydCIsIlZpZXdQcm9qZWN0IiwiRWRpdFByb2plY3QiLCJDcmVhdGVQcm9qZWN0IiwiVGltZVJlcG9ydCIsIlZpZXdDbGllbnQiLCJFZGl0Q2xpZW50IiwiQ3JlYXRlQ2xpZW50IiwiVmlld1VzZXIiLCJFZGl0VXNlciIsIkNyZWF0ZVVzZXIiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiRVJQIiwiSG9saWRheSIsIkFkbWluQmVlbGxpbmciLCJWaWV3RXJwIiwiVmlld09yaWdpbnMiLCJWaWV3V2ViU2l0ZSJdLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9hdXRoZW50aWNhdGlvbiI6Im5ld1VzZXItYXBnQ29yZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJOdcOxZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmMzhjNjBjNi0yNzNjLTQyMmMtYmQ4Yi00NWMyMjI2NmM1YjkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzc1NzY2ODI2fQ.-bnxwF_hDo_9w6TxMMox5ofuR7LsJtrxeJCV7xalXbo",
+          "startTime": "2026-04-09T15:33:46.190Z",
+          "instanceId": "5F373264-4128-4429-821F-3F97C1779BEA"
+        }
+      }
+    ],
+    "Get Debtors": [
+      {
+        "json": {
+          "success": true,
+          "message": "OK",
+          "data": [
+            {
+              "fullName": "diaz DAna",
+              "email": "dana@diaz.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Jara Claudio",
+              "email": "claudio@jara.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "mama mama",
+              "email": "mama@hotmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Palomeque Angie",
+              "email": "apalomeque@la.apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Fandino Facundo",
+              "email": "ffandino@apconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Gutierrez Yaz",
+              "email": "alexa_992@hotmail.com",
+              "expectedHours": 76.8,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Carollo Facundo",
+              "email": "fcarollo@apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Vodanovic Alejandra",
+              "email": "valentinamaza2013@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "rolito roles6",
+              "email": "roles6@rolito.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Rodriguez Ivan",
+              "email": "irodriguez@apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "user prueba user audit table",
+              "email": "prueba@user.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Arevalo Tarazona J2AT Eliminame",
+              "email": "j2at@hotmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Gutierrez Yazmin",
+              "email": "ygutierrez@apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "rolito roles4",
+              "email": "roles4@rolito.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Parada Juan Jose",
+              "email": "jparada@apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Garcia Julian",
+              "email": "garcia@gmail",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Garcia Jessica",
+              "email": "jgarcia@la.apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "pérez martina",
+              "email": "martina@apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Maza Valentina",
+              "email": "vmaza@la.apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "mas pruebas Pruebas",
+              "email": "pruebas@hotmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Rolon Victoria",
+              "email": "pruebascomfiarpe@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Rolando Carlos",
+              "email": "crolando@apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Vallejo Lucas",
+              "email": "lvallejo@comfiar.com.bo",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Prieto Andrea",
+              "email": "aprieto@apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Rodriguez Vanessa",
+              "email": "vrodriguez@la.comfiar.co",
+              "expectedHours": 65.6,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "yujra Omar",
+              "email": "oyujra@la.apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "pruebaProyecto pruebaProyecto",
+              "email": "prueba@gmail.comn",
+              "expectedHours": 12.8,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Perez Manolo",
+              "email": "manolo@apgcore.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Cañizales Eduardo",
+              "email": "ecanizales@apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Formiga Julio",
+              "email": "jformiga@apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Rodriguez Cami",
+              "email": "crodrigr@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Arevalo John",
+              "email": "arevalo.john@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Ravenna Andrea",
+              "email": "andre@hotmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "jara karina",
+              "email": "karina@jara.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "jaramillo karen",
+              "email": "karen@jara.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Solo Proyect UserProyect",
+              "email": "proyect@yopmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Quinta Carito",
+              "email": "yrosendo@apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Arevalo Tarazona John Albeiro",
+              "email": "jarevalo@apg-consulting.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Gulman Ezequiel",
+              "email": "egulman@apgconsulting.com.ar",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "picapiedra picapiedra",
+              "email": "picapiedra@gmail.com",
+              "expectedHours": 4.8,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "hermozo micky",
+              "email": "mickyhermozo72@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "USUARIO PEDRO",
+              "email": "vm@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Perez Paola",
+              "email": "paola@perez.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "rolito rol7",
+              "email": "rol7@rolito.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "mama papa",
+              "email": "pama@hotmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "santo lucio",
+              "email": "lucio@santo.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "si ahora",
+              "email": "ahora@si.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            },
+            {
+              "fullName": "Prueba APG",
+              "email": "apg.consulting.w@gmail.com",
+              "expectedHours": 64,
+              "totalHours": 0,
+              "completionPercentage": 0
+            }
+          ]
+        }
+      }
     ]
   },
   "settings": {
@@ -1881,6 +2259,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-08T20:17:49.501Z",
-  "versionId": "ef7f3d60-5886-4563-b52c-6321126338b5"
+  "updatedAt": "2026-04-09T17:04:55.756Z",
+  "versionId": "a2156e6f-7009-4047-b15d-22dd4456ceb9"
 }
