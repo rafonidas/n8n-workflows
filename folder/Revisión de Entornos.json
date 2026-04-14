@@ -860,7 +860,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat('yyyy-MM-dd HH:mm:ss');\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1589,6 +1589,21 @@
       ],
       "id": "0051db7e-5f24-46a1-af8c-76a9cf337c1f",
       "name": "Set tasks?"
+    },
+    {
+      "parameters": {
+        "content": "## Cada vez que se ejecuta el flujo, guardar 1 registro\n## Supervisor -> revisa todas las ejeccuciones (puede detectar anomalias si sabemos que esperamos)\n## 3 four hourly por día -> se ejecutaron todas?\n\n## murió a la mitad el primer four hourly, cómo re ejecuto esto automaticamente sin necesidad de hacerlo manual?\n",
+        "height": 432,
+        "width": 656
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1616,
+        288
+      ],
+      "typeVersion": 1,
+      "id": "34321e99-85aa-400c-84e4-ff852cc10de5",
+      "name": "Sticky Note3"
     }
   ],
   "pinData": {},
@@ -1630,6 +1645,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-04-08T19:47:00.691Z",
-  "versionId": "c1c7724a-a3f3-44f1-b167-bcbe754479e1"
+  "updatedAt": "2026-04-13T17:28:55.934Z",
+  "versionId": "9fd68be5-d3b5-4fa7-92d5-06477f2ae7c6"
 }
