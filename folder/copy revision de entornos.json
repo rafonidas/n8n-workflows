@@ -23,7 +23,7 @@
       "main": [
         [
           {
-            "node": "Filter Queries",
+            "node": "Audit Start",
             "type": "main",
             "index": 0
           }
@@ -192,7 +192,7 @@
       "main": [
         [
           {
-            "node": "Audit End",
+            "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
@@ -732,9 +732,9 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "=type",
+              "keyName": "=queryId",
               "condition": "=eq",
-              "keyValue": "={{ $json.type }}"
+              "keyValue": "=10"
             }
           ]
         },
@@ -743,15 +743,14 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -448,
-        656
+        -384,
+        960
       ],
       "id": "01719d7a-e6db-4686-8063-168db1c40c12",
       "name": "Set Queries",
       "retryOnFail": true,
       "maxTries": 2,
-      "waitBetweenTries": 5000,
-      "disabled": true
+      "waitBetweenTries": 5000
     },
     {
       "parameters": {
@@ -844,7 +843,8 @@
       ],
       "id": "92de35ea-d477-404b-9d24-f47a2f860a25",
       "name": "Fan Out",
-      "alwaysOutputData": false
+      "alwaysOutputData": false,
+      "disabled": true
     },
     {
       "parameters": {
@@ -883,12 +883,13 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -272,
+        -224,
         656
       ],
       "id": "547c8110-60be-440d-9f4c-71aeb7e6763b",
       "name": "Filter Queries",
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "disabled": true
     },
     {
       "parameters": {
@@ -922,7 +923,8 @@
         656
       ],
       "id": "3517e7c2-fe7a-43b9-90af-579fa2ea7ff8",
-      "name": "If"
+      "name": "If",
+      "disabled": true
     },
     {
       "parameters": {
@@ -971,7 +973,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1552,
+        -1200,
         640
       ],
       "id": "0f58b87f-1300-4be2-977f-0bc421e069a7",
@@ -993,40 +995,40 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat('yyyy-MM-dd HH:mm:ss');\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat('yyyy-MM-dd HH:mm:ss.SSS');\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        608,
-        656
+        -96,
+        992
       ],
       "id": "9e17f294-4d56-48e1-8105-e0a6fa69616a",
-      "name": "Audit Start",
-      "disabled": true
+      "name": "Audit Start"
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "select cuitid, puntodeventaid, fechainicioevento, EstadoEvento  \n\n  from bolfe_eventos with(Nolock) where ESTADOEVENTO in ('INICIADA','EN PROCESO') "
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
       },
       "id": "e9fcf7cc-b119-4d06-becf-83bcd16a7b31",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        880,
-        656
+        240,
+        960
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
       "retryOnFail": true,
       "credentials": {
         "microsoftSql": {
-          "id": "7G3SN0kKPTZvCl0e",
-          "name": "SQL-04"
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
         }
-      }
+      },
+      "notes": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
     },
     {
       "parameters": {
@@ -1304,12 +1306,12 @@
     },
     {
       "parameters": {
-        "jsCode": "const serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
+        "jsCode": "let executionType = 'Daily';\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    // { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n     { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    // { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    // { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    // { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n     { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    // { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    // { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    // { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1264,
+        -912,
         640
       ],
       "id": "15507e07-e49a-4767-bc74-09b8198c3443",
@@ -2911,6 +2913,61 @@
       ],
       "id": "2e9587c3-e410-4298-881e-7eb6ea3d43c7",
       "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "content": "##   \"AR\": \"America/Argentina/Buenos_Aires\",\n##   \"PE\": \"America/Lima\",\n##   \"CO\": \"America/Bogota\",\n##   \"CR\": \"America/Costa_Rica\",\n##   \"BO\": \"America/La_Paz\",\n##   \"EC\": \"America/Guayaquil\"",
+        "height": 352,
+        "width": 512
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -208,
+        1168
+      ],
+      "typeVersion": 1,
+      "id": "0f421652-9e2c-4688-a942-ca7cc38cd093",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    GETDATE() AS [Hora_Local_Servidor],\n    SYSDATETIMEOFFSET() AS [Hora_Con_Offset],\n    CURRENT_TIMEZONE() AS [Nombre_Zona_Horaria], -- Disponible en versiones recientes\n    CAST(SYSDATETIMEOFFSET() AS datetimeoffset) AT TIME ZONE 'Argentina Standard Time' AS [Equivalente_En_Argentina]"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -656,
+        1216
+      ],
+      "id": "37461a91-8949-402d-b55c-db2634faa479",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    GETDATE() AS [1_Valor_Que_Llego_De_n8n], \n    SYSDATETIME() AS [2_Hora_Real_Reloj_Servidor_Arg],\n    DATEDIFF(MINUTE, GETDATE(), SYSDATETIME()) AS [3_Diferencia_Minutos_Reales]"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        112,
+        816
+      ],
+      "id": "97d65db9-1520-4829-a56b-e369c3578290",
+      "name": "Microsoft SQL2",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
     }
   ],
   "pinData": {
@@ -3423,6 +3480,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-03-19T18:15:49.111Z",
-  "versionId": "a8f3f6ad-f5e4-47ad-8834-503f943c1d2f"
+  "updatedAt": "2026-04-13T18:15:41.927Z",
+  "versionId": "34783570-c24f-4801-b54f-9196e9fe0961"
 }
