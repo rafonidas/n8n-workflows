@@ -136,8 +136,8 @@
       "webhookId": "3313d8a2-187d-49f8-a56a-ffec4520e967",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "ueHY9A2J5aF54WT3",
-          "name": "Notificaciones n8n"
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
         }
       },
       "disabled": true,
@@ -167,7 +167,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        624,
+        464,
         -224
       ]
     },
@@ -190,6 +190,36 @@
           "name": "Utiles-Viga"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## Log executions se guarda al FINALIZAR el flujo.\n## es posible que el flujo falle a la mitad, habiendo notificado a 2 de 5. Si re ejecutamos sin tener esto en cuenta, duplicaremos registros\n",
+        "height": 224,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        896,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "ccde7846-dcfd-49f5-b698-a371e79ea6be",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Esta query debe devolver el teamsID del rrhh correspondiente a cada usuario reincidente\n",
+        "height": 112,
+        "width": 432
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        608,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "700752ab-8284-4b51-8ca4-4d470417242a",
+      "name": "Sticky Note1"
     }
   ],
   "pinData": {},
@@ -211,6 +241,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-09T14:36:20.692Z",
-  "versionId": "270742ec-57de-4bb1-80e0-0709663df292"
+  "updatedAt": "2026-04-14T15:36:26.391Z",
+  "versionId": "74d412d7-ddea-44ed-96c4-1aea4872c623"
 }
