@@ -91,7 +91,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const response = $input.first().json;\nconst runData = response.data.resultData.runData;\nconst lastNode = response.data.resultData.lastNodeExecuted;\n\n// 1. Buscamos el error técnico\nconst technicalError = response.data.resultData.error || {};\n\n// 2. Buscamos el CONTEXTO REAL (País y Entorno del Credentials Loop)\nlet realContext = { pais: \"N/A\", entorno: \"N/A\" };\n\ntry {\n  // Accedemos al historial del nodo que itera las credenciales\n  const credsLoopExecs = runData[\"Credentials Loop\"];\n  // Tomamos la última vez que pasó por ese nodo\n  const lastCredsExecution = credsLoopExecs[credsLoopExecs.length - 1];\n  \n  // En un 'Split in Batches', el puerto 1 (índice 1) es el que saca el ítem actual\n  const currentCredsItem = lastCredsExecution.data.main[1][0].json;\n  \n  realContext.pais = currentCredsItem.country || \"N/A\";\n  realContext.entorno = currentCredsItem.entorno || \"N/A\";\n} catch (e) {\n  realContext = { pais: \"Error rastreo\", entorno: \"Error rastreo\" };\n}\n\n// 3. Buscamos los datos de la QUERY que falló\nlet lastInputData = {};\ntry {\n  const nodeExecutions = runData[lastNode];\n  const lastExecution = nodeExecutions[nodeExecutions.length - 1];\n  \n  if (lastExecution.source && lastExecution.source.length > 0) {\n    const sourceNodeName = lastExecution.source[0].previousNode;\n    const sourceNodeExecs = runData[sourceNodeName];\n    const lastSourceExec = sourceNodeExecs[sourceNodeExecs.length - 1];\n    \n    // El 'Query Loop' entrega los datos por el puerto 1\n    lastInputData = lastSourceExec.data.main[1][0].json;\n  }\n} catch (e) {\n  lastInputData = { info: \"No se pudo rastrear la query\" };\n}\n\nreturn {\n  json: {\n    alerta: {\n      error: technicalError.message,\n      stack: technicalError.stack,\n      nodo_fallido: lastNode,\n    },\n    contexto_negocio: {\n      queryId: lastInputData.queryId || \"N/A\",\n      // AHORA SI: Usamos los datos del contexto real de conexión\n      queryType: lastInputData.type,\n      pais: realContext.pais,\n      entorno: realContext.entorno,\n    },\n    meta: {\n      executionId: response.id,\n      timestamp: response.stoppedAt\n    }\n  }\n};"
+        "jsCode": "const response = $input.first().json;\nconst runData = response.data.resultData.runData;\nconst lastNode = response.data.resultData.lastNodeExecuted;\nconst queryId = $input.first().json.data.executionData.nodeExecutionStack[0].data.main[0][0].json.queryId\n// 1. Buscamos el error técnico\nconst technicalError = response.data.resultData.error || {};\n\n// 2. Buscamos el CONTEXTO REAL (País y Entorno del Credentials Loop)\nlet realContext = { pais: \"N/A\", entorno: \"N/A\" };\n\ntry {\n  // Accedemos al historial del nodo que itera las credenciales\n  const credsLoopExecs = runData[\"Credentials Loop\"];\n  // Tomamos la última vez que pasó por ese nodo\n  const lastCredsExecution = credsLoopExecs[credsLoopExecs.length - 1];\n  \n  // En un 'Split in Batches', el puerto 1 (índice 1) es el que saca el ítem actual\n  const currentCredsItem = lastCredsExecution.data.main[1][0].json;\n  \n  realContext.pais = currentCredsItem.country || \"N/A\";\n  realContext.entorno = currentCredsItem.entorno || \"N/A\";\n} catch (e) {\n  realContext = { pais: \"Error rastreo\", entorno: \"Error rastreo\" };\n}\n\n// 3. Buscamos los datos de la QUERY que falló\nlet lastInputData = {};\ntry {\n  const nodeExecutions = runData[lastNode];\n  const lastExecution = nodeExecutions[nodeExecutions.length - 1];\n  \n  if (lastExecution.source && lastExecution.source.length > 0) {\n    const sourceNodeName = lastExecution.source[0].previousNode;\n    const sourceNodeExecs = runData[sourceNodeName];\n    const lastSourceExec = sourceNodeExecs[sourceNodeExecs.length - 1];\n    \n    // El 'Query Loop' entrega los datos por el puerto 1\n    lastInputData = lastSourceExec.data.main[1][0].json;\n  }\n} catch (e) {\n  lastInputData = { info: \"No se pudo rastrear la query\" };\n}\n\nreturn {\n  json: {\n    alerta: {\n      error: technicalError.message,\n      stack: technicalError.stack,\n      nodo_fallido: lastNode,\n    },\n    contexto_negocio: {\n      queryId: queryId || \"N/A\",\n      // AHORA SI: Usamos los datos del contexto real de conexión\n      queryType: lastInputData.type,\n      pais: realContext.pais,\n      entorno: realContext.entorno,\n    },\n    meta: {\n      executionId: response.id,\n      timestamp: response.stoppedAt\n    }\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -219,16 +219,16 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:NQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1@thread.tacv2",
+          "value": "19:c81deee8b1fb41348b36a3684fd53a81@thread.tacv2",
           "mode": "list",
-          "cachedResultName": "Notificaciones de error",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3ANQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1%40thread.tacv2/n8n%20notifications?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+          "cachedResultName": "Errores",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ac81deee8b1fb41348b36a3684fd53a81%40thread.tacv2/Errores?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
         "contentType": "html",
         "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $json.meta.timestamp.toDateTime().format('yyyy-MM-dd HH:mm') }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error }}<br>\n<br>\n<br><br><small><b>Technical Stack:</b> {{ $json.alerta.stack }}...</small>",
@@ -288,6 +288,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-01T14:16:25.176Z",
-  "versionId": "4dc1fcfc-385f-4ead-bb6f-6e74108a2878"
+  "updatedAt": "2026-04-14T15:01:25.878Z",
+  "versionId": "0588cfb8-318f-44a4-a956-abed5a9d440b"
 }
