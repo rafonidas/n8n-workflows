@@ -494,6 +494,16 @@
           }
         ]
       ]
+    },
+    "GET USERS": {
+      "main": [
+        []
+      ]
+    },
+    "Microsoft SQL1": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2026-04-06T12:57:37.163Z",
@@ -532,8 +542,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -528,
-        1808
+        -704,
+        1520
       ]
     },
     {
@@ -851,8 +861,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -160,
-        2768
+        -256,
+        2224
       ],
       "credentials": {
         "microsoftSql": {
@@ -890,8 +900,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        80,
-        2768
+        -96,
+        2224
       ]
     },
     {
@@ -899,10 +909,10 @@
         "resource": "chatMessage",
         "chatId": {
           "__rl": true,
-          "value": "19:12d53d05-c357-4d11-8464-004c9a76b40c_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "value": "19:0a3d8024-1ea6-452a-99de-b81e0ee02139_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
           "mode": "list",
-          "cachedResultName": "APG Consulting Notificaciones, Ezequiel Gulman (oneOnOne)",
-          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A12d53d05-c357-4d11-8464-004c9a76b40c_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+          "cachedResultName": "APG Consulting Notificaciones, Noelia Albanese (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A0a3d8024-1ea6-452a-99de-b81e0ee02139_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
         },
         "contentType": "html",
         "message": "=⚠️ <b>Escalamiento Nivel 2 - VigaTimeReport</b><br>El usuario <b>{{ $json.fullName }}</b> ha sido notificado <b>{{ $json.notif_count }} veces</b> en los últimos 5 días.<br>RRHH asignado: {{ $json.rrhh || 'No asignado' }}",
@@ -915,8 +925,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        304,
-        2672
+        96,
+        2224
       ],
       "webhookId": "428574e3-87f4-4985-abc6-db95f48f77ca",
       "credentials": {
@@ -1091,7 +1101,10 @@
       "parameters": {
         "rule": {
           "interval": [
-            {}
+            {
+              "field": "cronExpression",
+              "expression": "0 0 11 * * 1-5"
+            }
           ]
         }
       },
@@ -1099,7 +1112,7 @@
       "typeVersion": 1.2,
       "position": [
         -416,
-        2768
+        2224
       ],
       "id": "8b29b73c-1fd8-47bb-b34e-ee9dcb683d46",
       "name": "Schedule Trigger1"
@@ -1455,8 +1468,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -416,
-        2256
+        -928,
+        1696
       ],
       "typeVersion": 1,
       "id": "b91f1fe8-2e52-4d42-ae5f-39b191f0f3fb",
@@ -1935,6 +1948,46 @@
       ],
       "id": "3dd02084-8a4c-4ae3-828c-109cad06d8f3",
       "name": "GET NOTIFICATIONS",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO dbo.NotiViga_userInfo (email, teamsId, name, notify, rrhh)\nVALUES (\n    'mcherepinsky@apgconsulting.com.ar', \n    '6d1f19e0-7956-4252-bf64-af510dd3e33a', \n    'Matias Cherepinsky', \n    1, \n    'nalbanese@apg-consulting.com'\n);"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        848
+      ],
+      "id": "b4a00b9a-113c-467a-b7f7-a0bfecedcd33",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE dbo.NotiViga_userInfo\nSET notify = 0\nWHERE email = 'mlapaco@apgconsulting.com.ar'"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        688
+      ],
+      "id": "9a3cfd23-7280-4dcb-9921-e87981e08a0c",
+      "name": "Microsoft SQL2",
       "credentials": {
         "microsoftSql": {
           "id": "hL9EZkFVhAg4kqAo",
@@ -3035,6 +3088,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-14T19:37:41.402Z",
-  "versionId": "72dda0b3-26c7-408b-b73f-d13836879249"
+  "updatedAt": "2026-04-15T15:09:09.852Z",
+  "versionId": "5942c730-f996-4bac-a777-17289d9c52d5"
 }
