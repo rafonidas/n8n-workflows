@@ -1,0 +1,1167 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login VIGA": {
+      "main": [
+        [
+          {
+            "node": "JWT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set VIGA Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Context": {
+      "main": [
+        [
+          {
+            "node": "Get Debtors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Debtors": {
+      "main": [
+        [
+          {
+            "node": "Normalize Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set VIGA Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set VIGA Error": {
+      "main": [
+        [
+          {
+            "node": "SQL Exec Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Response": {
+      "main": [
+        [
+          {
+            "node": "IF Has Debtors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set No Deudores": {
+      "main": [
+        [
+          {
+            "node": "SQL Exec Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Merge Data": {
+      "main": [
+        [
+          {
+            "node": "IF Can Notify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Can Notify": {
+      "main": [
+        [
+          {
+            "node": "HTTP Create Chat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Skip Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Create Chat": {
+      "main": [
+        [
+          {
+            "node": "Teams Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Chat Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Teams Send Message": {
+      "main": [
+        [
+          {
+            "node": "Set SUCCESS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Msg Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set SUCCESS": {
+      "main": [
+        [
+          {
+            "node": "The Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Msg Error": {
+      "main": [
+        [
+          {
+            "node": "The Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Chat Error": {
+      "main": [
+        [
+          {
+            "node": "The Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set SQL Error": {
+      "main": [
+        [
+          {
+            "node": "The Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Exec Summary": {
+      "main": [
+        [
+          {
+            "node": "SQL Exec Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Has Debtors": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set No Deudores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Set Exec Summary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get userInfo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Skip Status": {
+      "main": [
+        [
+          {
+            "node": "The Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL notification_log INSERT": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Error": {
+      "main": [
+        [
+          {
+            "node": "Set Merge Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set SQL Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "The Brain": {
+      "main": [
+        [
+          {
+            "node": "SQL notification_log INSERT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get userInfo": {
+      "main": [
+        [
+          {
+            "node": "Validate Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JWT": {
+      "main": [
+        [
+          {
+            "node": "Set Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Reincidence": {
+      "main": [
+        [
+          {
+            "node": "IF Reincidence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Reincidence": {
+      "main": [
+        [
+          {
+            "node": "Teams Notify RRHH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "SQL Reincidence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-14T16:45:30.829Z",
+  "id": "QWbKR1BHj8e5dE8z",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Viga Time Report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 9 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "bed920ce-546e-4eb4-afe9-d524db83890b",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -6784,
+        1552
+      ],
+      "notes": "Lunes-Viernes 9:00 AM"
+    },
+    {
+      "parameters": {},
+      "id": "d9bff85b-e82d-40fc-85d5-d1b40e8b98cf",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -6992,
+        1552
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "61427251-7949-4e8c-a476-3359814bc37e",
+      "name": "Login VIGA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -6608,
+        1552
+      ],
+      "onError": "continueErrorOutput",
+      "notes": "Login VIGA → Bearer Token"
+    },
+    {
+      "parameters": {
+        "jsCode": "const login = $input.first().json; // INPUT DATA\n\nconst token = $('Login VIGA').first().json.token.token // BEARER TOKEN\n\nconst percentage = '100'     // UMBRAL DE HORAS\nif (!token) throw new Error('Login VIGA fallido: ' + JSON.stringify(login).slice(0,200)); // ERROR CATCH\n\nreturn [{ json: {\n  executionId: $execution.id,\n  token,\n  startTime: new Date().toISOString(),\n  instanceId: login.payload.InstanceId,\n  percentage\n}}];"
+      },
+      "id": "b8fee425-6425-4839-9b3c-03ce2af413f8",
+      "name": "Set Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -6096,
+        1552
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://apg.cloudviga.com:8500/api/TimereportNotification/overdue-hours",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "instanceId",
+              "value": "={{ $('Set Context').first().json.instanceId }}"
+            },
+            {
+              "name": "percentage",
+              "value": "={{$json.percentage}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Set Context').first().json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7a685869-c652-4a15-9611-dc88c1cbc4dc",
+      "name": "Get Debtors",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -5872,
+        1552
+      ],
+      "onError": "continueErrorOutput",
+      "notes": "Obtiene lista de deudores de VIGA"
+    },
+    {
+      "parameters": {
+        "jsCode": "const err = $input.first().json;\nreturn [{ json: {\n  executionId: $execution.id,\n  status: 'ERROR_VIGA_API',\n  totalNotified: 0,\n  // errorMsg: JSON.stringify(err.error || err).slice(0,300)\n}}];\n\n//, totalProcessed: 0, totalSuccess: 0, totalErrors: 1,"
+      },
+      "id": "a66b9af8-5418-4608-8098-e1c3a760f528",
+      "name": "Set VIGA Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5088,
+        2144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst arr = Array.isArray(r.data) ? r.data : [];\n\nreturn arr.map(item => {\n  return {\n    json: item\n  };\n});"
+      },
+      "id": "c63efb95-86b4-48ad-be4e-a3986aa04f45",
+      "name": "Normalize Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5648,
+        1504
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d95b7056-5a2a-4b3e-bd33-b655b4977121",
+              "name": "executionId",
+              "value": "={{ $execution.id }}",
+              "type": "string"
+            },
+            {
+              "id": "5c5a361b-4faa-445a-a8eb-959d013f2388",
+              "name": "totalNotified",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "30541c12-5afa-4205-b4f0-c40ab00e95b4",
+              "name": "status",
+              "value": "NO_DEUDORES",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6ceda44c-6876-4784-87fd-cbf5807c8ee1",
+      "name": "Set No Deudores",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -5248,
+        1600
+      ],
+      "notes": "posibilidad de agregar\ntotalSuccess y totalErrors y totalProcessed"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sql = $input.first().json;\nconst viga = $('Loop Over Items').item.json;\nreturn [{ json: {\n  executionId: $execution.id ,\n  email: viga.email || '',\n  fullName: viga.fullName || '',\n  expectedHours: viga.expectedHours ?? null,\n  totalHours: viga.totalHours ?? null,\n  completionPercentage:viga.completionPercentage ?? null,\n  teamsId: sql.teamsId || null,\n  rrhh: sql.rrhh || null\n}}];"
+      },
+      "id": "c586a0d1-6bd0-42df-a0e5-4001c6fdc1cc",
+      "name": "Set Merge Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3984,
+        1328
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5578258b-b866-40ef-823f-d422c2cee8ed",
+              "leftValue": "={{ $json.teamsId }}",
+              "rightValue": "null",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "11f1d5f4-7e1b-4911-8181-3110d3e83526",
+      "name": "IF Can Notify",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3776,
+        1376
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/chats",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chatType\": \"oneOnOne\",\n  \"members\": [\n    {\n      \"@odata.type\": \"#microsoft.graph.aadUserConversationMember\",\n      \"roles\": [\"owner\"],\n      \"user@odata.bind\": \"https://graph.microsoft.com/v1.0/users('dc249723-4f57-4995-bdc6-836ab587c0fd')\"\n    },\n    {\n      \"@odata.type\": \"#microsoft.graph.aadUserConversationMember\",\n      \"roles\": [\"owner\"],\n      \"user@odata.bind\": \"https://graph.microsoft.com/v1.0/users('{{ $json.teamsId }}')\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "e9246418-fa17-4fc1-a476-66dd2e09f4f7",
+      "name": "HTTP Create Chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3600,
+        1280
+      ],
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const err = $input.first().json;\nconst m = $('Set Merge Data').item.json;\nreturn [{ json: { ...m, status: 'ERROR_TEAMS_ID',\n  errorDetail: JSON.stringify(err.error.message || err.message || err).slice(0,500) }}];"
+      },
+      "id": "7bc98563-071d-44f0-94e4-cc52476487bc",
+      "name": "Set Chat Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3152,
+        1472
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "=<p>Hola <strong>{{ $('Set Merge Data').item.json.fullName }}</strong>,</p>\n<p>Te recordamos que tus horas en <strong>Viga</strong> no están al día:</p>\n<ul>\n  <li>⏰ <strong>Horas esperadas:</strong> {{ $('Set Merge Data').item.json.expectedHours }}h</li>\n  <li>✅ <strong>Horas cargadas:</strong> {{ $('Set Merge Data').item.json.totalHours }}h</li>\n  <li>📊 <strong>Completado:</strong> {{ $('Set Merge Data').item.json.completionPercentage }}%</li>\n</ul>\n<p>Por favor carga tus horas pendientes. ¡Muchas gracias!</p>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "c12bae36-1622-4c7c-bfd4-6b82fe2333eb",
+      "name": "Teams Send Message",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -3376,
+        1184
+      ],
+      "webhookId": "171c1abc-4ec3-4911-a1a1-f5d214283cfd",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const err = $input.first().json;\nconst m = $('Set Merge Data').item.json;\nreturn [{ json: { ...m, status: 'ERROR_TEAMS_MSG',\n  errorDetail: JSON.stringify(err.error.message || err.message || err).slice(0,500) }}];"
+      },
+      "id": "ee247cd9-6f63-4722-929f-2e146a73a403",
+      "name": "Set Msg Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3152,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $(\"Loop Over Items\").first().json\n// const ctx = $('Set Context').first().json;\nreturn [{ json: {\n  // executionId: ctx.executionId,\n  email: input.email || null,\n  fullName: input.fullName || null,\n  expectedHours: input.expectedHours ?? null,\n  totalHours: input.totalHours ?? null,\n  completionPercentage: input.completionPercentage ?? null,\n  teamsId: null, rrhh: null,\n  status: 'ERROR_SQL',\n  errorDetail: $input.first().json.error,\n  notifiedAt: null\n}} ];"
+      },
+      "id": "7d333a52-b705-404b-85c2-0a8aa9f8846d",
+      "name": "Set SQL Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3152,
+        1856
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const m = $('Set Merge Data').item.json;\nreturn [{ json: { ...m, status: 'SUCCESS', errorDetail: null, notifiedAt: $now.toFormat('yyyy-MM-dd HH:mm:ss.SSS') }}];"
+      },
+      "id": "a0967c64-3915-4336-ab03-02fe9191c542",
+      "name": "Set SUCCESS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3152,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst c = staticData.counters || { totalProcessed: 0, totalNotified: 0, totalSkipped: 0, totalError: 0 };\n\nconst execStatus = c.totalError === 0 ? 'SUCCESS'\n  : c.totalNotified === 0 ? 'FAILED'\n  : 'INCOMPLETE';\n\nreturn [{ json: {\n  executionId: $execution.id,\n  ...c,\n  status: execStatus\n}}];"
+      },
+      "id": "4579a5d0-2a5e-4438-8616-1c6874a8c885",
+      "name": "Set Exec Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -4960,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO dbo.NotiViga_execution_logs (ExecutionId, totalNotified, dateTime, status) VALUES ('{{ $json.executionId }}', {{ $json.totalNotified }}, GETDATE(), '{{ $json.status }}')"
+      },
+      "id": "7e5ef507-fb66-4439-b978-c032a5c6674b",
+      "name": "SQL Exec Log",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -4544,
+        1600
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "82888a0d-2305-4af7-98c8-4becb1e46ffb",
+              "leftValue": "={{ $json }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "26b8d562-1418-4bf7-9d41-0cffc07dad6c",
+      "name": "IF Has Debtors",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -5424,
+        1504
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -5248,
+        1424
+      ],
+      "id": "1dba6df2-01f3-4545-bc59-8133ca558e5a",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $(\"Loop Over Items\").first().json\nconst status = !item.teamsId ? 'MISMATCH_TEAMS' : 'NOTIFY_DISABLED';\nconst detail = !item.teamsId\n  ? 'No se encontró teamsId para este email en dbo.NotiViga_userInfo'\n  : 'Usuario tiene notify=0 en la base de datos';\nreturn [{ json: { ...item, status: status, errorDetail: detail }}];"
+      },
+      "id": "f38b136a-5196-4858-9c6b-0d47533a0ad8",
+      "name": "Set Skip Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3152,
+        1664
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json._sql }}"
+      },
+      "id": "11e42a40-4efe-4767-ab6a-d2cd5ab8d0e4",
+      "name": "SQL notification_log INSERT",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -2704,
+        1856
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      },
+      "notes": "UN SOLO nodo SQL para todos los registros de notificación"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e43ca063-d644-4c3e-b490-04a91dad710a",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4336,
+        1440
+      ],
+      "id": "e90c4c81-c77b-4a5d-ad6e-c38fa40f8edf",
+      "name": "Validate Error"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════\n// THE BRAIN — normaliza el item + clasifica para contadores\n// ═══════════════════════════════════════════════════════\nconst item = $input.first().json;\n\n// ── Helpers SQL ──\nconst escSQL = v => {\n  if (v === null || v === undefined || v === '') return 'NULL';\n  const clean = String(v).replace(/'/g, \"''\").slice(0, 500);\n  return `'${clean}'`;\n};\nconst numSQL = v => {\n  const parsed = parseFloat(v);\n  return isNaN(parsed) ? 'NULL' : parsed;\n};\n\n// ── Clasificación del item para los contadores del resumen ──\nconst STATUS_SUCCESS  = ['SUCCESS'];\nconst STATUS_NOTIFIED = ['SUCCESS'];            // notificados reales\nconst STATUS_SKIPPED  = ['MISMATCH_TEAMS', 'NOTIFY_DISABLED'];\n// Todo lo demás se considera error\n\nconst s = item.status || 'UNKNOWN';\nconst isSuccess  = STATUS_SUCCESS.includes(s);\nconst isNotified = STATUS_NOTIFIED.includes(s);\nconst isSkipped  = STATUS_SKIPPED.includes(s);\nconst isError    = !isSuccess && !isSkipped;\n\n// ── Build SQL ──\nconst eId       = $execution.id;\nconst name      = escSQL(item.fullName);\nconst email     = escSQL(item.email);\nconst expH      = numSQL(item.expectedHours);\nconst totH      = numSQL(item.totalHours);\nconst pct       = numSQL(item.completionPercentage);\nconst status    = escSQL(s);\nconst detail    = escSQL(item.errorDetail);\nconst notifiedAt = escSQL(item.notifiedAt);\n\nconst sql = `INSERT INTO dbo.NotiViga_notification_logs\n(executionId, fullName, email, expectedHours, totalHours, completionPercentage, status, errorDetail, notifiedAt)\nVALUES\n('${eId}', ${name}, ${email}, ${expH}, ${totH}, ${pct}, ${status}, ${detail}, ${notifiedAt})`;\n\n\nconst staticData = $getWorkflowStaticData('global');\n\n// Inicializar si es la primera vuelta\nif (!staticData.counters || staticData.executionId !== $execution.id) {\n  staticData.executionId = $execution.id;\n  staticData.counters = { totalProcessed: 0, totalNotified: 0, totalSkipped: 0, totalError: 0 };\n}\n\nstaticData.counters.totalProcessed += 1;\nif (isSuccess) staticData.counters.totalNotified += 1;\nif (isSkipped) staticData.counters.totalSkipped  += 1;\nif (isError)   staticData.counters.totalError    += 1;\n\n\n\nreturn [{ json: {\n  ...item,\n  _sql: sql,\n  // Flags para que Set Exec Summary pueda contar sin depender de nombres de status\n  _isSuccess:  isSuccess,\n  _isNotified: isNotified,\n  _isSkipped:  isSkipped,\n  _isError:    isError\n}}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2912,
+        1472
+      ],
+      "id": "5a9c9494-bba5-46c3-bcfe-2e010a78ed5c",
+      "name": "The Brain"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT teamsId, name, email, rrhh\nFROM dbo.NotiViga_userInfo\nWHERE email = '{{ $json.email }}';\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -4544,
+        1440
+      ],
+      "id": "1f702f68-0d0b-456c-b581-ff72e9c7b215",
+      "name": "Get userInfo",
+      "alwaysOutputData": true,
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { \"fullName\": \"OK\", \"email\": \"'OK@apg-consulting.com'\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  { \"fullName\": \"OK\", \"email\": \"OK@111pg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },\n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 },    \n  // { \"fullName\": \"OK\", \"email\": \"OK@apg-consulting.com\", \"expectedHours\": 40, \"totalHours\": 10, \"completionPercentage\": 25 }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -5712,
+        1120
+      ],
+      "id": "e959147c-16e4-48c2-8035-2287c5b07cb3",
+      "name": "VIGA ENDPOINT1"
+    },
+    {
+      "parameters": {
+        "content": "## Customizar el flujo para que sea \"manejable\"de manera externa mediante comandos para que el Dev no sea el encargado de controlar el flujo\n",
+        "width": 800
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -4336,
+        848
+      ],
+      "typeVersion": 1,
+      "id": "9f48fa01-fc24-47d7-949c-4c478179fe44",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "decode",
+        "token": "={{ $json.token.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.jwt",
+      "typeVersion": 1,
+      "position": [
+        -6352,
+        1456
+      ],
+      "id": "9e1e4f3f-2d4b-423d-b57e-a6bec1281c8f",
+      "name": "JWT",
+      "credentials": {
+        "jwtAuth": {
+          "id": "ILLD0X7MWwqdPFjd",
+          "name": "JWT Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT n.email, n.fullName, u.rrhh, COUNT(*) as notif_count\nFROM dbo.NotiViga_notification_logs n\nLEFT JOIN dbo.NotiViga_userInfo u ON u.email = n.email\nWHERE n.status = 'SUCCESS'\n  AND n.notifiedAt >= DATEADD(day, -5, GETDATE())\nGROUP BY n.email, n.fullName, u.rrhh\nHAVING COUNT(*) >= 2"
+      },
+      "id": "f9b3e07e-fba2-4ca2-b21b-91d581f67ebe",
+      "name": "SQL Reincidence",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -6800,
+        1936
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5ed57128-6f12-48a8-ba66-98a5b97487eb",
+              "leftValue": "={{ $json.notif_count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6bc68974-1a61-45d7-8239-0d651eade2d4",
+      "name": "IF Reincidence",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -6640,
+        1936
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:0a3d8024-1ea6-452a-99de-b81e0ee02139_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "APG Consulting Notificaciones, Noelia Albanese (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A0a3d8024-1ea6-452a-99de-b81e0ee02139_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        },
+        "contentType": "html",
+        "message": "=⚠️ <b>Escalamiento Nivel 2 - VigaTimeReport</b><br>El usuario <b>{{ $json.fullName }}</b> ha sido notificado <b>{{ $json.notif_count }} veces</b> en los últimos 5 días.<br>RRHH asignado: {{ $json.rrhh || 'No asignado' }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "1de4b9f2-410f-4f26-b1aa-a335893dbe3e",
+      "name": "Teams Notify RRHH",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -6448,
+        1936
+      ],
+      "webhookId": "428574e3-87f4-4985-abc6-db95f48f77ca",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "notes": "⚠️ Reemplazar teamId y channelId con los IDs reales de RRHH"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 11 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -6960,
+        1936
+      ],
+      "id": "3f52f736-6a79-4ce7-b947-c0ffd988a620",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "content": "## FLUJO MASTER\n",
+        "height": 80
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -6992,
+        1456
+      ],
+      "typeVersion": 1,
+      "id": "f8b549e4-e194-404b-ae53-7206590dae76",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## FLUJO REINCIDENCIA",
+        "height": 80,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -6976,
+        1808
+      ],
+      "id": "e3891bb1-844e-484c-b4d1-e1ee04efb5ac",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {
+    "VIGA ENDPOINT1": [
+      {
+        "json": {
+          "fullName": "sqlError",
+          "email": "'OK@apg-consulting.com'",
+          "expectedHours": 40,
+          "totalHours": 10,
+          "completionPercentage": 25
+        }
+      },
+      {
+        "json": {
+          "fullName": "OK",
+          "email": "rnunez@apg-consulting.co",
+          "expectedHours": 40,
+          "totalHours": 10,
+          "completionPercentage": 25
+        }
+      },
+      {
+        "json": {
+          "fullName": "ID Erroneo",
+          "email": "erroneo@APG.com",
+          "expectedHours": 40,
+          "totalHours": 5,
+          "completionPercentage": 12.5
+        }
+      },
+      {
+        "json": {
+          "fullName": "No notificar",
+          "email": "NoNotificar@apg-consulting.com",
+          "expectedHours": 40,
+          "totalHours": 20,
+          "completionPercentage": 50
+        }
+      },
+      {
+        "json": {
+          "fullName": "Not in SQL",
+          "email": "missing@empresa.com",
+          "expectedHours": 40,
+          "totalHours": 30,
+          "completionPercentage": 75
+        }
+      },
+      {
+        "json": {
+          "fullName": "Duplicado Viga",
+          "email": "duplicado@empresa.com",
+          "expectedHours": 40,
+          "totalHours": 30,
+          "completionPercentage": 75
+        }
+      },
+      {
+        "json": {
+          "fullName": "Duplicado Viga",
+          "email": "duplicado@empresa.com",
+          "expectedHours": 40,
+          "totalHours": 30,
+          "completionPercentage": 75
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-14T16:45:30.829Z",
+      "updatedAt": "2026-04-14T16:45:30.829Z",
+      "role": "workflow:owner",
+      "workflowId": "QWbKR1BHj8e5dE8z",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-15T15:17:35.983Z",
+  "versionId": "973bfaf0-1fac-4c5c-b457-a3c464efe16b"
+}
