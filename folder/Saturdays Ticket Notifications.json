@@ -1,0 +1,490 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Saturday": {
+      "main": [
+        [
+          {
+            "node": "Init Tracking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Tracking": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Colombia & Format": {
+      "main": [
+        [
+          {
+            "node": "Send WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login VIGA": {
+      "main": [
+        [
+          {
+            "node": "GET Ticket API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Ticket API1": {
+      "main": [
+        [
+          {
+            "node": "Filter Colombia & Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-04-15T18:10:33.412Z",
+  "id": "yKkKy23JcG0y9Kh8",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Saturdays Ticket Notifications",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/30 9-19 * * 6"
+            }
+          ]
+        }
+      },
+      "id": "eec15166-4a7c-4da9-bfc4-73e49759ea87",
+      "name": "Schedule Saturday",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        80
+      ],
+      "notes": "Cron: cada 30 min, de 7am a 10pm, SOLO sabados (dia 6).\nNo se ejecuta de lunes a viernes = cero consumo entre semana.\nAjustar horario segun necesidad."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// INIT TRACKING - Gestion de estado persistente\n// ============================================\n// Usa staticData para recordar entre ejecuciones:\n// - lastChecked: ultimo momento revisado\n// - notifiedIds: IDs ya notificados (evita duplicados)\n// - lastSaturdayDate: para resetear al iniciar nuevo sabado\n\nconst staticData = $getWorkflowStaticData('global');\nconst now = new Date();\nconst todayStr = now.toISOString().split('T')[0];\n\n// Si es un nuevo sabado (diferente al ultimo registrado), resetear tracking\nif (staticData.lastSaturdayDate !== todayStr) {\n  // Calcular viernes 18:00 como punto de inicio\n  const friday = new Date(now);\n  friday.setDate(now.getDate() - 1); // ayer = viernes\n  friday.setHours(18, 0, 0, 0);\n  \n  staticData.lastChecked = friday.toISOString();\n  staticData.notifiedIds = [];\n  staticData.lastSaturdayDate = todayStr;\n}\n\n// Fallback: si no hay datos previos\nif (!staticData.lastChecked) {\n  const friday = new Date(now);\n  friday.setDate(now.getDate() - 1);\n  friday.setHours(18, 0, 0, 0);\n  staticData.lastChecked = friday.toISOString();\n  staticData.notifiedIds = [];\n  staticData.lastSaturdayDate = todayStr;\n}\n\nreturn [{\n  json: {\n    lastChecked: staticData.lastChecked,\n    notifiedIds: staticData.notifiedIds,\n    checkTime: now.toISOString()\n  }\n}];"
+      },
+      "id": "8f556f7f-caf8-4193-bea6-403054539f8f",
+      "name": "Init Tracking",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "notes": "Lee/inicializa el estado persistente.\nPrimer ciclo del sabado: referencia = viernes 18:00.\nCiclos siguientes: referencia = ultimo chequeo exitoso.\nReset automatico cada nuevo sabado."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "6f141c97-d234-421d-abb0-ab69092d15d5",
+      "name": "Login VIGA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        96
+      ],
+      "onError": "continueErrorOutput",
+      "notes": "Login VIGA - Obtiene Bearer Token.\nSolo se ejecuta si el Schedule dispara (sabados)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// FILTRAR, DEDUPLICAR Y FORMATEAR\n// ============================================\n// 1. Filtra solo clientes de Colombia\n// 2. Excluye tickets ya notificados (por ID)\n// 3. Formatea mensaje de WhatsApp\n// 4. Actualiza el tracking en staticData\n// Si no hay tickets nuevos, retorna [] y el flujo se detiene\n\nconst staticData = $getWorkflowStaticData('global');\nconst notifiedIds = staticData.notifiedIds || [];\nconst items = $input.all();\nconst newTickets = [];\n\nfor (const item of items) {\n  const ticket = item.json;\n  \n  // --- Extraer pais del cliente ---\n  // Ajustar la ruta segun la estructura real de respuesta del endpoint de busqueda\n  let countryName = '';\n  let clientName = '';\n  \n  // Ruta 1: respuesta tipo lista directa\n  if (ticket.client && ticket.client.country) {\n    countryName = ticket.client.country.name || '';\n    clientName = ticket.client.name || '';\n  }\n  // Ruta 2: respuesta con ticketSurveys (como en el ejemplo)\n  else if (ticket.ticketSurveys && ticket.ticketSurveys[0] && ticket.ticketSurveys[0].ticket) {\n    const innerTicket = ticket.ticketSurveys[0].ticket;\n    countryName = innerTicket.client?.country?.name || '';\n    clientName = innerTicket.client?.name || '';\n  }\n  \n  // --- Filtro: solo Colombia ---\n  if (countryName !== 'Colombia') continue;\n  \n  // --- Filtro: no repetir notificaciones ---\n  const ticketId = ticket.id;\n  if (notifiedIds.includes(ticketId)) continue;\n  \n  // --- Formatear fecha legible ---\n  const createdAt = ticket.createdAt || '';\n  let fechaFormateada = createdAt;\n  try {\n    const d = new Date(createdAt);\n    fechaFormateada = d.toLocaleString('es-CO', {\n      timeZone: 'America/Bogota',\n      year: 'numeric',\n      month: '2-digit',\n      day: '2-digit',\n      hour: '2-digit',\n      minute: '2-digit'\n    });\n  } catch(e) {}\n  \n  // --- Construir mensaje WhatsApp ---\n  const mensaje = [\n    `*Nuevo Ticket #${ticketId}*`,\n    `Asunto: ${ticket.description || 'Sin descripcion'}`,\n    `Cliente: ${clientName}`,\n    `Pais: ${countryName}`,\n    `Creado: ${fechaFormateada}`,\n    '',\n    '_Ticket creado fuera de horario laboral (Sabado)_'\n  ].join('\\n');\n  \n  newTickets.push({\n    json: {\n      ticketId: ticketId,\n      description: ticket.description,\n      createdAt: createdAt,\n      clientName: clientName,\n      country: countryName,\n      whatsappMessage: mensaje\n    }\n  });\n  \n  // Registrar como notificado\n  notifiedIds.push(ticketId);\n}\n\n// --- Actualizar tracking ---\nstaticData.notifiedIds = notifiedIds;\nstaticData.lastChecked = new Date().toISOString();\n\n// Si no hay tickets nuevos, retornar vacio = flujo se detiene aqui\n// Si hay, pasan al nodo de WhatsApp\nreturn newTickets;"
+      },
+      "id": "ba307b81-c04d-43f5-ae33-49a7c9cb7137",
+      "name": "Filter Colombia & Format",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        80
+      ],
+      "notes": "Nodo central de logica:\n- Filtra SOLO Colombia\n- Evita duplicados via staticData.notifiedIds\n- Formatea mensaje WhatsApp\n- Actualiza timestamp de ultimo chequeo\n- Si retorna [] = no hay nuevos = flujo se detiene (sin llegar a WhatsApp)\nAJUSTAR: las rutas de acceso al pais/cliente segun respuesta real del endpoint de busqueda."
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "additionalFields": {}
+      },
+      "id": "962d312d-0202-422a-bc56-41bc527bf489",
+      "name": "Send WhatsApp",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        80
+      ],
+      "webhookId": "78cc5277-c997-4596-9db8-2ac8a01769eb",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia"
+        }
+      },
+      "disabled": true,
+      "notes": "Envia mensaje por WhatsApp.\nEl campo 'whatsappMessage' del item contiene el texto formateado.\nCONFIGURAR: numero destino y template segun la API de WhatsApp Business.\nSolo se ejecuta si hay tickets nuevos de Colombia."
+    },
+    {
+      "parameters": {
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/46000",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzcyMjQyOTkwfQ.zt4jlDFQ5amoMvViKHfz0CnxDWVdN5hzPyR1Ir_-4So"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        80
+      ],
+      "id": "e60c5acd-2b2a-4130-b175-0463cd7285b4",
+      "name": "GET Ticket API1"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -512
+      ],
+      "id": "501bdce8-3c06-4b01-90d8-cedf00aa797e",
+      "name": "WhatsApp Trigger",
+      "webhookId": "0049d31e-aade-4889-b163-450a0462bcbb",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "X1MRT5RFGioo2dc9",
+          "name": "WSP Colombia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a09d47ab-7765-457c-9ac1-c1f9c4be2867",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "ca404a5c-0767-4356-a87a-0a6e993f5093",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "de61f6c8-6522-45a8-a168-8a68f8abbf66",
+              "name": "createdAt",
+              "value": "={{ $json.createdAt}}",
+              "type": "string"
+            },
+            {
+              "id": "84e51004-9e8e-4c30-b48c-219cba84f0fa",
+              "name": "client_name",
+              "value": "={{ $json.ticketSurveys[0].ticket.client.name }}",
+              "type": "string"
+            },
+            {
+              "id": "0b612a48-c52d-4ebe-abd4-3eb21c92d6ee",
+              "name": "client_country_name",
+              "value": "={{ $json.ticketSurveys[0].ticket.client.country.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        -80
+      ],
+      "id": "b09070c6-c594-4476-84cd-e3d40872f5c8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "path": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        288,
+        -528
+      ],
+      "id": "788de6b8-aa4b-4ffa-a845-c681b1d59b32",
+      "name": "Webhook",
+      "webhookId": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query[\"hub.challenge\"] }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        880,
+        -544
+      ],
+      "id": "12c62d0e-98d3-4c93-84d8-9ce666393502",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -544
+      ],
+      "id": "5dc62bb9-231b-4416-b736-5eed3e0d73f1",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "98515ab3-fd83-4ad3-a758-d0b4d97f9278",
+              "leftValue": "={{ $json.query[\"hub.verify_token\"] }}",
+              "rightValue": "apg",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        -528
+      ],
+      "id": "46c71d0c-309c-466b-a376-18d7ed81a190",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        -512
+      ],
+      "id": "0831cb51-d8c2-4277-994c-8905c48ef68a",
+      "name": "Send message",
+      "webhookId": "d4cea5e5-ddae-4371-90cc-16072984f9d6",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -48,
+        -688
+      ],
+      "id": "7d22d4fd-62e5-4e63-a3f2-bc729da109ef",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        },
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -304,
+        -784
+      ],
+      "id": "c2e5fd75-2717-4f69-83a5-a537e8fda1fa",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-15T18:10:33.412Z",
+      "updatedAt": "2026-04-15T18:10:33.412Z",
+      "role": "workflow:owner",
+      "workflowId": "yKkKy23JcG0y9Kh8",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Saturday": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 3,
+  "updatedAt": "2026-04-15T20:57:57.641Z",
+  "versionId": "d08438f3-5745-4561-963c-e09c3ced10e3"
+}
