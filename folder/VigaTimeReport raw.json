@@ -1838,7 +1838,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "DELETE FROM dbo.NotiViga_userInfo\nWHERE name IN ('No notificar', 'Nicolas Cabo', 'Julian Jimenez', 'Rafael Nuñezz');"
+        "query": "DELETE FROM dbo.NotiViga_userInfo\nWHERE email IN ('adomini@la.apgconsulting.com.ar');"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -1958,13 +1958,13 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO dbo.NotiViga_userInfo (email, teamsId, name, notify, rrhh)\nVALUES (\n    'mcherepinsky@apgconsulting.com.ar', \n    '6d1f19e0-7956-4252-bf64-af510dd3e33a', \n    'Matias Cherepinsky', \n    1, \n    'nalbanese@apg-consulting.com'\n);"
+        "query": "INSERT INTO dbo.NotiViga_userInfo (email, teamsId, name, notify, rrhh)\nVALUES (\n    'FAKE-ID@apg-consulting.com', \n    '00000000-0000-0000-0000-000000000000', \n    'fake teams id', \n    1, \n    'nalbanese@apg-consulting.com'\n);\t\n"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -224,
-        848
+        -208,
+        912
       ],
       "id": "b4a00b9a-113c-467a-b7f7-a0bfecedcd33",
       "name": "Microsoft SQL1",
@@ -1978,7 +1978,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "UPDATE dbo.NotiViga_userInfo\nSET notify = 0\nWHERE email = 'mlapaco@apgconsulting.com.ar'"
+        "query": "UPDATE dbo.NotiViga_userInfo\nSET email = 'adomini@la.apgconsulting.com.ar'\nWHERE email = 'adomini@apg-consulting.com'"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -1992,6 +1992,40 @@
         "microsoftSql": {
           "id": "hL9EZkFVhAg4kqAo",
           "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## OK el hecho de no hardcodear una credencial, pero si la obtengo de un sitio externo y pasa por el flujo, con acceso a la ejecucipon podemos obtener el dato\n",
+        "width": 464
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -752,
+        2800
+      ],
+      "typeVersion": 1,
+      "id": "524e7b1d-5a12-4251-b09f-20c114946a34",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "operation": "decode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.jwt",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        2688
+      ],
+      "id": "b40c544d-f8a3-45b3-b396-a51c4eae6af0",
+      "name": "JWT",
+      "credentials": {
+        "jwtAuth": {
+          "id": "ILLD0X7MWwqdPFjd",
+          "name": "JWT Auth account"
         }
       }
     }
@@ -3088,6 +3122,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-15T15:09:09.852Z",
-  "versionId": "5942c730-f996-4bac-a777-17289d9c52d5"
+  "updatedAt": "2026-04-16T19:17:18.679Z",
+  "versionId": "94feef7d-6cfd-4f5f-805e-b479ea5b6a1c"
 }
