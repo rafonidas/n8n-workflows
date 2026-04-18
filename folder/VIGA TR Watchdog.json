@@ -16,14 +16,14 @@
       "main": [
         [
           {
-            "node": "Teams Alert Admin",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "No Action",
+            "node": "NO EXECUTION",
             "type": "main",
             "index": 0
           }
@@ -43,9 +43,21 @@
     },
     "Code in JavaScript": {
       "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
         [
           {
-            "node": "Teams Alert Admin",
+            "node": "INCOMPLETE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "FAILED",
             "type": "main",
             "index": 0
           }
@@ -67,7 +79,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 0 10 * * 1-5"
+              "expression": "0 0 11 * * 1-5"
             }
           ]
         }
@@ -77,7 +89,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        624,
+        880,
         80
       ],
       "notes": "11:00 AM Lunes-Viernes — verifica que el flujo principal corrio"
@@ -98,7 +110,7 @@
               "rightValue": 0,
               "operator": {
                 "type": "number",
-                "operation": "equals"
+                "operation": "gt"
               }
             }
           ],
@@ -111,59 +123,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1072,
+        1328,
         80
-      ]
-    },
-    {
-      "parameters": {
-        "resource": "channelMessage",
-        "teamId": {
-          "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
-          "mode": "list",
-          "cachedResultName": "n8n notifications"
-        },
-        "channelId": {
-          "__rl": true,
-          "value": "19:NQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "Notificaciones de error",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3ANQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1%40thread.tacv2/n8n%20notifications?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
-        },
-        "message": "=<b>WATCHDOG ALERT — Viga Time Report</b><br>\nEl flujo <b>VigaTimeReport V2</b> NO se ejecutó hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).<br>\nSe esperaba ejecucion a las 9:00 AM. Por favor verificar manualmente.<br>\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
-        "options": {
-          "includeLinkToWorkflow": false
-        }
-      },
-      "id": "8cdfec13-8efb-439d-97a9-a3bffe6a542b",
-      "name": "Teams Alert Admin",
-      "type": "n8n-nodes-base.microsoftTeams",
-      "typeVersion": 2,
-      "position": [
-        2000,
-        -16
-      ],
-      "webhookId": "3313d8a2-187d-49f8-a56a-ffec4520e967",
-      "credentials": {
-        "microsoftTeamsOAuth2Api": {
-          "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
-        }
-      },
-      "notes": "Reemplazar teamId y channelId"
-    },
-    {
-      "parameters": {
-        "jsCode": "return [{ json: { status: 'OK', message: 'VigaTimeReport corrió correctamente hoy' } }]"
-      },
-      "id": "21b8d11d-23fb-40d4-9908-042ff87ec875",
-      "name": "No Action",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1712,
-        176
       ]
     },
     {
@@ -177,21 +138,21 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        464,
-        -224
+        496,
+        -736
       ]
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "=SELECT COUNT(*) as ran_today\nFROM dbo.NotiViga_execution_logs\nWHERE dateTime >= CAST(GETDATE() AS DATE)\n  AND dateTime < DATEADD(day, 1, CAST(GETDATE() AS DATE))"
+        "query": "SELECT \n    status, \n    COUNT(*) as ran_today\nFROM dbo.NotiViga_execution_logs\nWHERE dateTime >= CAST(GETDATE() AS DATE)\n  AND dateTime < DATEADD(day, 1, CAST(GETDATE() AS DATE))\n  AND executionId = 2846\nGROUP BY status;"
       },
       "id": "b7a17320-16fa-4bf8-ad07-a91668684607",
       "name": "SQL Check Executions",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        848,
+        1104,
         80
       ],
       "credentials": {
@@ -210,7 +171,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         896,
-        -224
+        -736
       ],
       "typeVersion": 1,
       "id": "ccde7846-dcfd-49f5-b698-a371e79ea6be",
@@ -224,8 +185,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1696,
-        -224
+        1728,
+        -736
       ],
       "typeVersion": 1,
       "id": "700752ab-8284-4b51-8ca4-4d470417242a",
@@ -239,8 +200,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1344,
-        -224
+        1360,
+        -736
       ],
       "typeVersion": 1,
       "id": "9a8fff3a-0935-42e7-9d6f-dea80cb85798",
@@ -253,11 +214,189 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1312,
-        -368
+        912,
+        -400
       ],
       "id": "ec192d9c-154e-4729-b75e-58f3a7df3927",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('SQL Check Executions').item.json.status }}",
+                    "rightValue": "=INCOMPLETE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f5d3a9e8-76bf-4915-a687-4e826cac335f"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "63f59d52-2593-4bc4-aae7-cb3f98fc745e",
+                    "leftValue": "={{ $('SQL Check Executions').item.json.status }}",
+                    "rightValue": "FAILED",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        1552,
+        -16
+      ],
+      "id": "b2f263f7-7df3-4c6c-a054-73707d8b596a",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "06a493d9-ee89-46db-b8b3-e10cfda68bf4",
+          "mode": "list",
+          "cachedResultName": "Pruebas - n8n"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:b4ddf2dd3a2343b28367735098de8b49@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Test Conversación",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ab4ddf2dd3a2343b28367735098de8b49%40thread.tacv2/Test%20Conversaci%C3%B3n?groupId=06a493d9-ee89-46db-b8b3-e10cfda68bf4&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<b>WATCHDOG ALERT — Viga Time Report</b><br>\nEl flujo <b>VIGA TR Master</b> finalizó correctamente con estado INCNOMPLETO por algunos usuarios salteados el día de hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "8cdfec13-8efb-439d-97a9-a3bffe6a542b",
+      "name": "INCOMPLETE",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        -64
+      ],
+      "webhookId": "3313d8a2-187d-49f8-a56a-ffec4520e967",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "notes": "Reemplazar teamId y channelId"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "06a493d9-ee89-46db-b8b3-e10cfda68bf4",
+          "mode": "list",
+          "cachedResultName": "Pruebas - n8n"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:b4ddf2dd3a2343b28367735098de8b49@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Test Conversación",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ab4ddf2dd3a2343b28367735098de8b49%40thread.tacv2/Test%20Conversaci%C3%B3n?groupId=06a493d9-ee89-46db-b8b3-e10cfda68bf4&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<b>WATCHDOG ALERT — Viga Time Report</b><br>\nEl flujo <b>VIGA TR Master</b> tuvo errores en su ejecución el día de hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        64
+      ],
+      "id": "2ccca982-b5a0-4104-9611-c3d3c810c973",
+      "name": "FAILED",
+      "webhookId": "8a226525-0bf0-411b-818d-e888985c7525",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "06a493d9-ee89-46db-b8b3-e10cfda68bf4",
+          "mode": "list",
+          "cachedResultName": "Pruebas - n8n"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:b4ddf2dd3a2343b28367735098de8b49@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Test Conversación",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ab4ddf2dd3a2343b28367735098de8b49%40thread.tacv2/Test%20Conversaci%C3%B3n?groupId=06a493d9-ee89-46db-b8b3-e10cfda68bf4&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<b>WATCHDOG ALERT — Viga Time Report</b><br>\nEl flujo <b>VigaTimeReport V2</b> NO se ejecutó hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).<br>\nSe esperaba ejecucion a las 9:00 AM. Por favor verificar manualmente.<br>\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "id": "bfe8bdb2-b72e-4866-bacb-6a53882cfee4",
+      "name": "NO EXECUTION",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        192
+      ],
+      "webhookId": "3313d8a2-187d-49f8-a56a-ffec4520e967",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "notes": "Reemplazar teamId y channelId"
     }
   ],
   "pinData": {},
@@ -280,6 +419,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-16T18:00:45.162Z",
-  "versionId": "5ef8ad01-8922-4362-98f6-f0cc62f03f36"
+  "updatedAt": "2026-04-17T15:38:52.538Z",
+  "versionId": "14557004-1485-420b-a935-eeb1a6923617"
 }
