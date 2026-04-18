@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -219,6 +219,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2026-03-13T20:10:32.490Z",
+  "updatedAt": "2026-04-17T19:04:53.234Z",
   "versionId": "9501d2b9-8007-44ba-8b56-680a88689a5b"
 }
