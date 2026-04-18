@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Schedule Saturday": {
       "main": [
@@ -25,13 +25,7 @@
     },
     "Filter Colombia & Format": {
       "main": [
-        [
-          {
-            "node": "Send WhatsApp",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Login VIGA": {
@@ -92,6 +86,125 @@
     "WhatsApp Trigger": {
       "main": [
         []
+      ]
+    },
+    "GET Tickets Colombia": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect New Colombia IDs": {
+      "main": [
+        [
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login VIGA1": {
+      "main": [
+        [
+          {
+            "node": "GET Tickets Colombia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ticket Existe?": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Last Ticket ID Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login VIGA2": {
+      "main": [
+        [
+          {
+            "node": "GET Tickets Colombia1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Tickets Colombia1": {
+      "main": [
+        [
+          {
+            "node": "Ticket Existe?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Last Ticket ID Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA2",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -194,14 +307,14 @@
       "type": "n8n-nodes-base.whatsApp",
       "typeVersion": 1.1,
       "position": [
-        880,
-        80
+        1152,
+        -32
       ],
       "webhookId": "78cc5277-c997-4596-9db8-2ac8a01769eb",
       "credentials": {
         "whatsAppApi": {
           "id": "gFf5xMPVgDp987TZ",
-          "name": "WSP Colombia"
+          "name": "WSP Colombia - Comercial Test"
         }
       },
       "disabled": true,
@@ -294,8 +407,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        448,
-        -80
+        656,
+        -368
       ],
       "id": "b09070c6-c594-4476-84cd-e3d40872f5c8",
       "name": "Edit Fields"
@@ -463,6 +576,400 @@
           "name": "Header Auth account"
         }
       }
+    },
+    {
+      "parameters": {
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/{{ $('Edit Fields2').item.json.ticketId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.token.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "b1c1e9f2-fde0-4d5c-9e67-319c56e3d849",
+      "name": "GET Tickets Colombia",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        544,
+        1440
+      ],
+      "notes": "Busca tickets de Colombia (countryId: 3).\nAJUSTAR: el endpoint real de busqueda y el countryId de Colombia.\nSi la API no soporta filtro por pais, buscar todos y filtrar en el codigo.\nTambien ajustar donde viene el token: Login VIGA -> json.token o json.data.token etc."
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// DETECTAR NUEVOS IDs DE COLOMBIA\n// ============================================\n// 1. Toma todos los tickets de la respuesta\n// 2. Filtra solo Colombia (doble check)\n// 3. Detecta IDs mayores al ultimo guardado\n// 4. Actualiza lastId en staticData\n// 5. Retorna solo los nuevos para guardar en Sheets\n\nconst staticData = $getWorkflowStaticData('global');\nconst lastId = staticData.lastId || 0;\n\n// --- Extraer tickets de la respuesta ---\nconst response = $input.first().json;\n\n// Intentar varias rutas posibles de la respuesta\nlet tickets = [];\nif (Array.isArray(response)) {\n  tickets = response;\n} else if (response.data && Array.isArray(response.data)) {\n  tickets = response.data;\n} else if (response.items && Array.isArray(response.items)) {\n  tickets = response.items;\n} else if (response.result && Array.isArray(response.result)) {\n  tickets = response.result;\n} else {\n  // Si es un solo objeto (como el GET /api/ticket/46000 del flujo original)\n  tickets = [response];\n}\n\nconsole.log(`Total tickets en respuesta: ${tickets.length}`);\nconsole.log(`Ultimo ID conocido: ${lastId}`);\n\n// --- Filtrar: nuevos + Colombia ---\nconst newColombiaTickets = [];\nlet maxId = lastId;\n\nfor (const ticket of tickets) {\n  const ticketId = ticket.id;\n  if (!ticketId) continue;\n  \n  // Registrar el ID mas alto que vimos\n  if (ticketId > maxId) maxId = ticketId;\n  \n  // Solo procesar IDs nuevos\n  if (ticketId <= lastId) continue;\n  \n  // --- Extraer pais (multiples rutas posibles) ---\n  let countryName = '';\n  let clientName = '';\n  \n  if (ticket.client?.country?.name) {\n    countryName = ticket.client.country.name;\n    clientName = ticket.client.name || '';\n  } else if (ticket.countryName) {\n    countryName = ticket.countryName;\n    clientName = ticket.clientName || '';\n  } else if (ticket.ticketSurveys?.[0]?.ticket?.client?.country?.name) {\n    countryName = ticket.ticketSurveys[0].ticket.client.country.name;\n    clientName = ticket.ticketSurveys[0].ticket.client?.name || '';\n  }\n  \n  // --- Solo Colombia ---\n  if (countryName !== 'Colombia') {\n    console.log(`Ticket #${ticketId} descartado - pais: '${countryName}'`);\n    continue;\n  }\n  \n  // --- Formatear fecha ---\n  let fechaFormateada = ticket.createdAt || '';\n  try {\n    const d = new Date(ticket.createdAt);\n    fechaFormateada = d.toLocaleString('es-CO', {\n      timeZone: 'America/Bogota',\n      year: 'numeric', month: '2-digit', day: '2-digit',\n      hour: '2-digit', minute: '2-digit'\n    });\n  } catch(e) {}\n  \n  console.log(`✅ Nuevo ticket Colombia: #${ticketId} - ${ticket.description}`);\n  \n  newColombiaTickets.push({\n    json: {\n      ticketId: ticketId,\n      description: ticket.description || '',\n      clientName: clientName,\n      country: countryName,\n      createdAt: fechaFormateada,\n      detectedAt: new Date().toISOString()\n    }\n  });\n}\n\n// --- Actualizar el ultimo ID visto ---\n// Solo avanzar si vimos IDs nuevos (cualquier pais)\nif (maxId > lastId) {\n  console.log(`Actualizando lastId: ${lastId} -> ${maxId}`);\n  staticData.lastId = maxId;\n}\n\nconsole.log(`Tickets nuevos de Colombia: ${newColombiaTickets.length}`);\n\n// Si retorna [] el flujo se detiene antes de Sheets\nreturn newColombiaTickets;"
+      },
+      "id": "57c68399-4ac4-47c4-9099-fa7ae3d0c38f",
+      "name": "Detect New Colombia IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        1264
+      ],
+      "notes": "Logica central:\n- Compara IDs contra staticData.lastId\n- Filtra solo Colombia\n- Actualiza lastId al maximo visto\n- Retorna [] si no hay nuevos (flujo se detiene)\n- Logs en consola para debugging"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Um__Ur6wBnPJJq17kSLTpUpXgu5gMFw2zWXSG382MxM",
+          "mode": "list",
+          "cachedResultName": "tickets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Um__Ur6wBnPJJq17kSLTpUpXgu5gMFw2zWXSG382MxM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Um__Ur6wBnPJJq17kSLTpUpXgu5gMFw2zWXSG382MxM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "017ccd7e-85f1-4412-95b7-c609a0a6ac3d",
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [
+        1024,
+        1248
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      },
+      "notes": "CONFIGURAR:\n1. Reemplazar TU_SPREADSHEET_ID_AQUI con el ID real del sheet\n2. Crear hoja llamada 'Tickets Colombia'\n3. Primera fila debe tener headers:\n   ticketId | description | clientName | country | createdAt | detectedAt\n4. Conectar credenciales de Google"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "93905eb2-68c7-4b4e-8cec-239e99c57841",
+      "name": "Login VIGA1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        192,
+        1456
+      ],
+      "onError": "continueErrorOutput",
+      "notes": "Obtiene el Bearer Token para las llamadas siguientes."
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -240,
+        864
+      ],
+      "id": "30c755ca-659d-4cf9-a39e-5e0b83ce7d7f",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        320
+      ],
+      "id": "24dc7961-8299-40d9-a6bf-72cb0a1dfc75",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "content": "## PROD: 0327dc56-965a-47eb-9ed1-8a2c021384d0\n\n## TEST: 5F373264-4128-4429-821F-3F97C1779BEA\n",
+        "width": 608
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        176,
+        1232
+      ],
+      "typeVersion": 1,
+      "id": "1d50efed-17ac-4071-856b-7c8b2dbd6029",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0440aa5e-1386-4833-95f5-d734fa202d29",
+              "name": "ticketId",
+              "value": "={{ $('Edit Fields2').item.json.ticketId + 1 }} ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        768,
+        1440
+      ],
+      "id": "249c2b18-3a5f-49a4-8476-5d89ec86724f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9efd3c8-1a4a-47fd-b5c6-4685bc178b2d",
+              "name": "ticketId",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        1456
+      ],
+      "id": "4964f50f-41db-416f-b252-a4dab0326db2",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-check-id",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6aec53bc-a348-4cbd-8aca-7a46dd41092c",
+      "name": "Ticket Existe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -128,
+        1776
+      ],
+      "notes": "TRUE (output 0): ticket valido -> seguir el loop\nFALSE (output 1): respuesta vacia/sin id -> encontramos el fin"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "last-id-output",
+              "name": "lastTicketId",
+              "value": "={{ $('Edit Fields3').item.json.ticketId - 1 }}",
+              "type": "number"
+            },
+            {
+              "id": "last-id-time",
+              "name": "detectedAt",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        2128
+      ],
+      "id": "2b9e9a68-079e-44ea-831a-f8dd855ffb22",
+      "name": "Last Ticket ID Found",
+      "notes": "OUTPUT FINAL: lastTicketId = el ultimo ID real encontrado.\nTicketId actual - 1 porque el actual fue el primero que fallo."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9efd3c8-1a4a-47fd-b5c6-4685bc178b2d",
+              "name": "ticketId",
+              "value": 47500,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        2128
+      ],
+      "id": "b9045e71-ec04-4c6d-92fd-20ec5423ef59",
+      "name": "Edit Fields3",
+      "notes": "ID inicial. Cambiar 47500 por el punto de arranque real."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "5e6d1e77-5b99-4f4d-b86d-4133230b9c07",
+      "name": "Login VIGA2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -608,
+        2128
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/{{ $('Edit Fields3').item.json.ticketId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Login VIGA2').item.json.token.token }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "fba6e11b-5fa9-4460-932c-e93bfacdbdfd",
+      "name": "GET Tickets Colombia1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -256,
+        2112
+      ],
+      "onError": "continueErrorOutput",
+      "notes": "onError continueErrorOutput para que el IF pueda manejar 404s"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0440aa5e-1386-4833-95f5-d734fa202d29",
+              "name": "ticketId",
+              "value": "={{ $('Edit Fields3').item.json.ticketId + 1 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        1760
+      ],
+      "id": "6bcac745-54e6-44bc-a1ed-1f022b437e2a",
+      "name": "Edit Fields4",
+      "notes": "Incrementa ticketId y vuelve al Login para continuar el loop"
     }
   ],
   "pinData": {},
@@ -481,10 +988,16 @@
   "staticData": {
     "node:Schedule Saturday": {
       "recurrenceRules": []
+    },
+    "node:Schedule Every 10min": {
+      "recurrenceRules": []
+    },
+    "global": {
+      "lastId": 0
     }
   },
   "tags": [],
-  "triggerCount": 3,
-  "updatedAt": "2026-04-15T20:57:57.641Z",
-  "versionId": "d08438f3-5745-4561-963c-e09c3ced10e3"
+  "triggerCount": 4,
+  "updatedAt": "2026-04-17T20:52:34.256Z",
+  "versionId": "821cb8f9-1121-4df1-9ab2-96ef6c0e70f1"
 }
