@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Trigger": {
       "main": [
@@ -82,7 +82,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 0 11 * * 1-5"
+              "expression": "0 0 10 * * 1-5"
             }
           ]
         }
@@ -129,7 +129,7 @@
             {
               "id": "5ed57128-6f12-48a8-ba66-98a5b97487eb",
               "leftValue": "={{ $json.notif_count }}",
-              "rightValue": 0,
+              "rightValue": 2,
               "operator": {
                 "type": "number",
                 "operation": "gt"
@@ -154,16 +154,16 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "06a493d9-ee89-46db-b8b3-e10cfda68bf4",
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
           "mode": "list",
-          "cachedResultName": "Pruebas - n8n"
+          "cachedResultName": "n8n notifications"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:b4ddf2dd3a2343b28367735098de8b49@thread.tacv2",
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
           "mode": "list",
-          "cachedResultName": "Test Conversación",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ab4ddf2dd3a2343b28367735098de8b49%40thread.tacv2/Test%20Conversaci%C3%B3n?groupId=06a493d9-ee89-46db-b8b3-e10cfda68bf4&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
         },
         "contentType": "html",
         "message": "=⚠️ <b>Escalamiento Nivel 2 - Viga Time Report</b><br>El usuario <b>{{ $json.fullName }}</b> ha sido notificado <b>{{ $json.notif_count }} veces</b> en los últimos 5 días.<br>RRHH asignado: {{ $json.rrhh || 'No asignado' }}",
@@ -185,7 +185,8 @@
           "id": "ueHY9A2J5aF54WT3",
           "name": "Notificaciones n8n"
         }
-      }
+      },
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -205,9 +206,13 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-04-17T15:38:54.913Z",
-  "versionId": "8903baba-618d-4096-a2e2-2830ec36d6b5"
+  "triggerCount": 1,
+  "updatedAt": "2026-04-20T12:58:58.601Z",
+  "versionId": "3459c69f-41b4-4575-bb0c-098d03f53bd8"
 }
