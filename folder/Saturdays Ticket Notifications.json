@@ -1,60 +1,11 @@
 {
   "active": false,
   "connections": {
-    "Schedule Saturday": {
+    "If": {
       "main": [
         [
           {
-            "node": "Init Tracking",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Init Tracking": {
-      "main": [
-        [
-          {
-            "node": "Login VIGA",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter Colombia & Format": {
-      "main": [
-        []
-      ]
-    },
-    "Login VIGA": {
-      "main": [
-        [
-          {
-            "node": "GET Ticket API1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "GET Ticket API1": {
-      "main": [
-        [
-          {
-            "node": "Filter Colombia & Format",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "If",
+            "node": "Code in JavaScript",
             "type": "main",
             "index": 0
           }
@@ -72,84 +23,11 @@
         ]
       ]
     },
-    "If": {
+    "Webhook": {
       "main": [
         [
           {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "WhatsApp Trigger": {
-      "main": [
-        []
-      ]
-    },
-    "GET Tickets Colombia": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Detect New Colombia IDs": {
-      "main": [
-        [
-          {
-            "node": "Save to Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Login VIGA1": {
-      "main": [
-        [
-          {
-            "node": "GET Tickets Colombia",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
-    "Edit Fields1": {
-      "main": [
-        []
-      ]
-    },
-    "Edit Fields2": {
-      "main": [
-        [
-          {
-            "node": "Login VIGA1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Ticket Existe?": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields4",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Last Ticket ID Found",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -167,18 +45,47 @@
         ]
       ]
     },
-    "Login VIGA2": {
+    "Ticket Existe?": {
       "main": [
         [
           {
-            "node": "GET Tickets Colombia1",
+            "node": "Next Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Last Ticket",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "GET Tickets Colombia1": {
+    "Login VIGA2": {
+      "main": [
+        [
+          {
+            "node": "Set First Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Tickets": {
       "main": [
         [
           {
@@ -189,18 +96,29 @@
         ],
         [
           {
-            "node": "Last Ticket ID Found",
+            "node": "Set Last Ticket",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Edit Fields4": {
+    "Set First Ticket": {
       "main": [
         [
           {
-            "node": "Login VIGA2",
+            "node": "GET Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Next Ticket": {
+      "main": [
+        [
+          {
+            "node": "GET Tickets",
             "type": "main",
             "index": 0
           }
@@ -218,83 +136,154 @@
   "nodes": [
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "*/30 9-19 * * 6"
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
             }
-          ]
+          }
         }
       },
-      "id": "eec15166-4a7c-4da9-bfc4-73e49759ea87",
-      "name": "Schedule Saturday",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        -224,
-        80
+        -48,
+        -688
       ],
-      "notes": "Cron: cada 30 min, de 7am a 10pm, SOLO sabados (dia 6).\nNo se ejecuta de lunes a viernes = cero consumo entre semana.\nAjustar horario segun necesidad."
-    },
-    {
-      "parameters": {
-        "jsCode": "// ============================================\n// INIT TRACKING - Gestion de estado persistente\n// ============================================\n// Usa staticData para recordar entre ejecuciones:\n// - lastChecked: ultimo momento revisado\n// - notifiedIds: IDs ya notificados (evita duplicados)\n// - lastSaturdayDate: para resetear al iniciar nuevo sabado\n\nconst staticData = $getWorkflowStaticData('global');\nconst now = new Date();\nconst todayStr = now.toISOString().split('T')[0];\n\n// Si es un nuevo sabado (diferente al ultimo registrado), resetear tracking\nif (staticData.lastSaturdayDate !== todayStr) {\n  // Calcular viernes 18:00 como punto de inicio\n  const friday = new Date(now);\n  friday.setDate(now.getDate() - 1); // ayer = viernes\n  friday.setHours(18, 0, 0, 0);\n  \n  staticData.lastChecked = friday.toISOString();\n  staticData.notifiedIds = [];\n  staticData.lastSaturdayDate = todayStr;\n}\n\n// Fallback: si no hay datos previos\nif (!staticData.lastChecked) {\n  const friday = new Date(now);\n  friday.setDate(now.getDate() - 1);\n  friday.setHours(18, 0, 0, 0);\n  staticData.lastChecked = friday.toISOString();\n  staticData.notifiedIds = [];\n  staticData.lastSaturdayDate = todayStr;\n}\n\nreturn [{\n  json: {\n    lastChecked: staticData.lastChecked,\n    notifiedIds: staticData.notifiedIds,\n    checkTime: now.toISOString()\n  }\n}];"
-      },
-      "id": "8f556f7f-caf8-4193-bea6-403054539f8f",
-      "name": "Init Tracking",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        0,
-        0
-      ],
-      "notes": "Lee/inicializa el estado persistente.\nPrimer ciclo del sabado: referencia = viernes 18:00.\nCiclos siguientes: referencia = ultimo chequeo exitoso.\nReset automatico cada nuevo sabado."
+      "id": "7d22d4fd-62e5-4e63-a3f2-bc729da109ef",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        },
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://apg.cloudviga.com:8500/api/account/login",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            }
-          ]
-        },
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
-        "options": {
-          "allowUnauthorizedCerts": true
-        }
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {}
       },
-      "id": "6f141c97-d234-421d-abb0-ab69092d15d5",
-      "name": "Login VIGA",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        224,
-        96
+        -432,
+        -800
       ],
-      "onError": "continueErrorOutput",
-      "notes": "Login VIGA - Obtiene Bearer Token.\nSolo se ejecuta si el Schedule dispara (sabados)."
+      "id": "c2e5fd75-2717-4f69-83a5-a537e8fda1fa",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        }
+      }
     },
     {
       "parameters": {
-        "jsCode": "// ============================================\n// FILTRAR, DEDUPLICAR Y FORMATEAR\n// ============================================\n// 1. Filtra solo clientes de Colombia\n// 2. Excluye tickets ya notificados (por ID)\n// 3. Formatea mensaje de WhatsApp\n// 4. Actualiza el tracking en staticData\n// Si no hay tickets nuevos, retorna [] y el flujo se detiene\n\nconst staticData = $getWorkflowStaticData('global');\nconst notifiedIds = staticData.notifiedIds || [];\nconst items = $input.all();\nconst newTickets = [];\n\nfor (const item of items) {\n  const ticket = item.json;\n  \n  // --- Extraer pais del cliente ---\n  // Ajustar la ruta segun la estructura real de respuesta del endpoint de busqueda\n  let countryName = '';\n  let clientName = '';\n  \n  // Ruta 1: respuesta tipo lista directa\n  if (ticket.client && ticket.client.country) {\n    countryName = ticket.client.country.name || '';\n    clientName = ticket.client.name || '';\n  }\n  // Ruta 2: respuesta con ticketSurveys (como en el ejemplo)\n  else if (ticket.ticketSurveys && ticket.ticketSurveys[0] && ticket.ticketSurveys[0].ticket) {\n    const innerTicket = ticket.ticketSurveys[0].ticket;\n    countryName = innerTicket.client?.country?.name || '';\n    clientName = innerTicket.client?.name || '';\n  }\n  \n  // --- Filtro: solo Colombia ---\n  if (countryName !== 'Colombia') continue;\n  \n  // --- Filtro: no repetir notificaciones ---\n  const ticketId = ticket.id;\n  if (notifiedIds.includes(ticketId)) continue;\n  \n  // --- Formatear fecha legible ---\n  const createdAt = ticket.createdAt || '';\n  let fechaFormateada = createdAt;\n  try {\n    const d = new Date(createdAt);\n    fechaFormateada = d.toLocaleString('es-CO', {\n      timeZone: 'America/Bogota',\n      year: 'numeric',\n      month: '2-digit',\n      day: '2-digit',\n      hour: '2-digit',\n      minute: '2-digit'\n    });\n  } catch(e) {}\n  \n  // --- Construir mensaje WhatsApp ---\n  const mensaje = [\n    `*Nuevo Ticket #${ticketId}*`,\n    `Asunto: ${ticket.description || 'Sin descripcion'}`,\n    `Cliente: ${clientName}`,\n    `Pais: ${countryName}`,\n    `Creado: ${fechaFormateada}`,\n    '',\n    '_Ticket creado fuera de horario laboral (Sabado)_'\n  ].join('\\n');\n  \n  newTickets.push({\n    json: {\n      ticketId: ticketId,\n      description: ticket.description,\n      createdAt: createdAt,\n      clientName: clientName,\n      country: countryName,\n      whatsappMessage: mensaje\n    }\n  });\n  \n  // Registrar como notificado\n  notifiedIds.push(ticketId);\n}\n\n// --- Actualizar tracking ---\nstaticData.notifiedIds = notifiedIds;\nstaticData.lastChecked = new Date().toISOString();\n\n// Si no hay tickets nuevos, retornar vacio = flujo se detiene aqui\n// Si hay, pasan al nodo de WhatsApp\nreturn newTickets;"
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "98515ab3-fd83-4ad3-a758-d0b4d97f9278",
+              "leftValue": "={{ $json.query[\"hub.verify_token\"] }}",
+              "rightValue": "apg",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
       },
-      "id": "ba307b81-c04d-43f5-ae33-49a7c9cb7137",
-      "name": "Filter Colombia & Format",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        -528
+      ],
+      "id": "46c71d0c-309c-466b-a376-18d7ed81a190",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        656,
-        80
+        704,
+        -544
       ],
-      "notes": "Nodo central de logica:\n- Filtra SOLO Colombia\n- Evita duplicados via staticData.notifiedIds\n- Formatea mensaje WhatsApp\n- Actualiza timestamp de ultimo chequeo\n- Si retorna [] = no hay nuevos = flujo se detiene (sin llegar a WhatsApp)\nAJUSTAR: las rutas de acceso al pais/cliente segun respuesta real del endpoint de busqueda."
+      "id": "5dc62bb9-231b-4416-b736-5eed3e0d73f1",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query[\"hub.challenge\"] }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        880,
+        -544
+      ],
+      "id": "12c62d0e-98d3-4c93-84d8-9ce666393502",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "path": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        304,
+        -528
+      ],
+      "id": "788de6b8-aa4b-4ffa-a845-c681b1d59b32",
+      "name": "Webhook",
+      "webhookId": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4"
     },
     {
       "parameters": {
@@ -302,46 +291,21 @@
         "phoneNumberId": "833780986474867",
         "additionalFields": {}
       },
-      "id": "962d312d-0202-422a-bc56-41bc527bf489",
-      "name": "Send WhatsApp",
       "type": "n8n-nodes-base.whatsApp",
       "typeVersion": 1.1,
       "position": [
-        1152,
-        -32
+        -208,
+        -512
       ],
-      "webhookId": "78cc5277-c997-4596-9db8-2ac8a01769eb",
+      "id": "0831cb51-d8c2-4277-994c-8905c48ef68a",
+      "name": "Send message",
+      "webhookId": "d4cea5e5-ddae-4371-90cc-16072984f9d6",
       "credentials": {
         "whatsAppApi": {
           "id": "gFf5xMPVgDp987TZ",
           "name": "WSP Colombia - Comercial Test"
         }
-      },
-      "disabled": true,
-      "notes": "Envia mensaje por WhatsApp.\nEl campo 'whatsappMessage' del item contiene el texto formateado.\nCONFIGURAR: numero destino y template segun la API de WhatsApp Business.\nSolo se ejecuta si hay tickets nuevos de Colombia."
-    },
-    {
-      "parameters": {
-        "url": "=https://apg.cloudviga.com:8500/api/ticket/46000",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUaWNrZXRBY2Nlc3MiOiJUcnVlIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvY291bnRyeSI6IkFyZ2VudGluYSIsIkNvdW50cnlJZCI6IjIiLCJJZEdyb3VwIjoiNyIsIkdyb3VwIjoiQVBHIENvbnN1bHRpbmciLCJJbnN0YW5jZUlkIjoiMDMyN2RjNTYtOTY1YS00N2ViLTllZDEtOGEyYzAyMTM4NGQwIiwiSW5zdGFuY2UiOiJBcGcgQ29uc3VsdGluZyBJbnN0YW5jaWEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOlsiVGltZSBSZXBvcnQiLCJBbmFsaXN0YSByZXNvbHV0b3IiLCJBZG1pblByb3llY3QiLCJhZG1pbiIsIkFuYWxpc3RhIl0sIlBlcm1pc3Npb25zIjpbIkFkbWluIiwiQWRtaW5JbnN0YW5jZXMiLCJJbnRlcm5vIiwiTWFuYWdlckFyZ2VudGluYSIsIk1hbmFnZXJCb2xpdmlhIiwiTWFuYWdlckNvbG9tYmlhIiwiTWFuYWdlckNvc3RhUmljYSIsIk1hbmFnZXJFY3VhZG9yIiwiTWFuYWdlclBlcnUiLCJWaWV3Q29tbWVyY2lhbCIsIkVkaXRDb21tZXJjaWFsIiwiQ3JlYXRlQ29tbWVyY2lhbCIsIkRlbGV0ZUNvbW1lcmNpYWwiLCJWaWV3U3VwcG9ydCIsIkVkaXRTdXBwb3J0IiwiQ3JlYXRlU3VwcG9ydCIsIkRlbGV0ZVN1cHBvcnQiLCJWaWV3UHJvamVjdCIsIkVkaXRQcm9qZWN0IiwiQ3JlYXRlUHJvamVjdCIsIkRlbGV0ZVByb2plY3QiLCJUaW1lUmVwb3J0IiwiVmlld0NsaWVudCIsIkVkaXRDbGllbnQiLCJDcmVhdGVDbGllbnQiLCJEZWxldGVDbGllbnQiLCJWYWxpZGF0ZUNsaWVudCIsIlZpZXdVc2VyIiwiRWRpdFVzZXIiLCJDcmVhdGVVc2VyIiwiRGVsZXRlVXNlciIsIlJvbGUiLCJBdWRpdCIsIlRhc2tUeXBlIiwiVGFza1N0YXR1cyIsIlByb2plY3RTdGF0dXMiLCJUZW1wbGF0ZSIsIkluZHVzdHJ5IiwiQ291bnRyeSIsIkxhYm9yIiwiRVJQIiwiQ2xpZW50VHlwZSIsIlByb2R1Y3RUeXBlIiwiQ29ubmVjdGlvbiIsIlRyZWVDbGFzaWZpY2F0aW9uIiwiTWlsZXN0b25lVHlwZSIsIk1pbGVzdG9uZVN0YXR1cyIsIkdlbmVyaWNUYXNrVHlwZSIsIkdlbmVyaWNUYXNrIiwiSG9saWRheSIsIk9wcG9ydHVuaXR5U3RhdGUiLCJDdXJyZW5jeSIsIkFjdGl2aXR5VHlwZSIsIkFjdGl2aXR5U3RhdGUiLCJBZG1pbkJlZWxsaW5nIiwiQWRtaW5TdXBwbGllciIsIlN1cHBsaWVyU2VsbGVyIiwiU3VwcGxpZXJQcm92IiwiVmlld0VycCIsIlZpZXdPcmlnaW5zIiwiVmlld1dlYlNpdGUiXSwiVXNlclR5cGUiOiJJbnRlcm5vIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvYXV0aGVudGljYXRpb24iOiJuZXdVc2VyLWFwZ0NvcmUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTnVuZXogUmFmYWVsIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI0MzZhMWY2My0wMmQwLTQ5NGQtYThmZC0xMWY0N2E3MjQxYzEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJybnVuZXpAYXBnLWNvbnN1bHRpbmcuY29tIiwiZXhwIjoxNzcyMjQyOTkwfQ.zt4jlDFQ5amoMvViKHfz0CnxDWVdN5hzPyR1Ir_-4So"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        448,
-        80
-      ],
-      "id": "e60c5acd-2b2a-4130-b175-0463cd7285b4",
-      "name": "GET Ticket API1"
+      }
     },
     {
       "parameters": {
@@ -407,65 +371,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        656,
-        -368
+        1264,
+        512
       ],
-      "id": "b09070c6-c594-4476-84cd-e3d40872f5c8",
+      "id": "7ac3c9f2-63e0-4ab9-8275-5e5782481554",
       "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "path": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        288,
-        -528
-      ],
-      "id": "788de6b8-aa4b-4ffa-a845-c681b1d59b32",
-      "name": "Webhook",
-      "webhookId": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4"
-    },
-    {
-      "parameters": {
-        "respondWith": "text",
-        "responseBody": "={{ $json.query[\"hub.challenge\"] }}",
-        "options": {
-          "responseCode": 200,
-          "responseHeaders": {
-            "entries": [
-              {
-                "name": "Content-Type",
-                "value": "text/plain"
-              }
-            ]
-          }
-        }
-      },
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.4,
-      "position": [
-        880,
-        -544
-      ],
-      "id": "12c62d0e-98d3-4c93-84d8-9ce666393502",
-      "name": "Respond to Webhook"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        704,
-        -544
-      ],
-      "id": "5dc62bb9-231b-4416-b736-5eed3e0d73f1",
-      "name": "Code in JavaScript"
     },
     {
       "parameters": {
@@ -478,13 +388,12 @@
           },
           "conditions": [
             {
-              "id": "98515ab3-fd83-4ad3-a758-d0b4d97f9278",
-              "leftValue": "={{ $json.query[\"hub.verify_token\"] }}",
-              "rightValue": "apg",
+              "id": "cond-check-id",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": 0,
               "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "type": "number",
+                "operation": "notEquals"
               }
             }
           ],
@@ -492,177 +401,15 @@
         },
         "options": {}
       },
+      "id": "3ae7bbdb-3fac-4c34-b2d5-48c47bda1676",
+      "name": "Ticket Existe?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        496,
-        -528
+        608,
+        208
       ],
-      "id": "46c71d0c-309c-466b-a376-18d7ed81a190",
-      "name": "If"
-    },
-    {
-      "parameters": {
-        "operation": "send",
-        "phoneNumberId": "833780986474867",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.whatsApp",
-      "typeVersion": 1.1,
-      "position": [
-        -208,
-        -512
-      ],
-      "id": "0831cb51-d8c2-4277-994c-8905c48ef68a",
-      "name": "Send message",
-      "webhookId": "d4cea5e5-ddae-4371-90cc-16072984f9d6",
-      "credentials": {
-        "whatsAppApi": {
-          "id": "gFf5xMPVgDp987TZ",
-          "name": "WSP Colombia - Comercial Test"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "whatsAppApi",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -48,
-        -688
-      ],
-      "id": "7d22d4fd-62e5-4e63-a3f2-bc729da109ef",
-      "name": "HTTP Request",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "oHgd4aHYZC1mBHVh",
-          "name": "Header Auth account"
-        },
-        "whatsAppApi": {
-          "id": "gFf5xMPVgDp987TZ",
-          "name": "WSP Colombia - Comercial Test"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -304,
-        -784
-      ],
-      "id": "c2e5fd75-2717-4f69-83a5-a537e8fda1fa",
-      "name": "HTTP Request1",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "oHgd4aHYZC1mBHVh",
-          "name": "Header Auth account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "=https://apg.cloudviga.com:8500/api/ticket/{{ $('Edit Fields2').item.json.ticketId }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "=Bearer {{ $json.token.token }}"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "options": {
-          "allowUnauthorizedCerts": true
-        }
-      },
-      "id": "b1c1e9f2-fde0-4d5c-9e67-319c56e3d849",
-      "name": "GET Tickets Colombia",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        544,
-        1440
-      ],
-      "notes": "Busca tickets de Colombia (countryId: 3).\nAJUSTAR: el endpoint real de busqueda y el countryId de Colombia.\nSi la API no soporta filtro por pais, buscar todos y filtrar en el codigo.\nTambien ajustar donde viene el token: Login VIGA -> json.token o json.data.token etc."
-    },
-    {
-      "parameters": {
-        "jsCode": "// ============================================\n// DETECTAR NUEVOS IDs DE COLOMBIA\n// ============================================\n// 1. Toma todos los tickets de la respuesta\n// 2. Filtra solo Colombia (doble check)\n// 3. Detecta IDs mayores al ultimo guardado\n// 4. Actualiza lastId en staticData\n// 5. Retorna solo los nuevos para guardar en Sheets\n\nconst staticData = $getWorkflowStaticData('global');\nconst lastId = staticData.lastId || 0;\n\n// --- Extraer tickets de la respuesta ---\nconst response = $input.first().json;\n\n// Intentar varias rutas posibles de la respuesta\nlet tickets = [];\nif (Array.isArray(response)) {\n  tickets = response;\n} else if (response.data && Array.isArray(response.data)) {\n  tickets = response.data;\n} else if (response.items && Array.isArray(response.items)) {\n  tickets = response.items;\n} else if (response.result && Array.isArray(response.result)) {\n  tickets = response.result;\n} else {\n  // Si es un solo objeto (como el GET /api/ticket/46000 del flujo original)\n  tickets = [response];\n}\n\nconsole.log(`Total tickets en respuesta: ${tickets.length}`);\nconsole.log(`Ultimo ID conocido: ${lastId}`);\n\n// --- Filtrar: nuevos + Colombia ---\nconst newColombiaTickets = [];\nlet maxId = lastId;\n\nfor (const ticket of tickets) {\n  const ticketId = ticket.id;\n  if (!ticketId) continue;\n  \n  // Registrar el ID mas alto que vimos\n  if (ticketId > maxId) maxId = ticketId;\n  \n  // Solo procesar IDs nuevos\n  if (ticketId <= lastId) continue;\n  \n  // --- Extraer pais (multiples rutas posibles) ---\n  let countryName = '';\n  let clientName = '';\n  \n  if (ticket.client?.country?.name) {\n    countryName = ticket.client.country.name;\n    clientName = ticket.client.name || '';\n  } else if (ticket.countryName) {\n    countryName = ticket.countryName;\n    clientName = ticket.clientName || '';\n  } else if (ticket.ticketSurveys?.[0]?.ticket?.client?.country?.name) {\n    countryName = ticket.ticketSurveys[0].ticket.client.country.name;\n    clientName = ticket.ticketSurveys[0].ticket.client?.name || '';\n  }\n  \n  // --- Solo Colombia ---\n  if (countryName !== 'Colombia') {\n    console.log(`Ticket #${ticketId} descartado - pais: '${countryName}'`);\n    continue;\n  }\n  \n  // --- Formatear fecha ---\n  let fechaFormateada = ticket.createdAt || '';\n  try {\n    const d = new Date(ticket.createdAt);\n    fechaFormateada = d.toLocaleString('es-CO', {\n      timeZone: 'America/Bogota',\n      year: 'numeric', month: '2-digit', day: '2-digit',\n      hour: '2-digit', minute: '2-digit'\n    });\n  } catch(e) {}\n  \n  console.log(`✅ Nuevo ticket Colombia: #${ticketId} - ${ticket.description}`);\n  \n  newColombiaTickets.push({\n    json: {\n      ticketId: ticketId,\n      description: ticket.description || '',\n      clientName: clientName,\n      country: countryName,\n      createdAt: fechaFormateada,\n      detectedAt: new Date().toISOString()\n    }\n  });\n}\n\n// --- Actualizar el ultimo ID visto ---\n// Solo avanzar si vimos IDs nuevos (cualquier pais)\nif (maxId > lastId) {\n  console.log(`Actualizando lastId: ${lastId} -> ${maxId}`);\n  staticData.lastId = maxId;\n}\n\nconsole.log(`Tickets nuevos de Colombia: ${newColombiaTickets.length}`);\n\n// Si retorna [] el flujo se detiene antes de Sheets\nreturn newColombiaTickets;"
-      },
-      "id": "57c68399-4ac4-47c4-9099-fa7ae3d0c38f",
-      "name": "Detect New Colombia IDs",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        832,
-        1264
-      ],
-      "notes": "Logica central:\n- Compara IDs contra staticData.lastId\n- Filtra solo Colombia\n- Actualiza lastId al maximo visto\n- Retorna [] si no hay nuevos (flujo se detiene)\n- Logs en consola para debugging"
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1Um__Ur6wBnPJJq17kSLTpUpXgu5gMFw2zWXSG382MxM",
-          "mode": "list",
-          "cachedResultName": "tickets",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Um__Ur6wBnPJJq17kSLTpUpXgu5gMFw2zWXSG382MxM/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Hoja 1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Um__Ur6wBnPJJq17kSLTpUpXgu5gMFw2zWXSG382MxM/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "autoMapInputData",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "id": "017ccd7e-85f1-4412-95b7-c609a0a6ac3d",
-      "name": "Save to Google Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.4,
-      "position": [
-        1024,
-        1248
-      ],
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      },
-      "notes": "CONFIGURAR:\n1. Reemplazar TU_SPREADSHEET_ID_AQUI con el ID real del sheet\n2. Crear hoja llamada 'Tickets Colombia'\n3. Primera fila debe tener headers:\n   ticketId | description | clientName | country | createdAt | detectedAt\n4. Conectar credenciales de Google"
+      "notes": "TRUE (output 0): ticket valido -> seguir el loop\nFALSE (output 1): respuesta vacia/sin id -> encontramos el fin"
     },
     {
       "parameters": {
@@ -684,96 +431,57 @@
           "allowUnauthorizedCerts": true
         }
       },
-      "id": "93905eb2-68c7-4b4e-8cec-239e99c57841",
-      "name": "Login VIGA1",
+      "id": "ad6c92b2-a810-42ec-ab5c-c9f28fae00de",
+      "name": "Login VIGA2",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        192,
-        1456
+        -32,
+        496
       ],
-      "onError": "continueErrorOutput",
-      "notes": "Obtiene el Bearer Token para las llamadas siguientes."
+      "onError": "continueErrorOutput"
     },
     {
-      "parameters": {
-        "operation": "appendOrUpdate",
-        "documentId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "sheetName": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
       "position": [
         -240,
-        864
+        496
       ],
-      "id": "30c755ca-659d-4cf9-a39e-5e0b83ce7d7f",
-      "name": "Append or update row in sheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      },
-      "disabled": true
+      "id": "39d6d263-9863-4d40-890d-11818dbf333a",
+      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        224,
-        320
-      ],
-      "id": "24dc7961-8299-40d9-a6bf-72cb0a1dfc75",
-      "name": "HTTP Request2"
-    },
-    {
-      "parameters": {
-        "content": "## PROD: 0327dc56-965a-47eb-9ed1-8a2c021384d0\n\n## TEST: 5F373264-4128-4429-821F-3F97C1779BEA\n",
-        "width": 608
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        176,
-        1232
-      ],
-      "typeVersion": 1,
-      "id": "1d50efed-17ac-4071-856b-7c8b2dbd6029",
-      "name": "Sticky Note10"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/{{ $json.ticketId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
             {
-              "id": "0440aa5e-1386-4833-95f5-d734fa202d29",
-              "name": "ticketId",
-              "value": "={{ $('Edit Fields2').item.json.ticketId + 1 }} ",
-              "type": "string"
+              "name": "Authorization",
+              "value": "=Bearer {{ $item(\"0\").$node[\"Login VIGA2\"].json[\"token\"][\"token\"] }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
             }
           ]
         },
-        "options": {}
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "id": "21a6520c-799f-4e82-b9c2-ddbc3d8f6d07",
+      "name": "GET Tickets",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        768,
-        1440
+        464,
+        480
       ],
-      "id": "249c2b18-3a5f-49a4-8476-5d89ec86724f",
-      "name": "Edit Fields1"
+      "onError": "continueErrorOutput",
+      "notes": "onError continueErrorOutput para que el IF pueda manejar 404s"
     },
     {
       "parameters": {
@@ -782,8 +490,8 @@
             {
               "id": "e9efd3c8-1a4a-47fd-b5c6-4685bc178b2d",
               "name": "ticketId",
-              "value": "",
-              "type": "string"
+              "value": 47554,
+              "type": "number"
             }
           ]
         },
@@ -792,45 +500,36 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -48,
-        1456
+        240,
+        480
       ],
-      "id": "4964f50f-41db-416f-b252-a4dab0326db2",
-      "name": "Edit Fields2"
+      "id": "dde603b8-b742-48a7-a601-7ed6c07b59c5",
+      "name": "Set First Ticket",
+      "notes": "ID inicial. Cambiar 47500 por el punto de arranque real."
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
+        "assignments": {
+          "assignments": [
             {
-              "id": "cond-check-id",
-              "leftValue": "={{ $json.id }}",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "exists",
-                "singleValue": true
-              }
+              "id": "0440aa5e-1386-4833-95f5-d734fa202d29",
+              "name": "ticketId",
+              "value": "={{ $json.id + 1}}",
+              "type": "number"
             }
-          ],
-          "combinator": "and"
+          ]
         },
         "options": {}
       },
-      "id": "6aec53bc-a348-4cbd-8aca-7a46dd41092c",
-      "name": "Ticket Existe?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        -128,
-        1776
+        960,
+        192
       ],
-      "notes": "TRUE (output 0): ticket valido -> seguir el loop\nFALSE (output 1): respuesta vacia/sin id -> encontramos el fin"
+      "id": "8bc07092-81ea-4e9e-8d01-b0f48001f7e8",
+      "name": "Next Ticket",
+      "notes": "Incrementa ticketId y vuelve al Login para continuar el loop"
     },
     {
       "parameters": {
@@ -839,7 +538,7 @@
             {
               "id": "last-id-output",
               "name": "lastTicketId",
-              "value": "={{ $('Edit Fields3').item.json.ticketId - 1 }}",
+              "value": "={{ $item(\"0\").$node[\"Next Ticket\"].json[\"ticketId\"] - 1}}",
               "type": "number"
             },
             {
@@ -855,126 +554,130 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        224,
-        2128
+        976,
+        496
       ],
-      "id": "2b9e9a68-079e-44ea-831a-f8dd855ffb22",
-      "name": "Last Ticket ID Found",
+      "id": "500781c4-5d6f-4656-ac72-daf5ac4f4f9f",
+      "name": "Set Last Ticket",
       "notes": "OUTPUT FINAL: lastTicketId = el ultimo ID real encontrado.\nTicketId actual - 1 porque el actual fue el primero que fallo."
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e9efd3c8-1a4a-47fd-b5c6-4685bc178b2d",
-              "name": "ticketId",
-              "value": 47500,
-              "type": "number"
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
             }
-          ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -48,
+        -112
+      ],
+      "id": "9ce5c5e8-dbd4-45e5-967b-784a62277a9a",
+      "name": "HTTP Request2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
         },
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
       "position": [
-        -880,
-        2128
+        -256,
+        208
       ],
-      "id": "b9045e71-ec04-4c6d-92fd-20ec5423ef59",
-      "name": "Edit Fields3",
-      "notes": "ID inicial. Cambiar 47500 por el punto de arranque real."
+      "id": "f5dce957-05f0-4a23-a9df-e75d39fadd85",
+      "name": "WhatsApp Trigger1",
+      "webhookId": "431028a1-0369-4337-99d0-f0c169e2b071",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "X1MRT5RFGioo2dc9",
+          "name": "WSP Colombia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "recipientPhoneNumber": "5491164282905",
+        "textBody": "asd",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        64,
+        208
+      ],
+      "id": "69ee8c63-c611-48c6-8bc0-5404a8f45a98",
+      "name": "Send message1",
+      "webhookId": "a53c28ea-be71-4b50-b46c-e3605ed0e236",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://apg.cloudviga.com:8500/api/account/login",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            }
-          ]
-        },
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
-        "options": {
-          "allowUnauthorizedCerts": true
-        }
-      },
-      "id": "5e6d1e77-5b99-4f4d-b86d-4133230b9c07",
-      "name": "Login VIGA2",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -608,
-        2128
-      ],
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "url": "=https://apg.cloudviga.com:8500/api/ticket/{{ $('Edit Fields3').item.json.ticketId }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "=Bearer {{ $('Login VIGA2').item.json.token.token }}"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "options": {
-          "allowUnauthorizedCerts": true
-        }
-      },
-      "id": "fba6e11b-5fa9-4460-932c-e93bfacdbdfd",
-      "name": "GET Tickets Colombia1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -256,
-        2112
-      ],
-      "onError": "continueErrorOutput",
-      "notes": "onError continueErrorOutput para que el IF pueda manejar 404s"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "0440aa5e-1386-4833-95f5-d734fa202d29",
-              "name": "ticketId",
-              "value": "={{ $('Edit Fields3').item.json.ticketId + 1 }}",
-              "type": "number"
-            }
-          ]
-        },
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
-        224,
-        1760
+        -48,
+        16
       ],
-      "id": "6bcac745-54e6-44bc-a1ed-1f022b437e2a",
-      "name": "Edit Fields4",
-      "notes": "Incrementa ticketId y vuelve al Login para continuar el loop"
+      "id": "299f472e-b6c7-47c0-a784-58e233d99313",
+      "name": "HTTP Request3",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        }
+      }
     }
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
   },
   "shared": [
     {
@@ -998,6 +701,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-04-17T20:52:34.256Z",
-  "versionId": "821cb8f9-1121-4df1-9ab2-96ef6c0e70f1"
+  "updatedAt": "2026-04-20T20:38:08.284Z",
+  "versionId": "0c8706ea-ad9a-4928-a2db-3cb0d28a9ec0"
 }
