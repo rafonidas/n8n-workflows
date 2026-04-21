@@ -1858,7 +1858,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "DELETE FROM dbo.NotiViga_execution_logs;"
+        "query": "DELETE FROM dbo.NotiViga_execution_logs\nWHERE executionId = 2836 ;"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -1878,7 +1878,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "DELETE FROM dbo.NotiViga_notification_logs;"
+        "query": "DELETE FROM dbo.NotiViga_notification_logs\nWHERE executionId = 2921;"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -3122,6 +3122,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-16T19:17:18.679Z",
-  "versionId": "94feef7d-6cfd-4f5f-805e-b479ea5b6a1c"
+  "updatedAt": "2026-04-20T12:58:15.060Z",
+  "versionId": "5b0785be-6ba7-4595-bac5-30af93507347"
 }
