@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Watchdog Trigger": {
       "main": [
@@ -299,7 +299,7 @@
           "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ab4ddf2dd3a2343b28367735098de8b49%40thread.tacv2/Test%20Conversaci%C3%B3n?groupId=06a493d9-ee89-46db-b8b3-e10cfda68bf4&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
         "contentType": "html",
-        "message": "=<b>WATCHDOG ALERT — Viga Time Report</b><br>\nEl flujo <b>VIGA TR Master</b> finalizó correctamente con estado INCNOMPLETO por algunos usuarios salteados el día de hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
+        "message": "=<b>WATCHDOG ALERT — Viga Time Report</b><br>\nEl flujo <b>VIGA TR Master</b> finalizó correctamente con estado INCOMPLETO por algunos usuarios salteados el día de hoy (<b>{{ $now.toFormat('yyyy-MM-dd') }}</b>).\n<i>Este mensaje fue generado automaticamente a las 11:00 AM.</i>",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -416,9 +416,13 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Watchdog Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-04-17T15:38:52.538Z",
-  "versionId": "14557004-1485-420b-a935-eeb1a6923617"
+  "triggerCount": 1,
+  "updatedAt": "2026-04-20T12:51:41.748Z",
+  "versionId": "69abb7c6-b6fe-45a1-8497-9a744595f27a"
 }
