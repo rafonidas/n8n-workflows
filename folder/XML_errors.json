@@ -361,6 +361,19 @@
         -64,
         -112
       ]
+    },
+    {
+      "parameters": {
+        "content": "## mails que tienen error en el servicio de mail\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1216,
+        -400
+      ],
+      "typeVersion": 1,
+      "id": "01e59120-dc12-438f-bcc7-ba0599bdc7f2",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -386,6 +399,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-09T18:13:14.775Z",
-  "versionId": "3b9472ba-a6eb-402d-8435-e7e0bc45e89b"
+  "updatedAt": "2026-04-20T19:37:51.425Z",
+  "versionId": "168dcdab-0e65-4901-b547-3186e1c3c4ca"
 }
