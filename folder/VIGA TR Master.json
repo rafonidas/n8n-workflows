@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -252,7 +252,7 @@
         ],
         [
           {
-            "node": "Get userInfo",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -341,6 +341,24 @@
       "main": [
         []
       ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get userInfo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-04-14T16:45:30.829Z",
@@ -379,8 +397,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -6992,
-        1552
+        -6800,
+        1776
       ]
     },
     {
@@ -416,7 +434,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const login = $input.first().json; // INPUT DATA\n\nconst token = $('Login VIGA').first().json.token.token // BEARER TOKEN\n\nconst percentage = '100'     // UMBRAL DE HORAS\nif (!token) throw new Error('Login VIGA fallido: ' + JSON.stringify(login).slice(0,200)); // ERROR CATCH\n\nreturn [{ json: {\n  executionId: $execution.id,\n  token,\n  startTime: new Date().toISOString(),\n  instanceId: login.payload.InstanceId,\n  percentage\n}}];"
+        "jsCode": "const login = $input.first().json; // INPUT DATA\n\nconst token = $('Login VIGA').first().json.token.token // BEARER TOKEN\n\nconst percentage = '80'     // UMBRAL DE HORAS\nif (!token) throw new Error('Login VIGA fallido: ' + JSON.stringify(login).slice(0,200)); // ERROR CATCH\n\nreturn [{ json: {\n  executionId: $execution.id,\n  token,\n  startTime: new Date().toISOString(),\n  instanceId: login.payload.InstanceId,\n  percentage\n}}];"
       },
       "id": "b8fee425-6425-4839-9b3c-03ce2af413f8",
       "name": "Set Context",
@@ -487,7 +505,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -5632,
+        -5680,
         1488
       ]
     },
@@ -522,8 +540,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -5248,
-        1600
+        -5376,
+        1712
       ],
       "notes": "posibilidad de agregar\ntotalSuccess y totalErrors y totalProcessed"
     },
@@ -599,7 +617,6 @@
           "name": "Notificaciones n8n"
         }
       },
-      "disabled": true,
       "onError": "continueErrorOutput"
     },
     {
@@ -617,22 +634,14 @@
     },
     {
       "parameters": {
-        "resource": "channelMessage",
-        "teamId": {
+        "resource": "chatMessage",
+        "chatId": {
           "__rl": true,
-          "value": "06a493d9-ee89-46db-b8b3-e10cfda68bf4",
-          "mode": "list",
-          "cachedResultName": "Pruebas - n8n"
-        },
-        "channelId": {
-          "__rl": true,
-          "value": "19:b4ddf2dd3a2343b28367735098de8b49@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "Test Conversación",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ab4ddf2dd3a2343b28367735098de8b49%40thread.tacv2/Test%20Conversaci%C3%B3n?groupId=06a493d9-ee89-46db-b8b3-e10cfda68bf4&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+          "value": "={{ $json.id }}",
+          "mode": "id"
         },
         "contentType": "html",
-        "message": "=<p>Hola <strong>{{ $('Set Merge Data').item.json.fullName }}</strong>,</p>\n<p>Te recordamos que tus horas en <strong>Viga</strong> no están al día:</p>\n<ul>\n  <li>⏰ <strong>Horas esperadas:</strong> {{ $('Set Merge Data').item.json.expectedHours }}h</li>\n  <li>✅ <strong>Horas cargadas:</strong> {{ $('Set Merge Data').item.json.totalHours }}h</li>\n  <li>📊 <strong>Completado:</strong> {{ $('Set Merge Data').item.json.completionPercentage }}%</li>\n</ul>\n<p>Por favor carga tus horas pendientes. ¡Muchas gracias!</p>",
+        "message": "=<p>Hola <strong>{{ $('Get userInfo').item.json.name }}</strong>,</p>\n<p>Te recordamos que tus horas en <strong>Viga</strong> no están al día:</p>\n<ul>\n  <li>⏰ <strong>Horas esperadas:</strong> {{ $('Set Merge Data').item.json.expectedHours }}h</li>\n  <li>✅ <strong>Horas cargadas:</strong> {{ $('Set Merge Data').item.json.totalHours }}h</li>\n  <li>📊 <strong>Completado:</strong> {{ $('Set Merge Data').item.json.completionPercentage }}%</li>\n</ul>\n<p>Por favor carga tus horas pendientes. ¡Muchas gracias!</p>",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -648,11 +657,10 @@
       "webhookId": "171c1abc-4ec3-4911-a1a1-f5d214283cfd",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
         }
       },
-      "disabled": true,
       "onError": "continueErrorOutput"
     },
     {
@@ -717,8 +725,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -4544,
-        1600
+        -4336,
+        1712
       ],
       "credentials": {
         "microsoftSql": {
@@ -757,8 +765,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -5424,
-        1504
+        -5376,
+        1488
       ]
     },
     {
@@ -768,7 +776,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -5152,
+        -5104,
         1488
       ],
       "id": "1dba6df2-01f3-4545-bc59-8133ca558e5a",
@@ -958,33 +966,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://graph.microsoft.com/v1.0/chats",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "microsoftTeamsOAuth2Api",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"chatType\": \"oneOnOne\",\n  \"members\": [\n    {\n      \"@odata.type\": \"#microsoft.graph.aadUserConversationMember\",\n      \"roles\": [\"owner\"],\n      \"user@odata.bind\": \"https://graph.microsoft.com/v1.0/users('dc249723-4f57-4995-bdc6-836ab587c0fd')\"\n    },\n    {\n      \"@odata.type\": \"#microsoft.graph.aadUserConversationMember\",\n      \"roles\": [\"owner\"],\n      \"user@odata.bind\": \"https://graph.microsoft.com/v1.0/users('6d1f19e0-7956-4252-bf64-af510dd3e33a')\"\n    }\n  ]\n}",
-        "options": {}
-      },
-      "id": "94f59fd6-0af1-4ce8-9618-b374c455ba55",
-      "name": "HTTP Create Chat1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -4736,
-        848
-      ],
-      "credentials": {
-        "microsoftTeamsOAuth2Api": {
-          "id": "ueHY9A2J5aF54WT3",
-          "name": "Notificaciones n8n"
-        }
-      },
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
       },
       "type": "n8n-nodes-base.code",
@@ -995,6 +976,114 @@
       ],
       "id": "c7070bc2-ac14-40de-ad83-dbc6cb292c1f",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## Rolando Carlos\n## Otondo Mariana\n## Gulman Ezequiel\n## Barrientos Audrey\n## Cubillos Jose Luis ",
+        "height": 224
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -6432,
+        896
+      ],
+      "typeVersion": 1,
+      "id": "bdec11e6-67b6-4601-b7cd-8d31faf22837",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "628adc8c-a98f-413b-8268-4864272ddbc7",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Rolando Carlos",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "4449cc37-b1d9-4ec3-ba6d-fa6ae7ff531a",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Barrientos Audrey",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "a201fb34-9cbe-4c7e-8a0e-c18ce11dbf8c",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Gulman Ezequiel",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "c97b72e5-350c-4518-919a-372340368fe1",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Otondo Mariana",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "b953cf20-76e7-4585-932f-8439c4d0c4c6",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Rolando Carlos",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "0adacbe5-bd1d-4c27-9582-048ed3011be6",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Cubillos Jose Luis",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "453bed2f-6bfa-45c7-8388-c8c82ed652ca",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Cherepinsky Matías",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4832,
+        1504
+      ],
+      "id": "9c35815a-0346-40ba-a50e-0343d6f1cab3",
+      "name": "If"
     }
   ],
   "pinData": {
@@ -1091,9 +1180,13 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-04-17T18:40:40.469Z",
-  "versionId": "e9e60ffa-08d3-45c1-be45-4312c9e3e0bd"
+  "triggerCount": 1,
+  "updatedAt": "2026-04-20T20:49:16.101Z",
+  "versionId": "2478b3b5-2e9c-4b45-80eb-803b04c5a9d3"
 }
