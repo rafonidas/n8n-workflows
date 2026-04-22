@@ -187,6 +187,19 @@
         }
       },
       "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## si hay mas de 1 reincidente se enviará más de 1 mensaje"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        480,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "5e827e94-62b1-4e0d-82ac-bd0a873b45f9",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -213,6 +226,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-20T12:58:58.601Z",
-  "versionId": "3459c69f-41b4-4575-bb0c-098d03f53bd8"
+  "updatedAt": "2026-04-21T13:00:47.456Z",
+  "versionId": "8bec211b-e06b-4224-8f5f-c792c1fbe7bb"
 }
