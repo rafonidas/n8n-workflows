@@ -1,0 +1,169 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Microsoft SQL2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Microsoft SQL3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Microsoft SQL4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft SQL": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-04-21T13:04:26.578Z",
+  "id": "yhFpLC7zYRTtNkRd",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AFM - RAG - TEST",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -608
+      ],
+      "id": "e84a3bbc-24a0-446a-8d24-0d82ceb2ebb8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select top 10 * from dbo.Documento\norder by FechaCreacion DESC;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c647a8d0-d03a-465e-a790-c537810bf7f9",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "Dy10nKTWCqBd32O5",
+          "name": "Soporte - SQL01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT TOP 10 * FROM dbo.VistasTickes\norder by TicketId DESC;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        -160
+      ],
+      "id": "1fdca262-abbd-40b5-a52c-430fd5401227",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Esto lista todas las bases de datos a las que tu usuario tiene al menos un permiso mínimo de lectura.\nSELECT name, state_desc, create_date \nFROM sys.databases\nORDER BY name;\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -112,
+        -736
+      ],
+      "id": "71e49b5f-f3f5-48b6-ba2e-a527bf80b41f",
+      "name": "Microsoft SQL2",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Esto lista todas las bases de datos a las que tu usuario tiene al menos un permiso mínimo de lectura.\n-- SELECT name, state_desc, create_date \n-- FROM sys.databases\n-- ORDER BY name;\n\n-- Ejecuta esto asegurándote de estar posicionado en tu base de datos principal.\nSELECT name AS Nombre_Esquema \nFROM sys.schemas;\n\n\n"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -96,
+        -560
+      ],
+      "id": "0a16a286-3508-434f-8982-103188fde4db",
+      "name": "Microsoft SQL3",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "\n-- Esto te listará absolutamente todas las tablas a las que tu usuario tiene acceso, \n-- indicando a qué esquema pertenecen. Aquí podrías encontrar la tabla de archivos perdida.\nSELECT TABLE_CATALOG AS BaseDeDatos, \n       TABLE_SCHEMA AS Esquema, \n       TABLE_NAME AS NombreTabla\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_TYPE = 'BASE TABLE'\nORDER BY TABLE_SCHEMA, TABLE_NAME;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -96,
+        -400
+      ],
+      "id": "3e6109e6-5bbe-445a-be60-d87728ceccb0",
+      "name": "Microsoft SQL4",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-21T13:04:26.578Z",
+      "updatedAt": "2026-04-21T13:04:26.578Z",
+      "role": "workflow:owner",
+      "workflowId": "yhFpLC7zYRTtNkRd",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-21T19:02:46.551Z",
+  "versionId": "53986571-a4b9-4298-b743-3a5e6a5efb5a"
+}
