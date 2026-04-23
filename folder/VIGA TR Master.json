@@ -1070,6 +1070,16 @@
                 "operation": "equals",
                 "name": "filter.operator.equals"
               }
+            },
+            {
+              "id": "a1f8e0be-f007-438d-9256-4a2199d96734",
+              "leftValue": "={{$json.fullName}}",
+              "rightValue": "Apaza Steeven",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "or"
@@ -1183,10 +1193,19 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
+    },
+    "global": {
+      "executionId": "3049",
+      "counters": {
+        "totalProcessed": 1,
+        "totalNotified": 0,
+        "totalSkipped": 0,
+        "totalError": 1
+      }
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-21T12:51:06.983Z",
-  "versionId": "2478b3b5-2e9c-4b45-80eb-803b04c5a9d3"
+  "updatedAt": "2026-04-22T20:02:27.487Z",
+  "versionId": "5d3f23ec-77ac-40c8-be89-f428b4c66806"
 }
