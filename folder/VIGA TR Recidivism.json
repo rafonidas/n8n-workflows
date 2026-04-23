@@ -27,7 +27,7 @@
       "main": [
         [
           {
-            "node": "Create message",
+            "node": "Create chat message",
             "type": "main",
             "index": 0
           }
@@ -151,19 +151,26 @@
     },
     {
       "parameters": {
-        "resource": "channelMessage",
-        "teamId": {
+        "content": "## si hay mas de 1 reincidente se enviará más de 1 mensaje"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        480,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "5e827e94-62b1-4e0d-82ac-bd0a873b45f9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "19:0a3d8024-1ea6-452a-99de-b81e0ee02139_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
-        },
-        "channelId": {
-          "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+          "cachedResultName": "APG Consulting Notificaciones, Noelia Albanese (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A0a3d8024-1ea6-452a-99de-b81e0ee02139_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
         },
         "contentType": "html",
         "message": "=⚠️ <b>Escalamiento Nivel 2 - Viga Time Report</b><br>El usuario <b>{{ $json.fullName }}</b> ha sido notificado <b>{{ $json.notif_count }} veces</b> en los últimos 5 días.<br>RRHH asignado: {{ $json.rrhh || 'No asignado' }}",
@@ -178,28 +185,14 @@
         -112
       ],
       "id": "fcb711ab-8916-4322-afff-b854c8682cfa",
-      "name": "Create message",
+      "name": "Create chat message",
       "webhookId": "21dbb494-599f-41d4-af93-a20629deb6f2",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "ueHY9A2J5aF54WT3",
           "name": "Notificaciones n8n"
         }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "content": "## si hay mas de 1 reincidente se enviará más de 1 mensaje"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        480,
-        -288
-      ],
-      "typeVersion": 1,
-      "id": "5e827e94-62b1-4e0d-82ac-bd0a873b45f9",
-      "name": "Sticky Note"
+      }
     }
   ],
   "pinData": {},
@@ -226,6 +219,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-21T13:00:47.456Z",
-  "versionId": "8bec211b-e06b-4224-8f5f-c792c1fbe7bb"
+  "updatedAt": "2026-04-22T13:33:13.527Z",
+  "versionId": "dbc2b509-39d4-4b9d-8b7b-a488378af6bb"
 }
