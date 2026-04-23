@@ -1,0 +1,1802 @@
+{
+  "active": false,
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ticket Existe?": {
+      "main": [
+        [
+          {
+            "node": "Next Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Last Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login VIGA2": {
+      "main": [
+        [
+          {
+            "node": "Set First Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Login VIGA2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Tickets": {
+      "main": [
+        [
+          {
+            "node": "Ticket Existe?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Set Last Ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set First Ticket": {
+      "main": [
+        [
+          {
+            "node": "GET Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Next Ticket": {
+      "main": [
+        [
+          {
+            "node": "GET Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        []
+      ]
+    },
+    "Trigger Semanal": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Microsoft SQL1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL — Tickets de Hoy": {
+      "main": [
+        [
+          {
+            "node": "Filtrar Nuevos IDs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar Nuevos IDs": {
+      "main": [
+        [
+          {
+            "node": "Endpoint Externo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Endpoint Externo": {
+      "main": [
+        [
+          {
+            "node": "Merge — Enriquecer",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge — Enriquecer": {
+      "main": [
+        [
+          {
+            "node": "Cód — Condición",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cód — Condición": {
+      "main": [
+        [
+          {
+            "node": "Agrupar Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agrupar Tickets": {
+      "main": [
+        [
+          {
+            "node": "Armar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Expandir por Teléfonos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Expandir por Teléfonos": {
+      "main": [
+        [
+          {
+            "node": "Enviar WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Registro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft SQL1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF — ¿Hay Tickets?": {
+      "main": [
+        [
+          {
+            "node": "Compare — IDs Nuevos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp — Sin Tickets Hoy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datastore — Leer Notificados": {
+      "main": [
+        [
+          {
+            "node": "Compare — IDs Nuevos",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Compare — IDs Nuevos": {
+      "main": [
+        [],
+        [
+          {
+            "node": "IF — ¿Hay Nuevos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF — ¿Hay Nuevos?": {
+      "main": [
+        [
+          {
+            "node": "Init — Limpiar Acumulador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NoOp — Sin IDs Nuevos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init — Limpiar Acumulador": {
+      "main": [
+        [
+          {
+            "node": "Loop — Split In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop — Split In Batches": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request — Endpoint Externo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code — Recuperar Acumulados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request — Endpoint Externo": {
+      "main": [
+        [
+          {
+            "node": "Evaluar — Condición",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluar — Condición": {
+      "main": [
+        [
+          {
+            "node": "Code — Acumular Válido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code — Recuperar Acumulados": {
+      "main": [
+        [
+          {
+            "node": "IF — ¿Hay Válidos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF — ¿Hay Válidos?": {
+      "main": [
+        [
+          {
+            "node": "Aggregate — Consolidar Tickets",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Aggregate — Consolidar Tickets": {
+      "main": [
+        [
+          {
+            "node": "Code — Armar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code — Armar Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Code — Expandir Teléfonos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code — Expandir Teléfonos": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request — Enviar WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request — Enviar WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Code — Datastore Escribir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Semanal1": {
+      "main": [
+        [
+          {
+            "node": "Config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config1": {
+      "main": [
+        [
+          {
+            "node": "SQL — Tickets de Hoy1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL — Tickets de Hoy1": {
+      "main": [
+        [
+          {
+            "node": "IF — ¿Hay Tickets?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-15T18:10:33.412Z",
+  "id": "yKkKy23JcG0y9Kh8",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Notificación Semanal de Tickets",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -48,
+        -688
+      ],
+      "id": "7d22d4fd-62e5-4e63-a3f2-bc729da109ef",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        },
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -432,
+        -800
+      ],
+      "id": "c2e5fd75-2717-4f69-83a5-a537e8fda1fa",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "98515ab3-fd83-4ad3-a758-d0b4d97f9278",
+              "leftValue": "={{ $json.query[\"hub.verify_token\"] }}",
+              "rightValue": "apg",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        -528
+      ],
+      "id": "46c71d0c-309c-466b-a376-18d7ed81a190",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -544
+      ],
+      "id": "5dc62bb9-231b-4416-b736-5eed3e0d73f1",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query[\"hub.challenge\"] }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/plain"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        880,
+        -544
+      ],
+      "id": "12c62d0e-98d3-4c93-84d8-9ce666393502",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "path": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        304,
+        -528
+      ],
+      "id": "788de6b8-aa4b-4ffa-a845-c681b1d59b32",
+      "name": "Webhook",
+      "webhookId": "a4508346-1d67-43c5-8aa7-2d03d69cf1c4"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        -512
+      ],
+      "id": "0831cb51-d8c2-4277-994c-8905c48ef68a",
+      "name": "Send message",
+      "webhookId": "d4cea5e5-ddae-4371-90cc-16072984f9d6",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -512
+      ],
+      "id": "501bdce8-3c06-4b01-90d8-cedf00aa797e",
+      "name": "WhatsApp Trigger",
+      "webhookId": "0049d31e-aade-4889-b163-450a0462bcbb",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "X1MRT5RFGioo2dc9",
+          "name": "WSP Colombia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a09d47ab-7765-457c-9ac1-c1f9c4be2867",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "ca404a5c-0767-4356-a87a-0a6e993f5093",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "de61f6c8-6522-45a8-a168-8a68f8abbf66",
+              "name": "createdAt",
+              "value": "={{ $json.createdAt}}",
+              "type": "string"
+            },
+            {
+              "id": "84e51004-9e8e-4c30-b48c-219cba84f0fa",
+              "name": "client_name",
+              "value": "={{ $json.ticketSurveys[0].ticket.client.name }}",
+              "type": "string"
+            },
+            {
+              "id": "0b612a48-c52d-4ebe-abd4-3eb21c92d6ee",
+              "name": "client_country_name",
+              "value": "={{ $json.ticketSurveys[0].ticket.client.country.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1264,
+        512
+      ],
+      "id": "7ac3c9f2-63e0-4ab9-8275-5e5782481554",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-check-id",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3ae7bbdb-3fac-4c34-b2d5-48c47bda1676",
+      "name": "Ticket Existe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        208
+      ],
+      "notes": "TRUE (output 0): ticket valido -> seguir el loop\nFALSE (output 1): respuesta vacia/sin id -> encontramos el fin"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apg.cloudviga.com:8500/api/account/login",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"userInfo\":{\"email\":\"rnunez@apg-consulting.com\",\"password\":\"0@Uk0mUm\"},\"browserInfo\":\"n8n automation\"}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "ad6c92b2-a810-42ec-ab5c-c9f28fae00de",
+      "name": "Login VIGA2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -32,
+        496
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        496
+      ],
+      "id": "39d6d263-9863-4d40-890d-11818dbf333a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "=https://apg.cloudviga.com:8500/api/ticket/{{ $json.ticketId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $item(\"0\").$node[\"Login VIGA2\"].json[\"token\"][\"token\"] }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "21a6520c-799f-4e82-b9c2-ddbc3d8f6d07",
+      "name": "GET Tickets",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        464,
+        480
+      ],
+      "onError": "continueErrorOutput",
+      "notes": "onError continueErrorOutput para que el IF pueda manejar 404s"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e9efd3c8-1a4a-47fd-b5c6-4685bc178b2d",
+              "name": "ticketId",
+              "value": 47554,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        480
+      ],
+      "id": "dde603b8-b742-48a7-a601-7ed6c07b59c5",
+      "name": "Set First Ticket",
+      "notes": "ID inicial. Cambiar 47500 por el punto de arranque real."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0440aa5e-1386-4833-95f5-d734fa202d29",
+              "name": "ticketId",
+              "value": "={{ $json.id + 1}}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        960,
+        192
+      ],
+      "id": "8bc07092-81ea-4e9e-8d01-b0f48001f7e8",
+      "name": "Next Ticket",
+      "notes": "Incrementa ticketId y vuelve al Login para continuar el loop"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "last-id-output",
+              "name": "lastTicketId",
+              "value": "={{ $item(\"0\").$node[\"Next Ticket\"].json[\"ticketId\"] - 1}}",
+              "type": "number"
+            },
+            {
+              "id": "last-id-time",
+              "name": "detectedAt",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        976,
+        496
+      ],
+      "id": "500781c4-5d6f-4656-ac72-daf5ac4f4f9f",
+      "name": "Set Last Ticket",
+      "notes": "OUTPUT FINAL: lastTicketId = el ultimo ID real encontrado.\nTicketId actual - 1 porque el actual fue el primero que fallo."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "whatsAppApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -720,
+        -832
+      ],
+      "id": "9ce5c5e8-dbd4-45e5-967b-784a62277a9a",
+      "name": "HTTP Request2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        },
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        -512
+      ],
+      "id": "f5dce957-05f0-4a23-a9df-e75d39fadd85",
+      "name": "WhatsApp Trigger1",
+      "webhookId": "431028a1-0369-4337-99d0-f0c169e2b071",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "X1MRT5RFGioo2dc9",
+          "name": "WSP Colombia"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "833780986474867",
+        "recipientPhoneNumber": "5491164282905",
+        "textBody": "asd",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        -608,
+        -512
+      ],
+      "id": "69ee8c63-c611-48c6-8bc0-5404a8f45a98",
+      "name": "Send message1",
+      "webhookId": "a53c28ea-be71-4b50-b46c-e3605ed0e236",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "gFf5xMPVgDp987TZ",
+          "name": "WSP Colombia - Comercial Test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/833780986474867/groups",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"messaging_product\": \"whatsapp\",\n  \"subject\": \"Test APG\",\n  \"description\": \"Grupo creado desde n8n\",\n  \"join_approval_mode\": \"auto_approve\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -720,
+        -704
+      ],
+      "id": "299f472e-b6c7-47c0-a784-58e233d99313",
+      "name": "HTTP Request3",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "oHgd4aHYZC1mBHVh",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH TicketsOrdenados AS (\n    SELECT \n        Id, \n        TicketId, \n        ComentId, \n        Tiempo,\n        -- Esto numera las filas del 1 en adelante para cada TicketId, ordenando por el más antiguo primero\n        ROW_NUMBER() OVER(PARTITION BY TicketId ORDER BY Tiempo DESC) AS NumeroFila\n    FROM dbo.VistasTickes\n    WHERE DATEPART(dw, Tiempo) = 4 -- Filtro de día Sábado (7)\n      AND Tiempo >= CAST(GETDATE() AS DATE) -- Solo los de hoy\n)\n-- Extraemos solo la fila 1 (el primer registro cronológico) de cada ticket\nSELECT Id, TicketId, ComentId, Tiempo\nFROM TicketsOrdenados\nWHERE NumeroFila = 1;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -48,
+        -192
+      ],
+      "id": "a4cbb51a-5f22-4e5e-b795-2386ffdd0965",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "Dy10nKTWCqBd32O5",
+          "name": "Soporte - SQL01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH LineaDeTiempoTickets AS (\n    -- Paso 1: Mapear la historia completa de cada ticket\n    SELECT \n        Id, \n        TicketId, \n        ComentId, \n        Tiempo,\n        -- Asignamos el número 1 al evento más antiguo de cada ticket, el 2 al siguiente, etc.\n        ROW_NUMBER() OVER(PARTITION BY TicketId ORDER BY Tiempo ASC) AS FilaCronologica\n    FROM dbo.VistasTickes\n)\n-- Paso 2: Filtrar sobre el estado depurado\nSELECT \n    Id, \n    TicketId, \n    ComentId, \n    Tiempo\nFROM LineaDeTiempoTickets\nWHERE FilaCronologica = 1 \n  AND DATEPART(dw, Tiempo) = 4 -- 4 = Miércoles (7 para Sábado)\n  AND CAST(Tiempo AS DATE) = CAST(GETDATE() AS DATE) -- Opcional: Asegura que sea el miércoles de HOY, no de hace 3 meses.\nORDER BY TicketId DESC;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -1248,
+        1344
+      ],
+      "id": "d0db280b-c369-48b4-8edd-79569d5bee06",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "Dy10nKTWCqBd32O5",
+          "name": "Soporte - SQL01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9-18 * * 6"
+            }
+          ]
+        }
+      },
+      "id": "d2a5f1a9-4fd7-4a8e-a62b-b359ddef4e81",
+      "name": "Trigger Semanal",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1648,
+        1248
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "phone_1",
+              "value": "+5491100000001",
+              "type": "string"
+            },
+            {
+              "id": "f2",
+              "name": "phone_2",
+              "value": "+5491100000002",
+              "type": "string"
+            },
+            {
+              "id": "f3",
+              "name": "phone_3",
+              "value": "+5491100000003",
+              "type": "string"
+            },
+            {
+              "id": "f4",
+              "name": "phone_4",
+              "value": "+5491100000004",
+              "type": "string"
+            },
+            {
+              "id": "f5",
+              "name": "campo_id",
+              "value": "id",
+              "type": "string"
+            },
+            {
+              "id": "f6",
+              "name": "campo_cliente",
+              "value": "cliente",
+              "type": "string"
+            },
+            {
+              "id": "f7",
+              "name": "campo_descripcion",
+              "value": "descripcion",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "96718bb1-27b4-4358-b92c-e59d5d24ab8a",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1424,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- TODO: completar la consulta\n-- SELECT id, cliente, descripcion\n-- FROM tickets\n-- WHERE CAST(fecha_creacion AS DATE) = CAST(GETDATE() AS DATE)"
+      },
+      "id": "4b4211be-fdbf-4e78-9cf4-200bafc6e31a",
+      "name": "SQL — Tickets de Hoy",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -2432,
+        912
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Idempotencia: descartar IDs ya notificados en ejecuciones anteriores\nconst staticData = $getWorkflowStaticData('global');\nconst notifiedIds = new Set(staticData.notifiedIds || []);\nconst idField = $('Config').first().json.campo_id;\n\nreturn $input.all().filter(item =>\n  !notifiedIds.has(String(item.json[idField]))\n);"
+      },
+      "id": "c5fc318d-9b03-4525-b35c-cca645cc5f4d",
+      "name": "Filtrar Nuevos IDs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2208,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "83731c33-8f08-4e85-b324-b29c2bc726a6",
+      "name": "Endpoint Externo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1984,
+        768
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "options": {}
+      },
+      "id": "23c45bb7-1a22-4211-97c9-9a63ef69a1d3",
+      "name": "Merge — Enriquecer",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -1808,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TODO: reemplazar con la condición real del endpoint\n// Todos los campos del ticket Y de la respuesta del endpoint están disponibles en item.json\n// Ejemplo: return $input.all().filter(item => item.json.estado === 'CRITICO');\n\nreturn $input.all().filter(item => {\n  // CONFIGURAR AQUÍ\n  return true;\n});"
+      },
+      "id": "fb247427-91fc-46c3-9713-a243db9d41e9",
+      "name": "Cód — Condición",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "tickets",
+        "options": {}
+      },
+      "id": "81818ee9-f8bf-4ff8-87cb-9fb6362653e4",
+      "name": "Agrupar Tickets",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -1312,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const config = $('Config').first().json;\nconst tickets = $input.first().json.tickets;\nconst count = tickets.length;\n\nconst fId  = config.campo_id;\nconst fCli = config.campo_cliente;\nconst fDes = config.campo_descripcion;\n\nlet body;\nif (count === 1) {\n  const t = tickets[0];\n  body = `• *ID:* ${t[fId]}\\n  *Cliente:* ${t[fCli]}\\n  *Descripción:* ${t[fDes]}`;\n} else {\n  body = tickets\n    .map(t => `• *#${t[fId]}* | ${t[fCli]} | ${t[fDes]}`)\n    .join('\\n');\n}\n\nconst header = count === 1\n  ? '🎫 *Nuevo ticket detectado*'\n  : `🎫 *${count} tickets detectados*`;\n\nreturn [{ json: {\n  message: `${header}\\n\\n${body}`,\n  count,\n  ticketIds: tickets.map(t => String(t[fId]))\n} }];"
+      },
+      "id": "9e2a4195-aa17-4e85-a3ee-df80dd56988f",
+      "name": "Armar Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { message, ticketIds } = $input.first().json;\nconst cfg = $('Config').first().json;\nconst phones = [cfg.phone_1, cfg.phone_2, cfg.phone_3, cfg.phone_4];\n\nreturn phones.map(phone => ({ json: { phone, message, ticketIds } }));"
+      },
+      "id": "97739b0a-f84a-416d-b9bb-d72b4351c089",
+      "name": "Expandir por Teléfonos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "options": {}
+      },
+      "id": "e0ab7835-ea0a-4a3d-a587-b96b9d2fd15d",
+      "name": "Enviar WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -656,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Marcar los IDs notificados para evitar duplicados en la próxima ejecución\nconst staticData = $getWorkflowStaticData('global');\nconst ids = $input.first().json.ticketIds;\nconst set = new Set(staticData.notifiedIds || []);\nids.forEach(id => set.add(id));\nstaticData.notifiedIds = [...set];\n\nreturn [{ json: { registrados: ids, totalRegistro: staticData.notifiedIds.length } }];"
+      },
+      "id": "fc2abc07-2cf7-49ff-8793-2fb82e32d0aa",
+      "name": "Actualizar Registro",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -432,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "PFDVh56AhLe86jKz",
+          "mode": "list",
+          "cachedResultName": "ticketNotifications",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/PFDVh56AhLe86jKz"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "date",
+              "keyValue": "={{$now.format('yyyy-MM-dd')}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1424,
+        1136
+      ],
+      "id": "7a1ed0d3-80fc-42f5-bb04-e95c2a43b97d",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "content": "## "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        80
+      ],
+      "id": "659150f8-c47e-4584-9b7f-d33c10a35f80",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "fe075b98-f6cd-4cb6-96f1-2d2e3f784c0e",
+      "name": "IF — ¿Hay Tickets?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2016,
+        1568
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f24718c3-ff99-4d16-9b4c-2f3679fec49c",
+      "name": "NoOp — Sin Tickets Hoy",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1904,
+        2192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lee los IDs notificados HOY desde el registro interno del workflow.\n// Para migrar a n8n Data Tables: reemplazar por HTTP Request a la API de n8n\n// GET /api/v1/tables/{tableId}/rows?filter=fecha:eq:{today}\n\nconst staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().split('T')[0];\nconst idField = 47777;\nconst todayIds = (staticData.byDate || {})[today] || [];\n\n// Retornar item dummy si no hay IDs previos (evita input vacío en Compare Datasets)\nif (todayIds.length === 0) {\n  return [{ json: { [idField]: '__NONE__' } }];\n}\nreturn todayIds.map(id => ({ json: { [idField]: id } }));"
+      },
+      "id": "3fda93b7-0213-420c-b9ca-c15c5dcde62f",
+      "name": "Datastore — Leer Notificados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1776,
+        1856
+      ]
+    },
+    {
+      "parameters": {
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "={{ $('Config1').first().json.campo_id }}",
+              "field2": "={{ $('Config1').first().json.campo_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "80d8650b-997e-4a65-96a2-d8f38fb3af21",
+      "name": "Compare — IDs Nuevos",
+      "type": "n8n-nodes-base.compareDatasets",
+      "typeVersion": 1,
+      "position": [
+        -1488,
+        1632
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c2",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "99e6b354-a92a-4996-b9d5-29a7eeb0ea92",
+      "name": "IF — ¿Hay Nuevos?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1200,
+        1648
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "03d7865a-2d0d-4d2c-b895-c09b1e438797",
+      "name": "NoOp — Sin IDs Nuevos",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        1872
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Resetear el acumulador antes de iniciar el loop\n// (evita mezclar resultados de ejecuciones anteriores)\nconst staticData = $getWorkflowStaticData('global');\nstaticData.validTickets = [];\nreturn $input.all();"
+      },
+      "id": "25c4b242-23f0-46f2-adee-bee10465cac9",
+      "name": "Init — Limpiar Acumulador",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "daaedcee-4bf4-4797-8c1c-7c18b5c3bf20",
+      "name": "Loop — Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -768,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "4d533dc6-9230-4e93-b5dc-7eef828446d3",
+      "name": "HTTP Request — Endpoint Externo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -528,
+        1296
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TODO: reemplazar con la condición de negocio real\n// Todos los campos del ticket original Y de la respuesta del endpoint\n// están disponibles en $input.first().json\n//\n// Ejemplo: return $input.all().filter(item => item.json.estado === 'CRITICO');\n// Ejemplo: return $input.all().filter(item => item.json.prioridad >= 3);\n\nreturn $input.all().filter(item => {\n  // CONFIGURAR AQUÍ — retornar [] descarta el ticket, retornar el item lo acumula\n  return true;\n});"
+      },
+      "id": "0f0548d9-d4b1-4317-b190-741cba216546",
+      "name": "Evaluar — Condición",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        1296
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Guardar en staticData los tickets que pasaron la condición de negocio\nconst staticData = $getWorkflowStaticData('global');\nif (!Array.isArray(staticData.validTickets)) staticData.validTickets = [];\nstaticData.validTickets.push($input.first().json);\n// Retornar vacío: el loop continúa con el siguiente batch\nreturn [];"
+      },
+      "id": "74b57a29-437e-461a-8b14-b82cd7753518",
+      "name": "Code — Acumular Válido",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        1296
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// El loop completó. Recuperar todos los tickets válidos acumulados.\nconst staticData = $getWorkflowStaticData('global');\nconst tickets = staticData.validTickets || [];\nstaticData.validTickets = []; // limpiar para la próxima ejecución\n\nif (tickets.length === 0) return [];\nreturn tickets.map(json => ({ json }));"
+      },
+      "id": "717cde91-32c7-49e2-b0e3-7878c50762d7",
+      "name": "Code — Recuperar Acumulados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c3",
+              "leftValue": "={{ $input.all().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d7370f63-2dd7-4ab5-a9f3-ee6a3ece3687",
+      "name": "IF — ¿Hay Válidos?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        1648
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "14c4bded-d6a2-4cf5-b7fb-49531f3b36ca",
+      "name": "NoOp — Sin Válidos",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        1872
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "tickets",
+        "options": {}
+      },
+      "id": "ab46064d-f38e-456a-86b1-0e753e919cd3",
+      "name": "Aggregate — Consolidar Tickets",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const config = $('Config1').first().json;\nconst tickets = $input.first().json.tickets;\nconst count = tickets.length;\n\nconst fId  = config.campo_id;\nconst fCli = config.campo_cliente;\nconst fDes = config.campo_descripcion;\n\nlet body;\nif (count === 1) {\n  const t = tickets[0];\n  body = `• *ID:* ${t[fId]}\\n  *Cliente:* ${t[fCli]}\\n  *Descripción:* ${t[fDes]}`;\n} else {\n  body = tickets\n    .map(t => `• *#${t[fId]}* | ${t[fCli]} | ${t[fDes]}`)\n    .join('\\n');\n}\n\nconst header = count === 1\n  ? '🎫 *Nuevo ticket detectado*'\n  : `🎫 *${count} tickets detectados*`;\n\nreturn [{ json: {\n  message: `${header}\\n\\n${body}`,\n  count,\n  ticketIds: tickets.map(t => String(t[fId]))\n} }];"
+      },
+      "id": "0178da79-49b5-4a72-96f0-dc95fbd744a0",
+      "name": "Code — Armar Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { message, ticketIds } = $input.first().json;\nconst cfg = $('Config1').first().json;\nconst phones = [cfg.phone_1, cfg.phone_2, cfg.phone_3, cfg.phone_4];\nreturn phones.map(phone => ({ json: { phone, message, ticketIds } }));"
+      },
+      "id": "0e4fabb8-4ac1-482c-be1b-005d52b14979",
+      "name": "Code — Expandir Teléfonos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "options": {}
+      },
+      "id": "2e5e53a7-a869-46f9-aa69-4706862a4233",
+      "name": "HTTP Request — Enviar WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Registrar los IDs notificados. Clave: byDate → fecha → [ids]\n// Para migrar a n8n Data Tables: reemplazar por HTTP Request\n// POST /api/v1/tables/{tableId}/rows  body: { id, fecha }\n\nconst staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().split('T')[0];\nconst ids = $input.first().json.ticketIds;\n\nif (!staticData.byDate) staticData.byDate = {};\nif (!staticData.byDate[today]) staticData.byDate[today] = [];\n\nconst existing = new Set(staticData.byDate[today]);\nids.forEach(id => existing.add(id));\nstaticData.byDate[today] = [...existing];\n\n// Purgar registros con más de 7 días para no crecer indefinidamente\nconst cutoff = new Date();\ncutoff.setDate(cutoff.getDate() - 7);\nconst cutoffStr = cutoff.toISOString().split('T')[0];\nfor (const date of Object.keys(staticData.byDate)) {\n  if (date < cutoffStr) delete staticData.byDate[date];\n}\n\nreturn [{ json: {\n  fecha: today,\n  registrados: ids,\n  totalHoy: staticData.byDate[today].length\n} }];"
+      },
+      "id": "a3414ad9-f6fa-4cac-af55-5b752c35c8b6",
+      "name": "Code — Datastore Escribir",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        1648
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9-18 * * 6"
+            }
+          ]
+        }
+      },
+      "id": "b0e4d5e5-97f2-4003-9779-afdb24ac57a5",
+      "name": "Trigger Semanal1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2624,
+        1408
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "phone_1",
+              "value": "+5491100000001",
+              "type": "string"
+            },
+            {
+              "id": "f2",
+              "name": "phone_2",
+              "value": "+5491100000002",
+              "type": "string"
+            },
+            {
+              "id": "f3",
+              "name": "phone_3",
+              "value": "+5491100000003",
+              "type": "string"
+            },
+            {
+              "id": "f4",
+              "name": "phone_4",
+              "value": "+5491100000004",
+              "type": "string"
+            },
+            {
+              "id": "f5",
+              "name": "campo_id",
+              "value": "id",
+              "type": "string"
+            },
+            {
+              "id": "f6",
+              "name": "campo_cliente",
+              "value": "cliente",
+              "type": "string"
+            },
+            {
+              "id": "f7",
+              "name": "campo_descripcion",
+              "value": "descripcion",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e21eb8c5-28bf-436e-9d8b-1cd19ded5c79",
+      "name": "Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2400,
+        1408
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- TODO: completar la consulta\n-- SELECT id, cliente, descripcion\n-- FROM tickets\n-- WHERE CAST(fecha_creacion AS DATE) = CAST(GETDATE() AS DATE)"
+      },
+      "id": "20990c3e-dae5-40cd-8a9c-f6b444de79bd",
+      "name": "SQL — Tickets de Hoy1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -2176,
+        1408
+      ],
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6f3b063e-3eaa-47d8-a4b7-7be824fabb74",
+              "leftValue": "={{$json}}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1072,
+        1344
+      ],
+      "id": "40f44af0-ee15-4c92-b53e-7a51ae64404f",
+      "name": "If1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-15T18:10:33.412Z",
+      "updatedAt": "2026-04-15T18:10:33.412Z",
+      "role": "workflow:owner",
+      "workflowId": "yKkKy23JcG0y9Kh8",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Saturday": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Every 10min": {
+      "recurrenceRules": []
+    },
+    "global": {
+      "lastId": 0
+    }
+  },
+  "tags": [],
+  "triggerCount": 4,
+  "updatedAt": "2026-04-22T20:21:38.311Z",
+  "versionId": "f04ad89d-7f75-46b6-b422-48e8426608da"
+}
