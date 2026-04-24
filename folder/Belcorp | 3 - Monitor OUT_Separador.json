@@ -1,0 +1,192 @@
+{
+  "active": false,
+  "connections": {
+    "Trigger Diario 6:55AM": {
+      "main": [
+        [
+          {
+            "node": "FTP - Listar OUT_Separador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Listar OUT_Separador": {
+      "main": [
+        [
+          {
+            "node": "Evaluar Documentos Pendientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluar Documentos Pendientes": {
+      "main": [
+        [
+          {
+            "node": "¿Hay Documentos Pendientes?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay Documentos Pendientes?": {
+      "main": [
+        [
+          {
+            "node": "Email - Alerta Documentos Pendientes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OK - Sin Pendientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-24T02:12:09.387Z",
+  "id": "hCGELNV4haLfQ9t5",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Belcorp | 3 - Monitor OUT_Separador",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "55 6 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "3d8870d2-e8f3-4277-ac33-1a6745d1abd2",
+      "name": "Trigger Diario 6:55AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -464,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "/Directorios/FTP/1028501021/OUT_Separador"
+      },
+      "id": "e0297776-2e6a-4e45-9b21-570ec57cce40",
+      "name": "FTP - Listar OUT_Separador",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// LÓGICA: ¿Qué define un documento pendiente de procesar?\n//\n// La carpeta OUT_Separador funciona como cola de procesamiento.\n// El servicio 'Interfaz Txt' toma los archivos, los procesa\n// y los elimina/mueve automáticamente.\n//\n// → La MERA PRESENCIA de archivos en esta carpeta indica\n//   que el servicio está detenido, colgado o con error.\n//   No se requiere analizar contenido: cualquier archivo = pendiente.\n// ============================================================\n\nconst archivos = $input.all();\n\n// Filtrar entradas válidas (excluir '.' y '..' si el FTP los devuelve)\nconst archivosPendientes = archivos.filter(f =>\n  f.json.name &&\n  f.json.name !== '.' &&\n  f.json.name !== '..'\n);\n\nconst hayPendientes = archivosPendientes.length > 0;\n\n// Calcular el más antiguo para evaluar urgencia\nlet archivoMasAntiguo = null;\nlet minutosEsperando  = 0;\n\nif (hayPendientes) {\n  const sorted = archivosPendientes.sort(\n    (a, b) => new Date(a.json.modifyTime || 0) - new Date(b.json.modifyTime || 0)\n  );\n  archivoMasAntiguo = sorted[0].json;\n  const ahora = new Date();\n  const modTime = new Date(archivoMasAntiguo.modifyTime || ahora);\n  minutosEsperando = Math.round((ahora - modTime) / 60000);\n}\n\nreturn [{\n  json: {\n    hayPendientes,\n    cantidadPendientes: archivosPendientes.length,\n    archivoMasAntiguo:  archivoMasAntiguo?.name || null,\n    minutosEsperando,\n    urgencia:           minutosEsperando > 60 ? 'ALTA' : minutosEsperando > 15 ? 'MEDIA' : 'BAJA',\n    listaArchivos:      archivosPendientes.map(f => f.json.name),\n    fechaRevision:      new Date().toISOString().split('T')[0],\n    horaRevision:       new Date().toTimeString().split(' ')[0]\n  }\n}];"
+      },
+      "id": "b533ef54-93cd-4054-ba90-b8731f5ca0e9",
+      "name": "Evaluar Documentos Pendientes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-pendientes",
+              "leftValue": "={{ $json.cantidadPendientes }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "b109cf9f-ec02-43ae-8d25-0730282403bf",
+      "name": "¿Hay Documentos Pendientes?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "sistema@ejemplo.com",
+        "toEmail": "soporte@ejemplo.com;cliente@transbel.com.bo",
+        "subject": "🚨 [BELCORP BO] Documentos Pendientes en OUT_Separador - {{ $json.urgencia }}",
+        "html": "<h2 style='color:#c62828;'>🚨 Alerta - Documentos Pendientes en OUT_Separador</h2><p>Se detectaron <strong>{{ $json.cantidadPendientes }} documentos pendientes</strong> de procesar en la carpeta <code>OUT_Separador</code> del cliente <strong>TRANSBEL</strong>.</p><table border='1' cellpadding='8' cellspacing='0' style='border-collapse:collapse; font-family:sans-serif;'><tr style='background:#f5f5f5;'><th>Campo</th><th>Valor</th></tr><tr><td><strong>Fecha revisión</strong></td><td>{{ $json.fechaRevision }}</td></tr><tr><td><strong>Hora revisión</strong></td><td>{{ $json.horaRevision }}</td></tr><tr><td><strong>Documentos pendientes</strong></td><td style='color:#c62828;'><strong>{{ $json.cantidadPendientes }}</strong></td></tr><tr><td><strong>Archivo más antiguo</strong></td><td>{{ $json.archivoMasAntiguo }}</td></tr><tr><td><strong>Tiempo en cola</strong></td><td>{{ $json.minutosEsperando }} minutos</td></tr><tr><td><strong>Urgencia</strong></td><td style='color:#c62828;'><strong>{{ $json.urgencia }}</strong></td></tr></table><h3>Ruta afectada</h3><pre style='background:#f5f5f5; padding:10px;'>/Directorios/FTP/1028501021/OUT_Separador</pre><h3>Archivos detectados</h3><pre style='background:#f5f5f5; padding:10px;'>{{ $json.listaArchivos.join('\\n') }}</pre><h3>⚠️ Acción requerida</h3><ol><li>Verificar el estado del servicio <strong>Interfaz Txt</strong> en el ambiente de Bolivia.</li><li>Si el servicio está detenido → <strong>reiniciarlo</strong>.</li><li>Validar que los documentos son procesados y la carpeta queda vacía.</li><li>Confirmar con el Workflow 1 que todos los documentos llegaron a COMFIAR.</li></ol><p>Saludos,<br><em>Sistema Automático APG - Bolivia</em></p>",
+        "options": {}
+      },
+      "id": "65396b3b-7cc2-4fdc-be3d-08b9c62a3c5f",
+      "name": "Email - Alerta Documentos Pendientes",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        496,
+        288
+      ],
+      "webhookId": "95c70995-4fba-46f6-b1eb-551a0e80ffac"
+    },
+    {
+      "parameters": {},
+      "id": "d9fa64d0-187c-4bae-b352-62858f337d1d",
+      "name": "OK - Sin Pendientes",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        496,
+        608
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-24T02:12:09.387Z",
+      "updatedAt": "2026-04-24T02:12:09.387Z",
+      "role": "workflow:owner",
+      "workflowId": "hCGELNV4haLfQ9t5",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-24T02:12:18.588Z",
+  "versionId": "ca092df7-7d68-4523-8cf3-c6dc66e0e1a5"
+}
