@@ -645,13 +645,7 @@
     },
     "Set Credentials2": {
       "main": [
-        [
-          {
-            "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Loop Over Items": {
@@ -663,13 +657,7 @@
             "index": 0
           }
         ],
-        [
-          {
-            "node": "Get many messages1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Get many messages1": {
@@ -2854,8 +2842,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1280,
-        320
+        -1456,
+        176
       ],
       "id": "7690b33b-38ee-447c-a9aa-58b83970338e",
       "name": "When clicking ‘Execute workflow’"
@@ -3480,6 +3468,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-13T18:15:41.927Z",
-  "versionId": "34783570-c24f-4801-b54f-9196e9fe0961"
+  "updatedAt": "2026-04-23T17:00:25.864Z",
+  "versionId": "3ea0bac3-c444-40b6-b222-e411b0036600"
 }
