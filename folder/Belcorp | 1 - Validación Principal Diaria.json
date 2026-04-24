@@ -1,0 +1,358 @@
+{
+  "active": false,
+  "connections": {
+    "Trigger Diario 7AM": {
+      "main": [
+        [
+          {
+            "node": "FTP - Listar BackUpSeparador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Listar BackUpSeparador": {
+      "main": [
+        [
+          {
+            "node": "Seleccionar Archivo XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seleccionar Archivo XML": {
+      "main": [
+        [
+          {
+            "node": "FTP - Descargar Archivo XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Descargar Archivo XML": {
+      "main": [
+        [
+          {
+            "node": "Extraer Códigos SAP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Códigos SAP": {
+      "main": [
+        [
+          {
+            "node": "SQL - Docs No Rechazados",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SQL - Docs Rechazados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL - Docs No Rechazados": {
+      "main": [
+        [
+          {
+            "node": "Merge Resultados SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL - Docs Rechazados": {
+      "main": [
+        [
+          {
+            "node": "Merge Resultados SQL",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Resultados SQL": {
+      "main": [
+        [
+          {
+            "node": "Comparar y Analizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Comparar y Analizar": {
+      "main": [
+        [
+          {
+            "node": "¿Todos los Docs Coinciden?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Todos los Docs Coinciden?": {
+      "main": [
+        [
+          {
+            "node": "Email - Procesamiento Exitoso",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email - Con Novedades",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-24T02:11:44.784Z",
+  "id": "6Zg98cvLN9fsA3Iz",
+  "isArchived": false,
+  "meta": null,
+  "name": "Belcorp | 1 - Validación Principal Diaria",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "2514d397-bc58-4cba-acb8-04d35b2f6896",
+      "name": "Trigger Diario 7AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2160,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "/Directorios/FTP/1028501021/BackUpSeparador"
+      },
+      "id": "d2eea054-5cb4-4f98-a36d-afba4773ffe5",
+      "name": "FTP - Listar BackUpSeparador",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// CONFIGURACIÓN DE ENTORNO\n// Cambiar 'PRODUCCION' por 'TEST' según corresponda\n// PRODUCCION → archivos .PFA | TEST → archivos .TFA\n// ============================================================\nconst ENTORNO = 'PRODUCCION';\n\nconst extension = ENTORNO === 'PRODUCCION' ? '.PFA' : '.TFA';\nconst archivos = $input.all();\n\n// Filtrar sólo archivos con la extensión del entorno seleccionado\nconst archivosXML = archivos\n  .filter(f => f.json.name && f.json.name.toUpperCase().endsWith(extension.toUpperCase()))\n  .sort((a, b) => new Date(b.json.modifyTime || 0) - new Date(a.json.modifyTime || 0));\n\nif (archivosXML.length === 0) {\n  throw new Error(`No se encontraron archivos ${extension} en BackUpSeparador.`);\n}\n\n// Seleccionar el archivo más reciente\nconst archivo = archivosXML[0].json;\n\nreturn [{\n  json: {\n    fileName: archivo.name,\n    filePath: `/Directorios/FTP/1028501021/BackUpSeparador/${archivo.name}`,\n    entorno: ENTORNO,\n    extension: extension,\n    totalArchivosEncontrados: archivosXML.length,\n    fechaProceso: new Date().toISOString().split('T')[0]\n  }\n}];"
+      },
+      "id": "cbe39914-a6f9-4184-aff6-5ebdb1fbca3a",
+      "name": "Seleccionar Archivo XML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1680,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "path": "={{ $json.filePath }}",
+        "options": {}
+      },
+      "id": "0c158abc-ed92-4f52-bc0f-4919db9d6f4c",
+      "name": "FTP - Descargar Archivo XML",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -1440,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrae todos los códigos SAP del campo <TextoLibre1> del XML descargado\nconst item = $input.first();\nconst fileInfo = $('Seleccionar Archivo XML').first().json;\n\n// El FTP download devuelve el archivo como binario\nconst binaryData = item.binary?.data;\nif (!binaryData) {\n  throw new Error('No se recibió contenido binario del archivo XML desde el FTP.');\n}\nconst xmlContent = Buffer.from(binaryData.data, 'base64').toString('utf-8');\n\n// Extraer todos los valores dentro de <TextoLibre1>...</TextoLibre1>\nconst regex = /<TextoLibre1>([^<]+)<\\/TextoLibre1>/g;\nconst codigosSAP = [];\nlet match;\n\nwhile ((match = regex.exec(xmlContent)) !== null) {\n  const codigo = match[1].trim();\n  if (codigo && !codigosSAP.includes(codigo)) {\n    codigosSAP.push(codigo);\n  }\n}\n\nif (codigosSAP.length === 0) {\n  throw new Error(`No se encontraron códigos SAP (TextoLibre1) en: ${fileInfo.fileName}`);\n}\n\n// Formatea para usar directamente en cláusula SQL IN (ej: '2600464615', '2600464220')\nconst codesForSQL = codigosSAP.map(c => `'${c}'`).join(', ');\n\nreturn [{\n  json: {\n    codigosSAP,\n    totalDocumentosXML: codigosSAP.length,\n    codesForSQL,\n    fileName: fileInfo.fileName,\n    entorno: fileInfo.entorno,\n    fechaProceso: fileInfo.fechaProceso,\n    xmlOriginal: xmlContent\n  }\n}];"
+      },
+      "id": "b8136079-52f2-46ee-b745-242693b4ad17",
+      "name": "Extraer Códigos SAP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1200,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- ============================================================\n-- TEMPLATE SQL: Documentos NO rechazados en COMFIAR\n-- País: BOLIVIA | Entorno: APP (cambiar credencial para TEST)\n-- CUIT Transbel: 1028501021\n-- ============================================================\nSELECT\n  cuitid,\n  codigoerp,\n  fechacbte,\n  resultado,\n  errordesc\nFROM comprobante\nWHERE cuitid = 1028501021\n  AND codigoerp IN ({{ $('Extraer Códigos SAP').item.json.codesForSQL }})\n  AND resultado <> 'R'",
+        "options": {}
+      },
+      "id": "629df318-c671-48f0-87ae-9caf47295594",
+      "name": "SQL - Docs No Rechazados",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- ============================================================\n-- TEMPLATE SQL: Documentos RECHAZADOS en COMFIAR (resultado='R')\n-- País: BOLIVIA | Entorno: APP (cambiar credencial para TEST)\n-- CUIT Transbel: 1028501021\n-- ============================================================\nSELECT\n  cuitid,\n  codigoerp,\n  fechacbte,\n  resultado,\n  errordesc\nFROM comprobante\nWHERE cuitid = 1028501021\n  AND codigoerp IN ({{ $('Extraer Códigos SAP').item.json.codesForSQL }})\n  AND resultado = 'R'",
+        "options": {}
+      },
+      "id": "311b4048-e0fb-43ab-b706-7cefc8a19601",
+      "name": "SQL - Docs Rechazados",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        304
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "2a58045a-58b5-4b41-bedb-28d382bf2fe7",
+      "name": "Merge Resultados SQL",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -720,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Cruza los códigos SAP del XML contra los registros encontrados en BD\nconst datosXML = $('Extraer Códigos SAP').first().json;\nconst registrosBD = $input.all();\n\nconst codigosSAP = datosXML.codigosSAP;\n\n// Separar por estado\nconst procesados = registrosBD.filter(r => r.json.resultado && r.json.resultado !== 'R');\nconst rechazados = registrosBD.filter(r => r.json.resultado === 'R');\n\n// Todos los códigos que sí aparecen en BD (cualquier estado)\nconst codigosEnBD = registrosBD.map(r => String(r.json.codigoerp));\n\n// Códigos del XML que NO están en BD (faltantes totales)\nconst codigosFaltantes = codigosSAP.filter(c => !codigosEnBD.includes(String(c)));\n\n// Determinar estado global\nconst hayFaltantes   = codigosFaltantes.length > 0;\nconst hayRechazados  = rechazados.length > 0;\nconst todosCoinciden = !hayFaltantes && !hayRechazados;\n\nlet estadoProceso;\nif (todosCoinciden)              estadoProceso = 'EXITOSO';\nelse if (hayFaltantes && hayRechazados) estadoProceso = 'FALTANTES_Y_RECHAZADOS';\nelse if (hayFaltantes)           estadoProceso = 'DOCUMENTOS_FALTANTES';\nelse                             estadoProceso = 'DOCUMENTOS_RECHAZADOS';\n\nconst detalleRechazados = rechazados.map(r => ({\n  codigoERP: r.json.codigoerp,\n  fecha:     r.json.fechacbte,\n  resultado: r.json.resultado,\n  error:     r.json.errordesc\n}));\n\nreturn [{\n  json: {\n    estadoProceso,\n    todosCoinciden,\n    // Conteos\n    totalDocumentosXML:  datosXML.totalDocumentosXML,\n    cantidadProcesados:  procesados.length,\n    cantidadRechazados:  rechazados.length,\n    cantidadFaltantes:   codigosFaltantes.length,\n    totalEnBD:           procesados.length + rechazados.length,\n    // Detalle\n    codigosFaltantes,\n    detalleRechazados,\n    // Metadata\n    fileName:            datosXML.fileName,\n    entorno:             datosXML.entorno,\n    fechaProceso:        datosXML.fechaProceso,\n    timestampAnalisis:   new Date().toISOString()\n  }\n}];"
+      },
+      "id": "b3ddcc7f-b934-430c-be8c-3e800c7acc4c",
+      "name": "Comparar y Analizar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-faltantes",
+              "leftValue": "={{ $json.cantidadFaltantes }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "cond-rechazados",
+              "leftValue": "={{ $json.cantidadRechazados }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "23e2ee5b-cdfe-4de5-b7e7-e845eef8136f",
+      "name": "¿Todos los Docs Coinciden?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "sistema@ejemplo.com",
+        "toEmail": "cliente@transbel.com.bo",
+        "subject": "✅ [BELCORP BO] Procesamiento Exitoso - {{ $json.fechaProceso }}",
+        "html": "<h2 style='color:#2e7d32;'>✅ Procesamiento Exitoso - COMFIAR Bolivia</h2><p>Estimado equipo de <strong>TRANSBEL</strong>,</p><p>Confirmamos que <strong>todos los documentos</strong> del día han sido recibidos y procesados correctamente en COMFIAR.</p><table border='1' cellpadding='8' cellspacing='0' style='border-collapse:collapse; font-family:sans-serif;'><tr style='background:#f5f5f5;'><th>Campo</th><th>Valor</th></tr><tr><td><strong>Archivo procesado</strong></td><td>{{ $json.fileName }}</td></tr><tr><td><strong>Fecha de proceso</strong></td><td>{{ $json.fechaProceso }}</td></tr><tr><td><strong>Entorno</strong></td><td>{{ $json.entorno }}</td></tr><tr><td><strong>Total documentos XML</strong></td><td>{{ $json.totalDocumentosXML }}</td></tr><tr><td><strong>Documentos en COMFIAR</strong></td><td>{{ $json.cantidadProcesados }}</td></tr><tr><td><strong>Estado</strong></td><td style='color:#2e7d32;'><strong>EXITOSO ✅</strong></td></tr></table><br><p>Saludos,<br><em>Sistema Automático APG - Bolivia</em></p>",
+        "options": {}
+      },
+      "id": "6c96b5ac-a3df-4c28-862f-266310faafee",
+      "name": "Email - Procesamiento Exitoso",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "a22ed5ee-f133-4fa4-9665-da62fc6fe672"
+    },
+    {
+      "parameters": {
+        "fromEmail": "sistema@ejemplo.com",
+        "toEmail": "cliente@transbel.com.bo",
+        "subject": "⚠️ [BELCORP BO] Novedades en Procesamiento - {{ $json.fechaProceso }}",
+        "html": "<h2 style='color:#e65100;'>⚠️ Novedades en Procesamiento - COMFIAR Bolivia</h2><p>Estimado equipo de <strong>TRANSBEL</strong>,</p><p>Se detectaron novedades en el procesamiento de documentos. Se requiere revisión.</p><h3>Resumen del proceso</h3><table border='1' cellpadding='8' cellspacing='0' style='border-collapse:collapse; font-family:sans-serif;'><tr style='background:#f5f5f5;'><th>Campo</th><th>Valor</th></tr><tr><td><strong>Archivo</strong></td><td>{{ $json.fileName }}</td></tr><tr><td><strong>Fecha</strong></td><td>{{ $json.fechaProceso }}</td></tr><tr><td><strong>Entorno</strong></td><td>{{ $json.entorno }}</td></tr><tr><td><strong>Estado</strong></td><td style='color:#e65100;'><strong>{{ $json.estadoProceso }}</strong></td></tr><tr><td><strong>Total documentos XML</strong></td><td>{{ $json.totalDocumentosXML }}</td></tr><tr><td><strong>Procesados correctamente</strong></td><td style='color:#2e7d32;'>{{ $json.cantidadProcesados }}</td></tr><tr><td><strong>Rechazados</strong></td><td style='color:#c62828;'>{{ $json.cantidadRechazados }}</td></tr><tr><td><strong>No encontrados en BD</strong></td><td style='color:#c62828;'>{{ $json.cantidadFaltantes }}</td></tr></table><h3>Documentos no encontrados en COMFIAR (requieren reproceso)</h3><pre style='background:#f5f5f5; padding:10px;'>{{ $json.codigosFaltantes.join('\\n') }}</pre><h3>Detalle de documentos rechazados</h3><pre style='background:#f5f5f5; padding:10px;'>{{ JSON.stringify($json.detalleRechazados, null, 2) }}</pre><p><strong>Acción requerida:</strong> Ejecutar el workflow de reproceso con los códigos faltantes, o gestionar los rechazos según el error indicado.</p><p>Saludos,<br><em>Sistema Automático APG - Bolivia</em></p>",
+        "options": {}
+      },
+      "id": "58115deb-09b8-406a-b6ad-22b1226b38dd",
+      "name": "Email - Con Novedades",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        320
+      ],
+      "webhookId": "4dd3f96f-b0de-4075-a36f-75b72f061aec"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-24T02:11:44.784Z",
+      "updatedAt": "2026-04-24T02:11:44.784Z",
+      "role": "workflow:owner",
+      "workflowId": "6Zg98cvLN9fsA3Iz",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-24T02:11:44.784Z",
+  "versionId": "ad618ce4-04dd-4866-9998-70aa3919cd45"
+}
