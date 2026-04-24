@@ -48,7 +48,7 @@
   },
   "createdAt": "2025-09-22T21:30:50.979Z",
   "id": "dPcJamvAFi2gdlSS",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "My workflow",
   "nodes": [
@@ -149,6 +149,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-09-22T21:54:00.000Z",
-  "versionId": "90623659-ce8a-484d-b80c-9be547f3be1d"
+  "updatedAt": "2026-04-23T14:24:50.626Z",
+  "versionId": "29527984-0bca-47a4-90da-96dbd47b6a3c"
 }
