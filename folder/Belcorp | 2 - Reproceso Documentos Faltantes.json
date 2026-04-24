@@ -1,0 +1,242 @@
+{
+  "active": false,
+  "connections": {
+    "Trigger Manual": {
+      "main": [
+        [
+          {
+            "node": "Configurar Reproceso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configurar Reproceso": {
+      "main": [
+        [
+          {
+            "node": "FTP - Listar BackUpSeparador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Listar BackUpSeparador": {
+      "main": [
+        [
+          {
+            "node": "Seleccionar Archivo para Reproceso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Seleccionar Archivo para Reproceso": {
+      "main": [
+        [
+          {
+            "node": "FTP - Descargar Archivo Fuente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Descargar Archivo Fuente": {
+      "main": [
+        [
+          {
+            "node": "Extraer XMLs Individuales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer XMLs Individuales": {
+      "main": [
+        [
+          {
+            "node": "FTP - Subir XML a Raíz Interfaz",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Subir XML a Raíz Interfaz": {
+      "main": [
+        [
+          {
+            "node": "Construir Resumen Reproceso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construir Resumen Reproceso": {
+      "main": [
+        [
+          {
+            "node": "Email - Confirmación Reproceso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-24T02:11:51.116Z",
+  "id": "4IXbGaveLLg2N7l0",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Belcorp | 2 - Reproceso Documentos Faltantes",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2fb19e06-94f5-4492-aad8-1929a1c55f8b",
+      "name": "Trigger Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// CONFIGURACIÓN DE REPROCESO\n// Completar antes de ejecutar este workflow\n// ============================================================\n\n// PASO 1: Pegar aquí los códigos SAP faltantes detectados por el WF1\nconst CODIGOS_SAP_A_REPROCESAR = [\n  '2600464615',  // <-- Reemplazar con los códigos reales\n  '2600464220'   // <-- Agregar/quitar líneas según sea necesario\n];\n\n// PASO 2: Definir el entorno\nconst ENTORNO = 'PRODUCCION'; // 'PRODUCCION' (→ .PFA) o 'TEST' (→ .TFA)\n\n// PASO 3: Si conoce el nombre exacto del archivo, completar aquí.\n// Si deja vacío, el workflow buscará el archivo más reciente en BackUpSeparador.\nconst NOMBRE_ARCHIVO_ESPECIFICO = ''; // Ej: 'facturas_2024-01-15.PFA' o dejar ''\n\n// ============================================================\n\nif (!CODIGOS_SAP_A_REPROCESAR || CODIGOS_SAP_A_REPROCESAR.length === 0) {\n  throw new Error('Debe especificar al menos un código SAP para reprocesar.');\n}\n\nconst extension = ENTORNO === 'PRODUCCION' ? '.PFA' : '.TFA';\n\nreturn [{\n  json: {\n    codigosSAPObjetivo: CODIGOS_SAP_A_REPROCESAR,\n    cantidadObjetivo:   CODIGOS_SAP_A_REPROCESAR.length,\n    entorno:            ENTORNO,\n    extension:          extension,\n    archivoEspecifico:  NOMBRE_ARCHIVO_ESPECIFICO,\n    fechaReproceso:     new Date().toISOString().split('T')[0],\n    timestamp:          new Date().toISOString()\n  }\n}];"
+      },
+      "id": "083df6ed-0479-4d3c-94dc-32762f0fe0af",
+      "name": "Configurar Reproceso",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "/Directorios/FTP/1028501021/BackUpSeparador"
+      },
+      "id": "38230cd7-08ce-4fe6-998f-3a3aae2b4df7",
+      "name": "FTP - Listar BackUpSeparador",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Selecciona el archivo fuente para extraer los XMLs de reproceso\nconst config     = $('Configurar Reproceso').first().json;\nconst archivos   = $input.all();\nconst extension  = config.extension;\n\nlet archivoElegido;\n\nif (config.archivoEspecifico) {\n  // Buscar el archivo exacto si fue especificado\n  const encontrado = archivos.find(f => f.json.name === config.archivoEspecifico);\n  if (!encontrado) {\n    throw new Error(`Archivo específico no encontrado: ${config.archivoEspecifico}`);\n  }\n  archivoElegido = encontrado.json;\n} else {\n  // Tomar el más reciente con la extensión correcta\n  const filtrados = archivos\n    .filter(f => f.json.name && f.json.name.toUpperCase().endsWith(extension.toUpperCase()))\n    .sort((a, b) => new Date(b.json.modifyTime || 0) - new Date(a.json.modifyTime || 0));\n\n  if (filtrados.length === 0) {\n    throw new Error(`No se encontraron archivos ${extension} en BackUpSeparador.`);\n  }\n  archivoElegido = filtrados[0].json;\n}\n\nreturn [{\n  json: {\n    ...config,\n    fileName:   archivoElegido.name,\n    filePath:   `/Directorios/FTP/1028501021/BackUpSeparador/${archivoElegido.name}`\n  }\n}];"
+      },
+      "id": "b4192bc9-c2fb-4d5e-9697-4738499657b3",
+      "name": "Seleccionar Archivo para Reproceso",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "path": "={{ $json.filePath }}",
+        "options": {}
+      },
+      "id": "52310560-b36f-4214-8f29-8d681006a4c3",
+      "name": "FTP - Descargar Archivo Fuente",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        336,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrae del archivo combinado sólo los comprobantes con los códigos SAP objetivo\n// y genera un item por cada XML individual listo para subir al FTP\n\nconst config    = $('Seleccionar Archivo para Reproceso').first().json;\nconst item      = $input.first();\nconst binaryData = item.binary?.data;\n\nif (!binaryData) {\n  throw new Error('No se recibió el contenido del archivo XML fuente.');\n}\n\nconst xmlContent = Buffer.from(binaryData.data, 'base64').toString('utf-8');\nconst codigosObjetivo = config.codigosSAPObjetivo.map(c => String(c));\n\n// ============================================================\n// EXTRACCIÓN DE COMPROBANTES INDIVIDUALES\n// Asume estructura: <Comprobante>...</Comprobante> por documento\n// Ajustar el tag según la estructura real del XML del cliente\n// ============================================================\nconst TAG_COMPROBANTE = 'Comprobante'; // <-- Verificar con estructura real\n\nconst regexComprobante = new RegExp(\n  `<${TAG_COMPROBANTE}[\\\\s\\\\S]*?<\\/${TAG_COMPROBANTE}>`,\n  'g'\n);\n\nconst xmlHeader = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>';\nconst resultados = [];\nlet match;\n\nwhile ((match = regexComprobante.exec(xmlContent)) !== null) {\n  const bloqueXML = match[0];\n\n  // Verificar si este bloque contiene alguno de los códigos objetivo\n  const textoLibre1Match = bloqueXML.match(/<TextoLibre1>([^<]+)<\\/TextoLibre1>/);\n  if (!textoLibre1Match) continue;\n\n  const codigoSAP = textoLibre1Match[1].trim();\n  if (!codigosObjetivo.includes(codigoSAP)) continue;\n\n  // Construir XML individual con cabecera y el tag raíz\n  // NOTA: NO numerar el archivo (la interfaz numera automáticamente)\n  // NOTA: NO subir dentro de una contingencia\n  const xmlIndividual = `${xmlHeader}\\n<Comprobantes>\\n${bloqueXML}\\n</Comprobantes>`;\n  const fileName      = `${codigoSAP}${config.extension}`;\n\n  resultados.push({\n    json: {\n      codigoSAP,\n      fileName,\n      destinoFTP:   `/Directorios/FTP/1028501021/${fileName}`,\n      entorno:      config.entorno,\n      fechaReproceso: config.fechaReproceso\n    },\n    binary: {\n      data: {\n        data:     Buffer.from(xmlIndividual, 'utf-8').toString('base64'),\n        mimeType: 'application/xml',\n        fileName: fileName\n      }\n    }\n  });\n}\n\nif (resultados.length === 0) {\n  throw new Error(\n    `No se encontraron comprobantes para los códigos: ${codigosObjetivo.join(', ')}. ` +\n    `Verificar el tag <${TAG_COMPROBANTE}> en el archivo XML.`\n  );\n}\n\nconst codigosNoEncontrados = codigosObjetivo.filter(\n  c => !resultados.some(r => r.json.codigoSAP === c)\n);\n\nif (codigosNoEncontrados.length > 0) {\n  console.warn('Códigos no encontrados en el XML:', codigosNoEncontrados.join(', '));\n}\n\nreturn resultados;"
+      },
+      "id": "0152cbd4-6417-4a66-9b10-7b29a8f6fe46",
+      "name": "Extraer XMLs Individuales",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upload"
+      },
+      "id": "d3fe1ab1-f4e7-41c6-b99f-057798327291",
+      "name": "FTP - Subir XML a Raíz Interfaz",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        816,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Consolida todos los archivos subidos en un único resumen\nconst items = $input.all();\nconst config = $('Configurar Reproceso').first().json;\n\nconst archivosSubidos = items.map(i => i.json.fileName);\nconst codigosSubidos  = items.map(i => i.json.codigoSAP);\nconst codigosFaltantesAun = config.codigosSAPObjetivo.filter(\n  c => !codigosSubidos.includes(c)\n);\n\nreturn [{\n  json: {\n    reprocesado:         codigosSubidos.length > 0,\n    archivosSubidos,\n    codigosSubidos,\n    codigosFaltantesAun,\n    cantidadSubidos:     codigosSubidos.length,\n    cantidadFaltantesAun: codigosFaltantesAun.length,\n    entorno:             config.entorno,\n    fechaReproceso:      config.fechaReproceso,\n    mensaje:             codigosFaltantesAun.length === 0\n      ? 'Todos los archivos de reproceso fueron subidos exitosamente.'\n      : `${codigosSubidos.length} archivos subidos. ${codigosFaltantesAun.length} códigos no encontrados en el XML fuente.`\n  }\n}];"
+      },
+      "id": "b8f631bd-0d5d-454c-84ee-43f4a3db6f5d",
+      "name": "Construir Resumen Reproceso",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "sistema@ejemplo.com",
+        "toEmail": "cliente@transbel.com.bo",
+        "subject": "🔄 [BELCORP BO] Reproceso Iniciado - {{ $json.fechaReproceso }}",
+        "html": "<h2 style='color:#1565c0;'>🔄 Reproceso de Documentos - COMFIAR Bolivia</h2><p>Estimado equipo de <strong>TRANSBEL</strong>,</p><p>Se han subido los siguientes archivos al directorio raíz de la interfaz para reproceso:</p><table border='1' cellpadding='8' cellspacing='0' style='border-collapse:collapse; font-family:sans-serif;'><tr style='background:#f5f5f5;'><th>Campo</th><th>Valor</th></tr><tr><td><strong>Fecha</strong></td><td>{{ $json.fechaReproceso }}</td></tr><tr><td><strong>Entorno</strong></td><td>{{ $json.entorno }}</td></tr><tr><td><strong>Archivos subidos</strong></td><td>{{ $json.cantidadSubidos }}</td></tr><tr><td><strong>Estado</strong></td><td>{{ $json.mensaje }}</td></tr></table><h3>Archivos subidos a /Directorios/FTP/1028501021/</h3><pre style='background:#f5f5f5; padding:10px;'>{{ $json.archivosSubidos.join('\\n') }}</pre>{{ $json.cantidadFaltantesAun > 0 ? '<h3 style=\\'color:#c62828;\\'>⚠️ Códigos no encontrados en el XML fuente</h3><pre style=\\'background:#fff3e0; padding:10px;\\'>' + $json.codigosFaltantesAun.join('\\n') + '</pre><p>Estos documentos deben buscarse manualmente.</p>' : '' }}<p><strong>Próximo paso:</strong> Validar en COMFIAR que los documentos hayan cargado correctamente y ejecutar el Workflow 1 nuevamente para confirmar.</p><p>Saludos,<br><em>Sistema Automático APG - Bolivia</em></p>",
+        "options": {}
+      },
+      "id": "4e3c1cac-1cde-41e9-a15e-5947c80f5a2c",
+      "name": "Email - Confirmación Reproceso",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1296,
+        -160
+      ],
+      "webhookId": "95cd35df-98b3-4648-a982-407f420108f9"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-24T02:11:51.116Z",
+      "updatedAt": "2026-04-24T02:11:51.116Z",
+      "role": "workflow:owner",
+      "workflowId": "4IXbGaveLLg2N7l0",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-04-24T02:12:07.171Z",
+  "versionId": "51dc6572-0325-45b5-9399-85053222afc6"
+}
