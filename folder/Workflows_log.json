@@ -3,7 +3,7 @@
   "connections": {},
   "createdAt": "2026-03-25T12:50:33.956Z",
   "id": "PU5ZIURGZft7ZhNF",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "Workflows_log",
   "nodes": [],
@@ -23,6 +23,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-03-25T12:50:33.956Z",
-  "versionId": "6c080b8d-94e3-44d6-baff-1b185c91ef63"
+  "updatedAt": "2026-04-23T14:25:23.032Z",
+  "versionId": "69ad2117-7840-4638-8b29-cdbdb2e55a63"
 }
