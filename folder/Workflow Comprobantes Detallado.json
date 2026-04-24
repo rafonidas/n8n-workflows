@@ -203,7 +203,7 @@
   },
   "createdAt": "2025-11-05T18:54:41.468Z",
   "id": "BPvVV8reRqU0zMuW",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "Workflow Comprobantes Detallado",
   "nodes": [
@@ -691,6 +691,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-11-05T22:29:44.000Z",
-  "versionId": "18205340-3a9c-4660-9de5-9c00fade69d8"
+  "updatedAt": "2026-04-23T14:25:01.030Z",
+  "versionId": "f23d5dcd-622a-4937-81bd-3cb24406fa1c"
 }
