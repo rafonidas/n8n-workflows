@@ -12,22 +12,11 @@
         ]
       ]
     },
-    "Trigger Semanal": {
-      "main": [
-        [
-          {
-            "node": "Set Config 11",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Microsoft SQL1": {
       "main": [
         [
           {
-            "node": "new tikcet?",
+            "node": "If row does not exist",
             "type": "main",
             "index": 0
           }
@@ -95,7 +84,7 @@
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Get AI Summary",
             "type": "main",
             "index": 0
           }
@@ -108,28 +97,6 @@
         []
       ]
     },
-    "Send message1": {
-      "main": [
-        [
-          {
-            "node": "Insert row",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Gemini Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "When clicking ‘Execute workflow’": {
       "main": [
         []
@@ -137,20 +104,8 @@
     },
     "AI Agent": {
       "main": [
-        [
-          {
-            "node": "Code in JavaScript2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Code in JavaScript2",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [],
+        []
       ]
     },
     "Set Config2": {
@@ -171,13 +126,7 @@
     },
     "Ticket Loop": {
       "main": [
-        [
-          {
-            "node": "Set Log",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "GET Tickets1",
@@ -190,17 +139,6 @@
     "Code in JavaScript": {
       "main": [
         []
-      ]
-    },
-    "Code in JavaScript2": {
-      "main": [
-        [
-          {
-            "node": "Send message1",
-            "type": "main",
-            "index": 0
-          }
-        ]
       ]
     },
     "Get row(s) in sheet": {
@@ -224,6 +162,50 @@
           }
         ]
       ]
+    },
+    "If row does not exist": {
+      "main": [
+        [
+          {
+            "node": "new tikcet?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get AI Summary": {
+      "main": [
+        [
+          {
+            "node": "Create chat message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Semanal": {
+      "main": [
+        [
+          {
+            "node": "Set Config 11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create chat message": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-04-15T18:10:33.412Z",
@@ -236,38 +218,14 @@
   "nodes": [
     {
       "parameters": {
-        "operation": "send",
-        "phoneNumberId": "833780986474867",
-        "recipientPhoneNumber": "={{ $json.number }}",
-        "textBody": "=¡Hola {{$json.nombre}}!\nHa ingresado un nuevo ticket a las {{ DateTime.fromISO($('Set Ticket fields').item.json.createdAt).setZone('America/Bogota').toFormat('hh:mm a') }}\nCliente: {{ $('Set Ticket fields').item.json.client_name }}\nTicketID: {{ $('Set Ticket fields').item.json.id }}\nDescripción: {{ $('Set Ticket fields').item.json.description }}\nResumen: {{ $('AI Agent').item.json.output || $('Set Ticket fields').item.json.message }}\n",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.whatsApp",
-      "typeVersion": 1.1,
-      "position": [
-        432,
-        2736
-      ],
-      "id": "69ee8c63-c611-48c6-8bc0-5404a8f45a98",
-      "name": "Send message1",
-      "webhookId": "a53c28ea-be71-4b50-b46c-e3605ed0e236",
-      "credentials": {
-        "whatsAppApi": {
-          "id": "gFf5xMPVgDp987TZ",
-          "name": "WSP Colombia - Comercial Test"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "executeQuery",
         "query": "WITH LineaDeTiempoTickets AS (\n    -- Paso 1: Numerar todos los eventos históricos por ticket\n    SELECT \n        Id, \n        TicketId, \n        ComentId, \n        Tiempo,\n        -- Ordenamos ASCENDENTE. El menor tiempo (creación) recibe el 1.\n        -- Agregamos \"Id ASC\" por si hay dos eventos en el mismo milisegundo.\n        ROW_NUMBER() OVER(PARTITION BY TicketId ORDER BY Id ASC, TicketId ASC) AS FilaCronologica\n    FROM dbo.VistasTickes\n)\n-- Paso 2: Filtrar para quedarnos SOLO con las creaciones que ocurrieron \"Hoy\" (local)\nSELECT \n    Id, \n    TicketId, \n    ComentId, \n    Tiempo\nFROM LineaDeTiempoTickets\nWHERE FilaCronologica = 1 -- Exigimos que sea el primer registro absoluto del ticket (Creación)\n  \n  -- Exigimos que el tiempo UTC de esa creación esté dentro de nuestro \"Hoy\"\n  AND Tiempo >= DATEADD(hour, 3, CAST(CAST(GETDATE() AS DATE) AS DATETIME))\n  AND Tiempo < DATEADD(hour, 3, DATEADD(day, 1, CAST(CAST(GETDATE() AS DATE) AS DATETIME)))\nORDER BY TicketId ASC;"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -1376,
-        2656
+        -1280,
+        4560
       ],
       "id": "d0db280b-c369-48b4-8edd-79569d5bee06",
       "name": "Microsoft SQL1",
@@ -277,26 +235,6 @@
           "name": "Soporte - SQL01"
         }
       }
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 9-18 * * 6"
-            }
-          ]
-        }
-      },
-      "id": "d2a5f1a9-4fd7-4a8e-a62b-b359ddef4e81",
-      "name": "Trigger Semanal",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1952,
-        2656
-      ]
     },
     {
       "parameters": {
@@ -321,8 +259,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -1392,
-        2256
+        -1952,
+        1504
       ],
       "id": "7a1ed0d3-80fc-42f5-bb04-e95c2a43b97d",
       "name": "Get row(s)"
@@ -355,8 +293,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1024,
-        2656
+        -832,
+        4560
       ],
       "id": "40f44af0-ee15-4c92-b53e-7a51ae64404f",
       "name": "new tikcet?"
@@ -367,8 +305,8 @@
       "name": "end",
       "typeVersion": 1,
       "position": [
-        -656,
-        3488
+        -1952,
+        3072
       ],
       "id": "248f5b70-624f-48e5-bd78-ddef7c96cde6"
     },
@@ -400,8 +338,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -416,
-        2768
+        -176,
+        4384
       ],
       "id": "9c96609a-a2f7-47eb-84df-a38e5358b312",
       "name": "Colombia?"
@@ -431,8 +369,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1584,
-        2672
+        -1504,
+        4560
       ],
       "onError": "continueErrorOutput"
     },
@@ -461,8 +399,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -544,
-        2656
+        -400,
+        4400
       ],
       "onError": "continueErrorOutput",
       "notes": "onError continueErrorOutput para que el IF pueda manejar 404s"
@@ -520,8 +458,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -240,
-        2752
+        0,
+        4368
       ],
       "id": "66d39aa1-8801-47a9-9401-b2a388e9c78f",
       "name": "Set Ticket fields"
@@ -533,8 +471,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1264,
-        2432
+        -2112,
+        1456
       ],
       "id": "48102202-05e0-4c69-8b70-e4ca87deb83b",
       "name": "Sticky Note1"
@@ -550,8 +488,8 @@
       "type": "n8n-nodes-base.whatsApp",
       "typeVersion": 1.1,
       "position": [
-        96,
-        2256
+        -1952,
+        2400
       ],
       "id": "6d66ef47-5d81-40bf-aff5-f26f2489f7f8",
       "name": "Send message2",
@@ -570,8 +508,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -720,
-        3744
+        -1952,
+        4192
       ],
       "id": "2f6059d1-7e21-4a48-80b2-849571c4a9cd",
       "name": "Loop Over Items"
@@ -587,40 +525,21 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        -112,
-        2752
+        -1952,
+        2176
       ],
       "id": "62e52f2e-658f-43ba-bf08-edc01313f9a7",
       "name": "AI Agent",
+      "disabled": true,
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.5-flash-lite",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        -112,
-        2912
-      ],
-      "id": "0ae913e0-772f-4867-9abd-ecb663bfc136",
-      "name": "Google Gemini Chat Model",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "ZJmgBZh9xCXuMgg4",
-          "name": "Rafa-Gemin"
-        }
-      }
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -128,
-        2256
+        -1952,
+        2848
       ],
       "id": "006b7167-d5f5-4ae5-9481-70634e0218e5",
       "name": "When clicking ‘Execute workflow’"
@@ -656,8 +575,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        32,
-        3680
+        -1952,
+        3744
       ]
     },
     {
@@ -697,8 +616,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1760,
-        2656
+        -1728,
+        4560
       ]
     },
     {
@@ -732,8 +651,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -144,
-        3568
+        -1952,
+        3520
       ]
     },
     {
@@ -743,8 +662,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -752,
-        2640
+        -608,
+        4416
       ],
       "id": "aacb1807-a79d-4999-9cde-947be8aa033b",
       "name": "Ticket Loop"
@@ -756,8 +675,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        288,
-        2256
+        -1952,
+        2624
       ],
       "id": "12dc5e4d-bf3c-4554-bc04-a66fde751371",
       "name": "Code in JavaScript"
@@ -769,24 +688,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        336,
-        3584
+        -1952,
+        1952
       ],
       "id": "7034e316-b051-43bb-b73d-f2157c149388",
       "name": "Code in JavaScript1"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Retornamos un arreglo que contiene exactamente 3 objetos.\n// Cada objeto debe tener la propiedad 'json' según el estándar de n8n.\n\nreturn [\n  {\n    json: {\n      id: 1,\n      nombre: \"Vane\",\n      number: \"541164282905\"\n    }\n  },\n  {\n    json: {\n      id: 2,\n      nombre: \"Agus\",\n      number: \"541164282905\"\n    }\n  },\n  {\n    json: {\n      id: 3,\n      nombre: \"Zaida\",\n      number: \"541164282905\"\n    }\n  }\n];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        240,
-        2736
-      ],
-      "id": "99ecb4f8-3b2f-4260-83b7-5b2ed87d4d54",
-      "name": "Code in JavaScript2"
     },
     {
       "parameters": {
@@ -796,8 +702,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        -944,
-        3520
+        -1952,
+        3296
       ],
       "id": "315ebcc5-a719-4137-855c-e6a9153f88d3",
       "name": "Microsoft SQL",
@@ -829,8 +735,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1504,
-        3744
+        -1952,
+        3968
       ],
       "id": "b297d5dc-e8de-4d0a-9079-f24356df0132",
       "name": "Get row(s) in sheet",
@@ -856,8 +762,8 @@
       "type": "n8n-nodes-base.summarize",
       "typeVersion": 1.1,
       "position": [
-        -1328,
-        3744
+        -1728,
+        3968
       ],
       "id": "74963574-493b-43ca-ace3-a36944cedae9",
       "name": "Summarize"
@@ -874,12 +780,12 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "date": "={{ $('Set Ticket fields').item.json.createdAt }}",
+            "date": "={{ $now }}",
             "ticketId": "={{ $('Set Ticket fields').item.json.id }}",
             "client": "={{ $('Set Ticket fields').item.json.client_name }}",
             "message": "={{ $('Set Ticket fields').item.json.message }}",
             "description": "={{ $('Set Ticket fields').item.json.description }}",
-            "summary": "={{ $('AI Agent').item.json.output }}"
+            "summary": "={{ $('Get AI Summary').item.json.choices[0].message.content || $('Set Ticket fields').item.json.message }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -952,8 +858,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        640,
-        2736
+        560,
+        4352
       ],
       "id": "f1ddd4ef-af90-46fe-82f2-54cb9819fb1c",
       "name": "Insert row"
@@ -965,8 +871,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -528,
-        2400
+        -1952,
+        1728
       ],
       "id": "b92d2beb-793a-42b0-817a-1d37d60d9dd4",
       "name": "Set Log"
@@ -979,11 +885,157 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1328,
-        2832
+        -912,
+        1728
       ],
       "id": "130aa6ae-43f0-4633-8092-6959430101e5",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "PFDVh56AhLe86jKz",
+          "mode": "list",
+          "cachedResultName": "ticketNotifications",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/PFDVh56AhLe86jKz"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticketId",
+              "keyValue": "={{ $json.TicketId }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -1056,
+        4560
+      ],
+      "id": "53c5a16e-a0a7-47ff-b4c7-d5320aa8ea0a",
+      "name": "If row does not exist"
+    },
+    {
+      "parameters": {
+        "content": "## IF TICKET ID FROM SQL DOES NOT EXIST IN DATATABLE -> CONTINUE",
+        "width": 352
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1440,
+        1648
+      ],
+      "id": "b8ef7a92-574c-4e64-b0bd-cd903bb55ab7",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"meta/llama-4-maverick-17b-128e-instruct\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Tu rol es el de un asistente de soporte.\\nTu objetivo es resumir la descripción del ticket entrante via input para notificar al equipo con una síntesis de alto nivel sobre el ticket.\\n\\nTu output debe contener ÚNICAMENTE el resumen del problema del cliente y este debe dar a entender el 80% del ticket.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify($json.message) }}\n    }\n  ],\n  \"temperature\": 0.2,\n  \"max_tokens\": 1024,\n  \"stream\": false\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        192,
+        4368
+      ],
+      "id": "fe1a9d79-b33c-4971-aacf-6a2964924295",
+      "name": "Get AI Summary",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/10 9-18 * * *"
+            }
+          ]
+        }
+      },
+      "id": "d2a5f1a9-4fd7-4a8e-a62b-b359ddef4e81",
+      "name": "Trigger Semanal",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1952,
+        4560
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:583713afe4054ae0b4449c891d9f1fc0@thread.v2",
+          "mode": "list",
+          "cachedResultName": "APG Consulting Notificaciones, Agustín Barbosa, Zaida Ruiz, Juan Jose Parada, Rafael Nuñez, Vanessa Rodriguez, Andrea Prieto (group)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A583713afe4054ae0b4449c891d9f1fc0%40thread.v2/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        },
+        "contentType": "html",
+        "message": "=<p>Ha ingresado un nuevo ticket a las <b>{{ DateTime.fromISO($('Set Ticket fields').item.json.createdAt).setZone('America/Bogota').toFormat('hh:mm a') }}</b></p>\n\n<b>Cliente:</b> {{ $('Set Ticket fields').item.json.client_name }}<br>\n<b>TicketID:</b> {{ $('Set Ticket fields').item.json.id }}<br>\n<b>Descripción:</b> {{ $('Set Ticket fields').item.json.description }}<br>\n<b>Resumen:</b> {{ $('Get AI Summary').item.json.choices[0].message.content || $('Set Ticket fields').item.json.message }}\n",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        400,
+        4352
+      ],
+      "id": "33be9cdc-4c47-4e39-bd15-016d10bfe4e4",
+      "name": "Create chat message",
+      "webhookId": "4b485c0b-8dcd-4348-8ade-5e3528832b34",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## MEJORA: ESTAMOS VALIDANDO CADA VEZ QUE TRAEMOS DATOS DEL SQL, FILTRAMOS LO QUE YA ESTÁN EN LA TABLA, PERO NO FILTRAMOS LOS QUE POR UNA EJECUCION ANTERIOR YA SABEMOS QUE NO SON DE COLOMBIA, POR EJEMPLO ESTOS 18 CASOS PODRÍAMOS GUARDARLOS YY NO VOLVER A CONSULTARLE A VIGA SOBRE SU CLIENTE PARA OPTIMIZAR\n",
+        "height": 240,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1504,
+        4240
+      ],
+      "id": "ec67d5c0-6f2d-4eb6-8aed-e3590ec524fe",
+      "name": "Sticky Note3"
     }
   ],
   "pinData": {
@@ -997,33 +1049,6 @@
           "country": "Colombia",
           "campo_cliente": "cliente",
           "campo_descripcion": "descripcion"
-        }
-      }
-    ],
-    "GET Tickets1": [
-      {
-        "json": {
-          "id": 47798,
-          "description": "Envío NC del ticket 45702",
-          "additionalDescription": "<p>Hola, estoy presentando inconvenientes en el proceso de facturación.\n\nA continuación detallo incidente:</p><p>Alexander, se realizaron los respectivos cambios en el código de la transmisión en SAP para que al hacer la consulta viajara con no referencia (22), pero la respuesta que da son los siguientes errores:&nbsp;</p><p><span>Regla: CBF03a, Rechazo: Con este tipo de Notas Crédito no puede anular Facturas</span></p><p>Regla: CAD02a, Rechazo: CustomizationID debe sr igual a “20”</p><p>adjuntamos pantallazo y trama</p>",
-          "emails": "sgutiery@emeal.nttdata.com;eferrman@emeal.nttdata.com;anavarro@apg-consulting.com",
-          "isChild": false,
-          "parentTicketId": null,
-          "createdAt": "2026-04-23T00:01:48.213",
-          "dateActiveFrom": "2026-04-23T13:00:00",
-          "idCreator": "09e62288-2ded-4bed-ba0a-469976779669",
-          "dueDate": "2026-04-23T04:01:48.213",
-          "endedAt": null,
-          "startedAt": "2026-04-23T16:53:33.5424494",
-          "doneAt": "2026-04-23T16:55:11.248",
-          "lastUpdated": "2026-04-23T16:55:14.3126963",
-          "assignedUser": "f59da225-b009-4b8b-a75a-370c75d54a8e",
-          "isReopen": null,
-          "reopenAt": null,
-          "slaHours": 4,
-          "slaUsed": 2573,
-          "closedByBatch": false,
-          "ticketEventsAll": null
         }
       }
     ],
@@ -1059,10 +1084,13 @@
     },
     "global": {
       "lastId": 0
+    },
+    "node:Trigger Semanal": {
+      "recurrenceRules": []
     }
   },
   "tags": [],
-  "triggerCount": 4,
-  "updatedAt": "2026-04-24T02:11:19.532Z",
-  "versionId": "b3e8b50e-f4ac-4c7a-a6af-c999350917d8"
+  "triggerCount": 1,
+  "updatedAt": "2026-04-24T20:32:32.084Z",
+  "versionId": "28a70f1d-8d13-4a96-875d-30f79547f26a"
 }
