@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Edit Fields3": {
       "main": [
@@ -976,7 +976,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "*/10 9-18 * * *"
+              "expression": "0 9-18 * * 6"
             }
           ]
         }
@@ -1001,7 +1001,7 @@
           "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A583713afe4054ae0b4449c891d9f1fc0%40thread.v2/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
         },
         "contentType": "html",
-        "message": "=<p>Ha ingresado un nuevo ticket a las <b>{{ DateTime.fromISO($('Set Ticket fields').item.json.createdAt).setZone('America/Bogota').toFormat('hh:mm a') }}</b></p>\n\n<b>Cliente:</b> {{ $('Set Ticket fields').item.json.client_name }}<br>\n<b>TicketID:</b> {{ $('Set Ticket fields').item.json.id }}<br>\n<b>Descripción:</b> {{ $('Set Ticket fields').item.json.description }}<br>\n<b>Resumen:</b> {{ $('Get AI Summary').item.json.choices[0].message.content || $('Set Ticket fields').item.json.message }}\n",
+        "message": "=<p>Ha ingresado un nuevo ticket a las <b>{{ DateTime.fromISO($('Set Ticket fields').item.json.createdAt, { zone: 'utc' }).setZone('America/Bogota').toFormat('hh:mm a') }}</b></p>\n\n<b>Cliente:</b> {{ $('Set Ticket fields').item.json.client_name }}<br>\n<b>TicketID:</b> {{ $('Set Ticket fields').item.json.id }}<br>\n<b>Descripción:</b> {{ $('Set Ticket fields').item.json.description }}<br>\n<b>Resumen:</b> {{ $('Get AI Summary').item.json.choices[0].message.content || $('Set Ticket fields').item.json.message }}\n",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -1036,6 +1036,26 @@
       ],
       "id": "ec67d5c0-6f2d-4eb6-8aed-e3590ec524fe",
       "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    v.Id, \n    v.TicketId, \n    v.ComentId, \n    v.Tiempo\nFROM dbo.VistasTickes v\nWHERE \n    -- Filtramos PRIMERO por los registros de hoy. \n    -- Esto reduce drásticamente los datos a evaluar.\n    v.Tiempo >= DATEADD(hour, 3, CAST(CAST(GETDATE() AS DATE) AS DATETIME))\n    AND v.Tiempo < DATEADD(hour, 3, DATEADD(day, 1, CAST(CAST(GETDATE() AS DATE) AS DATETIME)))\n    -- SEGUNDO: Confirmamos que ese registro de hoy sea realmente el primer evento del ticket\n    AND v.Id = (\n        SELECT MIN(Id) \n        FROM dbo.VistasTickes v_min \n        WHERE v_min.TicketId = v.TicketId\n    )\nORDER BY v.TicketId ASC;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -1200,
+        4816
+      ],
+      "id": "eb6f7fae-c0bf-49ee-9a07-39464907ddba",
+      "name": "Microsoft SQL2",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "WEEKLY"
+        }
+      }
     }
   ],
   "pinData": {
@@ -1091,6 +1111,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-24T20:32:32.084Z",
-  "versionId": "28a70f1d-8d13-4a96-875d-30f79547f26a"
+  "updatedAt": "2026-04-25T22:06:43.770Z",
+  "versionId": "16378054-0085-48ac-a5eb-d5715c895c19"
 }
