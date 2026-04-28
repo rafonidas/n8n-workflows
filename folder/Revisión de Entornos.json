@@ -1604,6 +1604,45 @@
       "typeVersion": 1,
       "id": "34321e99-85aa-400c-84e4-ff852cc10de5",
       "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Tiempo máximo de timeout? Depende de la query?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        640
+      ],
+      "id": "8e24e81e-7655-42e2-85a9-d18cfba2fca9",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Al fallar una query, cómo seguimos, y qué hacemos?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        816
+      ],
+      "id": "0bf50a28-dda6-4ae6-9cee-cdaefc1b2f38",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Backup type -> bug"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        1120
+      ],
+      "id": "33785d88-0fbb-432f-865b-da7996464baf",
+      "name": "Sticky Note6"
     }
   ],
   "pinData": {},
@@ -1645,6 +1684,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-04-21T12:51:51.160Z",
-  "versionId": "663957b4-1220-43d6-9128-e6ed4624bf8c"
+  "updatedAt": "2026-04-27T12:51:40.502Z",
+  "versionId": "392c5c16-7f19-49bd-9b82-c80378ef5d9d"
 }
