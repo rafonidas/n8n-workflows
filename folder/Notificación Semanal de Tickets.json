@@ -51,7 +51,7 @@
         ],
         [
           {
-            "node": "Ticket Loop",
+            "node": "Insert row1",
             "type": "main",
             "index": 0
           }
@@ -206,6 +206,17 @@
           }
         ]
       ]
+    },
+    "Insert row1": {
+      "main": [
+        [
+          {
+            "node": "Ticket Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-04-15T18:10:33.412Z",
@@ -293,8 +304,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -832,
-        4560
+        -880,
+        4624
       ],
       "id": "40f44af0-ee15-4c92-b53e-7a51ae64404f",
       "name": "new tikcet?"
@@ -458,7 +469,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
+        208,
         4368
       ],
       "id": "66d39aa1-8801-47a9-9401-b2a388e9c78f",
@@ -858,7 +869,7 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        560,
+        768,
         4352
       ],
       "id": "f1ddd4ef-af90-46fe-82f2-54cb9819fb1c",
@@ -963,7 +974,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        192,
+        400,
         4368
       ],
       "id": "fe1a9d79-b33c-4971-aacf-6a2964924295",
@@ -1009,7 +1020,7 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        400,
+        608,
         4352
       ],
       "id": "33be9cdc-4c47-4e39-bd15-016d10bfe4e4",
@@ -1056,6 +1067,32 @@
           "name": "WEEKLY"
         }
       }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        192,
+        4608
+      ],
+      "id": "7b5cff0d-4c44-4a93-aa81-9fefaa0667f1",
+      "name": "Insert row1"
     }
   ],
   "pinData": {
@@ -1111,6 +1148,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-27T14:26:37.875Z",
-  "versionId": "07d5828a-8bfa-495d-a53d-887819b51a7d"
+  "updatedAt": "2026-04-28T14:00:54.718Z",
+  "versionId": "ec2b3832-7eaa-4b07-bdef-abe3de7df46b"
 }
