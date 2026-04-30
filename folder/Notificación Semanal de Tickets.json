@@ -182,6 +182,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Create chat message",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -1063,8 +1070,8 @@
       "name": "Microsoft SQL2",
       "credentials": {
         "microsoftSql": {
-          "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
         }
       }
     },
@@ -1093,6 +1100,26 @@
       ],
       "id": "7b5cff0d-4c44-4a93-aa81-9fefaa0667f1",
       "name": "Insert row1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM dbo.TicketsView\n  WHERE Id = 47899\nORDER BY Id DESC;"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -1200,
+        5008
+      ],
+      "id": "90f3fecd-83f9-4cc0-8e97-f8cafd430c51",
+      "name": "Microsoft SQL3",
+      "credentials": {
+        "microsoftSql": {
+          "id": "Dy10nKTWCqBd32O5",
+          "name": "Soporte - SQL01"
+        }
+      }
     }
   ],
   "pinData": {
@@ -1148,6 +1175,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-28T14:00:54.718Z",
-  "versionId": "ec2b3832-7eaa-4b07-bdef-abe3de7df46b"
+  "updatedAt": "2026-04-29T18:28:50.766Z",
+  "versionId": "3d3eb88f-e0e3-462f-a871-bfde63c80d45"
 }
