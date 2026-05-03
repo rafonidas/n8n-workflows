@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Edit Fields3": {
       "main": [
@@ -51,7 +51,7 @@
         ],
         [
           {
-            "node": "Insert row1",
+            "node": "Ticket Loop",
             "type": "main",
             "index": 0
           }
@@ -208,17 +208,6 @@
         [
           {
             "node": "Insert row",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Insert row1": {
-      "main": [
-        [
-          {
-            "node": "Ticket Loop",
             "type": "main",
             "index": 0
           }
@@ -994,7 +983,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 9-18 * * 6"
+              "expression": "0 9-18 * * *"
             }
           ]
         }
@@ -1077,32 +1066,6 @@
     },
     {
       "parameters": {
-        "dataTableId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [
-        192,
-        4608
-      ],
-      "id": "7b5cff0d-4c44-4a93-aa81-9fefaa0667f1",
-      "name": "Insert row1"
-    },
-    {
-      "parameters": {
         "operation": "executeQuery",
         "query": "SELECT *\nFROM dbo.TicketsView\n  WHERE Id = 47899\nORDER BY Id DESC;"
       },
@@ -1175,6 +1138,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-29T18:28:50.766Z",
-  "versionId": "3d3eb88f-e0e3-462f-a871-bfde63c80d45"
+  "updatedAt": "2026-05-02T05:23:49.020Z",
+  "versionId": "14c79a81-a434-401c-a7c3-28d97c3cd1b5"
 }
