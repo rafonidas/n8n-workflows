@@ -1,0 +1,1058 @@
+{
+  "active": true,
+  "connections": {
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "set wf name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Insert row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get an execution2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many executions4": {
+      "main": [
+        [
+          {
+            "node": "Keep Prod Exec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer Último ID": {
+      "main": [
+        [
+          {
+            "node": "Get many executions4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep Prod Exec": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Leer Último ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set wf name": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get an execution2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-05-04T19:41:44.866Z",
+  "id": "XCuTafnqnmiKHMeC",
+  "isArchived": false,
+  "meta": null,
+  "name": "Observability",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xJYR9rdoXruzkcfh4wWHsLUGPghUdBeFNIwlVInn_00",
+          "mode": "list",
+          "cachedResultName": "Executions",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xJYR9rdoXruzkcfh4wWHsLUGPghUdBeFNIwlVInn_00/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2042986303,
+          "mode": "list",
+          "cachedResultName": "workflows",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xJYR9rdoXruzkcfh4wWHsLUGPghUdBeFNIwlVInn_00/edit#gid=2042986303"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -192,
+        0
+      ],
+      "id": "e822fdc5-3265-4498-bd19-b3a998579096",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "bfZ27w0IPqirrKvt",
+          "mode": "list",
+          "cachedResultName": "executions",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/bfZ27w0IPqirrKvt"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "execution_id": "={{ $json.id }}",
+            "finished": "={{ $json.finished }}",
+            "status": "={{ $json.status }}",
+            "mode": "={{ $json.mode }}",
+            "started_at": "={{ $json.startedAt }}",
+            "stopped_at": "={{ $json.stoppedAt }}",
+            "duration_mins": "={{ Math.round(((new Date($json.stoppedAt) - new Date($json.startedAt)) / 60000) * 100) / 100 }}",
+            "workflow_id": "={{ $json.workflowId }}",
+            "workflow_name": "={{ $json.workflow_name }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "workflow_id",
+              "displayName": "workflow_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "workflow_name",
+              "displayName": "workflow_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "finished",
+              "displayName": "finished",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "mode",
+              "displayName": "mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "started_at",
+              "displayName": "started_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "stopped_at",
+              "displayName": "stopped_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "duration_mins",
+              "displayName": "duration_mins",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_code",
+              "displayName": "error_code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_name",
+              "displayName": "error_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_message",
+              "displayName": "error_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_node",
+              "displayName": "error_node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        224
+      ],
+      "id": "a96c2bda-b841-4e12-9428-7304dccaca49",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "608676dc-9b9a-4816-b799-b9194aad8185",
+              "name": "execution_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "60f4b23c-d41e-4863-9035-7da41c0c1851",
+              "name": "finished",
+              "value": "={{ $json.finished }}",
+              "type": "boolean"
+            },
+            {
+              "id": "155cf298-28f1-4ff4-a87b-ba73398fc5a1",
+              "name": "mode",
+              "value": "={{ $json.mode }}",
+              "type": "string"
+            },
+            {
+              "id": "c69859c4-d1fe-4ba0-a954-95a492e5af14",
+              "name": "workflow_id",
+              "value": "={{ $json.workflowId }}",
+              "type": "string"
+            },
+            {
+              "id": "9197e5e9-bdc6-4288-b481-f9fececaef6d",
+              "name": "workflow_name",
+              "value": "={{ $json.workflow_name }}",
+              "type": "string"
+            },
+            {
+              "id": "07563152-3967-42f9-a0a2-2a846d13728e",
+              "name": "started_at",
+              "value": "={{ $json.startedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "73738ae8-2237-4660-a713-76363fbbac36",
+              "name": "stopped_at",
+              "value": "={{ $json.stoppedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "b78d8cdc-0d15-4d5b-a404-6908711b4159",
+              "name": "duration_mins",
+              "value": "={{ (new Date($json.stoppedAt) - new Date($json.startedAt)) / 60000 }}",
+              "type": "number"
+            },
+            {
+              "id": "8c89c711-3870-4fbc-a341-dab6e12c94b5",
+              "name": "error_name",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "d4fa28da-8e02-4f7e-b4c9-a5e9ccde562e",
+              "name": "error_message",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "a3b48952-ea4e-4924-9a3a-5152d4b90243",
+              "name": "error_node",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "144f73b4-6c1e-436f-aa3a-98f4baf56dee",
+              "name": "status",
+              "value": "={{ $json.status }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1264,
+        224
+      ],
+      "id": "fca2e2f3-dec6-47f8-9c57-2c736d297fc6",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "608676dc-9b9a-4816-b799-b9194aad8185",
+              "name": "execution_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "60f4b23c-d41e-4863-9035-7da41c0c1851",
+              "name": "finished",
+              "value": "={{ $json.finished }}",
+              "type": "boolean"
+            },
+            {
+              "id": "155cf298-28f1-4ff4-a87b-ba73398fc5a1",
+              "name": "mode",
+              "value": "={{ $json.mode }}",
+              "type": "string"
+            },
+            {
+              "id": "c69859c4-d1fe-4ba0-a954-95a492e5af14",
+              "name": "workflow_id",
+              "value": "={{ $json.workflowId }}",
+              "type": "string"
+            },
+            {
+              "id": "9197e5e9-bdc6-4288-b481-f9fececaef6d",
+              "name": "workflow_name",
+              "value": "={{ $json.workflowData.name}}",
+              "type": "string"
+            },
+            {
+              "id": "07563152-3967-42f9-a0a2-2a846d13728e",
+              "name": "started_at",
+              "value": "={{ $json.startedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "73738ae8-2237-4660-a713-76363fbbac36",
+              "name": "stopped_at",
+              "value": "={{ $json.stoppedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "b78d8cdc-0d15-4d5b-a404-6908711b4159",
+              "name": "duration_mins",
+              "value": "={{ (new Date($json.stoppedAt) - new Date($json.startedAt)) / 60000 }}",
+              "type": "number"
+            },
+            {
+              "id": "bea25eca-f5a7-48ac-adfb-6706728b3ca9",
+              "name": "error_node",
+              "value": "={{$json.data.resultData.lastNodeExecuted}}",
+              "type": "string"
+            },
+            {
+              "id": "8c89c711-3870-4fbc-a341-dab6e12c94b5",
+              "name": "error_name",
+              "value": "={{ $json.data.resultData.error.name ||  $json.data.resultData.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "d4fa28da-8e02-4f7e-b4c9-a5e9ccde562e",
+              "name": "error_message",
+              "value": "={{ $json.data.resultData.error.message }}",
+              "type": "string"
+            },
+            {
+              "id": "a3b48952-ea4e-4924-9a3a-5152d4b90243",
+              "name": "error_code",
+              "value": "={{ $json.data?.resultData?.error?.code ?? $json.data?.resultData?.runData?.[\"Error Trigger\"]?.[0]?.data?.main?.[0]?.[0]?.json?.execution?.error?.code ?? \"none\" }}",
+              "type": "string"
+            },
+            {
+              "id": "b2b0368f-4c02-451e-add2-b152b92d52dd",
+              "name": "status",
+              "value": "={{$json.status}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1456,
+        0
+      ],
+      "id": "f1a61348-5d21-4f59-89bf-ec2b5c5f184b",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "resource": "execution",
+        "operation": "get",
+        "executionId": "={{$json.id}}",
+        "options": {
+          "activeWorkflows": true
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        0
+      ],
+      "id": "50bca16b-7d7d-4845-adcb-ddc28c9d00f5",
+      "name": "Get an execution2",
+      "credentials": {
+        "n8nApi": {
+          "id": "y9PDEDAKrPqrNrgj",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "execution",
+        "filters": {},
+        "options": {
+          "activeWorkflows": false
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        192
+      ],
+      "id": "6c152498-eb1f-4c32-bc2d-6bf3ae515e81",
+      "name": "Get many executions4",
+      "credentials": {
+        "n8nApi": {
+          "id": "y9PDEDAKrPqrNrgj",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "bfZ27w0IPqirrKvt",
+          "mode": "list",
+          "cachedResultName": "executions",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/bfZ27w0IPqirrKvt"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "workflow_id",
+              "displayName": "workflow_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "workflow_name",
+              "displayName": "workflow_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "execution_id",
+              "displayName": "execution_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "finished",
+              "displayName": "finished",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "mode",
+              "displayName": "mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "started_at",
+              "displayName": "started_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "stopped_at",
+              "displayName": "stopped_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "duration_mins",
+              "displayName": "duration_mins",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_code",
+              "displayName": "error_code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_name",
+              "displayName": "error_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_message",
+              "displayName": "error_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "error_node",
+              "displayName": "error_node",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1664,
+        0
+      ],
+      "id": "5c5f9823-21b7-45fd-86cb-884cacd3cc3b",
+      "name": "Insert row1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "8mmpxswwXt5NgZUC",
+          "mode": "list",
+          "cachedResultName": "last_processed_id",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/8mmpxswwXt5NgZUC"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        192
+      ],
+      "id": "f28d8499-7859-49fa-b0a7-bbddc13ff6f3",
+      "name": "Leer Último ID"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d69c2cc1-7c45-4482-8540-fe5611ddf2ac",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "=manual",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        192
+      ],
+      "id": "19cecea0-27c4-4bc1-b8a0-2f5726ef6347",
+      "name": "Keep Prod Exec"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "8mmpxswwXt5NgZUC",
+          "mode": "list",
+          "cachedResultName": "last_processed_id",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/8mmpxswwXt5NgZUC"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "condition": "isNotEmpty"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "lastId": "={{ $json.max_id }}"
+          },
+          "matchingColumns": [
+            "lastId"
+          ],
+          "schema": [
+            {
+              "id": "lastId",
+              "displayName": "lastId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        656,
+        384
+      ],
+      "id": "b01ce29a-0621-4d29-a631-f21066fc6a84",
+      "name": "Update row(s)"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "max",
+              "field": "id"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "mode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        384
+      ],
+      "id": "75eefedc-fefc-4f4d-8bc1-fa0ff65f9767",
+      "name": "Summarize"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -752,
+        80
+      ],
+      "id": "59b07756-f44d-4c62-8f5f-afb2393656eb",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9168a68a-250d-4689-a44c-a84399a7fc3e",
+              "name": "workflow_id",
+              "value": "={{ $json.workflow_id }}",
+              "type": "string"
+            },
+            {
+              "id": "91b48f30-3093-491e-9120-446af29f4715",
+              "name": "workflow_name",
+              "value": "={{ $json.workflow_name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        16,
+        0
+      ],
+      "id": "c12033ef-c92c-4ea5-9b60-fd14ad05a186",
+      "name": "set wf name"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "workflow_id",
+              "field2": "workflowId"
+            }
+          ]
+        },
+        "joinMode": "enrichInput2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        800,
+        80
+      ],
+      "id": "670a5d32-20d6-4a3b-81e7-e3d867d0615f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b8105371-5799-47d3-8b16-d7fde4d76308",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "={{ $('Leer Último ID').item.json.lastId }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        192
+      ],
+      "id": "0fe64b6f-1c8d-43d5-8346-d1cb9ad78d53",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "39290092-c9fb-4a33-a30b-5f8987bf3ac5",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        80
+      ],
+      "id": "f6eed24c-32a6-449e-966c-4d6dd51677e0",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-05-04T19:41:44.866Z",
+      "updatedAt": "2026-05-04T19:41:44.866Z",
+      "role": "workflow:owner",
+      "workflowId": "XCuTafnqnmiKHMeC",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-05-04T20:06:34.194Z",
+  "versionId": "fc47450f-84ab-4245-867e-9ce0f8e7b7ef"
+}
