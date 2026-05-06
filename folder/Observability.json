@@ -131,14 +131,14 @@
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          },
-          {
             "node": "Summarize",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
           }
         ]
       ]
@@ -877,7 +877,6 @@
             }
           ]
         },
-        "fieldsToSplitBy": "mode",
         "options": {}
       },
       "type": "n8n-nodes-base.summarize",
@@ -1030,7 +1029,25 @@
       "name": "If"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Schedule Trigger1": [
+      {
+        "json": {
+          "timestamp": "2026-05-05T09:00:37.010-03:00",
+          "Readable date": "May 5th 2026, 9:00:37 am",
+          "Readable time": "9:00:37 am",
+          "Day of week": "Tuesday",
+          "Year": "2026",
+          "Month": "May",
+          "Day of month": "05",
+          "Hour": "09",
+          "Minute": "00",
+          "Second": "37",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1053,6 +1070,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-05-04T20:06:34.194Z",
-  "versionId": "fc47450f-84ab-4245-867e-9ce0f8e7b7ef"
+  "updatedAt": "2026-05-05T12:14:31.894Z",
+  "versionId": "26027bde-63d6-40ea-a79f-503f7a3c4772"
 }
