@@ -1094,6 +1094,19 @@
       ],
       "id": "9c35815a-0346-40ba-a50e-0343d6f1cab3",
       "name": "If"
+    },
+    {
+      "parameters": {
+        "content": "## FIX JOSE / MATI"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3888,
+        1312
+      ],
+      "id": "9d8bdb9c-84fb-4842-875d-40b4e2ab2215",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {
@@ -1195,17 +1208,17 @@
       "recurrenceRules": []
     },
     "global": {
-      "executionId": "3049",
+      "executionId": "3748",
       "counters": {
-        "totalProcessed": 1,
-        "totalNotified": 0,
-        "totalSkipped": 0,
-        "totalError": 1
+        "totalProcessed": 3,
+        "totalNotified": 2,
+        "totalSkipped": 1,
+        "totalError": 0
       }
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-22T20:02:27.487Z",
-  "versionId": "5d3f23ec-77ac-40c8-be89-f428b4c66806"
+  "updatedAt": "2026-05-06T12:10:33.958Z",
+  "versionId": "cdb154ce-3494-4958-a970-f602ab352cc4"
 }
