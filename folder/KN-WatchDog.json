@@ -498,7 +498,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -912,
+        -928,
         -576
       ],
       "typeVersion": 1,
@@ -584,31 +584,13 @@
       "typeVersion": 1,
       "position": [
         -1904,
-        16
+        112
       ],
       "id": "35e33b6b-7c7f-48a1-a5a0-4dec90374eb0",
       "name": "Sticky Note4"
     }
   ],
-  "pinData": {
-    "Schedule Trigger": [
-      {
-        "json": {
-          "timestamp": "2026-04-27T09:20:00.008-03:00",
-          "Readable date": "April 27th 2026, 9:20:00 am",
-          "Readable time": "9:20:00 am",
-          "Day of week": "Monday",
-          "Year": "2026",
-          "Month": "April",
-          "Day of month": "27",
-          "Hour": "09",
-          "Minute": "20",
-          "Second": "00",
-          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -637,15 +619,15 @@
       "history": {
         "ARG": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 2
+          "skipCount": 0
         },
         "PER": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 2
+          "skipCount": 0
         },
         "ECU": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 0
+          "skipCount": 1
         }
       }
     },
@@ -656,6 +638,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-27T13:26:32.217Z",
-  "versionId": "ed5bc594-6245-4198-8b51-eec774e396a8"
+  "updatedAt": "2026-05-08T19:20:39.791Z",
+  "versionId": "c571ef01-8f82-4746-b255-b1080c51fd85"
 }
