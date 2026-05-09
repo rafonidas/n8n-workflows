@@ -1,0 +1,268 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "set config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set config": {
+      "main": [
+        [
+          {
+            "node": "WebService Log In",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WebService Log In": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Checkear filas en publicacion bandeja": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-05-08T14:45:04.354Z",
+  "id": "RHx5FaIButfSztVT",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 12",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        0
+      ],
+      "id": "6e3b38ac-64d0-407f-83aa-6c1d703f4de4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    \"user\":\"sdorfman\",\n    \"password\":\"ParaRafa11!!\"\n\n\n    \n  }\n\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "a5b8491f-c2b7-4010-8873-d88bf4979f3a",
+      "name": "set config"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://test.comfiar.com.ar/wscomfiar/WSComfiar.asmx?op=IniciarSesion",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?> <soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">   <soap:Body>     <IniciarSesion xmlns=\"http://comfiar.com.ar/webservice/\">       <usuarioId>{{ $json.user }}</usuarioId>       <password>{{ $json.password }}</password>     </IniciarSesion>   </soap:Body> </soap:Envelope>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        0
+      ],
+      "id": "b3fd125e-a025-48f6-84ad-19b8d1528674",
+      "name": "WebService Log In"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        336,
+        0
+      ],
+      "id": "332948dc-517a-45f8-8309-13dab45bb0d6",
+      "name": "XML"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://test.comfiar.com.ar/wscomfiar/WSComfiar.asmx?op=ReiniciarBandejaArchivos",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?> <soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">   <soap:Body>     <ReiniciarBandejaArchivos xmlns=\"http://comfiar.com.ar/webservice/\">       <token>         <SesionId>{{ $json.SesionId }}</SesionId>         <FechaVencimiento>{{ $json.FechaVencimiento }}</FechaVencimiento>       </token>       <bandejaId>{{ $json.id }}</bandejaId>     </ReiniciarBandejaArchivos>   </soap:Body> </soap:Envelope>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        656,
+        0
+      ],
+      "id": "f69641e8-c2f2-4012-8279-076346d3a58f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM BandejaPublicacion WITH(NOLOCK);"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        -256
+      ],
+      "id": "0d0c4db8-c7f7-4fcb-b2c6-e5ad4ec56265",
+      "name": "Microsoft SQL1",
+      "credentials": {
+        "microsoftSql": {
+          "id": "7G3SN0kKPTZvCl0e",
+          "name": "SQL-04"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    s.name AS Esquema, \n    t.name AS Tabla, \n    p.rows AS CantidadFilas\nFROM sys.tables t\nINNER JOIN sys.schemas s ON t.schema_id = s.schema_id\nINNER JOIN sys.partitions p ON t.object_id = p.object_id\nWHERE t.name = 'BandejaPublicacion'\nAND p.index_id IN (0,1); -- 0: Heap, 1: Clustered Index"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        160,
+        -256
+      ],
+      "id": "3604bf44-39ce-4852-b36f-316c8ca8dbd6",
+      "name": "Checkear filas en publicacion bandeja",
+      "credentials": {
+        "microsoftSql": {
+          "id": "7G3SN0kKPTZvCl0e",
+          "name": "SQL-04"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## bandejas de arg\n\"BandejaId\": \n4,\n\"CuitId\": \n\"30500788220\",\n\"Intervalo\": \n86400,\n\"FechaUltimaEjecucion\": \n\"2026-05-07T18:26:25.847Z\"\n},",
+        "height": 240,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -464
+      ],
+      "id": "be16b95c-7741-4e45-a7ff-90b206888a97",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -512,
+        -272
+      ],
+      "id": "76810b94-7fa2-4141-ad12-507cbd15c857",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1f08e202-baa6-4b58-9f2a-8383aa155507",
+              "name": "SesionId",
+              "value": "={{ $json[\"soap:Envelope\"][\"soap:Body\"].IniciarSesionResponse.IniciarSesionResult.SesionId }}",
+              "type": "string"
+            },
+            {
+              "id": "353918df-c21f-4805-8979-578c97f8c137",
+              "name": "id",
+              "value": "1",
+              "type": "string"
+            },
+            {
+              "id": "bfc806d8-6952-421f-8703-ad20ea69a3c3",
+              "name": "FechaVencimiento",
+              "value": "={{ $json[\"soap:Envelope\"][\"soap:Body\"].IniciarSesionResponse.IniciarSesionResult.FechaVencimiento }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        0
+      ],
+      "id": "7ae59cc5-cc35-48f6-ac46-0c6581d513e5",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-05-08T14:45:04.354Z",
+      "updatedAt": "2026-05-08T14:45:04.354Z",
+      "role": "workflow:owner",
+      "workflowId": "RHx5FaIButfSztVT",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-05-08T20:53:40.136Z",
+  "versionId": "db8ad449-2755-43c6-a58c-2e7628510d7a"
+}
