@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Edit Fields3": {
       "main": [
@@ -983,7 +983,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 9-18 * * *"
+              "expression": "0 9-18 * * 6"
             }
           ]
         }
@@ -1138,6 +1138,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-05-06T12:49:52.650Z",
-  "versionId": "14c79a81-a434-401c-a7c3-28d97c3cd1b5"
+  "updatedAt": "2026-05-09T01:31:51.733Z",
+  "versionId": "4018ec72-ff99-4485-9522-49a5165932fc"
 }
