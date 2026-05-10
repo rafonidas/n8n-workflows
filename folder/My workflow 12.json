@@ -60,6 +60,22 @@
       "main": [
         []
       ]
+    },
+    "Extract from File": {
+      "main": [
+        []
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-05-08T14:45:04.354Z",
@@ -153,8 +169,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        336,
-        -256
+        320,
+        -672
       ],
       "id": "0d0c4db8-c7f7-4fcb-b2c6-e5ad4ec56265",
       "name": "Microsoft SQL1",
@@ -173,8 +189,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        160,
-        -256
+        144,
+        -672
       ],
       "id": "3604bf44-39ce-4852-b36f-316c8ca8dbd6",
       "name": "Checkear filas en publicacion bandeja",
@@ -245,6 +261,79 @@
       ],
       "id": "7ae59cc5-cc35-48f6-ac46-0c6581d513e5",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        560,
+        -224
+      ],
+      "id": "eb2154fd-e32b-46fd-8273-31bf2c26bacf",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "path": "cc2d7ea6-3ccf-41db-9501-499922e79423",
+        "responseMode": "responseNode",
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        -320
+      ],
+      "id": "18f3ed53-7b12-4c83-b199-54160a19f678",
+      "name": "Webhook",
+      "webhookId": "cc2d7ea6-3ccf-41db-9501-499922e79423"
+    },
+    {
+      "parameters": {
+        "formTitle": "sape",
+        "formDescription": "sape",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        400,
+        -224
+      ],
+      "id": "e72961f4-a9a0-4a93-a912-6c5eecb646ad",
+      "name": "On form submission",
+      "webhookId": "67b9c691-e570-4227-a8ae-52f05feb4a54"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        -112
+      ],
+      "id": "8ee9e645-9528-4b99-aaf6-c83e8d614f84",
+      "name": "Telegram Trigger",
+      "webhookId": "7c9de977-0d06-4ce2-aed5-0625c7e83610"
     }
   ],
   "pinData": {},
@@ -263,6 +352,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-08T20:53:40.136Z",
-  "versionId": "db8ad449-2755-43c6-a58c-2e7628510d7a"
+  "updatedAt": "2026-05-10T00:36:09.759Z",
+  "versionId": "1457d3d7-7c96-44d6-ad2c-ae6297dfdf6b"
 }
