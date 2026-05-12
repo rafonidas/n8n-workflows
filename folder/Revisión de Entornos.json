@@ -423,6 +423,17 @@
           }
         ]
       ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-11T13:58:51.809Z",
@@ -1643,6 +1654,205 @@
       ],
       "id": "33785d88-0fbb-432f-865b-da7996464baf",
       "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Tiempo de inicio\nconst startTime = $('Audit Start').first().json.audit_startTime;\n\n// 2. Datos de los loops previos\nconst envData   = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\n\n// 3. Peso de los datos\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes   = Buffer.byteLength(payloadString, 'utf8');\n\n// 4. Manejo de resultados vacíos\nconst realResultsCount =\n  (results.length === 1 && Object.keys(results[0].json).length === 0)\n    ? 0\n    : results.length;\n\n// 5. Fecha y Hora Argentina (columnas display)\nconst now         = new Date();\nconst timeOptions = { timeZone: \"America/Argentina/Buenos_Aires\" };\nconst fecha       = now.toLocaleDateString(\"es-AR\", timeOptions);\nconst hora        = now.toLocaleTimeString(\"es-AR\", timeOptions);\n\n\n\n// 6. Timestamp UTC (columnas métricas)\nconst isoNow      = now.toISOString();        // '2026-05-11T12:30:04.000Z'\nconst fecha_real  = isoNow.substring(0, 10);  // '2026-05-11'\nconst hora_limpia = isoNow.substring(11, 19); // '12:30:04'\n\n\nconst timestamp_tz_normalizado = isoNow\n  .replace('T', ' ')      // Cambia T por espacio\n  .split('.')[0]          // Corta antes del punto de los milisegundos\n  + '+00';\n\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.applicacion     || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    fecha:             fecha,\n    hora:              hora,\n    timestamp:         isoNow,\n    timestamp_tz:      isoNow,\n    fecha_real:        fecha_real,\n    hora_limpia:       hora_limpia,\n    timestamp_2:       timestamp_tz_normalizado \n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2368,
+        1600
+      ],
+      "id": "fc2177dd-0136-43cb-822b-0fd125ad4c35",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "auditoria_queries",
+          "mode": "list",
+          "cachedResultName": "auditoria_queries"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "aplicacion",
+              "displayName": "aplicacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp_tz",
+              "displayName": "timestamp_tz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora_limpia",
+              "displayName": "hora_limpia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "time",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_real",
+              "displayName": "fecha_real",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2576,
+        1600
+      ],
+      "id": "7881e38c-530b-4db6-9027-1f24a9ea73ab",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1684,6 +1894,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-05-05T15:06:41.097Z",
-  "versionId": "b20cec4b-1974-4dc8-b692-c52569d88dc0"
+  "updatedAt": "2026-05-11T20:55:35.196Z",
+  "versionId": "fbac232c-614c-4bca-a4d2-15391ea9b0a4"
 }
