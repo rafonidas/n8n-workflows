@@ -1029,25 +1029,7 @@
       "name": "If"
     }
   ],
-  "pinData": {
-    "Schedule Trigger1": [
-      {
-        "json": {
-          "timestamp": "2026-05-05T09:00:37.010-03:00",
-          "Readable date": "May 5th 2026, 9:00:37 am",
-          "Readable time": "9:00:37 am",
-          "Day of week": "Tuesday",
-          "Year": "2026",
-          "Month": "May",
-          "Day of month": "05",
-          "Hour": "09",
-          "Minute": "00",
-          "Second": "37",
-          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1070,6 +1052,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-05-06T12:49:49.434Z",
-  "versionId": "26027bde-63d6-40ea-a79f-503f7a3c4772"
+  "updatedAt": "2026-05-11T17:19:43.819Z",
+  "versionId": "37e68b86-6872-4437-b3a5-e2c055803b5d"
 }
