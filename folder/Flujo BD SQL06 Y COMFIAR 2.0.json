@@ -1,0 +1,74 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Microsoft SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-05-12T10:05:58.030Z",
+  "id": "ERVsOUTki92PSy6t",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Flujo BD SQL06 Y COMFIAR 2.0",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        -16
+      ],
+      "id": "6b4b3abd-59df-4aee-a199-7a7b58e49b31",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT TOP 10 * FROM HistoriaMigracion ORDER BY 1 DESC"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -16,
+        -16
+      ],
+      "id": "14ddbf82-c358-4ea5-a410-7189ff2a78db",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "Conexion SQL-06"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-05-12T10:05:58.030Z",
+      "updatedAt": "2026-05-12T10:05:58.030Z",
+      "role": "workflow:owner",
+      "workflowId": "ERVsOUTki92PSy6t",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-05-12T10:18:51.280Z",
+  "versionId": "5e21fa93-be62-4e95-86e3-d67b8ba717e1"
+}
