@@ -23,7 +23,7 @@
       "main": [
         [
           {
-            "node": "Credentials Loop",
+            "node": "Query Loop3",
             "type": "main",
             "index": 0
           }
@@ -35,7 +35,7 @@
         [],
         [
           {
-            "node": "Audit Start",
+            "node": "Set Queries",
             "type": "main",
             "index": 0
           }
@@ -214,7 +214,7 @@
       "main": [
         [
           {
-            "node": "Set Queries",
+            "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
@@ -675,7 +675,36 @@
       "main": [
         [
           {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Loop3": {
+      "main": [
+        [
+          {
             "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit Start",
             "type": "main",
             "index": 0
           }
@@ -731,8 +760,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -864,
-        640
+        -784,
+        992
       ],
       "id": "01719d7a-e6db-4686-8063-168db1c40c12",
       "name": "Set Queries",
@@ -747,8 +776,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -688,
-        640
+        -1088,
+        1216
       ],
       "id": "d1043eae-bc35-4588-890d-0fe42473bb32",
       "name": "Credentials Loop"
@@ -961,8 +990,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1200,
-        640
+        -1408,
+        976
       ],
       "id": "0f58b87f-1300-4be2-977f-0bc421e069a7",
       "name": "Hourly Trigger"
@@ -988,7 +1017,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -96,
+        -528,
         992
       ],
       "id": "9e17f294-4d56-48e1-8105-e0a6fa69616a",
@@ -1275,8 +1304,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1040,
-        640
+        -1248,
+        976
       ],
       "id": "15507e07-e49a-4767-bc74-09b8198c3443",
       "name": "Set Credentials"
@@ -2361,7 +2390,7 @@
       "credentials": {
         "microsoftSql": {
           "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
+          "name": "SQL-06 - CINES"
         }
       }
     },
@@ -2886,8 +2915,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1376,
-        960
+        -2144,
+        320
       ],
       "typeVersion": 1,
       "id": "0f421652-9e2c-4688-a942-ca7cc38cd093",
@@ -2902,14 +2931,14 @@
       "typeVersion": 1.1,
       "position": [
         -656,
-        1216
+        656
       ],
       "id": "37461a91-8949-402d-b55c-db2634faa479",
       "name": "Microsoft SQL1",
       "credentials": {
         "microsoftSql": {
           "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
+          "name": "SQL-06 - CINES"
         }
       }
     },
@@ -2929,21 +2958,21 @@
       "credentials": {
         "microsoftSql": {
           "id": "sfr7SqKElXB7VYG2",
-          "name": "WEEKLY"
+          "name": "SQL-06 - CINES"
         }
       }
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+        "query": "Select Top 10\n  cuitid\n  from Comprobante"
       },
       "id": "e9fcf7cc-b119-4d06-becf-83bcd16a7b31",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        224,
+        -304,
         992
       ],
       "notesInFlow": false,
@@ -2956,6 +2985,219 @@
         }
       },
       "notes": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "auditoria_queries",
+          "mode": "list",
+          "cachedResultName": "auditoria_queries"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "id": 0,
+            "tiempo": 0,
+            "peso": 0,
+            "filas_encontradas": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "aplicacion",
+              "displayName": "aplicacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp_tz",
+              "displayName": "timestamp_tz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora_limpia",
+              "displayName": "hora_limpia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "time",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_real",
+              "displayName": "fecha_real",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        48,
+        976
+      ],
+      "id": "356965c8-2e38-4931-b804-473dfe6de315",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Tiempo de inicio\nconst startTime = $('Audit Start').first().json.audit_startTime;\nconst envData   = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop3').item.json;\n\n// 2. Peso y conteo\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes   = Buffer.byteLength(payloadString, 'utf8');\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\n// 3. Generación de Tiempos\nconst now = new Date();\n\n// Opción para obtener FECHA y HORA en formato Argentina (HH24:MI:SS)\n// Usamos \"en-GB\" para forzar el formato YYYY-MM-DD y 24hs de forma sencilla\nconst arDateStr = now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" }); // YYYY-MM-DD\nconst arTimeStr = now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" }); // HH:MM:SS\n\n// 4. Timestamp UTC (Ancla técnica para la DB)\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.application     || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        976
+      ],
+      "id": "56fcdf5c-0cca-4c79-9afd-47303ed5d02f",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Query Loop3'].context['done']}}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -720,
+        1232
+      ],
+      "id": "fb081645-76e3-4cae-997c-c0b2fcc01a48",
+      "name": "Query Loop3"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "LMbtWNGXPZLNnpdf",
+          "mode": "list",
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        1600
+      ],
+      "id": "60f5b060-7f7f-4d68-9c6a-90449e736714",
+      "name": "Get row(s)"
     }
   ],
   "pinData": {
@@ -3438,6 +3680,58 @@
           ]
         }
       }
+    ],
+    "SQL Execute": [
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      },
+      {
+        "json": {
+          "cuitid": "20136531914"
+        }
+      }
     ]
   },
   "settings": {
@@ -3468,6 +3762,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-30T20:04:26.720Z",
-  "versionId": "31cdd121-1f48-4498-bf71-5f8993638ebd"
+  "updatedAt": "2026-05-12T23:54:29.221Z",
+  "versionId": "4d9842bd-ff98-4a06-a28c-5aaa4a54f85a"
 }
