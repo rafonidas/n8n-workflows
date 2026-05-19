@@ -270,8 +270,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        560,
-        -224
+        496,
+        -448
       ],
       "id": "eb2154fd-e32b-46fd-8273-31bf2c26bacf",
       "name": "Extract from File"
@@ -352,6 +352,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-12T15:51:00.082Z",
-  "versionId": "47ad3473-e0c3-4008-86d1-e50852d5d66a"
+  "updatedAt": "2026-05-18T20:50:12.145Z",
+  "versionId": "788d2aeb-3d55-402c-88cc-cedbf1fb517f"
 }
