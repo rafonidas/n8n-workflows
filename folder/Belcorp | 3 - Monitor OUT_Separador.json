@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "FTP - Listar OUT_Separador",
+            "node": "FTP - Listar OUT_Separador1",
             "type": "main",
             "index": 0
           }
@@ -51,6 +51,22 @@
           }
         ]
       ]
+    },
+    "FTP - Listar OUT_Separador1": {
+      "main": [
+        [
+          {
+            "node": "FTP - Listar OUT_Separador3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FTP - Listar OUT_Separador2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-04-24T02:12:09.387Z",
@@ -77,23 +93,29 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -464,
+        -640,
         448
       ]
     },
     {
       "parameters": {
-        "operation": "list",
-        "path": "/Directorios/FTP/1028501021/OUT_Separador"
+        "path": "/ErrorSeparador/BOFACTURATV_202605200001_0001.PFA",
+        "options": {}
       },
       "id": "e0297776-2e6a-4e45-9b21-570ec57cce40",
       "name": "FTP - Listar OUT_Separador",
       "type": "n8n-nodes-base.ftp",
       "typeVersion": 1,
       "position": [
-        -224,
+        -128,
         448
-      ]
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "XmUPciCcnZLVZeBe",
+          "name": "Bolivia?"
+        }
+      }
     },
     {
       "parameters": {
@@ -169,6 +191,66 @@
         496,
         608
       ]
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "/OUT_Separador/Error/2026/4"
+      },
+      "id": "1f3c64e6-8039-46c5-8fa3-eda17d4db76c",
+      "name": "FTP - Listar OUT_Separador1",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        448
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "XmUPciCcnZLVZeBe",
+          "name": "Bolivia?"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "={{ $json.path }}"
+      },
+      "id": "1f1615c5-a811-42f4-b8f2-de8406eaad0a",
+      "name": "FTP - Listar OUT_Separador2",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        320
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "XmUPciCcnZLVZeBe",
+          "name": "Bolivia?"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "=/OUT_Separador/Error/2026/4/0001.PFA.log",
+        "options": {}
+      },
+      "id": "c914ada4-77d7-4dbe-b48f-d8f4395d5a5d",
+      "name": "FTP - Listar OUT_Separador3",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        544
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "XmUPciCcnZLVZeBe",
+          "name": "Bolivia?"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -187,6 +269,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-24T02:12:18.588Z",
-  "versionId": "ca092df7-7d68-4523-8cf3-c6dc66e0e1a5"
+  "updatedAt": "2026-05-21T15:21:45.598Z",
+  "versionId": "faa71361-6476-4cd8-b44c-9a3b67af5e32"
 }
