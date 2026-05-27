@@ -2552,6 +2552,26 @@
       ],
       "id": "cf4bd2e2-8934-4914-b760-963cfd46fa63",
       "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- =====================================================================\n-- 3. UPSERT GRUPO 2: NOTIFY = 0 y TEAMSID GENÉRICO (Match por Email)\n-- =====================================================================\nWITH CTE_Grupo2 AS (\n    SELECT \n        v.name, \n        v.email,\n        'nalbanese@apg-consulting.com' AS rrhh,\n        '00000000-0000-0000-0000-000000000000' AS teamsIdGenerico\n    FROM (VALUES\n        ('soporte Soporte-Beelling-ecu', 'soporte@la.comfiar.com.ec'),\n        ('Cherepinsky Hugo', 'hcherep@gmail.com'),\n        ('APG Emisor Beelling Bol', 'lucasvallejoapg@gmail.com'),\n        ('cherepinsky Hugo', 'hcherep@apgconsulting.com.ar'),\n        ('Soporte Soporte-Beelling-Bol', 'soporte@la.comfiar.com.bo'),\n        ('Beelling-COL Soporte1', 'contra.25@hotmail.com'),\n        ('Benítez Martín', 'mbenitez@apgconsulting.com'),\n        ('Prieto Andrea SM IT', 'andreitaprietob@hotmail.com'),\n        ('Soporte ZaydaBelling', 'zaidayruizr@gmail.com'),\n        ('Cherepinsky Mónica', 'mcherep@apg-consulting.com'),\n        ('Davalos Carlos', 'cdavalos@apg-consulting.com'),\n        ('Avalo Andrea', 'aavalo@apg-consulting.com')\n    ) AS v(name, email)\n)\nMERGE Utiles.dbo.NotiViga_userInfo AS Target\nUSING CTE_Grupo2 AS Source\nON Target.email = Source.email\nWHEN MATCHED THEN\n    UPDATE SET \n        Target.name = Source.name,\n        Target.rrhh = Source.rrhh,\n        Target.notify = 0 \nWHEN NOT MATCHED THEN\n    INSERT (teamsId, name, email, rrhh, notify)\n    -- Inyectamos el valor centinela genérico para cumplir con el NOT NULL\n    VALUES (Source.teamsIdGenerico, Source.name, Source.email, Source.rrhh, 0);"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        1040
+      ],
+      "id": "a88218ca-97ae-4af4-8777-9a57f8396981",
+      "name": "Microsoft SQL3",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
     }
   ],
   "pinData": {
@@ -3963,6 +3983,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-22T19:27:27.344Z",
-  "versionId": "42eee949-3b8b-4b10-9d83-15e03df71a5a"
+  "updatedAt": "2026-05-26T15:56:49.914Z",
+  "versionId": "544af6bc-d9c6-40d2-9b65-b6284544ac97"
 }
