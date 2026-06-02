@@ -155,7 +155,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        656,
+        704,
         0
       ],
       "id": "f69641e8-c2f2-4012-8279-076346d3a58f",
@@ -169,8 +169,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        320,
-        -672
+        672,
+        -896
       ],
       "id": "0d0c4db8-c7f7-4fcb-b2c6-e5ad4ec56265",
       "name": "Microsoft SQL1",
@@ -189,8 +189,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        144,
-        -672
+        496,
+        -896
       ],
       "id": "3604bf44-39ce-4852-b36f-316c8ca8dbd6",
       "name": "Checkear filas en publicacion bandeja",
@@ -270,8 +270,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        496,
-        -448
+        848,
+        -672
       ],
       "id": "eb2154fd-e32b-46fd-8273-31bf2c26bacf",
       "name": "Extract from File"
@@ -287,8 +287,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        160,
-        -320
+        512,
+        -544
       ],
       "id": "18f3ed53-7b12-4c83-b199-54160a19f678",
       "name": "Webhook",
@@ -311,8 +311,8 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.3,
       "position": [
-        400,
-        -224
+        752,
+        -448
       ],
       "id": "e72961f4-a9a0-4a93-a912-6c5eecb646ad",
       "name": "On form submission",
@@ -352,6 +352,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-18T20:50:12.145Z",
-  "versionId": "788d2aeb-3d55-402c-88cc-cedbf1fb517f"
+  "updatedAt": "2026-06-01T20:55:18.703Z",
+  "versionId": "4401ce95-948b-445b-a681-75e5d366de8d"
 }
