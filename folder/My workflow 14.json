@@ -1,0 +1,115 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "GetEmailsList email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetEmailsList email": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-06-03T00:12:56.649Z",
+  "id": "ksbDnaYiUEsp60UV",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 14",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f01c4d57-f177-4be9-86f0-a2ea941a6605",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "email",
+        "mailboxPath": {
+          "__rl": true,
+          "mode": "list",
+          "value": "INBOX"
+        },
+        "emailDateRange": {
+          "since": ""
+        },
+        "emailFlags": {},
+        "emailSearchFilters": {}
+      },
+      "type": "n8n-nodes-imap.imap",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "16487fdc-42e2-409c-b1a0-1ed79991fd9e",
+      "name": "GetEmailsList email",
+      "credentials": {
+        "imapApi": {
+          "id": "lN5h42QyL4p6TTXf",
+          "name": "IMAP Credentials account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        112,
+        -160
+      ],
+      "id": "0b8f3539-27fa-457a-8bd6-74f47a9df484",
+      "name": "Get a message",
+      "webhookId": "7c7261a3-11a3-44d5-9db3-7138b89c3e99",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "iRO7pQXrdJ5UuGRl",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-03T00:12:56.649Z",
+      "updatedAt": "2026-06-03T00:12:56.649Z",
+      "role": "workflow:owner",
+      "workflowId": "ksbDnaYiUEsp60UV",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-03T02:23:27.602Z",
+  "versionId": "c23112ff-fd59-4c23-97d6-b8e4befcf658"
+}
