@@ -2046,7 +2046,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT * \nFROM dbo.NotiViga_userInfo"
+        "query": "SELECT * \nFROM dbo.NotiViga_userInfo\nWHERE notify = 'TRUE'"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -2106,7 +2106,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO dbo.NotiViga_userInfo (email, teamsId, name, notify, rrhh)\nVALUES (\n    'FAKE-ID@apg-consulting.com', \n    '00000000-0000-0000-0000-000000000000', \n    'fake teams id', \n    1, \n    'nalbanese@apg-consulting.com'\n);\t\n"
+        "query": "UPDATE dbo.NotiViga_userInfo\nSET notify = 0\nWHERE name IN ('Matilde Lapaco', 'Juan Jose Parada');"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -3983,6 +3983,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-05-26T15:56:49.914Z",
-  "versionId": "544af6bc-d9c6-40d2-9b65-b6284544ac97"
+  "updatedAt": "2026-06-03T17:32:29.876Z",
+  "versionId": "f1f7db27-2e56-4782-aa85-33e9e22cbb8c"
 }
