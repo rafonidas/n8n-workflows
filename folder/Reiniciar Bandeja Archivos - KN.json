@@ -1,0 +1,410 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Watchdog": {
+      "main": [
+        [
+          {
+            "node": "Resolver Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolver Config": {
+      "main": [
+        [
+          {
+            "node": "Buscar Ultimo Reinicio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Ultimo Reinicio": {
+      "main": [
+        [
+          {
+            "node": "Eval Cooldown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Eval Cooldown": {
+      "main": [
+        [
+          {
+            "node": "En Cooldown?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "En Cooldown?": {
+      "main": [
+        [
+          {
+            "node": "Skip (en cooldown)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WS Login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WS Login": {
+      "main": [
+        [
+          {
+            "node": "XML Login",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Armar Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML Login": {
+      "main": [
+        [
+          {
+            "node": "Token + bandejaId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token + bandejaId": {
+      "main": [
+        [
+          {
+            "node": "ReiniciarBandejaArchivos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReiniciarBandejaArchivos": {
+      "main": [
+        [
+          {
+            "node": "Armar Log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Armar Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar Log": {
+      "main": [
+        [
+          {
+            "node": "Log Reinicio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-03T14:16:27.413Z",
+  "id": "Ab6O8KkFpe810Dvo",
+  "isArchived": false,
+  "meta": null,
+  "name": "Reiniciar Bandeja Archivos - KN",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1008,
+        160
+      ],
+      "id": "42c60631-d081-4025-a07a-7169c2134155",
+      "name": "When Executed by Watchdog"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst entorno = input.entorno;\nconst cfg = {\n  \"APP ARG\": { url: \"https://app.comfiar.com.ar/WSCOMFIAR/WSComfiar.asmx\", user: \"WSN8N\", password: \"Vow&45\", bandejaId: \"30608517746\" },\n  \"APP PE\":  { url: \"https://app.comfiar.com.pe/ws/WSComfiar.asmx\",        user: \"WSN8N\", password: \"Oxs@612416\", bandejaId: \"20347845150\" },\n  \"TEST PE\": { url: \"https://test.comfiar.com.pe/ws/WSComfiar.asmx\",       user: \"WSN8N\", password: \"Oxs@612416\", bandejaId: \"20347845150\" },\n  \"APP EC\":  { url: \"https://app.comfiar.com.ec/wscomfiar/WSComfiar.asmx\", user: \"WSN8N\", password: \"Voy>87\", bandejaId: \"0991321764001\" }\n};\nconst c = cfg[entorno];\nif (!c) throw new Error(\"Entorno desconocido: \" + entorno);\nreturn [{ json: { ...input, ...c } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        160
+      ],
+      "id": "33a7871a-16c6-4044-b9c0-838260f81ca0",
+      "name": "Resolver Config"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        160
+      ],
+      "id": "7c823b51-118e-4339-9f15-cea30b0e4d28",
+      "name": "Buscar Ultimo Reinicio",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput",
+      "notes": "TODO: seleccionar tabla 'reinicio_bandeja_log' y (opcional) filtrar por entorno. Si tu version de n8n usa otros params, reconfigurar en UI."
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(r => r && r.timestamp);\nconst cfg = $('Resolver Config').item.json;\nconst COOLDOWN_H = 4;\nconst mismo = rows.filter(r => r.entorno === cfg.entorno && r.resultado === 'success');\nmismo.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));\nconst last = mismo[0];\nlet enCooldown = false;\nif (last) enCooldown = (Date.now() - new Date(last.timestamp).getTime()) / 3600000 < COOLDOWN_H;\nreturn [{ json: { ...cfg, enCooldown, ultimoReinicio: last ? last.timestamp : null } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        160
+      ],
+      "id": "24f65afa-7f5b-411f-8fff-b1b87382a97b",
+      "name": "Eval Cooldown"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c0000000-0000-4000-8000-000000000001",
+              "leftValue": "={{ $json.enCooldown }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -208,
+        160
+      ],
+      "id": "70c9f0fd-3f59-489e-adf3-0f3e012f0be3",
+      "name": "En Cooldown?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d4329b1c-4a72-495e-aa16-f6b740511dd6",
+      "name": "Skip (en cooldown)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.url }}?op=IniciarSesion",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?> <soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">   <soap:Body>     <IniciarSesion xmlns=\"http://comfiar.com.ar/webservice/\">       <usuarioId>{{ $json.user }}</usuarioId>       <password>{{ $json.password }}</password>     </IniciarSesion>   </soap:Body> </soap:Envelope>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16,
+        304
+      ],
+      "id": "094353b0-5da9-466a-ac05-d3e7018e6114",
+      "name": "WS Login",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        208,
+        128
+      ],
+      "id": "4596b562-e517-457d-812e-4d0cfeb71f46",
+      "name": "XML Login"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0000000-0000-4000-8000-000000000001",
+              "name": "SesionId",
+              "value": "={{ $json[\"soap:Envelope\"][\"soap:Body\"].IniciarSesionResponse.IniciarSesionResult.SesionId }}",
+              "type": "string"
+            },
+            {
+              "id": "f0000000-0000-4000-8000-000000000002",
+              "name": "FechaVencimiento",
+              "value": "={{ $json[\"soap:Envelope\"][\"soap:Body\"].IniciarSesionResponse.IniciarSesionResult.FechaVencimiento }}",
+              "type": "string"
+            },
+            {
+              "id": "f0000000-0000-4000-8000-000000000003",
+              "name": "bandejaId",
+              "value": "={{ $('Resolver Config').item.json.bandejaId }}",
+              "type": "string"
+            },
+            {
+              "id": "f0000000-0000-4000-8000-000000000004",
+              "name": "url",
+              "value": "={{ $('Resolver Config').item.json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "f0000000-0000-4000-8000-000000000005",
+              "name": "entorno",
+              "value": "={{ $('Resolver Config').item.json.entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "f0000000-0000-4000-8000-000000000006",
+              "name": "motivo",
+              "value": "={{ $('Resolver Config').item.json.motivo }}",
+              "type": "string"
+            },
+            {
+              "id": "f0000000-0000-4000-8000-000000000007",
+              "name": "archivos_count",
+              "value": "={{ $('Resolver Config').item.json.archivos_count }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        368,
+        128
+      ],
+      "id": "7df9c7ad-6a5e-4af0-a421-f06c1ee0a174",
+      "name": "Token + bandejaId"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.url }}?op=ReiniciarBandejaArchivos",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?> <soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">   <soap:Body>     <ReiniciarBandejaArchivos xmlns=\"http://comfiar.com.ar/webservice/\">       <token>         <SesionId>{{ $json.SesionId }}</SesionId>         <FechaVencimiento>{{ $json.FechaVencimiento }}</FechaVencimiento>       </token>       <bandejaId>{{ $json.bandejaId }}</bandejaId>     </ReiniciarBandejaArchivos>   </soap:Body> </soap:Envelope>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        576,
+        128
+      ],
+      "id": "13476632-7562-4298-921e-4ec88161e0d3",
+      "name": "ReiniciarBandejaArchivos",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const cfg = $('Resolver Config').item.json;\nconst http = $input.first().json;\nconst raw = typeof http.data === 'string' ? http.data : JSON.stringify(http.data || http);\nconst fault = /soap:Fault|Exception|<faultstring>/i.test(raw);\nconst errored = !!http.error || fault;\nreturn [{ json: {\n  timestamp: new Date().toISOString(),\n  entorno: cfg.entorno,\n  bandejaId: cfg.bandejaId,\n  motivo: cfg.motivo || '',\n  archivos_count: cfg.archivos_count != null ? cfg.archivos_count : null,\n  ws_status: errored ? 'fail' : 'success',\n  ws_response_raw: String(raw).slice(0, 2000),\n  resultado: errored ? 'fail' : 'success'\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        320
+      ],
+      "id": "ccc08ef5-78ea-419b-a2f4-9850b702882c",
+      "name": "Armar Log"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        320
+      ],
+      "id": "9ef3d49c-f61e-4e77-90b5-06c98ec6e2a7",
+      "name": "Log Reinicio",
+      "onError": "continueRegularOutput",
+      "notes": "TODO: seleccionar tabla 'reinicio_bandeja_log' y mapear columnas: timestamp, entorno, bandejaId, motivo, archivos_count, ws_status, ws_response_raw, resultado."
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-03T14:16:27.413Z",
+      "updatedAt": "2026-06-03T14:16:27.413Z",
+      "role": "workflow:owner",
+      "workflowId": "Ab6O8KkFpe810Dvo",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-03T14:16:27.413Z",
+  "versionId": "0392455e-ca73-4771-90c8-73718f149bed"
+}
