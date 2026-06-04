@@ -1,0 +1,356 @@
+{
+  "active": true,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Microsoft Teams Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get chat message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get chat message": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Create chat message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-06-03T14:34:16.752Z",
+  "id": "qSbChe2O6lFR0zBu",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 15",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        0
+      ],
+      "id": "0a11cbd6-1a2a-4a83-b7e1-442e7a2d344f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ordinary-cliff-sellers-coffee.trycloudflare.com/ask",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "5uIp6pZCnp7TqdY0uqLUE9TWUqXJwP2C49eng7dcWEk"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"pregunta\":\"{{ $json.message }}\",\n\"user_id\":\"test\",\n\"session_id\":\"test\"}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        -336
+      ],
+      "id": "9afb89e8-c29e-4f23-b9b3-53f336273ed8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "event": "newChatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces",
+          "mode": "list",
+          "cachedResultName": "Rafael Nuñez, APG Consulting Notificaciones (oneOnOne)",
+          "cachedResultUrl": "https://teams.microsoft.com/l/chat/19%3A3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd%40unq.gbl.spaces/0?tenantId=f89f7128-f0c6-4302-9881-8e0697d39336"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        -192
+      ],
+      "id": "1fa5463d-67f8-489c-916d-05a432e52c84",
+      "name": "Microsoft Teams Trigger",
+      "webhookId": "9cd6b859-ad63-4049-9d00-e2793ee6a91a",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ff7e9282-3a2d-4350-b66c-a639e3873425",
+              "name": "message",
+              "value": "={{ $json.body.content.replace(/<[^>]*>?/gm, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "7682d2e4-3ed3-4366-b261-86982a5846d7",
+              "name": "message_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "500996c5-234f-4c9d-8e69-45ead4034822",
+              "name": "teams_chat_id",
+              "value": "={{ $json.chatId }}",
+              "type": "string"
+            },
+            {
+              "id": "aabf17cf-c2e7-41a0-ade5-b4f05ba019b2",
+              "name": "from",
+              "value": "={{ $json.from }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        -192
+      ],
+      "id": "c03f47e0-6964-4cb4-9741-3742fdf6cdb6",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "operation": "get",
+        "chatId": {
+          "__rl": true,
+          "value": "={{ $json['@odata.id'].split(\"chats('\")[1].split(\"')\")[0] }}",
+          "mode": "id"
+        },
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -192
+      ],
+      "id": "43f56314-366b-4d9a-8bea-0213f23c0b92",
+      "name": "Get chat message",
+      "webhookId": "d8039d12-9a78-4dc1-9de7-895585d351d4",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "chatMessage",
+        "chatId": {
+          "__rl": true,
+          "value": "={{ $('Edit Fields').item.json.teams_chat_id }}",
+          "mode": "id"
+        },
+        "message": "={{$json.respuesta_md}}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        688,
+        -192
+      ],
+      "id": "e8adbed5-1d17-4f6b-bb75-6bfacfc8a6d2",
+      "name": "Create chat message",
+      "webhookId": "4bae8d3c-32c7-4735-b541-abf7c54324cc",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1af0aa2a-e1c4-4117-a810-46cc8e1c1626",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        160
+      ],
+      "id": "8afbb4a8-2228-4035-98e5-2fcf3ae544b5",
+      "name": "Edit Fields1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        32
+      ],
+      "id": "e473ad10-cc80-4858-beef-87fdfb5e376a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.mercadopago.com/v1/account/settlement_report",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer APP_USR-6644842651550541-060314-f503b520248c3fe2df3f33f7da93910b-3448793034"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"begin_date\": \"2026-05-01T00:00:00Z\",\n  \"end_date\": \"2026-06-01T00:00:00Z\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -128,
+        256
+      ],
+      "id": "598db973-b004-4d00-ac70-be51853d0bb1",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.mercadopago.com/v1/account/settlement_report/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer APP_USR-6644842651550541-060314-f503b520248c3fe2df3f33f7da93910b-3448793034"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -128,
+        432
+      ],
+      "id": "e0667b9f-4627-4dea-9796-ad1d5068f9a1",
+      "name": "HTTP Request2"
+    }
+  ],
+  "pinData": {
+    "Microsoft Teams Trigger": [
+      {
+        "json": {
+          "id": "1780511043516",
+          "@odata.type": "#Microsoft.Graph.chatMessage",
+          "@odata.id": "chats('19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces')/messages('1780511043516')"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-03T14:34:16.752Z",
+      "updatedAt": "2026-06-03T14:34:16.752Z",
+      "role": "workflow:owner",
+      "workflowId": "qSbChe2O6lFR0zBu",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Microsoft Teams Trigger": {
+      "subscriptionIds": [
+        "bc550a71-49b4-4829-9f96-10a34da75277"
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-06-03T20:39:25.551Z",
+  "versionId": "054d5ca1-7e7e-45fc-922f-03101f9a1133"
+}
