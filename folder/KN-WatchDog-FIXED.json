@@ -1,0 +1,642 @@
+{
+  "active": false,
+  "connections": {
+    "WebMail": {
+      "main": [
+        [
+          {
+            "node": "Detect Stuck Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect Stuck Emails": {
+      "main": [
+        [
+          {
+            "node": "EMAIL IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - FileZilla": {
+      "main": [
+        [
+          {
+            "node": "Detect Stuck Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Notification": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detect Stuck Files": {
+      "main": [
+        [
+          {
+            "node": "FTP IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Handle Previous Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Previous Events": {
+      "main": [
+        [
+          {
+            "node": "Errors Detected",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP IF": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "EMAIL IF": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Errors Detected": {
+      "main": [
+        [
+          {
+            "node": "Send Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "FTP - FileZilla",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "WebMail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-03T20:51:04.656Z",
+  "id": "TSJmW2y0eB8DDIUg",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "KN-WatchDog-FIXED",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "email",
+        "mailboxPath": {
+          "__rl": true,
+          "mode": "list",
+          "value": "INBOX"
+        },
+        "emailDateRange": {},
+        "emailFlags": {
+          "recent": false
+        },
+        "emailSearchFilters": {}
+      },
+      "type": "n8n-nodes-imap.imap",
+      "typeVersion": 1,
+      "position": [
+        288,
+        432
+      ],
+      "id": "62bcd959-701d-4095-a739-29e86c8c3345",
+      "name": "WebMail",
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "imapApi": {
+          "id": "HXYRvlu8I9nQlbVM",
+          "name": "IMAP-KN"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Corre cada 2 horas en horario laboral ##",
+        "height": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -448,
+        448
+      ],
+      "typeVersion": 1,
+      "id": "c0a64eb5-b577-4af6-bf69-f1bbd0bc9892",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Devuelve correos y archivos presentes en INBOX y en directorio FTP\n\n\n",
+        "height": 640,
+        "width": 288,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        176,
+        192
+      ],
+      "typeVersion": 1,
+      "id": "3aa38e23-1a13-4b53-bf52-426909f6157b",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const threshold = 240; // minutos\nconst stuck_emails = [];\n\n// Obtener el país actual del Loop\nconst loopItem = $node[\"Loop\"].json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\n// Obtener \"ahora\" en UTC y convertir a timezone local\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - threshold * 60000);\n\n// En n8n, 'items' es el array de entrada que recibes del nodo anterior\nfor (const item of items) {\n    try {\n        const emailData = item.json;\n        const envelope = emailData.envelope || {};\n        const dateStr = envelope.date;\n\n        if (dateStr) {\n            // JavaScript Date maneja bien el formato ISO (incluyendo la 'Z')\n            const emailDate = new Date(dateStr);\n\n            // Validamos que la fecha sea válida\n            if (!isNaN(emailDate.getTime())) {\n                // Convertir email date a la misma timezone para comparación consistente\n                const emailInTz = new Date(emailDate.toLocaleString('en-US', { timeZone: tz }));\n                \n                // COMPARACIÓN: ¿Es el email más viejo que el límite? (en la misma timezone)\n                if (emailInTz < limitDate) {\n                    // Calculamos la diferencia en minutos\n                    const diffMs = nowInTz - emailInTz;\n                    const minutesStuck = Math.floor(diffMs / (1000 * 60));\n\n                    stuck_emails.push({\n                        \"received_at\": dateStr,\n                        \"minutes_stuck\": minutesStuck,\n                        \"id\": emailData.id,\n                        \"country\": country\n                    });\n                }\n            }\n        }\n    } catch (e) {\n        // En n8n Code Node, 'continue' funciona dentro de un for...of\n        continue;\n    }\n}\n\nconst hayAlerta = stuck_emails.length > 0;\n\nconst outputJson = {\n    \"alerta\": hayAlerta,\n    \"cantidad_atascados\": stuck_emails.length,\n    \"detalle_atascados\": stuck_emails,\n    \"country\": country\n};\n\n// n8n espera que devolvamos un array de objetos con la propiedad 'json'\nreturn [{ json: outputJson }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        432
+      ],
+      "id": "2f2e58ba-94b5-40b1-8650-685aa0e9d05e",
+      "name": "Detect Stuck Emails"
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "={{ $json.path }}"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        288,
+        672
+      ],
+      "id": "ae1769f6-6cad-47c0-9c6b-1c5013417b5a",
+      "name": "FTP - FileZilla",
+      "credentials": {
+        "ftp": {
+          "id": "CHMhLzzzxO60UlEX",
+          "name": "FTP - FileZilla"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "EN EL MOMENTO EN EL Q EL FLUJO PUEDA REINICIAR LECTURAMAIL DEBERÁ ESPERAR O DESESTIMAR SU ULTIMA EJECUCION PARA QUE NO TOME COMO ERROR UN FLUJO PREVIO AL REINICIO O INMEDIATAMENTE POSTERIOR",
+        "height": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        192
+      ],
+      "typeVersion": 1,
+      "id": "ca19c319-7ee1-408b-812a-ddd276bf23db",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $node[\"Loop\"].json[\"channelId\"] }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $json.mensaje }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1824,
+        528
+      ],
+      "id": "c0b3ba09-d0fc-45c5-b76c-52b5b1f6edd6",
+      "name": "Send Notification",
+      "webhookId": "3a5d3601-6cbe-45db-ab32-f8f9999eee75",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const threshold = 240; // minutos\n\n// Obtener el país actual del Loop\nconst loopItem = $node[\"Loop\"].json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\n// Obtener \"ahora\" en UTC y convertir a timezone local\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - threshold * 60000);\n\nconst stuck_files = [];\n\n// En JavaScript/n8n recorremos el array 'items' directamente\nfor (const item of items) {\n  try {\n    // No hace falta to_py(), accedemos directamente a item.json\n    const fileData = item.json;\n    const dateStr = fileData.modifyTime;\n    const name = fileData.name;\n\n    if (dateStr) {\n      // JavaScript reconoce formatos ISO (con Z o sin ella) automáticamente\n      const fileDate = new Date(dateStr);\n\n      // Validamos que la fecha sea correcta\n      if (!isNaN(fileDate.getTime())) {\n        // Convertir file date a la misma timezone para comparación consistente\n        const fileInTz = new Date(fileDate.toLocaleString('en-US', { timeZone: tz }));\n        \n        // COMPARACIÓN: ¿El archivo es más viejo que el límite? (en la misma timezone)\n        if (fileInTz < limitDate) {\n          const diffMs = nowInTz - fileInTz;\n          const minsStuck = Math.floor(diffMs / (1000 * 60));\n\n          stuck_files.push({\n            \"filename\": name,\n            \"minutes_stuck\": minsStuck,\n            \"country\": country\n          });\n        }\n      }\n    }\n  } catch (e) {\n    // Si hay error en un elemento, pasamos al siguiente\n    continue;\n  }\n}\n\nconst hayAlertaFtp = stuck_files.length > 0;\n\nconst outputJson = {\n  \"alerta_ftp\": hayAlertaFtp,\n  \"cantidad_archivos\": stuck_files.length,\n  \"detalle_archivos\": stuck_files,\n  \"country\": country\n};\n\n// Retornamos el formato estándar de n8n\nreturn [{ json: outputJson }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        672
+      ],
+      "id": "9a8fa09c-d0dd-4238-a1ae-ca888f7cdd97",
+      "name": "Detect Stuck Files"
+    },
+    {
+      "parameters": {
+        "content": "## OBJETIVOS A FUTURO\n - REINICIAR LECTURA MAIL\n - CREAR TICKET \n - REINICIAR BANDEJA DESDE COMFIAR\n - SSH Y HTTP METHOD?",
+        "height": 192,
+        "width": 560
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        880
+      ],
+      "typeVersion": 1,
+      "id": "00a685cc-3f1c-4711-b9cd-584b31392aaf",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        992,
+        544
+      ],
+      "id": "ff0cdfce-1e6d-456f-ac3d-e398ee91b7ac",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "20 9-19/2 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -384,
+        560
+      ],
+      "id": "a84b950b-75e5-4619-9b6f-9c71971f365d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- CONFIGURACIÓN ---\nconst MAX_SKIPS = 3; \n\n// --- 1. OBTENER DATOS DE CONTEXTO (Loop) ---\n// Identificamos en qué vuelta del bucle estamos.\n// Usamos el nodo \"Loop\" para sacar el país actual (ARG, PER, ECU)\nconst loopItem = $node[\"Loop\"].json; \nconst currentContextKey = loopItem.country || 'UNKNOWN'; // Esta será la clave del \"cajón\"\n\n// Obtener datos de los nodos anteriores\nconst mailData = $('Detect Stuck Emails').first().json || {};\nconst ftpData = $('Detect Stuck Files').first().json || {};\n\n// Accedemos a la memoria global\nconst staticData = $getWorkflowStaticData('global');\n\n// INICIALIZAR EL \"ARCHIVADOR\"\n// Si no existe el objeto 'history', lo creamos.\nif (!staticData.history) {\n    staticData.history = {};\n}\n\n// --- 2. RECUPERAR MEMORIA ESPECÍFICA DE ESTE PAÍS ---\n// Buscamos si ya hay datos guardados para ESTE país específico\n// Si no hay, inicializamos en cero/vacío.\nconst countryMemory = staticData.history[currentContextKey] || { \n    lastSignature: \"\", \n    skipCount: 0 \n};\n\n// --- DEBUG: RAYOS X ---\nconst memoria_previa = { ...countryMemory }; // Copia para ver en el output\n\n// --- 3. EXTRAER ESTADO ACTUAL ---\nconst isMailStuck = mailData.alerta === true;\nconst isFtpStuck = ftpData.alerta_ftp === true;\n\n// Generamos las firmas (IDs)\nconst mailIds = (mailData.detalle_atascados || []).map(m => m.id).sort().join(',');\nconst ftpIds = (ftpData.detalle_archivos || []).map(f => f.filename).sort().join(',');\n\n// Firma única del problema actual\nconst currentErrorSignature = `MAIL:[${mailIds}]__FTP:[${ftpIds}]`;\n\n// --- 4. LÓGICA DE MEMORIA (Smart Filter Por País) ---\nlet lastErrorSignature = countryMemory.lastSignature;\nlet skipCount = countryMemory.skipCount;\n\nlet disparar_alerta = false;\nlet motivo = \"\";\n\nif (!isMailStuck && !isFtpStuck) {\n    // CASO A: Todo limpio\n    lastErrorSignature = \"\";\n    skipCount = 0;\n    disparar_alerta = false;\n    motivo = \"Sistema OK (Sin errores)\";\n\n} else {\n    // HAY ERRORES\n    if (currentErrorSignature !== lastErrorSignature) {\n        // CASO B: Error Nuevo\n        disparar_alerta = true;\n        skipCount = 0;\n        motivo = \"Nuevo Error Detectado\";\n    } else {\n        // CASO C: Mismo Error\n        skipCount++;\n        \n        if (skipCount >= MAX_SKIPS) {\n            // CASO D: Recordatorio\n            disparar_alerta = true;\n            skipCount = 0; \n            motivo = `🔔 Recordatorio (Intento ${MAX_SKIPS} alcanzado)`;\n        } else {\n            // CASO E: Silencio\n            disparar_alerta = false;\n            motivo = `Silenciado por contador (${skipCount}/${MAX_SKIPS})`;\n        }\n    }\n    \n    // Actualizamos las variables locales\n    lastErrorSignature = currentErrorSignature;\n}\n\n// --- 5. GUARDAR EN MEMORIA GLOBAL ---\n// Guardamos el estado actualizado DE ESTE PAÍS en el objeto principal\nstaticData.history[currentContextKey] = {\n    lastSignature: lastErrorSignature,\n    skipCount: skipCount\n};\n\n// --- 6. CONSTRUCCIÓN DEL MENSAJE (HTML para Teams) ---\nlet mensaje_teams = \"\";\n// Incluimos el PAÍS en el título para saber cuál falló\nconst tituloPrincipal = `<h2>Revision de entorno (${currentContextKey}): Lectura de MAIL y FTP KN</h2>`;\n\nif (disparar_alerta) {\n    let titulo = \"\";\n    let cuerpo = [];\n\n    if (isMailStuck && isFtpStuck) {\n        titulo = \"⚠️ ALERTA: Fallo General (Mail + FTP)\";\n    } else if (isMailStuck) {\n        titulo = \"📧 ALERTA: Correos en INBOX\";\n    } else {\n        titulo = \"📂 ALERTA: Archivos en FTP\";\n    }\n\n    if (isMailStuck) {\n        const mailCount = mailData.cantidad_atascados || 0;\n        cuerpo.push(`<strong>Mail:</strong> ${mailCount} correos trabados hace +4 horas.`);\n    }\n    \n    if (isFtpStuck) {\n        const ftpCount = ftpData.cantidad_archivos || 0;\n        cuerpo.push(`<strong>FTP:</strong> ${ftpCount} archivos sin procesar hace +4 horas.`);\n    }\n\n    mensaje_teams = `${tituloPrincipal}<br><h2>${titulo}</h2><br>${cuerpo.join('<br><br>')}<br><br><em>(Estado: ${motivo})</em>`;\n}\n\nreturn [{\n    json: {\n        pais: currentContextKey, // Dato útil para ver en el output\n        enviar_notificacion: disparar_alerta,\n        mensaje: mensaje_teams,\n        debug_motivo: motivo,\n        debug_contador: skipCount,\n        debug_memoria_anterior: memoria_previa\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        544
+      ],
+      "id": "d76c7ca1-c782-408e-9939-cd7863147e44",
+      "name": "Handle Previous Events",
+      "notes": "Se encarga de mapear los resultados previos y de armar el mensaje posterior en base a los mismos"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f6cc2dc8-19fd-4207-881d-15bb9876304e",
+              "leftValue": "={{ $json.alerta_ftp }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        672
+      ],
+      "id": "5486b063-9d8f-4552-9d8f-396bbf711a36",
+      "name": "FTP IF"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2ec6ecca-08f9-47d7-b9d7-29d04acd5592",
+              "leftValue": "={{ $json.alerta }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        768,
+        432
+      ],
+      "id": "7cd88fba-7ff3-46d7-9001-b050872e5580",
+      "name": "EMAIL IF"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5275463b-4f29-4f87-b3b8-229a0fcd506f",
+              "leftValue": "={{ $json.enviar_notificacion }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1472,
+        544
+      ],
+      "id": "2cd40382-01d6-4b9e-b4bb-fd59d1e287a5",
+      "name": "Errors Detected"
+    },
+    {
+      "parameters": {
+        "content": "## Mediante umbral de 45 minutos, se detectan archivos o emails atascados\n",
+        "height": 656,
+        "width": 198,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        528,
+        176
+      ],
+      "typeVersion": 1,
+      "id": "a6cd68a4-02dd-486b-8567-cea0125787d9",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Sigue el flujo en caso de haber atascos",
+        "height": 576,
+        "width": 150
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        736,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "52fa35c5-df62-4b34-b2b7-ece46a72c84a",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Maneja los resultados de esta ejecución y los compara con las ejecuciones previas",
+        "height": 400
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1168,
+        320
+      ],
+      "typeVersion": 1,
+      "id": "13a0a320-4198-4432-aa46-bc62676d4b73",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "Si el proceso es similar para perú y bolivia\n-Setear las credenciales a iterar sobre\n-Setear el directorio\n-Agregar bucles",
+        "height": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -448,
+        96
+      ],
+      "typeVersion": 1,
+      "id": "1df473ca-05ba-416f-b4ae-edbd209d619c",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \" \\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        560
+      ],
+      "id": "bedc449d-a1ca-4af4-b353-8d8126735b1b",
+      "name": "Set Credentials"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        32,
+        560
+      ],
+      "id": "03a77955-35af-4eef-b3d2-0fd46222671a",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "content": "## Si falla el primer entorno tendriamos que poder seguir validando el resto ",
+        "height": 208,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        864
+      ],
+      "id": "b5c41676-d9ea-469f-a6da-dea70a6e5837",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB",
+    "saveExecutionProgress": true,
+    "timeSavedPerExecution": 120
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-03T20:51:04.656Z",
+      "updatedAt": "2026-06-03T20:51:04.656Z",
+      "role": "workflow:owner",
+      "workflowId": "TSJmW2y0eB8DDIUg",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "global": {
+      "lastErrorSignature": "MAIL:[]__FTP:[Error]",
+      "skipCount": 1,
+      "history": {
+        "ARG": {
+          "lastSignature": "MAIL:[]__FTP:[Error]",
+          "skipCount": 2
+        },
+        "PER": {
+          "lastSignature": "MAIL:[]__FTP:[Error]",
+          "skipCount": 1
+        },
+        "ECU": {
+          "lastSignature": "MAIL:[]__FTP:[Error]",
+          "skipCount": 1
+        }
+      }
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    },
+    "node:Microsoft Teams Trigger": {}
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-06-03T20:51:14.751Z",
+  "versionId": "2b466f00-9d1d-40f5-baf0-ea88f0580c58"
+}
