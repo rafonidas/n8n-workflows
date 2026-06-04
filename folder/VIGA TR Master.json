@@ -252,7 +252,7 @@
         ],
         [
           {
-            "node": "If",
+            "node": "Get userInfo",
             "type": "main",
             "index": 0
           }
@@ -340,24 +340,6 @@
     "Code in JavaScript": {
       "main": [
         []
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Get userInfo",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
       ]
     }
   },
@@ -869,7 +851,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT teamsId, name, email, rrhh\nFROM dbo.NotiViga_userInfo\nWHERE email = '{{ $json.email }}';\n"
+        "query": "SELECT teamsId, name, email, rrhh\nFROM dbo.NotiViga_userInfo\nWHERE email = '{{ $json.email }}'\n  and notify = 'TRUE';"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
@@ -993,110 +975,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "628adc8c-a98f-413b-8268-4864272ddbc7",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Rolando Carlos",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "4449cc37-b1d9-4ec3-ba6d-fa6ae7ff531a",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Barrientos Audrey",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "a201fb34-9cbe-4c7e-8a0e-c18ce11dbf8c",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Gulman Ezequiel",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "c97b72e5-350c-4518-919a-372340368fe1",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Otondo Mariana",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "b953cf20-76e7-4585-932f-8439c4d0c4c6",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Rolando Carlos",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "0adacbe5-bd1d-4c27-9582-048ed3011be6",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Cubillos Jose Luis",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "453bed2f-6bfa-45c7-8388-c8c82ed652ca",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Cherepinsky Matías",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "a1f8e0be-f007-438d-9256-4a2199d96734",
-              "leftValue": "={{$json.fullName}}",
-              "rightValue": "Apaza Steeven",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "or"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -4832,
-        1504
-      ],
-      "id": "9c35815a-0346-40ba-a50e-0343d6f1cab3",
-      "name": "If"
-    },
-    {
-      "parameters": {
         "content": "## FIX JOSE / MATI"
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -1208,17 +1086,17 @@
       "recurrenceRules": []
     },
     "global": {
-      "executionId": "3748",
+      "executionId": "4699",
       "counters": {
-        "totalProcessed": 3,
-        "totalNotified": 2,
-        "totalSkipped": 1,
-        "totalError": 0
+        "totalProcessed": 24,
+        "totalNotified": 12,
+        "totalSkipped": 0,
+        "totalError": 12
       }
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-05-06T12:10:33.958Z",
-  "versionId": "cdb154ce-3494-4958-a970-f602ab352cc4"
+  "updatedAt": "2026-06-03T12:50:38.880Z",
+  "versionId": "d32e7da7-4c2a-4504-9e6b-3b6b105e7b30"
 }
