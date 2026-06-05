@@ -673,13 +673,7 @@
     },
     "SQL Execute": {
       "main": [
-        [
-          {
-            "node": "Code in JavaScript4",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Code in JavaScript4": {
@@ -695,13 +689,7 @@
     },
     "Query Loop3": {
       "main": [
-        [
-          {
-            "node": "Credentials Loop",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "Audit Start",
@@ -751,7 +739,7 @@
             {
               "keyName": "=queryId",
               "condition": "=eq",
-              "keyValue": "=51742"
+              "keyValue": "=52143"
             }
           ]
         },
@@ -760,8 +748,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -784,
-        992
+        -864,
+        1232
       ],
       "id": "01719d7a-e6db-4686-8063-168db1c40c12",
       "name": "Set Queries",
@@ -990,8 +978,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1408,
-        976
+        -1664,
+        1216
       ],
       "id": "0f58b87f-1300-4be2-977f-0bc421e069a7",
       "name": "Hourly Trigger"
@@ -1012,13 +1000,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = \"2026-04-29 7:38:19.208\";\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -528,
-        992
+        -400,
+        1200
       ],
       "id": "9e17f294-4d56-48e1-8105-e0a6fa69616a",
       "name": "Audit Start"
@@ -1304,8 +1292,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1248,
-        976
+        -1504,
+        1216
       ],
       "id": "15507e07-e49a-4767-bc74-09b8198c3443",
       "name": "Set Credentials"
@@ -2965,15 +2953,15 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "Select Top 10\n  cuitid\n  from Comprobante"
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
       },
       "id": "e9fcf7cc-b119-4d06-becf-83bcd16a7b31",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -304,
-        992
+        -224,
+        1232
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
@@ -3172,8 +3160,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -720,
-        1232
+        -624,
+        1216
       ],
       "id": "fb081645-76e3-4cae-997c-c0b2fcc01a48",
       "name": "Query Loop3"
@@ -3680,58 +3668,6 @@
           ]
         }
       }
-    ],
-    "SQL Execute": [
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      },
-      {
-        "json": {
-          "cuitid": "20136531914"
-        }
-      }
     ]
   },
   "settings": {
@@ -3762,6 +3698,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-05-12T23:54:29.221Z",
-  "versionId": "4d9842bd-ff98-4a06-a28c-5aaa4a54f85a"
+  "updatedAt": "2026-06-04T19:46:52.189Z",
+  "versionId": "75c1ab96-4d94-4727-b75f-fe94746d1a5e"
 }
