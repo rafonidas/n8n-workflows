@@ -1,0 +1,277 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Initialize Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Config": {
+      "main": [
+        [
+          {
+            "node": "Loop Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Channels": {
+      "main": [
+        [
+          {
+            "node": "Get Channel Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Channel Messages": {
+      "main": [
+        [
+          {
+            "node": "Expand Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Expand Messages": {
+      "main": [
+        [
+          {
+            "node": "Get Reply Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Reply Count": {
+      "main": [
+        [
+          {
+            "node": "Wait 500ms",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 500ms": {
+      "main": [
+        [
+          {
+            "node": "Map to Sheet Schema",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map to Sheet Schema": {
+      "main": [
+        [
+          {
+            "node": "Append to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to Sheets": {
+      "main": [
+        [
+          {
+            "node": "Wait Between Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-05T20:14:24.327Z",
+  "id": "v7K27BXSBdM2rktO",
+  "isArchived": false,
+  "meta": null,
+  "name": "teams",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4e8ea85c-0d52-4ea4-b38d-59541f416b37",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const channels = [\n  { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId: \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n  { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId: \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\" },\n  { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId: \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\" },\n  { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId: \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\" },\n  { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId: \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\" },\n  { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId: \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\" },\n  { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId: \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\" },\n  { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId: \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\" },\n  { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId: \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\" },\n  { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId: \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\" },\n  { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId: \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\" },\n  { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId: \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n  { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId: \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\" },\n  { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId: \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\" },\n  { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId: \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\" },\n  { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId: \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\" }\n];\nreturn { json: { channels, teamId: \"2f7e4d78-5cc0-4b00-bb44-372596f96fcf\", cutoffDate: \"2026-02-01T00:00:00Z\" } };"
+      },
+      "id": "6f3282d7-f3c1-4503-b9fb-fd442f191255",
+      "name": "Initialize Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "fa40f32a-4ec5-42bc-bfb1-05482a03628b",
+      "name": "Loop Channels",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/teams/2f7e4d78-5cc0-4b00-bb44-372596f96fcf/channels/{{ $json.channelId }}/messages?$filter=createdDateTime%20ge%202026-02-01T00:00:00Z&$top=50&$orderby=createdDateTime%20asc",
+        "options": {}
+      },
+      "id": "a550787d-260b-4760-bece-23b25139326c",
+      "name": "Get Channel Messages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        608,
+        0
+      ],
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json;\nconst channel = $('Loop Channels').first().json;\nconst messages = response.value || [];\nif (!messages.length) {\n  return [];\n}\nreturn messages.map(msg => ({\n  json: {\n    ...msg,\n    _channel: channel,\n    _teamId: '2f7e4d78-5cc0-4b00-bb44-372596f96fcf'\n  }\n}));"
+      },
+      "id": "a2f845e5-de41-4934-ba7b-7ddec988cbad",
+      "name": "Expand Messages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/teams/{{ $json._teamId }}/channels/{{ $json._channel.channelId }}/messages/{{ $json.id }}/replies/$count",
+        "options": {}
+      },
+      "id": "f0f3f006-ffe0-4baa-9204-73d0cca135f3",
+      "name": "Get Reply Count",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1008,
+        0
+      ],
+      "maxTries": 2,
+      "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "id": "d9055837-8e37-4f88-ad23-ae2f1ff62cec",
+      "name": "Wait 500ms",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        0
+      ],
+      "webhookId": "fb148c23-334c-4526-9f8f-edcf3d05ddbf"
+    },
+    {
+      "parameters": {
+        "jsCode": "const msg = $json;\nconst channel = msg._channel;\nconst replyCount = parseInt($response.body || '0') || 0;\n\nreturn {\n  json: {\n    messageId: msg.id,\n    channelId: channel.channelId,\n    country: channel.country,\n    entorno: channel.entorno,\n    createdDateTime: msg.createdDateTime || '',\n    authorId: msg.from?.user?.id || '',\n    authorDisplayName: msg.from?.user?.displayName || '',\n    messageType: msg.messageType || 'message',\n    reactionsJson: JSON.stringify(msg.reactions || []),\n    reactionCount: (msg.reactions || []).length,\n    replyCount: replyCount,\n    lastModifiedDateTime: msg.lastModifiedDateTime || msg.createdDateTime || '',\n    fetchedAt: new Date().toISOString()\n  }\n};"
+      },
+      "id": "3b5684b5-6e91-4fb9-9128-9e1bd1d53dcd",
+      "name": "Map to Sheet Schema",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1408,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "SHEETS_ID_PLACEHOLDER",
+          "mode": "id"
+        },
+        "sheetName": "messages",
+        "options": {}
+      },
+      "id": "5d048580-900c-409c-9c36-8bab4ad32439",
+      "name": "Append to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1600,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "id": "90c20c04-eb4a-4f51-af5f-e9837f691076",
+      "name": "Wait Between Channels",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        0
+      ],
+      "webhookId": "b7f45b82-9c1b-4734-8000-cd7a322de1f6"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-05T20:14:24.327Z",
+      "updatedAt": "2026-06-05T20:14:24.327Z",
+      "role": "workflow:owner",
+      "workflowId": "v7K27BXSBdM2rktO",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-05T20:14:24.327Z",
+  "versionId": "bfc4b4c8-8b93-41dd-9875-908c6eedea5f"
+}
