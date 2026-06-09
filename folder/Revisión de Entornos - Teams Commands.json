@@ -1,0 +1,101 @@
+{
+  "active": false,
+  "connections": {
+    "Microsoft Teams Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-08T19:19:04.275Z",
+  "id": "mm3XCBBVlL3jd1yX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Revisión de Entornos - Teams Commands",
+  "nodes": [
+    {
+      "parameters": {
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "watchAllChannels": true
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b414dbe8-e414-4215-923c-049d2954ad36",
+      "name": "Microsoft Teams Trigger",
+      "webhookId": "07120875-8086-46ae-b542-320f96a8f553",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "operation": "getAll",
+        "teamId": {
+          "__rl": true,
+          "value": "=2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "id"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "=19:TIZ_2wVKbINz6m3JxPRfSIPOkmvfw0jPTtlF3UYEVeg1@thread.tacv2",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "ad8cb2ea-c7b2-4f3a-bd9b-c31c94447546",
+      "name": "Get many messages",
+      "webhookId": "b12c9d4d-4938-4d69-832f-1644ec896f09",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-08T19:19:04.275Z",
+      "updatedAt": "2026-06-08T19:19:04.275Z",
+      "role": "workflow:owner",
+      "workflowId": "mm3XCBBVlL3jd1yX",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-08T19:59:18.874Z",
+  "versionId": "1e2c1554-2418-4c87-b09a-b1730bd73b65"
+}
