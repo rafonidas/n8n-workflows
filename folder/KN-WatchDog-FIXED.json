@@ -142,13 +142,7 @@
     },
     "Loop": {
       "main": [
-        [
-          {
-            "node": "Merge Data",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "FTP - FileZilla",
@@ -181,6 +175,11 @@
     },
     "Set Fields": {
       "main": [
+        []
+      ]
+    },
+    "If": {
+      "main": [
         [
           {
             "node": "Call 'Reiniciar Bandeja Archivos - KN'",
@@ -188,11 +187,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "If": {
-      "main": [
-        []
       ]
     }
   },
@@ -222,7 +216,7 @@
       "typeVersion": 1,
       "position": [
         496,
-        432
+        368
       ],
       "id": "62bcd959-701d-4095-a739-29e86c8c3345",
       "name": "WebMail",
@@ -237,13 +231,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const threshold = 240; // minutos\nconst stuck_emails = [];\n\n// Obtener el país actual del Loop\nconst loopItem = $node[\"Loop\"].json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\n// Obtener \"ahora\" en UTC y convertir a timezone local\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - threshold * 60000);\n\n// En n8n, 'items' es el array de entrada que recibes del nodo anterior\nfor (const item of items) {\n    try {\n        const emailData = item.json;\n        const envelope = emailData.envelope || {};\n        const dateStr = envelope.date;\n\n        if (dateStr) {\n            // JavaScript Date maneja bien el formato ISO (incluyendo la 'Z')\n            const emailDate = new Date(dateStr);\n\n            // Validamos que la fecha sea válida\n            if (!isNaN(emailDate.getTime())) {\n                // Convertir email date a la misma timezone para comparación consistente\n                const emailInTz = new Date(emailDate.toLocaleString('en-US', { timeZone: tz }));\n                \n                // COMPARACIÓN: ¿Es el email más viejo que el límite? (en la misma timezone)\n                if (emailInTz < limitDate) {\n                    // Calculamos la diferencia en minutos\n                    const diffMs = nowInTz - emailInTz;\n                    const minutesStuck = Math.floor(diffMs / (1000 * 60));\n\n                    stuck_emails.push({\n                        \"received_at\": dateStr,\n                        \"minutes_stuck\": minutesStuck,\n                        \"id\": emailData.id,\n                        \"country\": country\n                    });\n                }\n            }\n        }\n    } catch (e) {\n        // En n8n Code Node, 'continue' funciona dentro de un for...of\n        continue;\n    }\n}\n\nconst hayAlerta = stuck_emails.length > 0;\n\nconst outputJson = {\n    \"alerta\": hayAlerta,\n    \"cantidad_atascados\": stuck_emails.length,\n    \"detalle_atascados\": stuck_emails,\n    \"country\": country\n};\n\n// n8n espera que devolvamos un array de objetos con la propiedad 'json'\nreturn [{ json: outputJson }];"
+        "jsCode": "const threshold = 240; // minutos\nconst stuck_emails = [];\n\n// Obtener el país actual del Loop\nconst loopItem = $node[\"Loop\"].json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\n// Obtener \"ahora\" en UTC y convertir a timezone local\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - threshold * 60000);\n\n// En n8n, 'items' es el array de entrada que recibes del nodo anterior\nfor (const item of items) {\n    try {\n        const emailData = item.json;\n        const envelope = emailData.envelope || {};\n        const dateStr = envelope.date;\n\n        if (dateStr) {\n            // JavaScript Date maneja bien el formato ISO (incluyendo la 'Z')\n            const emailDate = new Date(dateStr);\n\n            // Validamos que la fecha sea válida\n            if (!isNaN(emailDate.getTime())) {\n                // Convertir email date a la misma timezone para comparación consistente\n                const emailInTz = new Date(emailDate.toLocaleString('en-US', { timeZone: tz }));\n                \n                // COMPARACIÓN: ¿Es el email más viejo que el límite? (en la misma timezone)\n                if (emailInTz < limitDate) {\n                    // Calculamos la diferencia en minutos\n                    const diffMs = nowInTz - emailInTz;\n                    const minutesStuck = Math.floor(diffMs / (1000 * 60));\n\n                    stuck_emails.push({\n                        \"received_at\": dateStr,\n                        \"minutes_stuck\": minutesStuck,\n                        \"id\": emailData.id,\n                        \"country\": country\n                    });\n                }\n            }\n        }\n    } catch (e) {\n        // En n8n Code Node, 'continue' funciona dentro de un for...of\n        continue;\n    }\n}\n\nconst hayAlerta = stuck_emails.length > 0;\n\nconst outputJson = {\n    \"alerta\": false,\n    \"cantidad_atascados\": stuck_emails.length,\n    \"detalle_atascados\": stuck_emails,\n    \"country\": country\n};\n\n// n8n espera que devolvamos un array de objetos con la propiedad 'json'\nreturn [{ json: outputJson }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         784,
-        432
+        368
       ],
       "id": "2f2e58ba-94b5-40b1-8650-685aa0e9d05e",
       "name": "Detect Stuck Emails"
@@ -257,7 +251,7 @@
       "typeVersion": 1,
       "position": [
         496,
-        672
+        800
       ],
       "id": "ae1769f6-6cad-47c0-9c6b-1c5013417b5a",
       "name": "FTP - FileZilla",
@@ -310,13 +304,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const threshold = 240; // minutos\n\n// Obtener el país actual del Loop\nconst loopItem = $node[\"Loop\"].json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\n// Obtener \"ahora\" en UTC y convertir a timezone local\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - threshold * 60000);\n\nconst stuck_files = [];\n\n// En JavaScript/n8n recorremos el array 'items' directamente\nfor (const item of items) {\n  try {\n    // No hace falta to_py(), accedemos directamente a item.json\n    const fileData = item.json;\n    const dateStr = fileData.modifyTime;\n    const name = fileData.name;\n\n    if (dateStr) {\n      // JavaScript reconoce formatos ISO (con Z o sin ella) automáticamente\n      const fileDate = new Date(dateStr);\n\n      // Validamos que la fecha sea correcta\n      if (!isNaN(fileDate.getTime())) {\n        // Convertir file date a la misma timezone para comparación consistente\n        const fileInTz = new Date(fileDate.toLocaleString('en-US', { timeZone: tz }));\n        \n        // COMPARACIÓN: ¿El archivo es más viejo que el límite? (en la misma timezone)\n        if (fileInTz < limitDate) {\n          const diffMs = nowInTz - fileInTz;\n          const minsStuck = Math.floor(diffMs / (1000 * 60));\n\n          stuck_files.push({\n            \"filename\": name,\n            \"minutes_stuck\": minsStuck,\n            \"country\": country\n          });\n        }\n      }\n    }\n  } catch (e) {\n    // Si hay error en un elemento, pasamos al siguiente\n    continue;\n  }\n}\n\nconst hayAlertaFtp = stuck_files.length > 0;\n\nconst outputJson = {\n  \"alerta_ftp\": hayAlertaFtp,\n  \"cantidad_archivos\": stuck_files.length,\n  \"detalle_archivos\": stuck_files,\n  \"country\": country\n};\n\n// Retornamos el formato estándar de n8n\nreturn [{ json: outputJson }];"
+        "jsCode": "const threshold = 240; // minutos\n\n// Obtener el país actual del Loop\nconst loopItem = $node[\"Loop\"].json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\n// Obtener \"ahora\" en UTC y convertir a timezone local\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - threshold * 60000);\n\nconst stuck_files = [];\n\n// En JavaScript/n8n recorremos el array 'items' directamente\nfor (const item of items) {\n  try {\n    // No hace falta to_py(), accedemos directamente a item.json\n    const fileData = item.json;\n    const dateStr = fileData.modifyTime;\n    const name = fileData.name;\n\n    if (dateStr) {\n      // JavaScript reconoce formatos ISO (con Z o sin ella) automáticamente\n      const fileDate = new Date(dateStr);\n\n      // Validamos que la fecha sea correcta\n      if (!isNaN(fileDate.getTime())) {\n        // Convertir file date a la misma timezone para comparación consistente\n        const fileInTz = new Date(fileDate.toLocaleString('en-US', { timeZone: tz }));\n        \n        // COMPARACIÓN: ¿El archivo es más viejo que el límite? (en la misma timezone)\n        if (fileInTz < limitDate) {\n          const diffMs = nowInTz - fileInTz;\n          const minsStuck = Math.floor(diffMs / (1000 * 60));\n\n          stuck_files.push({\n            \"filename\": name,\n            \"minutes_stuck\": minsStuck,\n            \"country\": country\n          });\n        }\n      }\n    }\n  } catch (e) {\n    // Si hay error en un elemento, pasamos al siguiente\n    continue;\n  }\n}\n\nconst hayAlertaFtp = stuck_files.length > 0;\n\nconst outputJson = {\n  \"alerta_ftp\": true,\n  \"cantidad_archivos\": 2,\n  \"detalle_archivos\": stuck_files,\n  \"country\": country\n};\n\n// Retornamos el formato estándar de n8n\nreturn [{ json: outputJson }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         784,
-        672
+        800
       ],
       "id": "9a8fa09c-d0dd-4238-a1ae-ca888f7cdd97",
       "name": "Detect Stuck Files"
@@ -394,8 +388,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        976,
-        672
+        1008,
+        800
       ],
       "id": "5486b063-9d8f-4552-9d8f-396bbf711a36",
       "name": "FTP IF"
@@ -416,7 +410,7 @@
               "rightValue": "",
               "operator": {
                 "type": "boolean",
-                "operation": "false",
+                "operation": "true",
                 "singleValue": true
               }
             }
@@ -429,7 +423,7 @@
       "typeVersion": 2.2,
       "position": [
         976,
-        432
+        368
       ],
       "id": "7cd88fba-7ff3-46d7-9001-b050872e5580",
       "name": "EMAIL IF"
@@ -470,7 +464,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \" \\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
+        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Vow&45\",\n      \"WSurl\":\"https://app.comfiar.com.ar/WSCOMFIAR/\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-PE-WEB/D$/Test/Directorios/FTP/20347845150/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Oxs@612416\",\n      \"WSurl\":\"https://app.comfiar.com.pe/ws/\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \" \\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Voy>87\",\n\"WSurl\":\"https://app.comfiar.com.ec/wscomfiar/\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -512,21 +506,21 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        768,
-        144
+        576,
+        192
       ],
       "id": "58765e91-57cf-427f-9d08-302b04fd802b",
       "name": "Call 'Reiniciar Bandeja Archivos - KN'"
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all().map(i => i.json);\n\nconst paraReiniciar = items\n  .filter(item => item.alerta === true) // solo correos atascados\n  .map(item => ({\n    country: item.country,\n    bandejaId: item.bandejaId,        // ya viene de Set Credentials\n    url: item.url,                    // ya viene\n    user: item.user,                  // ya viene\n    password: item.password,          // ya viene\n    cantidad_atascados: item.cantidad_atascados,\n    timezone: item.timezone\n  }));\n\nreturn [{ \n  json: { \n    bandejas: paraReiniciar,\n    timestamp: new Date().toISOString()\n  } \n}];"
+        "jsCode": "// 1. Obtener credenciales y armar el diccionario\nconst itemsCredentials = $items(\"Set Credentials\");\nconst credentialsMap = itemsCredentials.reduce((acc, item) => {\n  const cred = item.json;\n  const llavePais = cred.country || cred.pais; \n  if (llavePais) acc[llavePais] = cred;\n  return acc;\n}, {});\n\n// 2. LA MAGIA REAL: Reconstruir el historial usando el \"Run Index\"\n// Sabemos que el loop dio tantas vueltas como credenciales tengamos\nconst totalVueltas = itemsCredentials.length;\nconst historialCorreos = [];\n\n// Obligamos a n8n a buscar en su memoria, iteración por iteración\nfor (let vuelta = 0; vuelta < totalVueltas; vuelta++) {\n    try {\n        // Parámetros: (\"Nombre del Nodo\", IndiceDeSalida, IndiceDeIteracion)\n        const resultadoVuelta = $items(\"Detect Stuck Emails\", 0, vuelta);\n        \n        // Si la vuelta existió y devolvió algo, la guardamos\n        if (resultadoVuelta && resultadoVuelta.length > 0) {\n            historialCorreos.push(resultadoVuelta[0].json);\n        }\n    } catch (error) {\n        // Si por algún motivo una vuelta falló (ej. error de red en IMAP), no rompemos el código\n        console.log(`No se encontraron datos de correo para la vuelta ${vuelta}`);\n    }\n}\n\n// 3. Filtrar y mapear basados EXCLUSIVAMENTE en el arreglo consolidado\nconst paraReiniciar = historialCorreos\n  .filter(correo => correo.alerta === true) \n  .map(correo => {\n    const creds = credentialsMap[correo.country]; \n\n\n    return {\n      pais: correo.country,\n      bandejaId: creds.bandejaId,\n      url: creds.WSurl,\n      user: creds.WSuser,\n      password: creds.WSpass,\n      channelId: creds.channelId\n    };\n  });\n\n// 4. Retornar el array listo para procesar los reinicios\nreturn { json: { bandejas: paraReiniciar } };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         160,
-        144
+        176
       ],
       "id": "ff25ec22-2654-4b7b-8006-827675b1399b",
       "name": "Merge Data"
@@ -538,8 +532,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        560,
-        144
+        384,
+        -16
       ],
       "id": "09452d1c-3d5d-4549-a8b1-1104d95b0c9e",
       "name": "Set Fields"
@@ -556,11 +550,11 @@
           "conditions": [
             {
               "id": "c0f9fce2-3087-42be-b1e2-6a805b155151",
-              "leftValue": "={{ $json.alerta }}",
+              "leftValue": "={{ $json.bandejas }}",
               "rightValue": "",
               "operator": {
-                "type": "boolean",
-                "operation": "true",
+                "type": "array",
+                "operation": "notEmpty",
                 "singleValue": true
               }
             }
@@ -572,14 +566,85 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        368,
-        144
+        320,
+        176
       ],
       "id": "41b257b9-c18f-492d-b0b3-e945af5e4f14",
       "name": "If"
+    },
+    {
+      "parameters": {
+        "content": "## Agregar credenciales del webservice + id de bandejas para reiniciar\n## enviar todo directamente al flujo de  reinicio ",
+        "height": 352,
+        "width": 368
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        160
+      ],
+      "id": "af410102-2104-4653-9ec4-ebc06703b92c",
+      "name": "Sticky Note"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2026-06-08T11:14:53.502-03:00",
+          "Readable date": "June 8th 2026, 11:14:53 am",
+          "Readable time": "11:14:53 am",
+          "Day of week": "Monday",
+          "Year": "2026",
+          "Month": "June",
+          "Day of month": "08",
+          "Hour": "11",
+          "Minute": "14",
+          "Second": "53",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+        }
+      }
+    ],
+    "Merge Data": [
+      {
+        "json": {
+          "bandejas": [
+            {
+              "pais": "ARG",
+              "cantidad_atascados": 0,
+              "bandejaId": "\\\\COMFIAR-AR-WEB\\D$\\COMFIAR\\Directorios\\FTP\\localuser\\30608517746\\PDF",
+              "url": "webmail.la.comfiar.com.ar",
+              "user": "kn@la.comfiar.com.ar",
+              "password": "Apg0000001!",
+              "timezone": "America/Argentina/Buenos_Aires",
+              "channelId": "19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2"
+            },
+            {
+              "pais": "PER",
+              "cantidad_atascados": 0,
+              "bandejaId": "\\\\COMFIAR-PE-WEB\\D$\\Test\\Directorios\\FTP\\20347845150\\pdf",
+              "url": "webmail.la.comfiar.com.ec",
+              "user": "kn@la.comfiar.com.pe",
+              "password": "Apg0000001",
+              "timezone": "America/Lima",
+              "channelId": "19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2"
+            },
+            {
+              "pais": "ECU",
+              "cantidad_atascados": 0,
+              "bandejaId": "\\\\COMFIAR-EC-WEB\\D$\\COMFIAR_EC\\Directorios\\FTP\\0991321764001\\pdf",
+              "url": "webmail.la.comfiar.com.ec",
+              "user": "kn@la.comfiar.com.ec",
+              "password": "Apg0000001",
+              "timezone": "America/Guayaquil",
+              "channelId": "19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2"
+            }
+          ]
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -627,6 +692,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-05T20:55:56.540Z",
-  "versionId": "7c238b7d-e4d5-4744-bd6d-a290e6f2ac64"
+  "updatedAt": "2026-06-08T20:55:54.485Z",
+  "versionId": "ab1c884b-89e4-4a35-a584-d7afb256ad96"
 }
