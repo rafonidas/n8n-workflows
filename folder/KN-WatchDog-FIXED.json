@@ -9,6 +9,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Log Error",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -28,6 +35,13 @@
         [
           {
             "node": "Detect Stuck Files",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Error",
             "type": "main",
             "index": 0
           }
@@ -142,7 +156,13 @@
     },
     "Loop": {
       "main": [
-        [],
+        [
+          {
+            "node": "Merge Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "FTP - FileZilla",
@@ -173,16 +193,22 @@
         ]
       ]
     },
-    "Set Fields": {
-      "main": [
-        []
-      ]
-    },
     "If": {
       "main": [
         [
           {
             "node": "Call 'Reiniciar Bandeja Archivos - KN'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Error": {
+      "main": [
+        [
+          {
+            "node": "Send Notification",
             "type": "main",
             "index": 0
           }
@@ -227,7 +253,8 @@
           "id": "HXYRvlu8I9nQlbVM",
           "name": "IMAP-KN"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -236,8 +263,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        784,
-        368
+        752,
+        352
       ],
       "id": "2f2e58ba-94b5-40b1-8650-685aa0e9d05e",
       "name": "Detect Stuck Emails"
@@ -250,8 +277,8 @@
       "type": "n8n-nodes-base.ftp",
       "typeVersion": 1,
       "position": [
-        496,
-        800
+        512,
+        880
       ],
       "id": "ae1769f6-6cad-47c0-9c6b-1c5013417b5a",
       "name": "FTP - FileZilla",
@@ -260,21 +287,24 @@
           "id": "CHMhLzzzxO60UlEX",
           "name": "FTP - FileZilla"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
           "mode": "list",
-          "cachedResultName": "Notificaciones Soporte"
+          "cachedResultName": "n8n notifications"
         },
         "channelId": {
           "__rl": true,
-          "value": "={{ $node[\"Loop\"].json[\"channelId\"] }}",
-          "mode": "id"
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
         },
         "contentType": "html",
         "message": "={{ $json.mensaje }}",
@@ -299,8 +329,7 @@
           "id": "wRTXroRHWhyLiVUq",
           "name": "N8N-TeamsAccount"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -309,8 +338,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        784,
-        800
+        800,
+        864
       ],
       "id": "9a8fa09c-d0dd-4238-a1ae-ca888f7cdd97",
       "name": "Detect Stuck Files"
@@ -388,8 +417,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1008,
-        800
+        1024,
+        864
       ],
       "id": "5486b063-9d8f-4552-9d8f-396bbf711a36",
       "name": "FTP IF"
@@ -422,8 +451,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        976,
-        368
+        960,
+        352
       ],
       "id": "7cd88fba-7ff3-46d7-9001-b050872e5580",
       "name": "EMAIL IF"
@@ -464,7 +493,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Vow&45\",\n      \"WSurl\":\"https://app.comfiar.com.ar/WSCOMFIAR/\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-PE-WEB/D$/Test/Directorios/FTP/20347845150/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Oxs@612416\",\n      \"WSurl\":\"https://app.comfiar.com.pe/ws/\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \" \\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Voy>87\",\n\"WSurl\":\"https://app.comfiar.com.ec/wscomfiar/\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
+        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Vow&45\",\n      \"WSurl\":\"https://app.comfiar.com.ar/WSCOMFIAR/\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-PE-WEB/D$/Test/Directorios/FTP/20347845150/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Oxs@612416\",\n      \"WSurl\":\"https://app.comfiar.com.pe/ws/\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\",\n      \"bandejaId\": \"//COMFIAR-EC-WEB/D$/COMFIAR_EC/Directorios/FTP/0991321764001/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Voy>87\",\n      \"WSurl\":\"https://app.comfiar.com.ec/wscomfiar/\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -506,8 +535,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        576,
-        192
+        720,
+        160
       ],
       "id": "58765e91-57cf-427f-9d08-302b04fd802b",
       "name": "Call 'Reiniciar Bandeja Archivos - KN'"
@@ -524,19 +553,6 @@
       ],
       "id": "ff25ec22-2654-4b7b-8006-827675b1399b",
       "name": "Merge Data"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        384,
-        -16
-      ],
-      "id": "09452d1c-3d5d-4549-a8b1-1104d95b0c9e",
-      "name": "Set Fields"
     },
     {
       "parameters": {
@@ -574,18 +590,31 @@
     },
     {
       "parameters": {
-        "content": "## Agregar credenciales del webservice + id de bandejas para reiniciar\n## enviar todo directamente al flujo de  reinicio ",
-        "height": 352,
-        "width": 368
+        "content": "## Notificacion personalizada en erroes\n\n## Notificar al equipo el error, pedir que realicen la validacion manual o revisar por qué falló\n\n## Detallar error, pueden ser bloqueos, credenciqales, rutas, cambios.",
+        "height": 448,
+        "width": 432
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -432,
-        160
+        -448,
+        768
       ],
-      "id": "af410102-2104-4653-9ec4-ebc06703b92c",
-      "name": "Sticky Note"
+      "id": "b6c4d089-c10f-4048-94d9-2fd499521136",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        528
+      ],
+      "id": "c08c8b60-5162-4aab-a285-0fd019d5a1cc",
+      "name": "Log Error"
     }
   ],
   "pinData": {
@@ -692,6 +721,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-08T20:55:54.485Z",
-  "versionId": "ab1c884b-89e4-4a35-a584-d7afb256ad96"
+  "updatedAt": "2026-06-09T20:02:49.949Z",
+  "versionId": "d7514b3b-359d-448e-92f2-9e2e04dae043"
 }
