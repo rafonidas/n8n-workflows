@@ -12,23 +12,6 @@
         ]
       ]
     },
-    "Buscar Ultimo Reinicio": {
-      "main": [
-        [
-          {
-            "node": "En Cooldown?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "En Cooldown?": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "XML Login": {
       "main": [
         [
@@ -55,19 +38,14 @@
       "main": [
         [
           {
-            "node": "Loop Over Items",
+            "node": "Set Success",
             "type": "main",
             "index": 0
           }
         ],
-        []
-      ]
-    },
-    "Armar Log": {
-      "main": [
         [
           {
-            "node": "Log Reinicio",
+            "node": "Set Error Log",
             "type": "main",
             "index": 0
           }
@@ -105,6 +83,79 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Set Error Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Success": {
+      "main": [
+        [
+          {
+            "node": "Set HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Message": {
+      "main": [
+        [
+          {
+            "node": "Set Log2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set HTML": {
+      "main": [
+        [
+          {
+            "node": "Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Error Log": {
+      "main": [
+        [
+          {
+            "node": "Set HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Log2": {
+      "main": [
+        [
+          {
+            "node": "Log Reinicio2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Reinicio2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     }
@@ -112,7 +163,9 @@
   "createdAt": "2026-06-03T14:16:27.413Z",
   "id": "Ab6O8KkFpe810Dvo",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Reiniciar Bandeja Archivos - KN",
   "nodes": [
     {
@@ -122,69 +175,11 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1392,
+        -1424,
         336
       ],
       "id": "42c60631-d081-4025-a07a-7169c2134155",
       "name": "When Executed by Watchdog"
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "value": "zgqgyumkPpthcCmD",
-          "mode": "list",
-          "cachedResultName": "reinicio-bandejas",
-          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/zgqgyumkPpthcCmD"
-        },
-        "returnAll": true
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [
-        -272,
-        128
-      ],
-      "id": "7c823b51-118e-4339-9f15-cea30b0e4d28",
-      "name": "Buscar Ultimo Reinicio",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput",
-      "notes": "TODO: seleccionar tabla 'reinicio_bandeja_log' y (opcional) filtrar por entorno. Si tu version de n8n usa otros params, reconfigurar en UI."
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "c0000000-0000-4000-8000-000000000001",
-              "leftValue": "={{ $json.enCooldown }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        0,
-        128
-      ],
-      "id": "70c9f0fd-3f59-489e-adf3-0f3e012f0be3",
-      "name": "En Cooldown?"
     },
     {
       "parameters": {
@@ -193,7 +188,7 @@
       "type": "n8n-nodes-base.xml",
       "typeVersion": 1,
       "position": [
-        -160,
+        -528,
         352
       ],
       "id": "4596b562-e517-457d-812e-4d0cfeb71f46",
@@ -234,7 +229,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        32,
+        -304,
         352
       ],
       "id": "7df9c7ad-6a5e-4af0-a421-f06c1ee0a174",
@@ -243,7 +238,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $json.WSurl }}?op=ReiniciarBandejaArchivos",
+        "url": "={{ $json.WSurl ´´ }}?op=ReiniciarBandejaArchivos",
         "sendBody": true,
         "contentType": "raw",
         "rawContentType": "text/xml",
@@ -253,49 +248,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        240,
+        -80,
         352
       ],
       "id": "13476632-7562-4298-921e-4ec88161e0d3",
       "name": "ReiniciarBandejaArchivos",
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "const cfg = $('Resolver Config').item.json;\nconst http = $input.first().json;\nconst raw = typeof http.data === 'string' ? http.data : JSON.stringify(http.data || http);\nconst fault = /soap:Fault|Exception|<faultstring>/i.test(raw);\nconst errored = !!http.error || fault;\nreturn [{ json: {\n  timestamp: new Date().toISOString(),\n  entorno: cfg.entorno,\n  bandejaId: cfg.bandejaId,\n  motivo: cfg.motivo || '',\n  archivos_count: cfg.archivos_count != null ? cfg.archivos_count : null,\n  ws_status: errored ? 'fail' : 'success',\n  ws_response_raw: String(raw).slice(0, 2000),\n  resultado: errored ? 'fail' : 'success'\n}}];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        512,
-        544
-      ],
-      "id": "ccc08ef5-78ea-419b-a2f4-9850b702882c",
-      "name": "Armar Log"
-    },
-    {
-      "parameters": {
-        "dataTableId": {
-          "__rl": true,
-          "value": "",
-          "mode": "list"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [
-        720,
-        544
-      ],
-      "id": "9ef3d49c-f61e-4e77-90b5-06c98ec6e2a7",
-      "name": "Log Reinicio",
-      "onError": "continueRegularOutput",
-      "notes": "TODO: seleccionar tabla 'reinicio_bandeja_log' y mapear columnas: timestamp, entorno, bandejaId, motivo, archivos_count, ws_status, ws_response_raw, resultado."
     },
     {
       "parameters": {
@@ -316,11 +274,13 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -416,
-        352
+        -752,
+        432
       ],
       "id": "7a08bd8d-c729-4b9e-bfac-9f190b8263c0",
-      "name": "WebService Log In Dinámico"
+      "name": "WebService Log In Dinámico",
+      "executeOnce": false,
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -329,7 +289,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1136,
+        -1200,
         336
       ],
       "id": "27476ba6-4e60-4d52-94cb-4432c47aa52a",
@@ -342,7 +302,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -704,
+        -976,
         336
       ],
       "id": "318eeed5-5cf3-44bf-9635-b8384a6e6d49",
@@ -350,16 +310,123 @@
     },
     {
       "parameters": {
-        "content": "## configurar logs\n## "
+        "jsCode": "// Detectar tipo de resultado\nconst input = $input.first().json;\nconst isError = !!input.error;\nconst currentCountry = $('Loop Over Items').first().json.country\n\n\n// En el loop tenemos los datos de la bandeja\nconst bandeja = input;\nconst country = bandeja.country || currentCountry || 'UNKNOWN';\n\nlet messageType = 'success';\nlet errorMsg = '';\n\nif (isError) {\n  // Distinguir si es error de login o de reinicio\n  // Heurística: si tenemos StatusCode y no hay token parseado, fue login\n  // Si llegamos al nodo de reinicio pero falla, fue restart\n  \n  // Por ahora: asumir que si Error en WebService Log In, es login_error\n  // Si error después de token, es restart_error\n  // Chequeamos por presencia de SesionId\n  \n  if (input.SesionId) {\n    messageType = 'restart_error';\n  } else {\n    messageType = 'login_error';\n  }\n  errorMsg = input.error?.message || String(input.error).slice(0, 200);\n} else {\n  // Si no hay error, pero viene de ReiniciarBandejaArchivos, validar SOAP response\n  const raw = typeof input.data === 'string' ? input.data : JSON.stringify(input || {});\n  if (/soap:Fault|<faultstring>/i.test(raw)) {\n    messageType = 'restart_error';\n    const faultMatch = raw.match(/<faultstring>(.*?)<\\/faultstring>/);\n    errorMsg = faultMatch ? faultMatch[1] : 'SOAP Fault en respuesta';\n  }\n}\n\nreturn [{\n  json: {\n    messageType,\n    errorMsg: errorMsg || '',\n    country,\n    errorTimestamp: new Date().toISOString(),\n  }\n}];"
       },
-      "type": "n8n-nodes-base.stickyNote",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        528
+      ],
+      "id": "7d83f48e-5cf2-440d-a976-20b73d7667b4",
+      "name": "Set Error Log"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nreturn [{\n  json: {\n    timestamp: input.timestamp,\n    entorno: input.country,\n    ws_status: input.messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: input.wsResponseRaw || '',\n    resultado: input.messageType === 'success' ? 'success' : 'fail'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        304
+      ],
+      "id": "d0123f05-9f31-4390-a5c3-1c8969a1cd74",
+      "name": "Set Success"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.text }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        592,
+        432
+      ],
+      "id": "e6cdc882-49d5-410a-9c7a-cdd34b474c87",
+      "name": "Send Message",
+      "webhookId": "ba92f9d7-f7c7-4dc8-9da7-96d61f0ac11c",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst { messageType, country, errorMsg, errorTimestamp } = input;\n\n// 1. Definimos un diccionario de zonas horarias por país\nconst timezones = {\n  'ARG': 'America/Argentina/Buenos_Aires',\n  'ECU': 'America/Guayaquil',\n  'PER': 'America/Lima'\n};\n\n// 2. Buscamos la zona horaria del país. \n// Si country viene vacío o no está en la lista, el || asegura que use Argentina por defecto.\nconst selectedTimeZone = timezones[country] || 'America/Argentina/Buenos_Aires';\n\nconst time = new Date(errorTimestamp).toLocaleString('es-AR', {\n  timeZone: selectedTimeZone,\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit'\n});\n\nlet text = '';\n\n// 3. Formateo de la salida en HTML usando <strong> y <br>\nif (messageType === 'success') {\n  text = `✅ <strong>Reinicio Exitoso</strong><br>País: ${country}<br>Hora: ${time}`;\n} else if (messageType === 'login_error') {\n  text = `❌ <strong>Error de Conexión</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n} else if (messageType === 'restart_error') {\n  text = `⚠️ <strong>Falla al Reiniciar</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n}\n\nreturn [{\n  json: {\n    text\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        432
+      ],
+      "id": "ef86955f-e653-490f-a20f-0bd72cd7e86d",
+      "name": "Set HTML"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "zgqgyumkPpthcCmD",
+          "mode": "list",
+          "cachedResultName": "reinicio-bandejas",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/zgqgyumkPpthcCmD"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -752,
-        80
+        992,
+        512
       ],
-      "id": "e1b423fd-f004-4cb9-9e30-2b7fd8f52688",
-      "name": "Sticky Note"
+      "id": "4004aa64-c39b-4c1f-8352-fb9977bd7f44",
+      "name": "Log Reinicio2",
+      "onError": "continueRegularOutput",
+      "notes": "TODO: seleccionar tabla 'reinicio_bandeja_log' y mapear columnas: timestamp, entorno, bandejaId, motivo, archivos_count, ws_status, ws_response_raw, resultado."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recupera los datos de Set Error Log o Set Success para guardar en tabla\n// Se ejecuta DENTRO del loop, después de enviar el mensaje\n\nlet messageType = 'success';\nlet country = 'UNKNOWN';\nlet errorMsg = '';\nlet timestamp = new Date().toISOString();\n\nlet teamsMessage = $input.first().json\n\n// Intentar obtener de Set Error Log (si hubo error)\ntry {\n  const errorLogData = $('Set Error Log').first().json;\n  if (errorLogData && errorLogData.messageType) {\n    messageType = errorLogData.messageType;\n    country = errorLogData.country || country;\n    errorMsg = errorLogData.errorMsg || '';\n    timestamp = errorLogData.errorTimestamp || timestamp;\n  }\n} catch (e) {\n  // Si no hay Set Error Log, fue Set Success\n  try {\n    const successData = $('Set Success').first().json;\n    if (successData) {\n      messageType = 'success';\n      timestamp = successData.timestamp || timestamp;\n      // country se obtiene del Loop\n      country = $('Loop Over Items').first().json.country || country;\n    }\n  } catch (e2) {\n    // Fallback: usar datos del input actual\n    const input = $input.first().json;\n    country = input.country || country;\n  }\n}\n\nreturn [{\n  json: {\n    timestamp,\n    entorno: country,\n    ws_status: messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: errorMsg.slice(0, 2000) || '',\n    resultado: messageType === 'success' ? 'success' : 'fail',\n    teams: teamsMessage.id,\n    teamsTimestamp: teamsMessage.createdDateTime,\n    teams: teamsMessage\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        432
+      ],
+      "id": "8dea5b1e-6746-4d27-8e91-10b468a0d511",
+      "name": "Set Log2"
     }
   ],
   "pinData": {
@@ -376,7 +443,7 @@
               "path": "\\30608517746\\PDF",
               "host": "172.17.1.60",
               "channelId": "19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2",
-              "bandejaId": "//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF",
+              "bandejaId": "//COMFIAR-AR-WEB/D$/COMFfxFIAR/Directorios/FTP/localuser/30608517746/PDF",
               "WSuser": "WSN8N",
               "WSpass": "Vow&45",
               "WSurl": "https://app.comfiar.com.ar/WSCOMFIAR/"
@@ -391,7 +458,7 @@
               "host": "172.17.1.14",
               "channelId": "19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2",
               "bandejaId": "//COMFIAR-PE-WEB/D$/Test/Directorios/FTP/20347845150/pdf",
-              "WSuser": "WSN8N",
+              "WSuser": "WSN8NN",
               "WSpass": "Oxs@612416",
               "WSurl": "https://app.comfiar.com.pe/ws/"
             },
@@ -412,6 +479,26 @@
           ]
         }
       }
+    ],
+    "Set Error Log": [
+      {
+        "json": {
+          "messageType": "restart_error",
+          "errorMsg": "500 - \"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\"?><soap:Envelope xmlns:soap=\\\"http://schemas.xmlsoap.org/soap/envelope/\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\" xmlns:xsd=\\\"http://www.w3.org/2001/XMLSchema\\\"><soap:Body><soap:Fault><faultcode>soap:Client</faultcode><faultstring>System.Web.Services.Protocols.SoapException: No existe la bandeja con el id especificado.\\r\\n   at ComfiarWS.WSComfiar.ReiniciarBandejaArchivos(TokenWS token, String bandejaId)</faultstring><detail /></soap:Fault></soap:Body></soap:Envelope>\"",
+          "country": "ARG",
+          "errorTimestamp": "2026-06-09T20:09:37.738Z"
+        }
+      }
+    ],
+    "Set Success": [
+      {
+        "json": {
+          "timestamp": "ASD",
+          "ws_status": "success",
+          "ws_response_raw": "REINICIADO",
+          "resultado": "success"
+        }
+      }
     ]
   },
   "settings": {
@@ -429,6 +516,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-08T20:59:20.550Z",
-  "versionId": "4c932d5a-e384-426e-ac15-e52e309e3411"
+  "updatedAt": "2026-06-09T22:04:51.230Z",
+  "versionId": "67dd7d6d-93fe-40a5-a4d8-d03faafc6f0e"
 }
