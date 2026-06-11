@@ -93,22 +93,11 @@
         ]
       ]
     },
-    "Set Success": {
-      "main": [
-        [
-          {
-            "node": "Set HTML",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Send Message": {
       "main": [
         [
           {
-            "node": "Set Log2",
+            "node": "Set Log",
             "type": "main",
             "index": 0
           }
@@ -137,22 +126,33 @@
         ]
       ]
     },
-    "Set Log2": {
+    "Set Log": {
       "main": [
         [
           {
-            "node": "Log Reinicio2",
+            "node": "Log Reinicio",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Log Reinicio2": {
+    "Log Reinicio": {
       "main": [
         [
           {
             "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Success": {
+      "main": [
+        [
+          {
+            "node": "Set HTML",
             "type": "main",
             "index": 0
           }
@@ -238,7 +238,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $json.WSurl ´´ }}?op=ReiniciarBandejaArchivos",
+        "url": "={{ $json.WSurl }}?op=ReiniciarBandejaArchivos",
         "sendBody": true,
         "contentType": "raw",
         "rawContentType": "text/xml",
@@ -310,29 +310,16 @@
     },
     {
       "parameters": {
-        "jsCode": "// Detectar tipo de resultado\nconst input = $input.first().json;\nconst isError = !!input.error;\nconst currentCountry = $('Loop Over Items').first().json.country\n\n\n// En el loop tenemos los datos de la bandeja\nconst bandeja = input;\nconst country = bandeja.country || currentCountry || 'UNKNOWN';\n\nlet messageType = 'success';\nlet errorMsg = '';\n\nif (isError) {\n  // Distinguir si es error de login o de reinicio\n  // Heurística: si tenemos StatusCode y no hay token parseado, fue login\n  // Si llegamos al nodo de reinicio pero falla, fue restart\n  \n  // Por ahora: asumir que si Error en WebService Log In, es login_error\n  // Si error después de token, es restart_error\n  // Chequeamos por presencia de SesionId\n  \n  if (input.SesionId) {\n    messageType = 'restart_error';\n  } else {\n    messageType = 'login_error';\n  }\n  errorMsg = input.error?.message || String(input.error).slice(0, 200);\n} else {\n  // Si no hay error, pero viene de ReiniciarBandejaArchivos, validar SOAP response\n  const raw = typeof input.data === 'string' ? input.data : JSON.stringify(input || {});\n  if (/soap:Fault|<faultstring>/i.test(raw)) {\n    messageType = 'restart_error';\n    const faultMatch = raw.match(/<faultstring>(.*?)<\\/faultstring>/);\n    errorMsg = faultMatch ? faultMatch[1] : 'SOAP Fault en respuesta';\n  }\n}\n\nreturn [{\n  json: {\n    messageType,\n    errorMsg: errorMsg || '',\n    country,\n    errorTimestamp: new Date().toISOString(),\n  }\n}];"
+        "jsCode": "// Detectar tipo de resultado\nconst input = $input.first().json;\nconst isError = !!input.error;\nconst currentCountry = $('Loop Over Items1').first().json.country\n\n\n// En el loop tenemos los datos de la bandeja\nconst bandeja = input;\nconst country = bandeja.country || currentCountry || 'UNKNOWN';\n\nlet messageType = 'success';\nlet errorMsg = '';\n\nif (isError) {\n  // Distinguir si es error de login o de reinicio\n  // Heurística: si tenemos StatusCode y no hay token parseado, fue login\n  // Si llegamos al nodo de reinicio pero falla, fue restart\n  \n  // Por ahora: asumir que si Error en WebService Log In, es login_error\n  // Si error después de token, es restart_error\n  // Chequeamos por presencia de SesionId\n  \n  if (input.SesionId) {\n    messageType = 'restart_error';\n  } else {\n    messageType = 'login_error';\n  }\n  errorMsg = input.error?.message || String(input.error).slice(0, 200);\n} else {\n  // Si no hay error, pero viene de ReiniciarBandejaArchivos, validar SOAP response\n  const raw = typeof input.data === 'string' ? input.data : JSON.stringify(input || {});\n  if (/soap:Fault|<faultstring>/i.test(raw)) {\n    messageType = 'restart_error';\n    const faultMatch = raw.match(/<faultstring>(.*?)<\\/faultstring>/);\n    errorMsg = faultMatch ? faultMatch[1] : 'SOAP Fault en respuesta';\n  }\n}\n\n// Limpiar mensaje de error si viene del servidor (SOAP Exception)\n// Extrae solo el mensaje de la excepción, eliminando el stack trace\nif (errorMsg && errorMsg.includes('Exception: ')) {\n  try {\n    errorMsg = errorMsg.split('Exception: ')[1].split(/\\r\\n|\\n/)[0].trim();\n  } catch (e) {\n    // Si falla la limpieza, mantener el original\n  }\n}\n\nreturn [{\n  json: {\n    messageType,\n    country,\n    errorMsg: errorMsg || '',\n    timestamp: new Date().toISOString(),\n    ws_status: 'fail',\n    ws_response_raw: errorMsg.slice(0, 2000) || ''\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         144,
-        528
+        448
       ],
       "id": "7d83f48e-5cf2-440d-a976-20b73d7667b4",
       "name": "Set Error Log"
-    },
-    {
-      "parameters": {
-        "jsCode": "const input = $input.first().json;\n\nreturn [{\n  json: {\n    timestamp: input.timestamp,\n    entorno: input.country,\n    ws_status: input.messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: input.wsResponseRaw || '',\n    resultado: input.messageType === 'success' ? 'success' : 'fail'\n  }\n}];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        144,
-        304
-      ],
-      "id": "d0123f05-9f31-4390-a5c3-1c8969a1cd74",
-      "name": "Set Success"
     },
     {
       "parameters": {
@@ -359,8 +346,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        592,
-        432
+        512,
+        448
       ],
       "id": "e6cdc882-49d5-410a-9c7a-cdd34b474c87",
       "name": "Send Message",
@@ -374,16 +361,29 @@
     },
     {
       "parameters": {
-        "jsCode": "const input = $input.first().json;\nconst { messageType, country, errorMsg, errorTimestamp } = input;\n\n// 1. Definimos un diccionario de zonas horarias por país\nconst timezones = {\n  'ARG': 'America/Argentina/Buenos_Aires',\n  'ECU': 'America/Guayaquil',\n  'PER': 'America/Lima'\n};\n\n// 2. Buscamos la zona horaria del país. \n// Si country viene vacío o no está en la lista, el || asegura que use Argentina por defecto.\nconst selectedTimeZone = timezones[country] || 'America/Argentina/Buenos_Aires';\n\nconst time = new Date(errorTimestamp).toLocaleString('es-AR', {\n  timeZone: selectedTimeZone,\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit'\n});\n\nlet text = '';\n\n// 3. Formateo de la salida en HTML usando <strong> y <br>\nif (messageType === 'success') {\n  text = `✅ <strong>Reinicio Exitoso</strong><br>País: ${country}<br>Hora: ${time}`;\n} else if (messageType === 'login_error') {\n  text = `❌ <strong>Error de Conexión</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n} else if (messageType === 'restart_error') {\n  text = `⚠️ <strong>Falla al Reiniciar</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n}\n\nreturn [{\n  json: {\n    text\n  }\n}];"
+        "jsCode": "const input = $input.first().json;\nconst { messageType, country, errorMsg, timestamp } = input;\n\n// 1. Definimos un diccionario de zonas horarias por país\nconst timezones = {\n  'ARG': 'America/Argentina/Buenos_Aires',\n  'ECU': 'America/Guayaquil',\n  'PER': 'America/Lima'\n};\n\n// 2. Buscamos la zona horaria del país. \n// Si country viene vacío o no está en la lista, el || asegura que use Argentina por defecto.\nconst selectedTimeZone = timezones[country] || 'America/Argentina/Buenos_Aires';\n\nconst time = new Date(timestamp).toLocaleString('es-AR', {\n  timeZone: selectedTimeZone,\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit'\n});\n\nlet text = '';\n\n// 3. Formateo de la salida en HTML usando <strong> y <br>\nif (messageType === 'success') {\n  text = `✅ <strong>Reinicio Exitoso</strong><br><strong>País:</strong> ${country}<br><strong>Hora:</strong> ${time}`;\n} else if (messageType === 'login_error') {\n  text = `❌ <strong>Error de Conexión</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n} else if (messageType === 'restart_error') {\n  text = `⚠️ <strong>Falla al Reiniciar</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n}\n\nreturn [{\n  json: {\n    text\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        368,
-        432
+        336,
+        448
       ],
       "id": "ef86955f-e653-490f-a20f-0bd72cd7e86d",
       "name": "Set HTML"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recupera los datos de Set Error Log o Set Success para guardar en tabla\n// Se ejecuta DENTRO del loop, después de enviar el mensaje\n\nlet messageType = 'success';\nlet country = 'UNKNOWN';\nlet errorMsg = '';\nlet timestamp = new Date().toISOString();\n\nlet teamsMessage = $input.first().json\n\n// Intentar obtener de Set Error Log (si hubo error)\ntry {\n  const errorLogData = $('Set Error Log').first().json;\n  if (errorLogData && errorLogData.messageType) {\n    messageType = errorLogData.messageType;\n    country = errorLogData.country || country;\n    errorMsg = errorLogData.errorMsg || '';\n    timestamp = errorLogData.errorTimestamp || timestamp;\n  }\n} catch (e) {\n  // Si no hay Set Error Log, fue Set Success\n  try {\n    const successData = $('Set Success').first().json;\n    if (successData) {\n      messageType = 'success';\n      timestamp = successData.timestamp || timestamp;\n      // country se obtiene del Loop\n      country = $('Loop Over Items').first().json.country || country;\n    }\n  } catch (e2) {\n    // Fallback: usar datos del input actual\n    const input = $input.first().json;\n    country = input.country || country;\n  }\n}\n\nreturn [{\n  json: {\n    timestamp,\n    entorno: country,\n    ws_status: messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: errorMsg,\n    resultado: messageType === 'success' ? 'success' : 'fail',\n    teamsMsgId: teamsMessage.id,\n    teamsTimestamp: teamsMessage.createdDateTime,\n    teamsMsg: teamsMessage.messageType,\n    executionId: $execution.id\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        736,
+        448
+      ],
+      "id": "8dea5b1e-6746-4d27-8e91-10b468a0d511",
+      "name": "Set Log"
     },
     {
       "parameters": {
@@ -395,10 +395,91 @@
           "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/zgqgyumkPpthcCmD"
         },
         "columns": {
-          "mappingMode": "defineBelow",
+          "mappingMode": "autoMapInputData",
           "value": {},
           "matchingColumns": [],
-          "schema": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "ws_status",
+              "displayName": "ws_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "ws_response_raw",
+              "displayName": "ws_response_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "resultado",
+              "displayName": "resultado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "teamsMsgId",
+              "displayName": "teamsMsgId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "teamsTimestamp",
+              "displayName": "teamsTimestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "teamsMsg",
+              "displayName": "teamsMsg",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
           "attemptToConvertTypes": false,
           "convertFieldsToString": false
         },
@@ -411,96 +492,25 @@
         512
       ],
       "id": "4004aa64-c39b-4c1f-8352-fb9977bd7f44",
-      "name": "Log Reinicio2",
+      "name": "Log Reinicio",
       "onError": "continueRegularOutput",
       "notes": "TODO: seleccionar tabla 'reinicio_bandeja_log' y mapear columnas: timestamp, entorno, bandejaId, motivo, archivos_count, ws_status, ws_response_raw, resultado."
     },
     {
       "parameters": {
-        "jsCode": "// Recupera los datos de Set Error Log o Set Success para guardar en tabla\n// Se ejecuta DENTRO del loop, después de enviar el mensaje\n\nlet messageType = 'success';\nlet country = 'UNKNOWN';\nlet errorMsg = '';\nlet timestamp = new Date().toISOString();\n\nlet teamsMessage = $input.first().json\n\n// Intentar obtener de Set Error Log (si hubo error)\ntry {\n  const errorLogData = $('Set Error Log').first().json;\n  if (errorLogData && errorLogData.messageType) {\n    messageType = errorLogData.messageType;\n    country = errorLogData.country || country;\n    errorMsg = errorLogData.errorMsg || '';\n    timestamp = errorLogData.errorTimestamp || timestamp;\n  }\n} catch (e) {\n  // Si no hay Set Error Log, fue Set Success\n  try {\n    const successData = $('Set Success').first().json;\n    if (successData) {\n      messageType = 'success';\n      timestamp = successData.timestamp || timestamp;\n      // country se obtiene del Loop\n      country = $('Loop Over Items').first().json.country || country;\n    }\n  } catch (e2) {\n    // Fallback: usar datos del input actual\n    const input = $input.first().json;\n    country = input.country || country;\n  }\n}\n\nreturn [{\n  json: {\n    timestamp,\n    entorno: country,\n    ws_status: messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: errorMsg.slice(0, 2000) || '',\n    resultado: messageType === 'success' ? 'success' : 'fail',\n    teams: teamsMessage.id,\n    teamsTimestamp: teamsMessage.createdDateTime,\n    teams: teamsMessage\n  }\n}];"
+        "jsCode": "// Procesa un resultado exitoso de reinicio\n// Devuelve estructura normalizada igual a Set Error Log\nconst input = $input.first().json;\nconst country = input.country || $('Loop Over Items').first().json.country || 'UNKNOWN';\n\nreturn [{\n  json: {\n    messageType: 'success',\n    country,\n    errorMsg: null,\n    timestamp: new Date().toISOString(),\n    ws_status: 'success',\n    ws_response_raw: null\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        768,
-        432
+        144,
+        272
       ],
-      "id": "8dea5b1e-6746-4d27-8e91-10b468a0d511",
-      "name": "Set Log2"
+      "id": "eddb9bcd-183d-40aa-966d-2d5cbb0b42c3",
+      "name": "Set Success"
     }
   ],
-  "pinData": {
-    "When Executed by Watchdog": [
-      {
-        "json": {
-          "bandejas": [
-            {
-              "country": "ARG",
-              "timezone": "America/Argentina/Buenos_Aires",
-              "user": "kn@la.comfiar.com.ar",
-              "password": "Apg0000001!",
-              "url": "webmail.la.comfiar.com.ar",
-              "path": "\\30608517746\\PDF",
-              "host": "172.17.1.60",
-              "channelId": "19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2",
-              "bandejaId": "//COMFIAR-AR-WEB/D$/COMFfxFIAR/Directorios/FTP/localuser/30608517746/PDF",
-              "WSuser": "WSN8N",
-              "WSpass": "Vow&45",
-              "WSurl": "https://app.comfiar.com.ar/WSCOMFIAR/"
-            },
-            {
-              "country": "PER",
-              "timezone": "America/Lima",
-              "user": "kn@la.comfiar.com.pe",
-              "password": "Apg0000001",
-              "url": "webmail.la.comfiar.com.ec",
-              "path": "\\20347845150\\PDF",
-              "host": "172.17.1.14",
-              "channelId": "19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2",
-              "bandejaId": "//COMFIAR-PE-WEB/D$/Test/Directorios/FTP/20347845150/pdf",
-              "WSuser": "WSN8NN",
-              "WSpass": "Oxs@612416",
-              "WSurl": "https://app.comfiar.com.pe/ws/"
-            },
-            {
-              "country": "ECU",
-              "timezone": "America/Guayaquil",
-              "user": "kn@la.comfiar.com.ec",
-              "password": "Apg0000001",
-              "url": "webmail.la.comfiar.com.ec",
-              "path": " \\0991321764001\\pdf",
-              "host": "172.17.1.11",
-              "channelId": "19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2",
-              "bandejaId": "//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF",
-              "WSuser": "WSN8N",
-              "WSpass": "Voy>87",
-              "WSurl": "https://app.comfiar.com.ec/wscomfiar/"
-            }
-          ]
-        }
-      }
-    ],
-    "Set Error Log": [
-      {
-        "json": {
-          "messageType": "restart_error",
-          "errorMsg": "500 - \"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\"?><soap:Envelope xmlns:soap=\\\"http://schemas.xmlsoap.org/soap/envelope/\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\" xmlns:xsd=\\\"http://www.w3.org/2001/XMLSchema\\\"><soap:Body><soap:Fault><faultcode>soap:Client</faultcode><faultstring>System.Web.Services.Protocols.SoapException: No existe la bandeja con el id especificado.\\r\\n   at ComfiarWS.WSComfiar.ReiniciarBandejaArchivos(TokenWS token, String bandejaId)</faultstring><detail /></soap:Fault></soap:Body></soap:Envelope>\"",
-          "country": "ARG",
-          "errorTimestamp": "2026-06-09T20:09:37.738Z"
-        }
-      }
-    ],
-    "Set Success": [
-      {
-        "json": {
-          "timestamp": "ASD",
-          "ws_status": "success",
-          "ws_response_raw": "REINICIADO",
-          "resultado": "success"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
@@ -516,6 +526,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-09T22:04:51.230Z",
-  "versionId": "67dd7d6d-93fe-40a5-a4d8-d03faafc6f0e"
+  "updatedAt": "2026-06-10T13:54:39.422Z",
+  "versionId": "959d2bd7-e7f0-4b73-8f9f-94916aab4d15"
 }
