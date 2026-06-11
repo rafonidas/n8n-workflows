@@ -27,18 +27,7 @@
       "main": [
         [
           {
-            "node": "Get Channel Messages",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Channel Messages": {
-      "main": [
-        [
-          {
-            "node": "Expand Messages",
+            "node": "Get many messages",
             "type": "main",
             "index": 0
           }
@@ -99,12 +88,25 @@
           }
         ]
       ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Expand Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-06-08T12:59:58.673Z",
   "id": "Vg6xK7pD3Txw6sFj",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Teams-audit",
   "nodes": [
     {
@@ -143,23 +145,6 @@
         400,
         0
       ]
-    },
-    {
-      "parameters": {
-        "url": "=https://graph.microsoft.com/v1.0/teams/2f7e4d78-5cc0-4b00-bb44-372596f96fcf/channels/{{ $json.channelId }}/messages?$filter=createdDateTime%20ge%202026-02-01T00:00:00Z&$top=50&$orderby=createdDateTime%20asc",
-        "options": {}
-      },
-      "id": "e65c1443-4371-426c-9ebe-252e62b02edb",
-      "name": "Get Channel Messages",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        608,
-        0
-      ],
-      "maxTries": 2,
-      "waitBetweenTries": 5000,
-      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -225,6 +210,10 @@
           "mode": "id"
         },
         "sheetName": "messages",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
         "options": {}
       },
       "id": "1e648b7f-c607-4a17-a210-3aafea5980b5",
@@ -254,6 +243,40 @@
         0
       ],
       "webhookId": "efa9c12b-4f36-4426-b7a7-fbceb42a654d"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "operation": "getAll",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $('Initialize Config').item.json.channels[0].channelId }}",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "d6081b85-029c-40f5-b5f1-34ab9ed09e7e",
+      "name": "Get many messages",
+      "webhookId": "797bf583-2f79-47c4-8037-b5f9c7222b13",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      },
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -272,6 +295,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-08T12:59:58.673Z",
-  "versionId": "b1c576ed-a9ce-4902-91c2-35a3e3bee335"
+  "updatedAt": "2026-06-10T20:49:38.691Z",
+  "versionId": "e2d30bd0-c5ce-49c3-b66a-5975d0b1ae99"
 }
