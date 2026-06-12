@@ -25,53 +25,15 @@
     },
     "Loop Channels": {
       "main": [
+        [],
         [
           {
             "node": "Get many messages",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Expand Messages": {
-      "main": [
-        [
+          },
           {
-            "node": "Get Reply Count",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Reply Count": {
-      "main": [
-        [
-          {
-            "node": "Wait 500ms",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait 500ms": {
-      "main": [
-        [
-          {
-            "node": "Map to Sheet Schema",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Map to Sheet Schema": {
-      "main": [
-        [
-          {
-            "node": "Append to Sheets",
+            "node": "reaction",
             "type": "main",
             "index": 0
           }
@@ -82,7 +44,7 @@
       "main": [
         [
           {
-            "node": "Wait Between Channels",
+            "node": "Loop Channels",
             "type": "main",
             "index": 0
           }
@@ -93,11 +55,27 @@
       "main": [
         [
           {
-            "node": "Expand Messages",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
         ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "reaction": {
+      "main": [
+        []
       ]
     }
   },
@@ -116,21 +94,21 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        -112,
+        128
       ]
     },
     {
       "parameters": {
-        "jsCode": "const channels = [\n  { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId: \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n  { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId: \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\" },\n  { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId: \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\" },\n  { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId: \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\" },\n  { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId: \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\" },\n  { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId: \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\" },\n  { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId: \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\" },\n  { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId: \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\" },\n  { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId: \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\" },\n  { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId: \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\" },\n  { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId: \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\" },\n  { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId: \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n  { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId: \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\" },\n  { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId: \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\" },\n  { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId: \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\" },\n  { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId: \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\" }\n];\nreturn { json: { channels, teamId: \"2f7e4d78-5cc0-4b00-bb44-372596f96fcf\", cutoffDate: \"2026-02-01T00:00:00Z\" } };"
+        "jsCode": "const channels = [\n  { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId: \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n  { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId: \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\" },\n  { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId: \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\" },\n  { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId: \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\" },\n  { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId: \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\" },\n  { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId: \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\" },\n  { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId: \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\" },\n  { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId: \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\" },\n  { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId: \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\" },\n  { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId: \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\" },\n  { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId: \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\" },\n  { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId: \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n  { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId: \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\" },\n  { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId: \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\" },\n  { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId: \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\" },\n  { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId: \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\" }\n];\nreturn  channels"
       },
       "id": "4d403fd6-2f67-4049-909c-240c6854693f",
       "name": "Initialize Config",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        208,
-        0
+        96,
+        128
       ]
     },
     {
@@ -142,63 +120,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        400,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "const response = $json;\nconst channel = $('Loop Channels').first().json;\nconst messages = response.value || [];\nif (!messages.length) {\n  return [];\n}\nreturn messages.map(msg => ({\n  json: {\n    ...msg,\n    _channel: channel,\n    _teamId: '2f7e4d78-5cc0-4b00-bb44-372596f96fcf'\n  }\n}));"
-      },
-      "id": "cc729616-21fd-4bb5-9786-bb5962f83abe",
-      "name": "Expand Messages",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        800,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "url": "=https://graph.microsoft.com/v1.0/teams/{{ $json._teamId }}/channels/{{ $json._channel.channelId }}/messages/{{ $json.id }}/replies/$count",
-        "options": {}
-      },
-      "id": "f80fe671-3b41-4e27-9a35-0cceb29dd930",
-      "name": "Get Reply Count",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1008,
-        0
-      ],
-      "maxTries": 2,
-      "waitBetweenTries": 2000,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {},
-      "id": "cc76ee87-b0e8-42d3-8594-9005bfe32c16",
-      "name": "Wait 500ms",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1,
-      "position": [
-        1200,
-        0
-      ],
-      "webhookId": "895ce00d-2ace-4693-bc9f-49c2f189dca6"
-    },
-    {
-      "parameters": {
-        "jsCode": "const msg = $json;\nconst channel = msg._channel;\nconst replyCount = parseInt($response.body || '0') || 0;\n\nreturn {\n  json: {\n    messageId: msg.id,\n    channelId: channel.channelId,\n    country: channel.country,\n    entorno: channel.entorno,\n    createdDateTime: msg.createdDateTime || '',\n    authorId: msg.from?.user?.id || '',\n    authorDisplayName: msg.from?.user?.displayName || '',\n    messageType: msg.messageType || 'message',\n    reactionsJson: JSON.stringify(msg.reactions || []),\n    reactionCount: (msg.reactions || []).length,\n    replyCount: replyCount,\n    lastModifiedDateTime: msg.lastModifiedDateTime || msg.createdDateTime || '',\n    fetchedAt: new Date().toISOString()\n  }\n};"
-      },
-      "id": "e1bb5206-698f-4e11-8b13-a9abafbb8bdd",
-      "name": "Map to Sheet Schema",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1408,
-        0
+        288,
+        128
       ]
     },
     {
@@ -206,13 +129,86 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "SHEETS_ID_PLACEHOLDER",
-          "mode": "id"
+          "value": "1EcoY9kScVvZJzSNvK3jGN1MoFwcrJod6THB2hki0TZw",
+          "mode": "list",
+          "cachedResultName": "teamsMessages",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcoY9kScVvZJzSNvK3jGN1MoFwcrJod6THB2hki0TZw/edit?usp=drivesdk"
         },
-        "sheetName": "messages",
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcoY9kScVvZJzSNvK3jGN1MoFwcrJod6THB2hki0TZw/edit#gid=0"
+        },
         "columns": {
-          "mappingMode": "defineBelow",
-          "value": {}
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "createdDateTime",
+              "displayName": "createdDateTime",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "channelId",
+              "displayName": "channelId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reactions",
+              "displayName": "reactions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reactionType",
+              "displayName": "reactionType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reactorUserId",
+              "displayName": "reactorUserId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
         },
         "options": {}
       },
@@ -221,8 +217,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1600,
-        0
+        896,
+        128
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -233,39 +229,29 @@
       "onError": "continueErrorOutput"
     },
     {
-      "parameters": {},
-      "id": "c7bbf023-20f6-4954-b9b8-65b8a7b336a2",
-      "name": "Wait Between Channels",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1,
-      "position": [
-        1808,
-        0
-      ],
-      "webhookId": "efa9c12b-4f36-4426-b7a7-fbceb42a654d"
-    },
-    {
       "parameters": {
         "resource": "channelMessage",
         "operation": "getAll",
         "teamId": {
           "__rl": true,
-          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
-          "mode": "list",
-          "cachedResultName": "Notificaciones Soporte"
+          "value": "=2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
         },
         "channelId": {
           "__rl": true,
-          "value": "={{ $('Initialize Config').item.json.channels[0].channelId }}",
-          "mode": "id"
+          "value": "19:c81deee8b1fb41348b36a3684fd53a81@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Errores",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ac81deee8b1fb41348b36a3684fd53a81%40thread.tacv2/Errores?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
-        "returnAll": true
+        "limit": 1
       },
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        624,
-        0
+        544,
+        128
       ],
       "id": "d6081b85-029c-40f5-b5f1-34ab9ed09e7e",
       "name": "Get many messages",
@@ -275,11 +261,191 @@
           "id": "Yyblo5OMavkgN1oD",
           "name": "Teams"
         }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bee91e66-855e-4e40-a03d-53147619dade",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "78fedce8-5fab-4afd-a224-dc9e27dec686",
+              "name": "timestamp",
+              "value": "={{ $json.createdDateTime }}",
+              "type": "string"
+            },
+            {
+              "id": "b370475f-f495-4223-9fa2-affe3df39954",
+              "name": "channelId",
+              "value": "={{ $('Loop Channels').item.json.channelId }}",
+              "type": "string"
+            },
+            {
+              "id": "97eea53d-0989-4581-9d02-b4310889cd65",
+              "name": "reactions",
+              "value": "={{ $json.reactions.length > 0 }}",
+              "type": "string"
+            },
+            {
+              "id": "14e92412-b686-4d62-bb20-09363d67ae25",
+              "name": "reactionType",
+              "value": "={{ $json.reactions.length > 0 ? $json.reactions[0].reactionType : false }}",
+              "type": "string"
+            },
+            {
+              "id": "55e53ec1-9349-4e1c-8008-495835b73190",
+              "name": "reactorUserId",
+              "value": "={{ $json.reactions.length > 0 ? $json.reactions[0].user.user.id : false }}",
+              "type": "string"
+            },
+            {
+              "id": "a8f7fb1a-e59a-4d55-81b9-59c74c2ee828",
+              "name": "reactionTimestamp",
+              "value": "={{$json.reactions.length > 0 ? $json.reactions[0].createdDateTime : false  }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
       },
-      "disabled": true
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        736,
+        128
+      ],
+      "id": "86319b80-5a2c-48c8-89d4-bef72ac92d53",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -64
+      ],
+      "id": "0892409c-2ff1-4989-89f8-d5b0460ffc18",
+      "name": "reaction"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "reaction": [
+      {
+        "json": {
+          "id": "1781187606231",
+          "replyToId": null,
+          "etag": "1781188165597",
+          "messageType": "message",
+          "createdDateTime": "2026-06-11T14:20:06.231Z",
+          "lastModifiedDateTime": "2026-06-11T14:29:25.597Z",
+          "lastEditedDateTime": null,
+          "deletedDateTime": null,
+          "subject": null,
+          "summary": null,
+          "chatId": null,
+          "importance": "normal",
+          "locale": "en-us",
+          "webUrl": "https://teams.microsoft.com/l/message/19%3AKqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1%40thread.tacv2/1781187606231?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&createdTime=1781187606231&parentMessageId=1781187606231",
+          "onBehalfOf": null,
+          "policyViolation": null,
+          "eventDetail": null,
+          "from": {
+            "application": null,
+            "device": null,
+            "user": {
+              "@odata.type": "#microsoft.graph.teamworkUserIdentity",
+              "id": "dc249723-4f57-4995-bdc6-836ab587c0fd",
+              "displayName": "APG Consulting Notificaciones",
+              "userIdentityType": "aadUser",
+              "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336"
+            }
+          },
+          "body": {
+            "contentType": "html",
+            "content": "<h2>Revision de entorno (ARG): Lectura de MAIL y FTP KN</h2>\n<br>\n<h2>📂 ALERTA: Archivos en FTP</h2>\n<br>\n<strong>FTP:</strong> 1 archivos sin procesar hace +4 horas.<br>\n<br>\n<em>(Estado: 🔔 Recordatorio (Intento 3 alcanzado))</em>"
+          },
+          "channelIdentity": {
+            "teamId": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+            "channelId": "19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2"
+          },
+          "attachments": [],
+          "mentions": [],
+          "reactions": [
+            {
+              "reactionType": "👍",
+              "displayName": "Yes",
+              "reactionContentUrl": null,
+              "createdDateTime": "2026-06-11T14:29:25.605Z",
+              "user": {
+                "application": null,
+                "device": null,
+                "user": {
+                  "@odata.type": "#microsoft.graph.teamworkUserIdentity",
+                  "id": "f96b6dc9-e548-4910-9a88-12914eadc110",
+                  "displayName": null,
+                  "userIdentityType": "aadUser",
+                  "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "Get many messages": [
+      {
+        "json": {
+          "id": "1781183177158",
+          "replyToId": null,
+          "etag": "1781183177158",
+          "messageType": "message",
+          "createdDateTime": "2026-06-11T13:06:17.158Z",
+          "lastModifiedDateTime": "2026-06-11T13:06:17.158Z",
+          "lastEditedDateTime": null,
+          "deletedDateTime": null,
+          "subject": null,
+          "summary": null,
+          "chatId": null,
+          "importance": "normal",
+          "locale": "en-us",
+          "webUrl": "https://teams.microsoft.com/l/message/19%3Ac81deee8b1fb41348b36a3684fd53a81%40thread.tacv2/1781183177158?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&createdTime=1781183177158&parentMessageId=1781183177158",
+          "onBehalfOf": null,
+          "policyViolation": null,
+          "eventDetail": null,
+          "from": {
+            "application": null,
+            "device": null,
+            "user": {
+              "@odata.type": "#microsoft.graph.teamworkUserIdentity",
+              "id": "dc249723-4f57-4995-bdc6-836ab587c0fd",
+              "displayName": "APG Consulting Notificaciones",
+              "userIdentityType": "aadUser",
+              "tenantId": "f89f7128-f0c6-4302-9881-8e0697d39336"
+            }
+          },
+          "body": {
+            "contentType": "html",
+            "content": "<b>Workflow Error:</b> Revisión de Entornos<br>\n\n<br>\n\n<b>SQL Execute</b> at 2026-06-11 13:06<br>\n\n<br>\n\n<b>Failed at:</b> AR - APP (Query ID: 51627)<br>\n\n<br>\n\n<b>The error message was:</b> Connection lost - socket hang up<br>\n\n<br>\n\n<br>\n<br>\n<small><b>Technical Stack:</b> ConnectionError: Connection lost - socket hang up\n    at connectListener (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/mssql@10.0.2/node_modules/mssql/lib/tedious/connection-pool.js:85:17)\n    at Connection.onError (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/connection.ts:1764:9)\n    at Object.onceWrapper (node:events:633:26)\n    at Connection.emit (node:events:530:35)\n    at Connection.emit (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/connection.ts:1902:18)\n    at Connection.socketError (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/connection.ts:2313:12)\n    at Connection.socketEnd (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/connection.ts:2326:12)\n    at Socket. (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/connection.ts:1997:35)\n    at Socket.emit (node:events:530:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at processTicksAndRejections (node:internal/process/task_queues:90:21)...</small>"
+          },
+          "channelIdentity": {
+            "teamId": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+            "channelId": "19:c81deee8b1fb41348b36a3684fd53a81@thread.tacv2"
+          },
+          "attachments": [],
+          "mentions": [],
+          "reactions": []
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
@@ -295,6 +461,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-10T20:49:38.691Z",
-  "versionId": "e2d30bd0-c5ce-49c3-b66a-5975d0b1ae99"
+  "updatedAt": "2026-06-11T15:18:42.892Z",
+  "versionId": "8cee8e84-1de9-493f-924a-d9a2f54c0854"
 }
