@@ -1,6 +1,18 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
+    "Send Results1": {
+      "main": [
+        [
+          {
+            "node": "Teams Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
     "Daily Trigger": {
       "main": [
         [
@@ -16,7 +28,7 @@
       "main": [
         [
           {
-            "node": "Set tasks?",
+            "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
@@ -45,7 +57,19 @@
       "main": [
         [
           {
-            "node": "Filter Queries",
+            "node": "Query Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Set Queries",
             "type": "main",
             "index": 0
           }
@@ -92,40 +116,7 @@
         ]
       ]
     },
-    "Weekly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Monthly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Fan Out": {
-      "main": [
-        [
-          {
-            "node": "Query Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Bi-hourly Trigger": {
       "main": [
         [
           {
@@ -152,46 +143,6 @@
         [
           {
             "node": "Set  HTML",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Nightly Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter Queries": {
-      "main": [
-        [
-          {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Fan Out",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Credentials Loop",
             "type": "main",
             "index": 0
           }
@@ -253,11 +204,12 @@
       "main": [
         [
           {
-            "node": "Audit End",
+            "node": "If error ",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Four-hourly Trigger": {
@@ -265,28 +217,6 @@
         [
           {
             "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "When Executed by Another Workflow": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Set Tasks": {
-      "main": [
-        [
-          {
-            "node": "Set Tasks State",
             "type": "main",
             "index": 0
           }
@@ -333,11 +263,6 @@
         ]
       ]
     },
-    "Send Results Retry": {
-      "main": [
-        []
-      ]
-    },
     "Wait1": {
       "main": [
         [
@@ -378,29 +303,6 @@
         ]
       ]
     },
-    "Set tasks?": {
-      "main": [
-        [
-          {
-            "node": "Set Tasks",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Credentials Loop",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Credentials Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Update Metrics1": {
       "main": [
         [
@@ -412,12 +314,504 @@
         ]
       ]
     },
-    "Credentials Loop": {
+    "Classify Error": {
+      "main": [
+        [
+          {
+            "node": "Is Transient?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Transient?": {
+      "main": [
+        [
+          {
+            "node": "SQL Retry",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Retry": {
+      "main": [
+        [
+          {
+            "node": "Audit End",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Audit End (Error)": {
+      "main": [
+        []
+      ]
+    },
+    "If error ": {
+      "main": [
+        [
+          {
+            "node": "Classify Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "manual": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weekly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan Out": {
+      "main": [
+        [
+          {
+            "node": "Query Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bi-hourly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Queries": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Fan Out",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Error Type": {
+      "main": [
+        [
+          {
+            "node": "Audit End1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Tasks": {
+      "main": [
+        [
+          {
+            "node": "Set Tasks State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set tasks?": {
+      "main": [
+        [
+          {
+            "node": "Set Tasks",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials1": {
+      "main": [
+        [
+          {
+            "node": "Set tasks?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Loop1": {
+      "main": [
+        [
+          {
+            "node": "Fan In1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit Start1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Queries1": {
+      "main": [
+        [
+          {
+            "node": "Filter Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop1": {
       "main": [
         [],
         [
           {
-            "node": "Set Queries",
+            "node": "Set Queries1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Results1": {
+      "main": [
+        [
+          {
+            "node": "Query Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results2": {
+      "main": [
+        [
+          {
+            "node": "Check Execution1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set  HTML1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan In1": {
+      "main": [
+        [
+          {
+            "node": "Set  HTML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Random Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Credentials Loop1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hourly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit End1": {
+      "main": [
+        [
+          {
+            "node": "Update Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit Start1": {
+      "main": [
+        [
+          {
+            "node": "SQL Execute1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Execute1": {
+      "main": [
+        [
+          {
+            "node": "Check Error Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Four-hourly Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Tasks1": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Wait1": {
+      "main": [
+        [
+          {
+            "node": "Send Results2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Error1": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Send Results Retry3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results Retry3": {
+      "main": [
+        [
+          {
+            "node": "Check Execution1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Execution1": {
+      "main": [
+        [
+          {
+            "node": "Update Tasks1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Metrics": {
+      "main": [
+        [
+          {
+            "node": "Map Results1",
             "type": "main",
             "index": 0
           }
@@ -425,8 +819,8 @@
       ]
     }
   },
-  "createdAt": "2026-01-11T13:58:51.809Z",
-  "id": "3Bmd3g640coLDTeO",
+  "createdAt": "2026-01-14T18:39:13.443Z",
+  "id": "ABtvnJIXyOxaiexU",
   "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
@@ -435,15 +829,154 @@
   "nodes": [
     {
       "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "=53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        -1264
+      ],
+      "id": "cab7e3c7-55e3-47d8-b999-98b2b16a16ac",
+      "name": "Send Results1",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/beta/teams/53f577e2-4094-42b5-8a8b-695b91d0d74f/channels/19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"body\": {\n      \"contentType\": \"html\",\n      \"content\": $json.htmlContent\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1344,
+        -1280
+      ],
+      "id": "793860a9-bb3c-4898-9213-4abd742b12a9",
+      "name": "Teams Message",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users?$select=id,displayName,userPrincipalName",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        -1440
+      ],
+      "id": "2c932196-57f9-41b4-b06c-269b0ea1df6d",
+      "name": "Get user ids",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/teams/2f7e4d78-5cc0-4b00-bb44-372596f96fcf/channels/19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2/messages/1773735645079/replies",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1344,
+        -1440
+      ],
+      "id": "ab2cc8d7-2933-4b17-bf8b-c9b3ff63e89f",
+      "name": "Get user ids1",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
         "content": "Dashboards de datos especificos de la bbdd?\n"
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1392,
-        -160
+        1712,
+        -1552
       ],
       "typeVersion": 1,
-      "id": "61c7721c-16dd-435d-a830-5472c9752d13",
+      "id": "133fbfc2-0f2d-43a9-b082-bfb2d4b272fc",
       "name": "Sticky Note"
     },
     {
@@ -460,25 +993,25 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1280,
-        672
+        -848,
+        -752
       ],
-      "id": "0b590625-7fd5-4e23-b7cd-44e19fe49a39",
+      "id": "dd7bcaaf-5ffa-42cc-b9b2-14b0a4aa9554",
       "name": "Daily Trigger",
       "alwaysOutputData": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = \"Monthly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n} else if ($(\"When Executed by Another Workflow\").isExecuted) {\n  executionType = 'Backup';\n}\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst serverSQL_Cines = {\n  server: \"172.17.0.150\",\n  db_info: [\n    { db: \"COMFIAR_CINES\", entorno: \"CINES\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"}\n  ],\n  port: 1433, \n  user: \"Soporte\",\n  password: \"FaLla:1+\"\n};\n\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\nconst dbsCines = mapDbs(serverSQL_Cines);\n\nlet listaMaestra = [...dbsArg, ...dbsCines, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
+        "jsCode": "let executionType = 'Daily';\n\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n// { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    // { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    // { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    // { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    // { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    // { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    // { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    // { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    // { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    // { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -592,
-        992
+        256,
+        -416
       ],
-      "id": "bcb0ddb3-e851-4779-829e-a482fe0e5a9b",
+      "id": "9d4bfcdb-748d-4fc8-8079-452afe313642",
       "name": "Set Credentials"
     },
     {
@@ -490,10 +1023,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1168,
-        1024
+        848,
+        -384
       ],
-      "id": "df88fce4-f2fe-4f2b-a0d0-bc2dfc34126a",
+      "id": "cc57a091-4bc2-4ffa-af3c-bbb2b2306f6e",
       "name": "Query Loop"
     },
     {
@@ -510,9 +1043,9 @@
         "filters": {
           "conditions": [
             {
-              "keyName": "=type",
+              "keyName": "=queryId",
               "condition": "=eq",
-              "keyValue": "={{ $json.type }}"
+              "keyValue": "=51742"
             }
           ]
         },
@@ -521,10 +1054,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        368,
-        1024
+        640,
+        -544
       ],
-      "id": "b593a45a-2954-433f-89e0-ef161e999401",
+      "id": "9d769631-4c4c-4bf5-936c-3238c9176e17",
       "name": "Set Queries",
       "retryOnFail": true,
       "maxTries": 2,
@@ -532,15 +1065,28 @@
     },
     {
       "parameters": {
-        "jsCode": "const sqlResults = $(\"SQL Execute\").all().map(i => i.json);\n\nconst contextItem = $node[\"Query Loop\"].json;\n\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\n\nreturn { json: outputItem };"
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        464,
+        -416
+      ],
+      "id": "b8a7a4e6-1ce8-4a44-b035-62f6cf9b23ad",
+      "name": "Credentials Loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Builds the output item for Fan In. Two cases:\n//   - Success path: SQL Execute produced data → attach as result.\n//   - Error path:   Audit End (Error) already built the full payload (status=ERROR/RETRY_OK).\n\nconst auditOk = $('Update Metrics1').item?.json || {};\n\n// If this item came from the ERROR branch, _isError flag is set\nif (auditOk._isError === true || auditOk.status === 'ERROR' || auditOk.status === 'RETRY_OK') {\n  const contextItem = $node['Query Loop'].json;\n  const outputItem = JSON.parse(JSON.stringify(contextItem));\n  outputItem.result = auditOk.result || [];\n  outputItem._isError = auditOk._isError === true;\n  outputItem._status = auditOk.status;\n  outputItem._errorType = auditOk.error_type;\n  outputItem._errorMessage = auditOk.error_message;\n  return { json: outputItem };\n}\n\n// Success path (original logic)\nconst sqlResults = $('SQL Execute').all().map(i => i.json);\nconst contextItem = $node['Query Loop'].json;\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\noutputItem.result = sqlResults;\noutputItem._isError = false;\noutputItem._status = 'OK';\nreturn { json: outputItem };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2096,
-        1024
+        2624,
+        -432
       ],
-      "id": "a1a9890c-97f0-43ae-89c5-f05eb8d2c30b",
+      "id": "84489ed3-881e-4258-a073-2c00a0a165b6",
       "name": "Map Results"
     },
     {
@@ -548,14 +1094,16 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
           "mode": "list",
-          "cachedResultName": "Notificaciones Soporte"
+          "cachedResultName": "n8n notifications"
         },
         "channelId": {
           "__rl": true,
-          "value": "={{ $(\"Credentials Loop\").first().json.channelId }}",
-          "mode": "id"
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
         },
         "contentType": "html",
         "message": "={{ $json.htmlContent }}",
@@ -566,10 +1114,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2336,
-        656
+        2016,
+        -816
       ],
-      "id": "0ef76661-4136-43c3-837f-ad97b580f460",
+      "id": "a43ff4df-f1ec-41d1-86a0-7660640f17c0",
       "name": "Send Results",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": true,
@@ -588,37 +1136,12 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2816,
-        960
+        3344,
+        -432
       ],
-      "id": "929856d6-d09f-4b93-a184-8826ec8718ba",
+      "id": "e2570597-e5fc-41c5-bf41-701a8849a4cb",
       "name": "Wait",
       "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "weeks",
-              "triggerAtDay": [
-                2
-              ],
-              "triggerAtHour": 9
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1008,
-        1664
-      ],
-      "id": "b720182e-a63b-4860-b0c0-490a1a10854e",
-      "name": "Weekly Trigger",
-      "alwaysOutputData": true,
-      "disabled": true
     },
     {
       "parameters": {
@@ -635,60 +1158,24 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -704,
-        672
+        -272,
+        -752
       ],
-      "id": "113af8fe-f972-439d-93b7-21f8de9ef97d",
+      "id": "b3e0eabd-f914-440c-8dd1-f81066e3cc43",
       "name": "Monthly Trigger",
       "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "// [NODO: FAN OUT - DIVISOR]\n// MODO: Run Once for ALL Items\n\nconst allOutputItems = [];\nconst separatorRegex = /\\s*-{2,3}\\s*[\\r\\n]+/; \n\nfor (const item of items) {\n  const parentItem = item;\n  const json = parentItem.json;\n  \n  const revQuery = json.revisionQuery || '';\n  const corQuery = json.correctionQuery || '';\n  const queryId = json.queryId;\n\n  const revQueriesParts = revQuery.split(separatorRegex).filter(p => p.trim().length > 0);\n\n  if (revQueriesParts.length > 1) {\n    // --- CASO 1: Query Particionada (1.3) ---\n    const corQueriesParts = corQuery ? corQuery.split(separatorRegex).filter(p => p.trim().length > 0) : [];\n\n    revQueriesParts.forEach((subRevQuery, index) => {\n      const newItem = JSON.parse(JSON.stringify(json));\n      newItem.revisionQuery = subRevQuery.trim();\n      \n      let associatedCor = null;\n      if (corQueriesParts.length > 0 && corQueriesParts[index]) {\n        associatedCor = corQueriesParts[index].trim();\n      }\n      newItem.associatedCorrection = associatedCor;\n\n      newItem.queryType = 'revision';\n      newItem.subQueryIndex = index;\n      newItem.parentGroupId = queryId; \n      \n      delete newItem.correctionQuery; // Aquí SÍ borramos porque está partida\n      allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n    });\n\n  } else {\n    // --- CASO 2: Query Normal (1.2, etc) ---\n    const newItem = JSON.parse(JSON.stringify(json));\n    \n    newItem.revisionQuery = revQuery.trim();\n    // CORRECCIÓN AQUÍ: Mantenemos correctionQuery original para que llegue al HTML\n    newItem.correctionQuery = corQuery.trim(); \n    \n    // Opcional: dejamos associatedCorrection por si alguna lógica futura lo usa\n    newItem.associatedCorrection = corQuery.trim();\n\n    newItem.queryType = 'revision';\n    newItem.subQueryIndex = 0;\n    \n    delete newItem.parentGroupId; \n    // ELIMINADO: delete newItem.correctionQuery;  <-- ESTA LÍNEA CAUSABA EL ERROR\n\n    allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n  }\n}\n\nreturn allOutputItems;"
+        "jsCode": "// [NODO: Set HTML - Versión Ultra-Ligera]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\nlet frequency = \"\"\n\nlet reportType = \"General\";\ntry { \n    reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; \n} catch(e) {}\n\n// Si no hay ítems de entrada, validamos anti-spam básico\nif (allItems.length === 0) {\n    if (['Bi-hourly', 'Hourly'].includes(reportType)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\n\n// --- 1. ESTILOS MÍNIMOS (Centralizados para evitar repetición) ---\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    table: 'width:100%;border-collapse:collapse;', // El resto se maneja con atributos nativos\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n    const results = item.result;\n    \n    let isEmpty = false;\n    if (!results) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150; // AHORA PUEDES SUBIR ESTE LÍMITE\n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    // USO DE ATRIBUTOS NATIVOS: border, cellpadding y cellspacing para ahorrar bytes por celda\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`; // CERO estilos aquí, hereda del contenedor\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// --- 3. REPORTE FINAL ---\nlet finalHtml = `<div style=\"${styles.container}\">`;\n// --- 3. LÓGICA ANTI-SPAM FINAL ---\n// Si es Bi-hourly o Hourly y no hay contenido relevante, no enviamos nada (Array vacío)\nif (['Bi-hourly', 'Hourly'].includes(reportType) && validHtmlParts.length === 0) {\n    return [];\n}\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\nif (reportType === \"Daily\") {\n   frequency = \"Diaria\"\n} if (reportType === \"Four-hourly\") {\n   frequency = \"cada 4 horas\"\n} if (reportType === \"Hourly\") {\n   frequency = \"cada 1 hora\"\n}\n\n\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la Revisión de Entornos ${frequency} </h2>`;\n\nif (validHtmlParts.length === 0) {\n    let reportType = \"General\";\n    try { reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; } catch(e){}\n    if (['Bi-hourly', 'Nightly'].includes(reportType)) return []; \n\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades.</div>`;\n} else {\n    // Hr simplificado\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    \n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\n\n// --- ERROR SECTION (Fase 1) ---\nconst errorItems = allQueries.filter(q => q._isError === true);\nif (errorItems.length > 0) {\n    finalHtml += `<hr size=\\\"1\\\" color=\\\"#eee\\\"><h3 style=\\\"${styles.h3}\\\">Queries con error</h3><ul>`;\n    for (const e of errorItems) {\n        const desc = e.description || 'Sin descripción';\n        const errMsg = (e._errorMessage || 'Error desconocido').toString().slice(0, 300);\n        const errType = e._errorType || 'UNKNOWN';\n        finalHtml += `<li><b>⚠️ Punto ${e.queryId}:</b> ${desc} — <i>[${errType}]</i> ${errMsg}</li>`;\n    }\n    finalHtml += `</ul>`;\n}\nfinalHtml += `</div>`;\n\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: parentPairedItem\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        992,
-        1024
+        1488,
+        -720
       ],
-      "id": "e23d00d8-c77d-4f6b-a3c7-a633de848cf5",
-      "name": "Fan Out",
-      "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "10 8-18/2 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1008,
-        1856
-      ],
-      "id": "c8b3388c-42c4-491d-9082-9f33e701df27",
-      "name": "Bi-hourly Trigger",
-      "disabled": true,
-      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
-    },
-    {
-      "parameters": {
-        "jsCode": "// [NODO: Set HTML - Versión Ultra-Ligera]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\nlet frequency = \"\"\n\nlet reportType = \"General\";\ntry { \n    reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; \n} catch(e) {}\n\n// Si no hay ítems de entrada, validamos anti-spam básico\nif (allItems.length === 0) {\n    if (['Bi-hourly', 'Hourly'].includes(reportType)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\n\n// --- 1. ESTILOS MÍNIMOS (Centralizados para evitar repetición) ---\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    table: 'width:100%;border-collapse:collapse;', // El resto se maneja con atributos nativos\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n    const results = item.result;\n    \n    let isEmpty = false;\n    if (!results) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150; // AHORA PUEDES SUBIR ESTE LÍMITE\n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    // USO DE ATRIBUTOS NATIVOS: border, cellpadding y cellspacing para ahorrar bytes por celda\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`; // CERO estilos aquí, hereda del contenedor\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// --- 3. REPORTE FINAL ---\nlet finalHtml = `<div style=\"${styles.container}\">`;\n// --- 3. LÓGICA ANTI-SPAM FINAL ---\n// Si es Bi-hourly o Hourly y no hay contenido relevante, no enviamos nada (Array vacío)\nif (['Bi-hourly', 'Hourly'].includes(reportType) && validHtmlParts.length === 0) {\n    return [];\n}\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\nif (reportType === \"Daily\") {\n   frequency = \"Diaria\"\n} if (reportType === \"Four-hourly\") {\n   frequency = \"cada 4 horas\"\n} if (reportType === \"Hourly\") {\n   frequency = \"cada 1 hora\"\n}\n\n\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la Revisión de Entornos ${frequency} </h2>`;\n\nif (validHtmlParts.length === 0) {\n    let reportType = \"General\";\n    try { reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; } catch(e){}\n    if (['Bi-hourly', 'Nightly'].includes(reportType)) return []; \n\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades.</div>`;\n} else {\n    // Hr simplificado\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    \n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\nfinalHtml += `</div>`;\n\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: parentPairedItem\n};"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1760,
-        800
-      ],
-      "id": "e35d3eb6-f0e3-442a-a944-3e9da8cf148f",
+      "id": "b737f9ba-21f8-481a-988d-fdccbc08c1ff",
       "name": "Set  HTML",
       "executeOnce": true,
       "alwaysOutputData": true,
@@ -701,82 +1188,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1600,
-        800
+        1120,
+        -720
       ],
-      "id": "d4873904-6630-466d-9176-aa55e42973b8",
+      "id": "42e4e250-cc25-4f18-b882-1ccbc85a2da9",
       "name": "Fan In",
       "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 23 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -1024,
-        1376
-      ],
-      "id": "732be17b-db8d-42bc-9a42-54c981cc2eeb",
-      "name": "Nightly Trigger",
-      "disabled": true,
-      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
-    },
-    {
-      "parameters": {
-        "jsCode": "// Accedemos a las credenciales de la iteración actual del bucle\nconst loopItem = $('Credentials Loop').item.json;\n\n// IMPORTANTE: Aquí corregí 'env' por 'entorno' para coincidir con tu nodo Set Credentials\nconst currentEnv = (loopItem.entorno || '').toString().trim().toUpperCase();\nconst currentCountry = (loopItem.country || '').toString().trim().toUpperCase();\n\n// Filtramos las queries que vienen del Data Table\nreturn items.filter(item => {\n  const query = item.json;\n\n  // --- 1. LÓGICA DE PAÍS ---\n  // Si la celda está vacía o dice ALL, asumimos que es para todos\n  let queryCountries = (query.country || 'ALL').toString().toUpperCase().trim();\n  if (queryCountries === '') queryCountries = 'ALL';\n  \n  let isCountryValid = false;\n\n  if (queryCountries === 'ALL') {\n    isCountryValid = true;\n  } else {\n    // Convierte \"ARG, COL\" en [\"ARG\", \"COL\"] y busca si el actual está incluido\n    const countryList = queryCountries.split(',').map(c => c.trim());\n    isCountryValid = countryList.includes(currentCountry);\n  }\n\n  // --- 2. LÓGICA DE ENTORNO (target_env) ---\n  let queryEnvs = (query.target_env || 'ALL').toString().toUpperCase().trim();\n  if (queryEnvs === '') queryEnvs = 'ALL';\n  \n  let isEnvValid = false;\n\n  if (queryEnvs === 'ALL') {\n    isEnvValid = true;\n  } else {\n    // Convierte \"APP, CINES\" en [\"APP\", \"CINES\"] y busca si el actual está incluido\n    const envList = queryEnvs.split(',').map(e => e.trim());\n    isEnvValid = envList.includes(currentEnv);\n  }\n\n  // La query pasa SOLO si cumple con el País Y con el Entorno\n  return isCountryValid && isEnvValid;\n});"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        544,
-        1024
-      ],
-      "id": "27de361d-8b95-4303-9453-771506feb0d4",
-      "name": "Filter Queries",
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "e949076c-37b9-4e5b-8c6a-73c9bcf6c3b4",
-              "leftValue": "={{ $json }}",
-              "rightValue": "",
-              "operator": {
-                "type": "object",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        768,
-        1024
-      ],
-      "id": "19dcabe8-1a9d-44e5-9dbf-c5c30363dd20",
-      "name": "If"
     },
     {
       "parameters": {
@@ -806,10 +1223,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1936,
-        800
+        1664,
+        -720
       ],
-      "id": "7e895bd6-2398-4dd2-9947-787315ebcb2d",
+      "id": "65e307ec-eea7-423e-93e9-be9056ab9c6f",
       "name": "If1"
     },
     {
@@ -826,36 +1243,36 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -912,
-        672
+        -480,
+        -752
       ],
-      "id": "a831fe74-83c7-4072-8ec5-b1d708e15331",
+      "id": "43473a9d-0d42-417a-b295-fad0cecfa356",
       "name": "Hourly Trigger"
     },
     {
       "parameters": {
-        "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\n\n// 1. Tiempo de inicio\nconst startTime = $('Audit Start').first().json.audit_startTime;\nconst envData   = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\n\n// 2. Peso y conteo\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes   = Buffer.byteLength(payloadString, 'utf8');\nconst realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n\n// 3. Generación de Tiempos\nconst now = new Date();\n\n// Opción para obtener FECHA y HORA en formato Argentina (HH24:MI:SS)\n// Usamos \"en-GB\" para forzar el formato YYYY-MM-DD y 24hs de forma sencilla\nconst arDateStr = now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" }); // YYYY-MM-DD\nconst arTimeStr = now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" }); // HH:MM:SS\n\n// 4. Timestamp UTC (Ancla técnica para la DB)\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.application     || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n  }\n}];"
+        "jsCode": "const endTime = new Date().getTime();\nconst firstInput = $input.first().json;\n\n// 1. Tiempo de inicio\nconst startTime = $('Audit Start').first().json.audit_startTime;\nconst envData   = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\n\n// 2. Detectar error y estado\nconst hasError = firstInput.error !== undefined && firstInput.error !== null;\nconst errorMessage = firstInput.error_message || null;\n\n// 3. Peso y conteo (solo si no hay error)\nlet payloadString, sizeInBytes, realResultsCount;\nif (hasError) {\n  payloadString = errorMessage || 'Error en ejecución';\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = 0;\n} else {\n  const results = $input.all();\n  payloadString = JSON.stringify(results);\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n}\n\n// 4. Fechas y timestamps\nconst now = new Date();\nconst arDateStr = now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst arTimeStr = now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.application     || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n    status:            hasError ? false : true,\n    error_message:     errorMessage\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1776,
-        1008
+        2000,
+        -208
       ],
-      "id": "d54730c2-6bbe-4b27-b41e-a0a339001748",
+      "id": "d7f78f56-ccee-48a3-8b48-44ea7bf85ddc",
       "name": "Audit End"
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n}\n\nreturn items;"
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n  item.json.timeout = \"10000\"\n}\n\nreturn items;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1424,
-        1008
+        1072,
+        -400
       ],
-      "id": "315a1517-2ee2-4a56-ad5f-13b15996d73d",
+      "id": "d88b5ab4-0902-4673-94e2-8260aa5c71fd",
       "name": "Audit Start"
     },
     {
@@ -863,23 +1280,26 @@
         "operation": "executeQuery",
         "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
       },
-      "id": "dc56bd20-82c2-464f-9b7c-bcc1449a5caa",
+      "id": "5aeb858c-78d8-41cf-975b-201caa8e16f1",
       "name": "SQL Execute",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        1584,
-        1008
+        1296,
+        -400
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
-      "retryOnFail": true,
+      "retryOnFail": false,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
       "credentials": {
         "microsoftSql": {
-          "id": "gxVnkkyySATGmqdw",
-          "name": "SQL - DINAMICO"
+          "id": "7G3SN0kKPTZvCl0e",
+          "name": "SQL-04"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -903,10 +1323,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1104,
-        672
+        -672,
+        -752
       ],
-      "id": "63ac12b2-373d-4369-a883-d8912dfd6d82",
+      "id": "41cbc41a-bc2c-4abd-8025-3688bd2b9aa6",
       "name": "Four-hourly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -918,156 +1338,12 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        880,
-        432
+        1200,
+        -960
       ],
       "typeVersion": 1,
-      "id": "4820b0bf-41d8-43dd-bfa3-dd29ed0c4f22",
+      "id": "9f2aeb61-8dfc-4992-8974-8e50e7103052",
       "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
-        "inputSource": "passthrough"
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -1136,
-        896
-      ],
-      "id": "049f06c9-b513-4873-9dbc-1e4a4adbe6d6",
-      "name": "When Executed by Another Workflow"
-    },
-    {
-      "parameters": {
-        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials').all();\n\nif (executionType === \"Backup\") {\n  return []; \n}\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        96,
-        784
-      ],
-      "id": "c3c891a2-91dd-4549-9c20-ae7539eb90f1",
-      "name": "Set Tasks"
-    },
-    {
-      "parameters": {
-        "operation": "appendOrUpdate",
-        "documentId": {
-          "__rl": true,
-          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
-          "mode": "list",
-          "cachedResultName": "control_revisiones",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Hoja 1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Ultima_Actualizacion": "={{ $json.Ultima_Actualizacion }}",
-            "ID_Unico": "={{ $json.ID_Unico }}",
-            "Pais": "={{ $json.Pais }}",
-            "Entorno": "={{ $json.Entorno }}",
-            "Frecuencia": "={{ $json.Frecuencia }}",
-            "Fecha": "={{ $json.Fecha }}",
-            "Estado": "={{ $json.Estado }}"
-          },
-          "matchingColumns": [
-            "ID_Unico"
-          ],
-          "schema": [
-            {
-              "id": "ID_Unico",
-              "displayName": "ID_Unico",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Pais",
-              "displayName": "Pais",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Entorno",
-              "displayName": "Entorno",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Frecuencia",
-              "displayName": "Frecuencia",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Fecha",
-              "displayName": "Fecha",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Estado",
-              "displayName": "Estado",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Ultima_Actualizacion",
-              "displayName": "Ultima_Actualizacion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        288,
-        784
-      ],
-      "id": "6b96311c-f71a-4cf3-a438-8d578635ec1f",
-      "name": "Set Tasks State",
-      "alwaysOutputData": false,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      }
     },
     {
       "parameters": {
@@ -1186,10 +1462,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        2640,
-        960
+        3168,
+        -432
       ],
-      "id": "97cd3218-1295-431a-a4bb-0bb1b9836a3c",
+      "id": "1f18e3b6-10a0-4c48-b849-8e30ffbc192f",
       "name": "Update Tasks",
       "alwaysOutputData": true,
       "credentials": {
@@ -1205,11 +1481,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        128,
-        112
+        448,
+        -1280
       ],
       "typeVersion": 1,
-      "id": "e0f099bc-7eac-49af-a65d-10c7d0ed85dd",
+      "id": "7d6621ab-73c3-40b0-b474-f340ae124358",
       "name": "Sticky Note1"
     },
     {
@@ -1219,10 +1495,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2144,
-        736
+        1824,
+        -736
       ],
-      "id": "060dacaa-41e0-4716-87f9-68fcda4ddf69",
+      "id": "fb50ea60-acd9-435b-86cb-c9970c32278e",
       "name": "Random Wait",
       "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
     },
@@ -1233,10 +1509,10 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        2784,
-        688
+        2464,
+        -784
       ],
-      "id": "38cbc411-9c9d-461a-84e7-6ef1e5958aa3",
+      "id": "115550a6-4fb7-474b-a99e-82bee6729f51",
       "name": "Stop and Error"
     },
     {
@@ -1267,10 +1543,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2544,
-        752
+        2224,
+        -720
       ],
-      "id": "a36761e5-9d3b-470a-a32c-2ec0b988c746",
+      "id": "589c274e-87d0-4b3f-9900-e032ed551bf7",
       "name": "Check Error"
     },
     {
@@ -1296,10 +1572,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        3184,
-        352
+        2656,
+        -1120
       ],
-      "id": "f9c97587-d788-4295-b968-b206f447e8e8",
+      "id": "1f3969f0-0fc7-48c9-89c1-de542e4622bb",
       "name": "Send Results Retry",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": false,
@@ -1318,10 +1594,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2784,
-        528
+        2464,
+        -944
       ],
-      "id": "91a3835c-c78c-468e-807d-6dce32e7690b",
+      "id": "a8ba4276-8957-4542-b2a6-c4a00608b9ad",
       "name": "Wait1",
       "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
     },
@@ -1348,10 +1624,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3184,
-        528
+        2864,
+        -944
       ],
-      "id": "faa83999-2d05-4746-b8f4-f7bbf022421d",
+      "id": "17006e42-0f52-4b96-a7d5-daa063150593",
       "name": "Send Results Retry1",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
@@ -1388,11 +1664,691 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3184,
-        752
+        2864,
+        -720
       ],
-      "id": "c78666fb-7e73-415a-892d-9dca27ea9cc0",
+      "id": "ad105e71-b34c-49e9-90ec-533b48ba4ad6",
       "name": "Check Execution"
+    },
+    {
+      "parameters": {
+        "content": "## Cada vez que se ejecuta el flujo, guardar 1 registro\n## Supervisor -> revisa todas las ejeccuciones (puede detectar anomalias si sabemos que esperamos)\n## 3 four hourly por día -> se ejecutaron todas?\n\n## murió a la mitad el primer four hourly, cómo re ejecuto esto automaticamente sin necesidad de hacerlo manual?\n",
+        "height": 432,
+        "width": 656
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1936,
+        -1104
+      ],
+      "typeVersion": 1,
+      "id": "0a8941e4-ecac-4a18-a24d-12f3c7ff08fa",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Tiempo máximo de timeout? Depende de la query?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        -752
+      ],
+      "id": "0ed959e5-7129-4122-86a4-8bfa171ce476",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Al fallar una query, cómo seguimos, y qué hacemos?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        80,
+        -944
+      ],
+      "id": "cbe3083b-c159-4094-8f26-42b6ae81c44a",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Backup type -> bug"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -736
+      ],
+      "id": "175158b7-ebf0-4e59-8ebd-20aef93f836d",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "auditoria_queries",
+          "mode": "list",
+          "cachedResultName": "auditoria_queries"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "id": 0,
+            "tiempo": 0,
+            "peso": 0,
+            "filas_encontradas": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "aplicacion",
+              "displayName": "aplicacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp_tz",
+              "displayName": "timestamp_tz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora_limpia",
+              "displayName": "hora_limpia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "time",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_real",
+              "displayName": "fecha_real",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "error_message",
+              "displayName": "error_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2464,
+        -432
+      ],
+      "id": "c9462e9a-9a35-4636-83ef-d961757b6f85",
+      "name": "Update Metrics1",
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Classify SQL Execute error as TRANSIENT or FATAL.\nconst TRANSIENT_PATTERNS = [\n  /timeout/i, /deadlock/i, /session.*kill/i, /killed.*session/i,\n  /connection.*reset/i, /connection.*lost/i, /network.*error/i,\n  /etimedout/i, /econnrefused/i, /econnreset/i\n];\nconst FATAL_PATTERNS = [\n  /login failed/i, /authentication/i, /password/i,\n  /invalid object name/i, /syntax error/i, /permission denied/i,\n  /access.*denied/i, /must declare the scalar variable/i, /must be/i\n];\n\nconst items = $input.all();\nreturn items.map(item => {\n  const rawError = item.json.error || item.error?.message || JSON.stringify(item.json);\n  const msg = String(rawError);\n  let errorType = 'TRANSIENT';\n  if (FATAL_PATTERNS.some(re => re.test(msg))) errorType = 'FATAL';\n  else if (!TRANSIENT_PATTERNS.some(re => re.test(msg))) errorType = 'TRANSIENT';\n  return { json: { ...item.json, error_type: errorType, error_message: msg.slice(0, 1000), timeout: \"180000\" } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        16
+      ],
+      "id": "b4a717f7-4fb7-4f5a-b4bd-fdf499d81a0e",
+      "name": "Classify Error"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1a0c0e1-2222-4002-bbbb-000000000002",
+              "leftValue": "={{ $json.error_type }}",
+              "rightValue": "TRANSIENT",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1504,
+        16
+      ],
+      "id": "a0a3c07f-3cc3-4ed2-ba8b-38b2e9b82789",
+      "name": "Is Transient?"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $('Audit Start').item.json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+      },
+      "id": "6184db41-aa8a-4fc9-98fa-87a04f8de925",
+      "name": "SQL Retry",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        -176
+      ],
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftSql": {
+          "id": "gxVnkkyySATGmqdw",
+          "name": "SQL - DINAMICO"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Audit End for ERROR branch. Detects RETRY_OK if SQL Retry produced data.\nconst endTime = new Date().getTime();\nconst startTime = $('Audit Start').first().json.audit_startTime;\nconst envData   = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\nconst errInfo   = $('Classify Error').item.json;\n\nlet status = 'ERROR';\nlet retryCount = 0;\nlet finalErrorType = errInfo.error_type;\nlet finalErrorMessage = errInfo.error_message;\nlet results = [];\n\ntry {\n  const retryItems = $('SQL Retry').all();\n  if (retryItems && retryItems.length > 0) {\n    retryCount = 1;\n    const first = retryItems[0];\n    const retryHasError = first.error || (first.json && first.json.error);\n    if (!retryHasError) {\n      status = 'RETRY_OK';\n      results = retryItems.map(i => i.json);\n    } else {\n      finalErrorMessage = String(first.json?.error || first.error?.message || finalErrorMessage).slice(0, 1000);\n    }\n  }\n} catch (e) { /* SQL Retry did not run (FATAL) */ }\n\nconst payloadString = JSON.stringify(results);\nconst sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n\nconst now = new Date();\nconst arDateStr = now.toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' });\nconst arTimeStr = now.toLocaleTimeString('en-GB', { timeZone: 'America/Argentina/Buenos_Aires' });\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country         || 'Desconocido',\n    entorno:           envData.entorno         || 'Desconocido',\n    frecuencia:        queryData.type          || 'N/A',\n    description:       queryData.description   || 'Sin descripción',\n    aplicacion:        queryData.application   || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: results.length,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n    status:            status,\n    error_type:        status === 'RETRY_OK' ? null : finalErrorType,\n    error_message:     status === 'RETRY_OK' ? null : finalErrorMessage,\n    retry_count:       retryCount,\n    result:            results,\n    _isError:          status === 'ERROR'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2256,
+        -64
+      ],
+      "id": "8b524a7d-b498-4cc2-a492-2dddfe434235",
+      "name": "Audit End (Error)"
+    },
+    {
+      "parameters": {
+        "content": "## timeout\n## connection lost\n## session killed\n## syntax\n##\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2992,
+        -208
+      ],
+      "id": "4cd49161-0b96-40e7-8a1d-799f2511d007",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "55cab978-0596-4113-beaf-f3756449e70c",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1472,
+        -400
+      ],
+      "id": "fdab944e-6163-40d3-8898-ef48b757eff0",
+      "name": "If error "
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2432,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "d67b58ee-5c35-4dc0-b1e3-0502ab72d474",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -32
+      ],
+      "id": "5e76fbeb-7c99-4cf9-9174-1e2164468269",
+      "name": "manual"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                2
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        2336
+      ],
+      "id": "7418467d-0d35-4cff-be0a-98f4f4fdd3ec",
+      "name": "Weekly Trigger",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN OUT - DIVISOR]\n// MODO: Run Once for ALL Items\n\nconst allOutputItems = [];\nconst separatorRegex = /\\s*-{2,3}\\s*[\\r\\n]+/; \n\nfor (const item of items) {\n  const parentItem = item;\n  const json = parentItem.json;\n  \n  const revQuery = json.revisionQuery || '';\n  const corQuery = json.correctionQuery || '';\n  const queryId = json.queryId;\n\n  const revQueriesParts = revQuery.split(separatorRegex).filter(p => p.trim().length > 0);\n\n  if (revQueriesParts.length > 1) {\n    // --- CASO 1: Query Particionada (1.3) ---\n    const corQueriesParts = corQuery ? corQuery.split(separatorRegex).filter(p => p.trim().length > 0) : [];\n\n    revQueriesParts.forEach((subRevQuery, index) => {\n      const newItem = JSON.parse(JSON.stringify(json));\n      newItem.revisionQuery = subRevQuery.trim();\n      \n      let associatedCor = null;\n      if (corQueriesParts.length > 0 && corQueriesParts[index]) {\n        associatedCor = corQueriesParts[index].trim();\n      }\n      newItem.associatedCorrection = associatedCor;\n\n      newItem.queryType = 'revision';\n      newItem.subQueryIndex = index;\n      newItem.parentGroupId = queryId; \n      \n      delete newItem.correctionQuery; // Aquí SÍ borramos porque está partida\n      allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n    });\n\n  } else {\n    // --- CASO 2: Query Normal (1.2, etc) ---\n    const newItem = JSON.parse(JSON.stringify(json));\n    \n    newItem.revisionQuery = revQuery.trim();\n    // CORRECCIÓN AQUÍ: Mantenemos correctionQuery original para que llegue al HTML\n    newItem.correctionQuery = corQuery.trim(); \n    \n    // Opcional: dejamos associatedCorrection por si alguna lógica futura lo usa\n    newItem.associatedCorrection = corQuery.trim();\n\n    newItem.queryType = 'revision';\n    newItem.subQueryIndex = 0;\n    \n    delete newItem.parentGroupId; \n    // ELIMINADO: delete newItem.correctionQuery;  <-- ESTA LÍNEA CAUSABA EL ERROR\n\n    allOutputItems.push({ json: newItem, pairedItem: item.pairedItem });\n  }\n}\n\nreturn allOutputItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        1680
+      ],
+      "id": "21e11882-0c2b-429d-81ae-80ede36b57bd",
+      "name": "Fan Out",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "10 8-18/2 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        2528
+      ],
+      "id": "6bffd552-b167-4403-bd78-1acca7542409",
+      "name": "Bi-hourly Trigger",
+      "disabled": true,
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 23 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -336,
+        2048
+      ],
+      "id": "f0f8f6bf-78a2-44ea-956a-90bc9ce9ba4f",
+      "name": "Nightly Trigger",
+      "disabled": true,
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "jsCode": "// Accedemos a las credenciales de la iteración actual del bucle\nconst loopItem = $('Credentials Loop1').item.json;\n\n// IMPORTANTE: Aquí corregí 'env' por 'entorno' para coincidir con tu nodo Set Credentials\nconst currentEnv = (loopItem.entorno || '').toString().trim().toUpperCase();\nconst currentCountry = (loopItem.country || '').toString().trim().toUpperCase();\n\n// Filtramos las queries que vienen del Data Table\nreturn items.filter(item => {\n  const query = item.json;\n\n  // --- 1. LÓGICA DE PAÍS ---\n  // Si la celda está vacía o dice ALL, asumimos que es para todos\n  let queryCountries = (query.country || 'ALL').toString().toUpperCase().trim();\n  if (queryCountries === '') queryCountries = 'ALL';\n  \n  let isCountryValid = false;\n\n  if (queryCountries === 'ALL') {\n    isCountryValid = true;\n  } else {\n    // Convierte \"ARG, COL\" en [\"ARG\", \"COL\"] y busca si el actual está incluido\n    const countryList = queryCountries.split(',').map(c => c.trim());\n    isCountryValid = countryList.includes(currentCountry);\n  }\n\n  // --- 2. LÓGICA DE ENTORNO (target_env) ---\n  let queryEnvs = (query.target_env || 'ALL').toString().toUpperCase().trim();\n  if (queryEnvs === '') queryEnvs = 'ALL';\n  \n  let isEnvValid = false;\n\n  if (queryEnvs === 'ALL') {\n    isEnvValid = true;\n  } else {\n    // Convierte \"APP, CINES\" en [\"APP\", \"CINES\"] y busca si el actual está incluido\n    const envList = queryEnvs.split(',').map(e => e.trim());\n    isEnvValid = envList.includes(currentEnv);\n  }\n\n  // La query pasa SOLO si cumple con el País Y con el Entorno\n  return isCountryValid && isEnvValid;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        1680
+      ],
+      "id": "6a5a745b-e48f-4093-a8a0-92d7b60960aa",
+      "name": "Filter Queries",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e949076c-37b9-4e5b-8c6a-73c9bcf6c3b4",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1456,
+        1680
+      ],
+      "id": "5bdde68a-e136-4055-830a-43eb664e9a2b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  const json = item.json;\n  const error = item.error;\n  \n  // Detectar si hay error\n  const hasError = error !== undefined && error !== null;\n  json.has_error = hasError;\n  \n  if (hasError) {\n    const errorMsg = (error.message || '').toLowerCase();\n    \n    // PATRONES CRÍTICOS (no reintentable)\n    const criticalPatterns = [\n      'property must be of type',\n      'invalid column',\n      'syntax error',\n      'not found',\n      'access denied',\n      'permission denied',\n      'invalid object name',\n      'object does not exist',\n      'constraint violation'\n    ];\n    \n    // PATRONES TRANSITORIOS (reintentable)\n    const transientPatterns = [\n      'timeout',\n      'connection',\n      'temporarily unavailable',\n      'network',\n      'deadlock',\n      'try again',\n      'connection timeout',\n      'login failed'\n    ];\n    \n    const isCritical = criticalPatterns.some(p => errorMsg.includes(p));\n    const isTransient = transientPatterns.some(p => errorMsg.includes(p));\n    \n    json.is_critical = isCritical;\n    json.error_type = isCritical ? 'CRITICAL' : isTransient ? 'TRANSIENT' : 'UNKNOWN';\n    json.error_message = error.message || 'Error desconocido';\n  } else {\n    json.is_critical = false;\n    json.error_type = 'SUCCESS';\n    json.error_message = null;\n  }\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2320,
+        1984
+      ],
+      "id": "2dc3bc52-f027-477c-9220-ba881518320d",
+      "name": "Check Error Type"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -448,
+        1552
+      ],
+      "id": "db628253-ae6a-4965-bd01-a6d18c044f0c",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date().toISOString().split('T')[0];\nconst executionType = $('Set Credentials1').first().json.type; // Daily, Weekly, etc.\nconst allEnvironments = $('Set Credentials1').all();\n\nif (executionType === \"Backup\") {\n  return []; \n}\n\n// Generamos un registro por cada entorno que existe en tu configuración\nreturn allEnvironments.map(env => {\n  const data = env.json;\n  return {\n    json: {\n      ID_Unico: `${data.country}_${data.entorno}_${executionType}_${today}`,\n      Pais: data.country,\n      Entorno: data.entorno,\n      Frecuencia: executionType,\n      Fecha: today,\n      Estado: 'PENDIENTE',\n      Ultima_Actualizacion: $now\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        1440
+      ],
+      "id": "ba0353bc-02ba-4e59-8c01-f5ff0781f8c4",
+      "name": "Set Tasks"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ultima_Actualizacion": "={{ $json.Ultima_Actualizacion }}",
+            "ID_Unico": "={{ $json.ID_Unico }}",
+            "Pais": "={{ $json.Pais }}",
+            "Entorno": "={{ $json.Entorno }}",
+            "Frecuencia": "={{ $json.Frecuencia }}",
+            "Fecha": "={{ $json.Fecha }}",
+            "Estado": "={{ $json.Estado }}"
+          },
+          "matchingColumns": [
+            "ID_Unico"
+          ],
+          "schema": [
+            {
+              "id": "ID_Unico",
+              "displayName": "ID_Unico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pais",
+              "displayName": "Pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Frecuencia",
+              "displayName": "Frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ultima_Actualizacion",
+              "displayName": "Ultima_Actualizacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        976,
+        1440
+      ],
+      "id": "0d84f9a6-1952-487b-bdd3-feec0c8fd37a",
+      "name": "Set Tasks State",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
     },
     {
       "parameters": {
@@ -1416,7 +2372,7 @@
             },
             {
               "id": "2a345e5c-f0d9-4248-9aec-6afcdfa7ed4a",
-              "leftValue": "={{ $(\"Daily Trigger\").isExecuted }}",
+              "leftValue": "={{ $(\"Daily Trigger1\").isExecuted }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -1432,11 +2388,713 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -288,
-        992
+        400,
+        1648
       ],
-      "id": "0051db7e-5f24-46a1-af8c-76a9cf337c1f",
+      "id": "43a01421-8eb3-454f-9e4b-b74a120a1e37",
       "name": "Set tasks?"
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2080,
+        496
+      ],
+      "typeVersion": 1,
+      "id": "15f6d16e-9ec2-4ee8-8e0c-bddbbcf6ed17",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 5 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -592,
+        1328
+      ],
+      "id": "fe393b95-df18-43a1-9146-e79359f8578d",
+      "name": "Daily Trigger1",
+      "alwaysOutputData": true,
+      "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Weekly Trigger\").isExecuted) {\n  executionType = 'Weekly';\n} else if ($(\"Monthly Trigger1\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger1\").isExecuted) {\n  executionType = 'Daily';\n} else if ($(\"Bi-hourly Trigger\").isExecuted) {\n  executionType = \"Bi-hourly\";\n}  else if ($(\"Monthly Trigger1\").isExecuted) {\n  executionType = \"Monthly\";\n}  else if ($(\"Hourly Trigger1\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger1\").isExecuted) {\n  executionType = \"Four-hourly\";\n} else if ($(\"When Executed by Another Workflow\").isExecuted) {\n  executionType = 'Backup';\n}\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        1648
+      ],
+      "id": "0108ccc1-390c-403b-a92f-55059f9b08e5",
+      "name": "Set Credentials1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Query Loop1'].context['done']}}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1856,
+        1680
+      ],
+      "id": "f51a4b1f-01a5-4746-af91-741f25ecab04",
+      "name": "Query Loop1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "LMbtWNGXPZLNnpdf",
+          "mode": "list",
+          "cachedResultName": "queries",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/LMbtWNGXPZLNnpdf"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "=type",
+              "condition": "=eq",
+              "keyValue": "={{ $json.type }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        1680
+      ],
+      "id": "135ef183-b795-45f5-b549-712a1fe79530",
+      "name": "Set Queries1",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        816,
+        1664
+      ],
+      "id": "58e0d621-5cc3-4e37-ac0b-09c3b5c3fff9",
+      "name": "Credentials Loop1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sqlExecuteAll = $(\"SQL Execute1\").all();\nconst contextItem = $node[\"Query Loop1\"].json;\nconst outputItem = JSON.parse(JSON.stringify(contextItem));\n\nconst firstExec = sqlExecuteAll[0]?.json;\n\n// Detectar si hay error usando los nuevos campos\nif (firstExec?.has_error === true) {\n  outputItem.error = true;\n  outputItem.is_critical = firstExec.is_critical || false;\n  outputItem.error_message = firstExec.error_message || 'Error desconocido';\n  outputItem.error_type = firstExec.error_type || 'UNKNOWN';\n  outputItem.result = [];\n} else {\n  outputItem.error = false;\n  outputItem.is_critical = false;\n  outputItem.error_message = null;\n  outputItem.error_type = 'SUCCESS';\n  outputItem.result = sqlExecuteAll.map(i => i.json);\n}\n\nreturn { json: outputItem };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2784,
+        1680
+      ],
+      "id": "e2e2dd46-cfc8-42d0-9cb9-83de3809c657",
+      "name": "Map Results1"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $(\"Credentials Loop1\").first().json.channelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        3024,
+        1312
+      ],
+      "id": "654b63ce-382d-46bf-bef8-04a0339fe6a2",
+      "name": "Send Results2",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "{{ $(\"Credentials Loop\").first().json.channelId }}"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3504,
+        1616
+      ],
+      "id": "ac1b07fe-2cd3-4777-bb66-ae2d09dc3756",
+      "name": "Wait2",
+      "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": "={{ 1 || 2 }}",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -16,
+        1328
+      ],
+      "id": "1b063c25-ef24-403e-bfa1-fdb1bb261726",
+      "name": "Monthly Trigger1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: Set HTML - Versión mejorada con CRITICAL]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\nlet frequency = \"\";\n\nlet reportType = \"General\";\ntry { \n    reportType = $(\"Credentials Loop1\").first().json[\"type\"] || \"General\"; \n} catch(e) {}\n\nif (allItems.length === 0) {\n    if (['Bi-hourly', 'Hourly'].includes(reportType)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\nlet errorQueriesCount = 0;\nlet criticalErrorCount = 0;\n\n// --- 1. ESTILOS ---\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    h3Error: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;color:#d32f2f;',\n    h3ErrorCritical: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;color:#b71c1c;background-color:#ffcdd2;padding:8px;border-radius:3px;',\n    table: 'width:100%;border-collapse:collapse;',\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    errorBox: 'background-color:#ffebee;border-left:4px solid #d32f2f;padding:12px;margin:10px 0;border-radius:3px;',\n    errorBoxCritical: 'background-color:#ffcdd2;border-left:4px solid #b71c1c;padding:12px;margin:10px 0;border-radius:3px;',\n    errorText: 'color:#c62828;font-weight:bold;',\n    errorTextCritical: 'color:#b71c1c;font-weight:bold;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// --- 2. PROCESAMIENTO DE ITEMS ---\nfor (const item of allQueries) {\n    // Detectar si hay error\n    if (item.error === true) {\n        errorQueriesCount++;\n        const isCritical = item.is_critical === true;\n        if (isCritical) criticalErrorCount++;\n        \n        const styleH3 = isCritical ? styles.h3ErrorCritical : styles.h3Error;\n        const styleBox = isCritical ? styles.errorBoxCritical : styles.errorBox;\n        const styleText = isCritical ? styles.errorTextCritical : styles.errorText;\n        const errorLabel = isCritical ? '🔴 ERROR CRÍTICO' : '⚠️ ERROR';\n        const errorDesc = isCritical ? 'No se puede reintentar (error de configuración)' : 'Se reintentó 3 veces';\n        \n        let errorHtml = `<h3 style=\"${styleH3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"} - ${errorLabel}</h3>`;\n        \n        errorHtml += `<div style=\"${styleBox}\">`;\n        errorHtml += `<p style=\"${styleText}\">No se pudo ejecutar la consulta</p>`;\n        errorHtml += `<ul style=\"margin:8px 0; padding-left:20px;\">`;\n        errorHtml += `<li><b>ID de Query:</b> ${item.queryId || 'N/A'}</li>`;\n        errorHtml += `<li><b>Tipo:</b> ${item.error_type || 'UNKNOWN'}</li>`;\n        errorHtml += `<li><b>Estado:</b> ${errorDesc}</li>`;\n        errorHtml += `<li><b>Motivo:</b> ${item.error_message || 'Error desconocido'}</li>`;\n        errorHtml += `</ul>`;\n        errorHtml += `</div>`;\n        \n        validHtmlParts.push(errorHtml);\n        continue;\n    }\n    \n    const results = item.result;\n    \n    let isEmpty = false;\n    if (!results) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 0) isEmpty = true;\n    else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150;\n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`;\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// --- 3. REPORTE FINAL ---\nlet finalHtml = `<div style=\"${styles.container}\">`;\n\nif (['Bi-hourly', 'Hourly'].includes(reportType) && validHtmlParts.length === 0) {\n    return [];\n}\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\nif (reportType === \"Daily\") {\n   frequency = \"Diaria\"\n} else if (reportType === \"Four-hourly\") {\n   frequency = \"cada 4 horas\"\n} else if (reportType === \"Hourly\") {\n   frequency = \"cada 1 hora\"\n}\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la Revisión de Entornos ${frequency}</h2>`;\n\nif (validHtmlParts.length === 0) {\n    if (['Bi-hourly', 'Nightly'].includes(reportType)) return [];\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades.</div>`;\n} else {\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    \n    if (errorQueriesCount > 0) {\n        let footerMsg = `<b>⚠️ ${errorQueriesCount} ${errorQueriesCount === 1 ? 'consulta' : 'consultas'} con error`;\n        if (criticalErrorCount > 0) {\n            footerMsg += ` (${criticalErrorCount} crítico/s, no se reintentaron)`;\n        } else {\n            footerMsg += ` - Se reintentó 3 veces cada una`;\n        }\n        footerMsg += `</b>. Ver detalles arriba.`;\n        finalHtml += `<div style=\"${styles.footer}\">${footerMsg}</div>`;\n    }\n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\nfinalHtml += `</div>`;\n\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: parentPairedItem\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        1456
+      ],
+      "id": "bcb2ab48-dfa8-4def-b37f-ccacf19b0761",
+      "name": "Set  HTML1",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "notes": "// [NODO: Set HTML]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n// Si no llegó nada al nodo, salimos con un mensaje básico.\nif (allItems.length === 0) {\n  return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\n// --- Obtener el tipo de reporte (Daily, Weekly, etc.) ---\nlet reportType = \"General\";\ntry {\n  // Intentamos leer el tipo desde el primer item del Loop de Credenciales\n  reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\";\n} catch (error) {\n  // Si falla, usamos el valor por defecto\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; // Aquí acumularemos solo los reportes que tengan datos\n\n// --- Configuración Visual (Estilos para Teams/Email) ---\nconst MAX_ROWS = 20;\nconst MAX_COLS = 6;\n\nconst styles = {\n  table: 'border-collapse: collapse; margin-bottom: 10px; width: 100%;', \n  th: 'padding: 5px; text-align: left; font-weight: bold; border: 1px solid #ddd;', \n  td: 'padding: 5px; vertical-align: top; border: 1px solid #ddd;',\n  p: 'font-size: 14px; margin: 0 0 10px 0;',\n  p_notice: 'font-size: 12px; font-style: italic; color: #666;',\n  h3: 'margin-bottom: 5px; font-size: 16px; font-weight: bold; color: #000;',\n  pre: 'font-family: monospace; white-space: pre-wrap; word-wrap: break-word; font-size: 11px; margin-top: 0;',\n  hr: 'border: 0; border-top: 1px solid #ccc; margin: 15px 0;',\n  queryLabel: 'font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 0; margin-top: 10px;',\n  mainTitle: 'font-size: 24px; font-weight: bold; color: #000; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;'\n};\n\n// --- Construcción del Título Principal ---\nconst reportTypeFormatted = reportType.charAt(0).toUpperCase() + reportType.slice(1);\nlet combinedHtml = `<h1 style=\"${styles.mainTitle}\">Resultados de revisión ${reportTypeFormatted}</h1>`;\n\n// --- Bucle Principal sobre cada Query ---\nfor (const item of allQueries) {\n  const results = item.result;\n  \n  // 1. FILTRO DE RESULTADOS VACÍOS\n  // Verificamos si results es null, vacío o un array con un objeto vacío.\n  let isEmpty = false;\n  if (!results) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 0) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 1) {\n    const firstItem = results[0];\n    if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n      isEmpty = true;\n    }\n  }\n\n  // REGLA: \"No se muestre nada si el punto no da resultado\"\n  if (isEmpty) {\n    continue; // Saltamos a la siguiente iteración inmediatamente\n  }\n\n  // --- Si llegamos aquí, ES PORQUE HAY DATOS PARA MOSTRAR ---\n  let itemHtml = \"\";\n\n  // Título del Punto\n  itemHtml += `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n  // 2. CONSTRUCCIÓN DE LA TABLA\n  let data = results;\n  let limitedRows = false;\n  let limitedCols = false;\n\n  // Lógica de límites (filas)\n  if (results.length > MAX_ROWS) {\n    data = results.slice(0, MAX_ROWS);\n    limitedRows = true;\n  }\n\n  // Obtener cabeceras\n  let headers = Object.keys(data[0] || {});\n  \n  // Lógica de límites (columnas)\n  if (headers.length > MAX_COLS) {\n    headers = headers.slice(0, MAX_COLS);\n    limitedCols = true;\n  }\n\n  // HTML de la Tabla\n  itemHtml += `<table border=\"1\" style=\"${styles.table}\">`;\n  itemHtml += '<thead><tr>';\n  for (const header of headers) itemHtml += `<th style=\"${styles.th}\">${header}</th>`;\n  itemHtml += \"</tr></thead>\";\n  \n  itemHtml += \"<tbody>\";\n  for (const row of data) {\n    itemHtml += \"<tr>\";\n    for (const header of headers) {\n      // Manejo seguro de null/undefined y escape de caracteres HTML\n      const value = (row[header] === null || typeof row[header] === \"undefined\") \n        ? \"\" \n        : String(row[header]).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n      itemHtml += `<td style=\"${styles.td}\">${value}</td>`;\n    }\n    itemHtml += \"</tr>\";\n  }\n  itemHtml += \"</tbody></table>\";\n\n  // Avisos de recorte de datos\n  let notices = \"\";\n  if (limitedRows) notices += `(Se muestran ${MAX_ROWS} filas de ${results.length}). `;\n  if (limitedCols) notices += `(Se muestran ${MAX_COLS} columnas de ${Object.keys(results[0]).length}).`;\n  if (notices) itemHtml += `<p style=\"${styles.p_notice}\">${notices.trim()}</p>`;\n\n  // 3. LÓGICA DE PATRONES (1, 2, 3)\n  // Convertimos a string por seguridad\n  const pattern = String(item.pattern || \"0\").trim();\n\n  // REGLA: Solo mostramos queries si el patrón es '2'\n  if (pattern === '2') {\n    const selectQuery = item.revisionQuery || \"(No se proporcionó SELECT)\";\n    const correctionQuery = item.correctionQuery || \"(No se proporcionó UPDATE)\";\n    const combinedQueryText = `\n    -- SELECT --\n    ${selectQuery}\n\n    -- UPDATE --\n    ${correctionQuery}\n    `.trim();\n\n    itemHtml += `<div style=\"margin-top: 10px;\">`;\n    itemHtml += `<p style=\"${styles.queryLabel}\">Script:</p>`;\n    // Renderizamos UNA SOLA caja <pre> con todo el contenido\n    itemHtml += `<pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    itemHtml += `</div>`;\n  }\n  // Pattern 1 y 3 (y otros) no muestran nada aquí.\n\n  validHtmlParts.push(itemHtml);\n}\n  \n// --- GENERACIÓN FINAL ---\n\nif (validHtmlParts.length === 0) {\n  // Caso: Se ejecutó el flujo, pero todas las queries vinieron vacías.\n  // Mensaje final indicando que todo está limpio.\n  combinedHtml += `<p style=\"${styles.p}\">No se encontraron novedades ni datos para revisar en este entorno el día de hoy.</p>`;\n} else {\n  // Unimos todas las partes válidas con un separador <hr>\n  combinedHtml += validHtmlParts.join(`<hr style=\"${styles.hr}\">`);\n}\n\n// Retornamos el contenido para el siguiente nodo (Teams/Email)\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\n\nreturn { \n    json: { htmlContent: combinedHtml },\n    pairedItem: parentPairedItem\n};"
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN IN - AGREGADOR CON SOPORTE A ERRORES]\n// MODO: Run Once for All Items\n\nconst groupedItems = new Map();\nconst finalOutput = [];\n\nconst hasData = (sqlResultData) => {\n  if (!sqlResultData || !Array.isArray(sqlResultData) || sqlResultData.length === 0) return false;\n  return sqlResultData.some(row => (row && Object.keys(row).length > 0));\n};\n\nfor (const item of items) {\n  const json = item.json;\n  const parentId = json.parentGroupId;\n  const hasError = json.error === true;\n\n  // Items con error no se agrupan, pasan directo\n  if (!parentId || hasError) {\n    finalOutput.push(item);\n    continue;\n  }\n\n  // Items particionados con datos\n  if (hasData(json.result)) {\n    if (!groupedItems.has(parentId)) {\n      const baseItem = JSON.parse(JSON.stringify(item));\n      if (baseItem.json.associatedCorrection) {\n         baseItem.json.correctionQuery = baseItem.json.associatedCorrection;\n      }\n      baseItem.json.revisionQuery = (baseItem.json.revisionQuery || '').trim();\n      baseItem.json.correctionQuery = (baseItem.json.correctionQuery || '').trim();\n      groupedItems.set(parentId, baseItem);\n    } else {\n      const groupItem = groupedItems.get(parentId);\n      const currentJson = json;\n      groupItem.json.result.push(...currentJson.result);\n      \n      if (currentJson.revisionQuery) {\n        groupItem.json.revisionQuery += '\\n\\n' + currentJson.revisionQuery.trim();\n      }\n      const currentCorrection = currentJson.associatedCorrection || currentJson.correctionQuery;\n      if (currentCorrection) {\n        const prevCorrection = groupItem.json.correctionQuery;\n        groupItem.json.correctionQuery = prevCorrection \n          ? prevCorrection + '\\n\\n' + currentCorrection.trim() \n          : currentCorrection.trim();\n      }\n    }\n  }\n}\n\nfor (const groupItem of groupedItems.values()) {\n  const json = groupItem.json;\n  delete json.parentGroupId;\n  delete json.subQueryIndex;\n  delete json.queryType;\n  delete json.associatedCorrection;\n  groupItem.json = json;\n  finalOutput.push(groupItem);\n}\n\n// Ordenar por queryId (ej: 1.2, 1.3, 1.4)\nfinalOutput.sort((a, b) => {\n    const idA = String(a.json.queryId || '');\n    const idB = String(b.json.queryId || '');\n    return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });\n});\n\nreturn finalOutput;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2288,
+        1456
+      ],
+      "id": "be288ac8-d4c5-41f4-b224-adc545de3174",
+      "name": "Fan In1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d074c4b-1844-4125-90f1-002e421f57db",
+              "leftValue": "={{$json.htmlContent}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2624,
+        1456
+      ],
+      "id": "9a759a70-519f-4d0c-94b4-62ff9fc9631c",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "5 9-18/1 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        1328
+      ],
+      "id": "73273837-532d-46cb-874a-059e74b93212",
+      "name": "Hourly Trigger1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst firstInput = $input.first().json;\n\n// 1. Tiempo de inicio\nconst startTime = $('Audit Start1').first().json.audit_startTime;\nconst envData   = $('Credentials Loop1').item.json;\nconst queryData = $('Query Loop1').item.json;\n\n// 2. Detectar error: chequear si existe el campo error original de SQL\n\nconst isCritical = firstInput.is_critical === true;\nconst errorMessage = firstInput.error_message || null;\n\n// 3. Peso y conteo (solo si no hay error)\nlet payloadString, sizeInBytes, realResultsCount;\nif (hasError) {\n  payloadString = errorMessage || 'Error en ejecución';\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = 0;\n} else {\n  const results = $input.all();\n  payloadString = JSON.stringify(results);\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n}\n\n// 4. Fechas y timestamps\nconst now = new Date();\nconst arDateStr = now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst arTimeStr = now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.application     || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n    status:            hasError ? false : true,\n    critical:          isCritical,\n    error_message:     errorMessage\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2512,
+        1984
+      ],
+      "id": "7da250be-704e-4813-bc2c-a28c12a59ddf",
+      "name": "Audit End1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n  const zone = $node[\"Credentials Loop1\"].json.timezone;\n  \n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n  \n  item.json.audit_startTime = new Date().getTime();\n  item.json.timeout_ms = 120000;  // 2 mins predeterminado\n  item.json.retry_count = 0;\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        1664
+      ],
+      "id": "81e5d3ca-bbdf-4dde-9be3-1dcfbcaad0f1",
+      "name": "Audit Start1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+      },
+      "id": "f84e2d65-b2d3-4204-8f13-edfc3e39367d",
+      "name": "SQL Execute1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        2272,
+        1664
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "microsoftSql": {
+          "id": "gxVnkkyySATGmqdw",
+          "name": "SQL - DINAMICO"
+        }
+      },
+      "onError": "continueOnError"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 9 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 13 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 17 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -416,
+        1328
+      ],
+      "id": "ae67160d-b665-4b4e-ab79-f2ef11b133bc",
+      "name": "Four-hourly Trigger1",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "content": "## chekear \n## notificaciones de error\n## retrys - paths - \n## queries - set credentials\n## credenciales correctas\n##\n##",
+        "height": 320,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1568,
+        1088
+      ],
+      "typeVersion": 1,
+      "id": "c8aa496b-cd1b-435b-8642-e1fcf0ea19da",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
+          "mode": "list",
+          "cachedResultName": "control_revisiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Estado": "OK",
+            "ID_Unico": "={{ $node[\"Credentials Loop1\"].json.country }}_{{ $node[\"Credentials Loop1\"].json.entorno }}_{{ $node[\"Credentials Loop1\"].json.type }}_{{ $today.format('yyyy-MM-dd') }}",
+            "Ultima_Actualizacion": "={{$now}}"
+          },
+          "matchingColumns": [
+            "ID_Unico"
+          ],
+          "schema": [
+            {
+              "id": "ID_Unico",
+              "displayName": "ID_Unico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pais",
+              "displayName": "Pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Frecuencia",
+              "displayName": "Frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ultima_Actualizacion",
+              "displayName": "Ultima_Actualizacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3328,
+        1616
+      ],
+      "id": "104e0763-3eaf-416e-b33f-0aa0fe14a4cd",
+      "name": "Update Tasks1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        816,
+        768
+      ],
+      "typeVersion": 1,
+      "id": "62e83341-dae5-4c14-9f2f-4e0248d4521c",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 30) + 1 }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2832,
+        1392
+      ],
+      "id": "591bd9e1-1d80-41e7-aaba-df767492d3b5",
+      "name": "Random Wait1",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ $item(\"0\").$node[\"Send Results2\"].json[\"error\"] }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        3472,
+        1344
+      ],
+      "id": "ec268637-d4e0-4c54-a1fa-ab647a1b1325",
+      "name": "Stop and Error1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09d00dc8-81c3-45a4-8d52-c4e8cd69b1a3",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "No authorization information present on the request.",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3232,
+        1408
+      ],
+      "id": "9d777396-6ee7-41aa-8111-bda57537e167",
+      "name": "Check Error1"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $(\"Credentials Loop1\").first().json.channelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $(\"Send Results2\").first().json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        3872,
+        1008
+      ],
+      "id": "bd9cfcf5-13c6-411c-ae98-f7e525ef90e2",
+      "name": "Send Results Retry2",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": false,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      },
+      "notes": "{{ $item(\"0\").$node[\"Credentials Loop\"].json[\"channelId\"] }}\n\n{{ $json.htmlContent }}"
+    },
+    {
+      "parameters": {
+        "amount": "=30"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3472,
+        1184
+      ],
+      "id": "2cb1cdc1-f971-4d00-acd2-13a044f35af7",
+      "name": "Wait3",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/beta/teams/2f7e4d78-5cc0-4b00-bb44-372596f96fcf/channels/{{ $(\"Credentials Loop1\").first().json.channelId }}/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{  \n  {\n  \"body\": {\n    \"contentType\": \"html\",\n    \"content\": $(\"Send Results2\").first().json.htmlContent\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3872,
+        1184
+      ],
+      "id": "067f977c-96e8-429e-a8e1-aa1ca6a17b40",
+      "name": "Send Results Retry3",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a2bb9869-1b64-45a8-8c27-edc10c7380ed",
+              "leftValue": "={{ $(\"Daily Trigger1\").isExecuted }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3872,
+        1408
+      ],
+      "id": "eed54c2c-02be-4aff-b14a-7139a1c0d192",
+      "name": "Check Execution1"
     },
     {
       "parameters": {
@@ -1446,12 +3104,12 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1616,
-        288
+        2304,
+        944
       ],
       "typeVersion": 1,
-      "id": "34321e99-85aa-400c-84e4-ff852cc10de5",
-      "name": "Sticky Note3"
+      "id": "2aeb94ab-53dc-4766-ba05-4b73898c1008",
+      "name": "Sticky Note12"
     },
     {
       "parameters": {
@@ -1460,11 +3118,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -352,
-        640
+        336,
+        1296
       ],
-      "id": "8e24e81e-7655-42e2-85a9-d18cfba2fca9",
-      "name": "Sticky Note4"
+      "id": "1259e6c6-c7e8-4186-b11b-9232f82aa002",
+      "name": "Sticky Note13"
     },
     {
       "parameters": {
@@ -1473,11 +3131,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -352,
-        816
+        336,
+        1472
       ],
-      "id": "0bf50a28-dda6-4ae6-9cee-cdaefc1b2f38",
-      "name": "Sticky Note5"
+      "id": "5f07ebea-94f8-4360-945e-a9952539f6ec",
+      "name": "Sticky Note14"
     },
     {
       "parameters": {
@@ -1486,11 +3144,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -336,
-        1120
+        352,
+        1792
       ],
-      "id": "33785d88-0fbb-432f-865b-da7996464baf",
-      "name": "Sticky Note6"
+      "id": "17399065-45ef-4415-8366-d9237f15b0ac",
+      "name": "Sticky Note15"
     },
     {
       "parameters": {
@@ -1644,49 +3302,41 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1936,
-        1008
+        2624,
+        1664
       ],
-      "id": "024a548e-9e53-4552-bbc9-da36264d3271",
-      "name": "Update Metrics1",
+      "id": "39c88386-fdb6-4fec-8a2c-b5a8f21ad7df",
+      "name": "Update Metrics",
       "credentials": {
         "postgres": {
           "id": "Fh2O8WF6g31IXgP5",
           "name": "Supabase - Postgres"
         }
       }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        128,
-        1008
-      ],
-      "id": "0efad93f-9f85-4c53-9b0c-705405e7dd13",
-      "name": "Credentials Loop"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Send Results1": [
+      {
+        "json": {
+          "htmlContent": "<div style=\"font-family:sans-serif;font-size:13px;color:#000;\"><h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Resultados de la Revisión de Entornos  </h2><div style=\"margin-top:15px;font-size:12px;border-top:1px solid #eee;\">✅ Sin novedades.</div></div>",
+          "error": "No authorization information present on the request."
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false,
-    "saveExecutionProgress": true,
-    "executionTimeout": 10800,
-    "timeSavedPerExecution": 20,
-    "errorWorkflow": "h1TswfYCSmmTHJwB"
+    "availableInMCP": false
   },
   "shared": [
     {
       "createdAt": "2026-01-26T21:54:00.001Z",
       "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
-      "workflowId": "3Bmd3g640coLDTeO",
+      "workflowId": "ABtvnJIXyOxaiexU",
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
@@ -1699,16 +3349,10 @@
     },
     "node:Four-hourly Trigger": {
       "recurrenceRules": []
-    },
-    "node:Bi-hourly Trigger": {
-      "recurrenceRules": []
-    },
-    "node:Monthly Trigger": {
-      "recurrenceRules": []
     }
   },
   "tags": [],
-  "triggerCount": 4,
-  "updatedAt": "2026-05-15T18:04:35.569Z",
-  "versionId": "53aeedf4-ee16-43c5-a23f-25f240e9e59e"
+  "triggerCount": 1,
+  "updatedAt": "2026-06-11T20:56:53.433Z",
+  "versionId": "04792264-9030-4f01-8eba-52ad7446d9b2"
 }
