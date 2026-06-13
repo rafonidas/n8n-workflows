@@ -817,6 +817,57 @@
           }
         ]
       ]
+    },
+    "SQL Execute2": {
+      "main": [
+        [
+          {
+            "node": "Classify Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify Error1": {
+      "main": [
+        [
+          {
+            "node": "retry?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Retry1": {
+      "main": [
+        [
+          {
+            "node": "Audit End2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "retry?": {
+      "main": [
+        [
+          {
+            "node": "SQL Retry1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit End2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-14T18:39:13.443Z",
@@ -1256,8 +1307,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2000,
-        -208
+        1952,
+        16
       ],
       "id": "d7f78f56-ccee-48a3-8b48-44ea7bf85ddc",
       "name": "Audit End"
@@ -1269,8 +1320,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1072,
-        -400
+        752,
+        0
       ],
       "id": "d88b5ab4-0902-4673-94e2-8260aa5c71fd",
       "name": "Audit Start"
@@ -1285,8 +1336,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        1296,
-        -400
+        928,
+        0
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
@@ -1915,8 +1966,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1264,
-        16
+        1344,
+        -192
       ],
       "id": "b4a717f7-4fb7-4f5a-b4bd-fdf499d81a0e",
       "name": "Classify Error"
@@ -1948,8 +1999,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1504,
-        16
+        1584,
+        -192
       ],
       "id": "a0a3c07f-3cc3-4ed2-ba8b-38b2e9b82789",
       "name": "Is Transient?"
@@ -1964,8 +2015,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        1504,
-        -176
+        1792,
+        -240
       ],
       "alwaysOutputData": true,
       "retryOnFail": true,
@@ -2032,8 +2083,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1472,
-        -400
+        1136,
+        -80
       ],
       "id": "fdab944e-6163-40d3-8898-ef48b757eff0",
       "name": "If error "
@@ -3313,6 +3364,128 @@
           "name": "Supabase - Postgres"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "const endTime = new Date().getTime();\nconst firstInput = $input.first().json;\n\n// 1. Tiempo de inicio\nconst startTime = $('Audit Start').first().json.audit_startTime;\nconst envData   = $('Credentials Loop').item.json;\nconst queryData = $('Query Loop').item.json;\n\n// 2. Detectar error y estado\nconst hasError = firstInput.error !== undefined && firstInput.error !== null;\nconst errorMessage = firstInput.error_message || null;\n\n// 3. Peso y conteo (solo si no hay error)\nlet payloadString, sizeInBytes, realResultsCount;\nif (hasError) {\n  payloadString = errorMessage || 'Error en ejecución';\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = 0;\n} else {\n  const results = $input.all();\n  payloadString = JSON.stringify(results);\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = (results.length === 1 && Object.keys(results[0].json).length === 0) ? 0 : results.length;\n}\n\n// 4. Fechas y timestamps\nconst now = new Date();\nconst arDateStr = now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst arTimeStr = now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId       || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.application     || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n    status:            hasError ? false : true,\n    error_message:     errorMessage\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        272
+      ],
+      "id": "2b48b80a-bd3a-4262-8752-87169aa8342d",
+      "name": "Audit End2"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+      },
+      "id": "23039714-631f-4ecc-b0d5-8cb1a82bb1e2",
+      "name": "SQL Execute2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        256
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftSql": {
+          "id": "7G3SN0kKPTZvCl0e",
+          "name": "SQL-04"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Classify SQL Execute error as TRANSIENT or FATAL.\nconst TRANSIENT_PATTERNS = [\n  /timeout/i, /deadlock/i, /session.*kill/i, /killed.*session/i,\n  /connection.*reset/i, /connection.*lost/i, /network.*error/i,\n  /etimedout/i, /econnrefused/i, /econnreset/i\n];\nconst FATAL_PATTERNS = [\n  /login failed/i, /authentication/i, /password/i,\n  /invalid object name/i, /syntax error/i, /permission denied/i,\n  /access.*denied/i, /must declare the scalar variable/i, /must be/i\n];\n\nconst items = $input.all();\nreturn items.map(item => {\n  const rawError = item.json.error || item.error?.message || JSON.stringify(item.json);\n  const msg = String(rawError);\n  let errorType = 'TRANSIENT';\n  if (FATAL_PATTERNS.some(re => re.test(msg))) errorType = 'FATAL';\n  else if (!TRANSIENT_PATTERNS.some(re => re.test(msg))) errorType = 'TRANSIENT';\n  return { json: { ...item.json, error_type: errorType, error_message: msg.slice(0, 1000), timeout: \"180000\" } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1312,
+        256
+      ],
+      "id": "c8dc3704-a028-4794-8b01-d4a4bb698d9c",
+      "name": "Classify Error1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $('Audit Start').item.json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+      },
+      "id": "71334289-8198-4211-9359-91f55efc02fd",
+      "name": "SQL Retry1",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        144
+      ],
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftSql": {
+          "id": "gxVnkkyySATGmqdw",
+          "name": "SQL - DINAMICO"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1a0c0e1-2222-4002-bbbb-000000000002",
+              "leftValue": "={{ $json.error_type }}",
+              "rightValue": "TRANSIENT",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1520,
+        256
+      ],
+      "id": "c5187d3b-c3b4-4822-903b-0e3b47788a0f",
+      "name": "retry?"
+    },
+    {
+      "parameters": {
+        "content": "## este nodo revisa las condiciones esperadas "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        448
+      ],
+      "id": "38072d27-f0c5-4861-8cc0-74c28659a6a5",
+      "name": "Sticky Note16"
     }
   ],
   "pinData": {
@@ -3321,6 +3494,23 @@
         "json": {
           "htmlContent": "<div style=\"font-family:sans-serif;font-size:13px;color:#000;\"><h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Resultados de la Revisión de Entornos  </h2><div style=\"margin-top:15px;font-size:12px;border-top:1px solid #eee;\">✅ Sin novedades.</div></div>",
           "error": "No authorization information present on the request."
+        }
+      }
+    ],
+    "Daily Trigger": [
+      {
+        "json": {
+          "timestamp": "2026-06-11T17:02:59.151-03:00",
+          "Readable date": "June 11th 2026, 5:02:59 pm",
+          "Readable time": "5:02:59 pm",
+          "Day of week": "Thursday",
+          "Year": "2026",
+          "Month": "June",
+          "Day of month": "11",
+          "Hour": "17",
+          "Minute": "02",
+          "Second": "59",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
         }
       }
     ]
@@ -3353,6 +3543,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-11T20:56:53.433Z",
-  "versionId": "04792264-9030-4f01-8eba-52ad7446d9b2"
+  "updatedAt": "2026-06-12T20:06:53.636Z",
+  "versionId": "aa7b2e41-91ea-496b-b6ac-029384db7f24"
 }
