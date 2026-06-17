@@ -588,6 +588,19 @@
       ],
       "id": "35e33b6b-7c7f-48a1-a5a0-4dec90374eb0",
       "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## aqui falla cuando stuck files es igual a false, el flujo no continúa\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        96
+      ],
+      "id": "9f312d08-638d-4616-a95b-56034002abb4",
+      "name": "Sticky Note9"
     }
   ],
   "pinData": {},
@@ -619,15 +632,15 @@
       "history": {
         "ARG": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 2
+          "skipCount": 1
         },
         "PER": {
-          "lastSignature": "MAIL:[]__FTP:[1-1006-00213409.pdf,1-1006-00213410.pdf,1-1006-00213411.pdf,Error]",
+          "lastSignature": "MAIL:[]__FTP:[1-1006-00213801.pdf,Error]",
           "skipCount": 0
         },
         "ECU": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 0
+          "skipCount": 2
         }
       }
     },
@@ -638,6 +651,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-10T16:27:45.039Z",
-  "versionId": "06d72b34-8fb6-40cb-9b86-8ef0da15bdba"
+  "updatedAt": "2026-06-16T14:03:39.462Z",
+  "versionId": "876b49a1-fae4-4006-83aa-3810adde4e47"
 }
