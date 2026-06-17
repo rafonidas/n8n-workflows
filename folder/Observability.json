@@ -194,6 +194,8 @@
       ],
       "id": "e822fdc5-3265-4498-bd19-b3a998579096",
       "name": "Get row(s) in sheet2",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "YtjFVoybbkWVfDYe",
@@ -1052,6 +1054,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-05-11T17:19:43.819Z",
-  "versionId": "37e68b86-6872-4437-b3a5-e2c055803b5d"
+  "updatedAt": "2026-06-16T13:12:22.654Z",
+  "versionId": "531534df-e3a3-4838-8de9-ce376414f857"
 }
