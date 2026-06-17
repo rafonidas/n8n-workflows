@@ -231,7 +231,7 @@
           "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ac81deee8b1fb41348b36a3684fd53a81%40thread.tacv2/Errores?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
         "contentType": "html",
-        "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $json.meta.timestamp.toDateTime().format('yyyy-MM-dd HH:mm') }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error }}<br>\n<br>\n<br><br><small><b>Technical Stack:</b> {{ $json.alerta.stack }}...</small>",
+        "message": "=<b>Workflow Error:</b> {{ $node[\"Error Trigger\"].json.workflow.name }}<br>\n<br>\n<b>{{ $json.alerta.nodo_fallido }}</b> at {{ $now.toDateTime().format('yyyy-MM-dd HH:mm') }}<br>\n<br>\n<b>Failed at:</b> {{ $json.contexto_negocio.pais }} - {{ $json.contexto_negocio.entorno }} (Query ID: {{ $json.contexto_negocio.queryId }})<br>\n<br>\n<b>The error message was:</b> {{ $json.alerta.error }}<br>\n<br>\n<br><br><small><b>Technical Stack:</b> {{ $json.alerta.stack }}...</small>",
         "options": {
           "includeLinkToWorkflow": false
         }
@@ -269,7 +269,35 @@
       "webhookId": "3b3b4c10-4385-412b-8cee-73f771330251"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Error Trigger": [
+      {
+        "json": {
+          "execution": {
+            "id": "5450",
+            "url": "https://lilia-unshunted-morris.ngrok-free.dev/workflow/3Bmd3g640coLDTeO/executions/5450",
+            "error": {
+              "code": "ETIMEOUT",
+              "originalError": {
+                "code": "ETIMEOUT"
+              },
+              "name": "RequestError",
+              "number": "ETIMEOUT",
+              "precedingErrors": [],
+              "message": "Timeout: Request failed to complete in 120000ms",
+              "stack": "RequestError: Timeout: Request failed to complete in 120000ms\n    at /usr/local/lib/node_modules/n8n/node_modules/.pnpm/mssql@10.0.2/node_modules/mssql/lib/tedious/request.js:449:19\n    at Array.forEach (<anonymous>)\n    at Request.userCallback (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/mssql@10.0.2/node_modules/mssql/lib/tedious/request.js:446:46)\n    at Request.callback (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/request.ts:379:14)\n    at /usr/local/lib/node_modules/n8n/node_modules/.pnpm/tedious@16.7.1/node_modules/tedious/src/connection.ts:3759:24\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+            },
+            "lastNodeExecuted": "SQL Execute",
+            "mode": "trigger"
+          },
+          "workflow": {
+            "id": "3Bmd3g640coLDTeO",
+            "name": "Revisión de Entornos"
+          }
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -288,6 +316,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-21T12:52:37.235Z",
-  "versionId": "0588cfb8-318f-44a4-a956-abed5a9d440b"
+  "updatedAt": "2026-06-16T16:52:16.630Z",
+  "versionId": "e5194109-4e10-4ccd-8fd9-f2e921803a76"
 }
