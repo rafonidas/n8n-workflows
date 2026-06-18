@@ -1,0 +1,119 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2026-06-17T20:44:23.009Z",
+  "id": "Bppyn5FGwZCslLj8",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "NLQ Feedback - Webhook to API",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "nlq-feedback",
+        "options": {}
+      },
+      "id": "871f0faa-a76a-435c-b166-4bf18fd4f08f",
+      "name": "Webhook Trigger: Feedback",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        624,
+        32
+      ],
+      "webhookId": "{{ WILL_BE_GENERATED }}"
+    },
+    {
+      "parameters": {
+        "jsCode": "// TODO: COMPLETAR - Parse acción de feedback desde Teams\n// Teams ActionSubmit payload contiene:\n// {\n//   \"action\": \"helpful\" | \"not_helpful\",\n//   \"query_id\": \"123456\"\n// }\n\nconst action = $input.first().json.action || '';\nconst queryId = $input.first().json.query_id || '';\n\nreturn {\n  query_id: parseInt(queryId),\n  feedback: action === 'helpful' ? 1 : -1,\n  action: action,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "id": "62a9968e-754e-4353-b4be-774455f97333",
+      "name": "Code: Parse feedback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8080/feedback",
+        "options": {}
+      },
+      "id": "d6485b9b-2d45-4d32-8e8d-e0b2976344ed",
+      "name": "HTTP: POST /feedback to NLQ API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        976,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TODO: COMPLETAR - Generar mensaje de agradecimiento\nconst action = $node.code_parse_feedback.json.action;\nconst message = action === 'helpful' \n  ? 'Gracias por el feedback positivo!' \n  : 'Gracias, usaremos tu feedback para mejorar.';\n\nreturn {\n  text: message,\n  action_count: 1\n};"
+      },
+      "id": "df529eaf-4d77-4454-9cec-c128db468ce2",
+      "name": "Code: Thank you message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message"
+      },
+      "id": "dc6400ce-b8eb-4ae5-8680-d22e18f1823c",
+      "name": "Teams: Reply with thanks",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "deleteRows",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1328,
+        96
+      ],
+      "id": "89b7d590-ad38-40f9-99c9-8297245a4da1",
+      "name": "Delete row(s)"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-17T20:44:23.009Z",
+      "updatedAt": "2026-06-17T20:44:23.009Z",
+      "role": "workflow:owner",
+      "workflowId": "Bppyn5FGwZCslLj8",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-17T20:44:23.009Z",
+  "versionId": "b632105a-4596-47f7-a2c4-081dc97d8470"
+}
