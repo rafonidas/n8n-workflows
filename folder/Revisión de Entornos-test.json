@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Send Results1": {
       "main": [
@@ -816,7 +816,7 @@
       "main": [
         [
           {
-            "node": "Classify Error1",
+            "node": "Code in JavaScript",
             "type": "main",
             "index": 0
           }
@@ -864,22 +864,33 @@
         ]
       ]
     },
-    "When chat message received": {
+    "Audit End2": {
       "main": [
         [
           {
-            "node": "Set Credentials",
+            "node": "Update Metrics1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Audit End2": {
+    "Edit Fields": {
       "main": [
         [
           {
-            "node": "Update Metrics1",
+            "node": "Classify Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -1151,7 +1162,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2528,
+        3152,
         -368
       ],
       "id": "84489ed3-881e-4258-a073-2c00a0a165b6",
@@ -1182,7 +1193,7 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        2016,
+        2640,
         -816
       ],
       "id": "a43ff4df-f1ec-41d1-86a0-7660640f17c0",
@@ -1204,7 +1215,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2864,
+        3488,
         -432
       ],
       "id": "e2570597-e5fc-41c5-bf41-701a8849a4cb",
@@ -1240,7 +1251,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1488,
+        2112,
         -720
       ],
       "id": "b737f9ba-21f8-481a-988d-fdccbc08c1ff",
@@ -1291,7 +1302,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1664,
+        2288,
         -720
       ],
       "id": "65e307ec-eea7-423e-93e9-be9056ab9c6f",
@@ -1338,7 +1349,7 @@
       "typeVersion": 2,
       "position": [
         1168,
-        -400
+        -384
       ],
       "id": "d88b5ab4-0902-4673-94e2-8260aa5c71fd",
       "name": "Audit Start"
@@ -1364,7 +1375,7 @@
       "credentials": {
         "microsoftSql": {
           "id": "7G3SN0kKPTZvCl0e",
-          "name": "SQL-04"
+          "name": "dinamico test"
         }
       },
       "onError": "continueRegularOutput"
@@ -1530,7 +1541,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        3296,
+        3920,
         -704
       ],
       "id": "1f18e3b6-10a0-4c48-b849-8e30ffbc192f",
@@ -1563,7 +1574,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1904,
+        2528,
         -1008
       ],
       "id": "fb50ea60-acd9-435b-86cb-c9970c32278e",
@@ -1577,7 +1588,7 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        2464,
+        3088,
         -784
       ],
       "id": "115550a6-4fb7-474b-a99e-82bee6729f51",
@@ -1611,7 +1622,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2224,
+        2848,
         -720
       ],
       "id": "589c274e-87d0-4b3f-9900-e032ed551bf7",
@@ -1662,7 +1673,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2464,
+        3088,
         -944
       ],
       "id": "a8ba4276-8957-4542-b2a6-c4a00608b9ad",
@@ -1692,7 +1703,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2864,
+        3488,
         -944
       ],
       "id": "17006e42-0f52-4b96-a7d5-daa063150593",
@@ -1732,7 +1743,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2864,
+        3488,
         -720
       ],
       "id": "ad105e71-b34c-49e9-90ec-533b48ba4ad6",
@@ -1755,13 +1766,14 @@
     },
     {
       "parameters": {
-        "content": "## Tiempo máximo de timeout? Depende de la query?\n"
+        "content": "## Tiempo máximo de timeout? Depende de la query?\n",
+        "height": 272
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -32,
-        -752
+        -400,
+        -1104
       ],
       "id": "0ed959e5-7129-4122-86a4-8bfa171ce476",
       "name": "Sticky Note4"
@@ -1773,8 +1785,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        80,
-        -944
+        -96,
+        -1232
       ],
       "id": "cbe3083b-c159-4094-8f26-42b6ae81c44a",
       "name": "Sticky Note5"
@@ -1786,8 +1798,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        256,
-        -736
+        -48,
+        -992
       ],
       "id": "175158b7-ebf0-4e59-8ebd-20aef93f836d",
       "name": "Sticky Note6"
@@ -1964,7 +1976,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        2384,
+        3008,
         -368
       ],
       "id": "c9462e9a-9a35-4636-83ef-d961757b6f85",
@@ -3385,28 +3397,28 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "BEGIN TRY\n    -- Ejecutamos la query del usuario como SQL Dinámico para atrapar errores de sintaxis y ejecución\n    EXEC sp_executesql N'{{ $json.revisionQuery.replace(/'/g, \"''\") }}';\nEND TRY\nBEGIN CATCH\n    -- Si ALGO sale mal (sintaxis, tabla no existe, timeout), SQL devuelve una fila con los detalles\n    SELECT \n        'true' AS _isError,\n        'FATAL' AS _errorType,\n        ERROR_MESSAGE() AS _errorMessage,\n        ERROR_NUMBER() AS error_number,\n        ERROR_LINE() AS error_line;\nEND CATCH"
+        "query": "BEGIN TRY\n    -- Devolvemos el replace de JS para escapar las comillas simples del WAITFOR\n    DECLARE @query NVARCHAR(MAX) = N'{{ $json.revisionQuery.replace(/'/g, \"''\") }}';\n    EXEC sp_executesql @query;\n    \n    SELECT 'Exito' AS Estado;\nEND TRY\nBEGIN CATCH\n    SELECT \n        ERROR_NUMBER() AS ErrorNumber,\n        ERROR_MESSAGE() AS ErrorMessage;\nEND CATCH"
       },
       "id": "23039714-631f-4ecc-b0d5-8cb1a82bb1e2",
       "name": "SQL Execute2",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        1424,
-        -400
+        1360,
+        -384
       ],
       "notesInFlow": false,
-      "alwaysOutputData": true,
+      "alwaysOutputData": false,
       "retryOnFail": false,
       "maxTries": 2,
       "waitBetweenTries": 5000,
       "credentials": {
         "microsoftSql": {
-          "id": "7G3SN0kKPTZvCl0e",
-          "name": "SQL-04"
+          "id": "OJnhwvNxTV90RYTs",
+          "name": "SQL-02"
         }
       },
-      "onError": "continueRegularOutput"
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -3415,7 +3427,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1600,
+        2224,
         -400
       ],
       "id": "c8dc3704-a028-4794-8b01-d4a4bb698d9c",
@@ -3431,7 +3443,7 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        1920,
+        2544,
         -544
       ],
       "alwaysOutputData": true,
@@ -3472,7 +3484,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1744,
+        2368,
         -400
       ],
       "id": "c5187d3b-c3b4-4822-903b-0e3b47788a0f",
@@ -3493,30 +3505,58 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
-      "typeVersion": 1.3,
-      "position": [
-        -352,
-        -304
-      ],
-      "id": "89c8aebb-b93c-491c-9765-2b1c1bfce43b",
-      "name": "When chat message received",
-      "webhookId": "f6305c6f-097f-4e77-a54b-55d4d8dde4d8"
-    },
-    {
-      "parameters": {
         "jsCode": "const endTime = new Date().getTime();\nconst results = $input.all();\nconst firstInput = results[0]?.json || {};\n// Capturar el error nativo de n8n si SQL Retry falló con \"Continue On Fail\"\nconst n8nNativeError = results[0]?.error; \n\n// 1. Tiempos y contextos\n// Usamos .item en lugar de .first() para garantizar que obtenemos los datos de la iteración actual del Loop\nconst startTime = $('Audit Start').item?.json?.audit_startTime || $('Audit Start').first().json.audit_startTime;\nconst envData   = $('Credentials Loop').item?.json || {};\nconst queryData = $('Query Loop').item?.json || {};\n\n// 2. Detectar error unificando ambas rutas\n// Evaluamos si el clasificador dictaminó error, o si el nodo de reintento trajo un error nuevo\nconst rawError = firstInput.error || n8nNativeError || (firstInput.has_error ? firstInput.error_message : null);\nconst hasError = !!rawError || firstInput.has_error === true;\n\n// 3. Extraer el mensaje de forma segura\nlet errorMessage = null;\nif (hasError) {\n  if (firstInput.error_message) {\n    errorMessage = firstInput.error_message; // Prioridad al clasificador\n  } else if (typeof rawError === 'string') {\n    errorMessage = rawError; // Error directo en string\n  } else if (rawError?.message) {\n    errorMessage = rawError.message; // Error estructurado nativo de n8n o BD\n  } else {\n    errorMessage = JSON.stringify(rawError); // Último recurso\n  }\n}\n\n// 4. Peso y conteo \nlet payloadString, sizeInBytes, realResultsCount;\nif (hasError) {\n  payloadString = errorMessage || 'Error en ejecución de BD';\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = 0;\n} else {\n  // Solo stringificamos el contenido \"json\" de los items para calcular el peso real\n  payloadString = JSON.stringify(results.map(r => r.json));\n  sizeInBytes = Buffer.byteLength(payloadString, 'utf8');\n  realResultsCount = (results.length === 1 && Object.keys(firstInput).length === 0) ? 0 : results.length;\n}\n\n// 5. Fechas y timestamps\nconst now = new Date();\nconst arDateStr = now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst arTimeStr = now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" });\nconst isoNow = now.toISOString();\nconst timestamp_tz_normalizado = isoNow.replace('T', ' ').split('.')[0] + '+00';\n\nreturn [{\n  json: {\n    query:             queryData.queryId        || 'N/A',\n    pais:              envData.country          || 'Desconocido',\n    entorno:           envData.entorno          || 'Desconocido',\n    frecuencia:        queryData.type           || 'N/A',\n    description:       queryData.description    || 'Sin descripción',\n    aplicacion:        queryData.application    || 'N/A',\n    tiempo:            parseFloat(((endTime - startTime) / 1000).toFixed(2)),\n    peso:              parseFloat((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      timestamp_tz_normalizado,\n    fecha_real:        arDateStr,\n    hora_limpia:       arTimeStr,\n    status:            !hasError, // true = Todo bien (sin errores), false = Falló (fatal o reintentos agotados)\n    error_message:     errorMessage\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2128,
+        2752,
         -384
       ],
       "id": "2b48b80a-bd3a-4262-8752-87169aa8342d",
       "name": "Audit End2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1fc0df0c-d04d-4211-916b-536b1bb9da20",
+              "name": "=$node[\"SQL Execute2\"].error",
+              "value": "$node[\"SQL Execute2\"].error",
+              "type": "string"
+            },
+            {
+              "id": "9951408a-1bbf-420b-9cb4-d08133ef609a",
+              "name": "=$execution.i",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1792,
+        -400
+      ],
+      "id": "464bc457-e7ba-4f3a-9abb-548bdf069691",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nombre exacto del nodo anterior tal cual aparece en tu lienzo\nconst targetNode = 'SQL Execute2';\nconst scanResults = {};\n\n// 1. Escaneo vía Sintaxis Moderna (Selector n8n)\ntry {\n    const modernNode = $(targetNode);\n    scanResults.rutaModerna = modernNode.error || modernNode.first()?.error || \"No encontrado\";\n} catch (e) { \n    scanResults.rutaModerna = \"Fallo al evaluar la ruta\"; \n}\n\n// 2. Escaneo vía Sintaxis Legacy (Objeto $node)\ntry {\n    scanResults.rutaLegacy = $node[targetNode]?.error || \"No encontrado\";\n} catch (e) { \n    scanResults.rutaLegacy = \"Fallo al evaluar la ruta\"; \n}\n\n// 3. Escaneo en los Metadatos del Ítem de Entrada\ntry {\n    const inputItem = $input.first();\n    // A veces n8n lo esconde fuera del json, en la raíz del item\n    scanResults.rutaInputItem = inputItem?.error || \"No encontrado\";\n} catch (e) { \n    scanResults.rutaInputItem = \"Fallo al evaluar la ruta\"; \n}\n\n// 4. Escaneo vía la función interna $items()\ntry {\n    const rawItems = $items(targetNode);\n    scanResults.rutaRawItems = rawItems[0]?.error || \"No encontrado\";\n} catch (e) { \n    scanResults.rutaRawItems = \"Fallo al evaluar la ruta\"; \n}\n\n// 5. Escaneo en el Contexto Global de Ejecución\ntry {\n    scanResults.rutaGlobal = $execution?.error || \"No encontrado\";\n} catch (e) { \n    scanResults.rutaGlobal = \"Fallo al evaluar la ruta\"; \n}\n\n// Devolvemos el reporte consolidado\nreturn {\n    json: {\n        diagnostico: \"Reporte de búsqueda de error fantasma\",\n        resultados: scanResults,\n        jsonRecibidoOriginalmente: $input.first()?.json || {}\n    }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        -400
+      ],
+      "id": "511ee359-5405-4e76-ae62-a0dab3987f44",
+      "name": "Code in JavaScript"
     }
   ],
   "pinData": {
@@ -3531,17 +3571,7 @@
     "Daily Trigger": [
       {
         "json": {
-          "timestamp": "2026-06-11T17:02:59.151-03:00",
-          "Readable date": "June 11th 2026, 5:02:59 pm",
-          "Readable time": "5:02:59 pm",
-          "Day of week": "Thursday",
-          "Year": "2026",
-          "Month": "June",
-          "Day of month": "11",
-          "Hour": "17",
-          "Minute": "02",
-          "Second": "59",
-          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+          "isArtificialRecoveredEventItem": true
         }
       }
     ]
@@ -3589,6 +3619,6 @@
   },
   "tags": [],
   "triggerCount": 9,
-  "updatedAt": "2026-06-16T21:07:19.780Z",
-  "versionId": "a1a05722-0058-46a9-a607-53d2123f5f43"
+  "updatedAt": "2026-06-17T19:51:46.640Z",
+  "versionId": "f38000a6-148e-455b-8794-1c3870c58cdc"
 }
