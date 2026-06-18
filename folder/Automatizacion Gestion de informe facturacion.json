@@ -612,7 +612,7 @@
     },
     {
       "parameters": {
-        "functionCode": "return [\n  { db: \"COMFIAR_AR\" },\n  { db: \"COMFIAR_AR2\" },\n  { db: \"COMFIAR_CINES\" },\n  { db: \"COMFIAR_BO\" },\n  { db: \"COMFIAR_EC\" },\n  { db: \"COMFIAR_PE\" },\n  { db: \"COMFIAR_CR\" },\n];\n"
+        "functionCode": "return [\n  { db: \"COMFIAR_AR\" },\n  { db: \"COMFIAR_AR2\" },\n  { db: \"COMFIAR_BO\" },\n  { db: \"COMFIAR_EC\" },\n  { db: \"COMFIAR_PE\" },\n  { db: \"COMFIAR_CR\" },\n];\n"
       },
       "name": "Lista de BD",
       "type": "n8n-nodes-base.function",
@@ -1267,12 +1267,156 @@
           "anio": 2026,
           "mes": 3,
           "cantidad": 542763
+        },
+        {
+          "ts": "2026-05-01T15:30:34.491Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 191095
+        },
+        {
+          "ts": "2026-05-01T15:31:09.584Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 529623
+        },
+        {
+          "ts": "2026-05-01T15:33:43.245Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 646231
+        },
+        {
+          "ts": "2026-05-01T15:33:51.094Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 71286
+        },
+        {
+          "ts": "2026-05-01T15:35:09.154Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 316105
+        },
+        {
+          "ts": "2026-05-01T15:35:31.683Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 600350
+        },
+        {
+          "ts": "2026-05-01T15:36:46.714Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 100361
+        },
+        {
+          "ts": "2026-05-01T15:36:49.790Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 34028
+        },
+        {
+          "ts": "2026-05-01T15:37:02.926Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 66280
+        },
+        {
+          "ts": "2026-05-01T15:37:04.944Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 2354
+        },
+        {
+          "ts": "2026-05-01T15:37:08.332Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP4",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 7744
+        },
+        {
+          "ts": "2026-06-01T15:32:00.313Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 182704
+        },
+        {
+          "ts": "2026-06-01T15:42:50.299Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 559881
+        },
+        {
+          "ts": "2026-06-01T15:45:35.811Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 562776
+        },
+        {
+          "ts": "2026-06-01T15:45:48.503Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 62031
+        },
+        {
+          "ts": "2026-06-01T15:45:54.583Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 420702
         }
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-04-21T12:53:24.075Z",
-  "versionId": "9fb81da9-eab9-4b0f-b53f-637060755047"
+  "updatedAt": "2026-06-17T14:47:16.929Z",
+  "versionId": "62d18963-1858-4795-b026-435ee420cfad"
 }
