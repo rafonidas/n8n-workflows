@@ -1,0 +1,130 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2026-06-17T20:42:37.315Z",
+  "id": "4dg1wcbDuKCYzQGc",
+  "isArchived": false,
+  "meta": null,
+  "name": "NLQ Ask - Webhook to Teams",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "nlq-ask",
+        "options": {}
+      },
+      "id": "7727bd4f-4cfd-46e2-adaa-c3f1570dd50b",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -112
+      ],
+      "webhookId": "{{ WILL_BE_GENERATED }}"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8080/ask",
+        "options": {}
+      },
+      "id": "746542d7-3ceb-4fd8-88bd-f66b9c10963b",
+      "name": "HTTP: POST /ask to NLQ API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        400,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://10.10.30.30:8080/health",
+        "options": {}
+      },
+      "id": "4ead5c54-3ede-4f07-8d9b-25b26593ef82",
+      "name": "HTTP: Health Check NLQ API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        176,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TODO: COMPLETAR - Parse pregunta desde Teams webhook payload\n// Espera input como:\n// {\n//   \"text\": \"¿cuáles son las 5 queries más lentas?\",\n//   \"from\": {\"id\": \"user123\", \"name\": \"Juan\"},\n//   \"channelData\": {\"teamsChannelId\": \"...\", \"teamsMessageId\": \"...\"},\n//   \"conversation\": {\"id\": \"conv123\"}\n// }\n\nreturn {\n  pregunta: $input.first().json.text || '',\n  user_id: $input.first().json.from?.id || 'unknown',\n  session_id: $input.first().json.conversation?.id || 'default',\n  conversation_id: $input.first().json.conversation?.id,\n  message_id: $input.first().json.channelData?.teamsMessageId,\n  channel_id: $input.first().json.channelData?.teamsChannelId,\n  from_name: $input.first().json.from?.name\n};"
+      },
+      "id": "c4107957-1a66-4bb1-a40d-9c01306194c8",
+      "name": "Code: Parse pregunta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// TODO: COMPLETAR - Transformar respuesta a Adaptive Card para Teams\n// Espera input como:\n// {\n//   \"respuesta_md\": \"| query | nombre_corto | ... |\",\n//   \"confidence\": 0.95,\n//   \"fuentes\": {\"vista_usada\": \"...\", \"rows_devueltas\": 5},\n//   \"metadata\": {\"latencia_ms\": 6000}\n// }\n\nconst response = $input.first().json;\nconst markdown = response.respuesta_md || 'Sin respuesta';\nconst confidence = (response.confidence * 100).toFixed(0);\nconst view = response.fuentes?.vista_usada || 'N/A';\nconst rows = response.fuentes?.rows_devueltas || 0;\nconst latency = response.metadata?.latencia_ms || 0;\n\nreturn {\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"type\": \"AdaptiveCard\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Respuesta NLQ\",\n      \"weight\": \"bolder\",\n      \"size\": \"large\"\n    },\n    {\n      \"type\": \"TextBlock\",\n      \"text\": markdown,\n      \"wrap\": true,\n      \"spacing\": \"medium\"\n    },\n    {\n      \"type\": \"TextBlock\",\n      \"text\": `[Confianza: ${confidence}%] [Vista: ${view}] [Filas: ${rows}] [Latencia: ${latency}ms]`,\n      \"size\": \"small\",\n      \"color\": \"good\",\n      \"spacing\": \"small\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Action.OpenUrl\",\n      \"title\": \"Util\",\n      \"url\": \"{{ TODO: WEBHOOK_FEEDBACK_URL?action=helpful&query_id=... }}\"\n    },\n    {\n      \"type\": \"Action.OpenUrl\",\n      \"title\": \"No util\",\n      \"url\": \"{{ TODO: WEBHOOK_FEEDBACK_URL?action=not_helpful&query_id=... }}\"\n    }\n  ]\n};"
+      },
+      "id": "c4dc32b7-c06e-407f-bafe-054c8643f8f5",
+      "name": "Code: Transform to Adaptive Card",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message"
+      },
+      "id": "7732c176-0e6c-410e-8cc6-73efc5b3b952",
+      "name": "Teams: Send Adaptive Card",
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 1,
+      "position": [
+        592,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        400,
+        384
+      ],
+      "id": "f2817bf3-fc8f-4f2e-8b25-c0bccbd4b09a",
+      "name": "Get row(s)"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-17T20:42:37.315Z",
+      "updatedAt": "2026-06-17T20:42:37.315Z",
+      "role": "workflow:owner",
+      "workflowId": "4dg1wcbDuKCYzQGc",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-17T20:54:25.948Z",
+  "versionId": "e9f8451a-17fe-4a6c-8220-5462f00444a3"
+}
