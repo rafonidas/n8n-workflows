@@ -1,0 +1,535 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Initialize Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Initialize Config": {
+      "main": [
+        [
+          {
+            "node": "Loop Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Channels": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to Sheets": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Loop Channels",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get workspace information": {
+      "main": [
+        [
+          {
+            "node": "Append rows to table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append rows to table": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Initialize Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-08T12:59:58.673Z",
+  "id": "Vg6xK7pD3Txw6sFj",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "GetTeamsMessages",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "91fe10c3-2794-41f7-baba-cc1ec2f09236",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        -192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const channels = [\n  { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId: \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n  { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId: \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\" },\n  { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId: \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\" },\n  { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId: \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\" },\n  { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId: \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\" },\n  { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId: \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\" },\n  { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId: \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\" },\n  { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId: \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\" },\n { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId: \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\" },\n { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId: \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\" },\n { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId: \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\" },\n { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId: \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId: \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\" },\n { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId: \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\" },\n { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId: \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\" },\n { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId: \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\" }\n];\nreturn  channels"
+      },
+      "id": "4d403fd6-2f67-4049-909c-240c6854693f",
+      "name": "Initialize Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -192
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "fd8d41e9-06ea-4568-a138-4b8b89d99939",
+      "name": "Loop Channels",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        224,
+        -192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1EcoY9kScVvZJzSNvK3jGN1MoFwcrJod6THB2hki0TZw",
+          "mode": "list",
+          "cachedResultName": "teamsMessages",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcoY9kScVvZJzSNvK3jGN1MoFwcrJod6THB2hki0TZw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2028343468,
+          "mode": "list",
+          "cachedResultName": "Soporte",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EcoY9kScVvZJzSNvK3jGN1MoFwcrJod6THB2hki0TZw/edit#gid=2028343468"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channelId",
+              "displayName": "channelId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reactions",
+              "displayName": "reactions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reactionType",
+              "displayName": "reactionType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reactorUserId",
+              "displayName": "reactorUserId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "reactionTimestamp",
+              "displayName": "reactionTimestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "country",
+              "displayName": "country",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1e648b7f-c607-4a17-a210-3aafea5980b5",
+      "name": "Append to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        -64
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YtjFVoybbkWVfDYe",
+          "name": "Rafa-Sheets"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "operation": "getAll",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channelId }}",
+          "mode": "id"
+        },
+        "limit": 10
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "d6081b85-029c-40f5-b5f1-34ab9ed09e7e",
+      "name": "Get many messages",
+      "webhookId": "797bf583-2f79-47c4-8037-b5f9c7222b13",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 10,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        736,
+        -96
+      ],
+      "id": "edcc06fb-454b-41c7-b51c-76f86d266ef5",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bee91e66-855e-4e40-a03d-53147619dade",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "78fedce8-5fab-4afd-a224-dc9e27dec686",
+              "name": "timestamp",
+              "value": "={{ $json.createdDateTime }}",
+              "type": "string"
+            },
+            {
+              "id": "b370475f-f495-4223-9fa2-affe3df39954",
+              "name": "channelId",
+              "value": "={{ $('Loop Channels').item.json.channelId }}",
+              "type": "string"
+            },
+            {
+              "id": "97eea53d-0989-4581-9d02-b4310889cd65",
+              "name": "reactions",
+              "value": "={{ $json.reactions.length > 0 }}",
+              "type": "string"
+            },
+            {
+              "id": "14e92412-b686-4d62-bb20-09363d67ae25",
+              "name": "reactionType",
+              "value": "={{ $json.reactions.length > 0 ? $json.reactions[0].reactionType : false }}",
+              "type": "string"
+            },
+            {
+              "id": "55e53ec1-9349-4e1c-8008-495835b73190",
+              "name": "reactorUserId",
+              "value": "={{ $json.reactions.length > 0 ? $json.reactions[0].user.user.id : false }}",
+              "type": "string"
+            },
+            {
+              "id": "a8f7fb1a-e59a-4d55-81b9-59c74c2ee828",
+              "name": "reactionTimestamp",
+              "value": "={{$json.reactions.length > 0 ? $json.reactions[0].createdDateTime : false  }}",
+              "type": "string"
+            },
+            {
+              "id": "e6b522b2-c8bd-4cb9-af62-e6369ddd52e9",
+              "name": "country",
+              "value": "={{ $('Loop Channels').item.json.country }}",
+              "type": "string"
+            },
+            {
+              "id": "b5725764-8993-4a4d-9095-8b39f0898ca9",
+              "name": "entorno",
+              "value": "={{ $('Loop Channels').item.json.entorno }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        576,
+        -96
+      ],
+      "id": "ace8871f-9233-404d-9f04-bda65ac39eaa",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "authentication": "predefinedCredentialType",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        592,
+        -464
+      ],
+      "id": "e40bedb3-0deb-449f-b0f7-d5edf2a8680b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "resource": "admin"
+      },
+      "type": "n8n-nodes-powerbi.powerBi",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        208
+      ],
+      "id": "d0fcadbe-076a-496d-8091-106c0e4e29cf",
+      "name": "Get workspace information"
+    },
+    {
+      "parameters": {
+        "resource": "table",
+        "workbook": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "worksheet": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftExcel",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        208
+      ],
+      "id": "81df8ee5-d875-42b2-8a4d-4fc79362a796",
+      "name": "Append rows to table"
+    },
+    {
+      "parameters": {
+        "resource": "contact",
+        "operation": "get",
+        "contactId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        144,
+        272
+      ],
+      "id": "8f6aa0c2-5187-41fb-a65e-b97742a15bfa",
+      "name": "Get a contact",
+      "webhookId": "a5ad3ed1-5f3a-40f8-b4a4-6a526d75f701",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "iRO7pQXrdJ5UuGRl",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        -320
+      ],
+      "id": "836d2098-cd57-44f3-b3bd-106a26c5f495",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-08T12:59:58.673Z",
+      "updatedAt": "2026-06-08T12:59:58.673Z",
+      "role": "workflow:owner",
+      "workflowId": "Vg6xK7pD3Txw6sFj",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-18T20:47:07.845Z",
+  "versionId": "cb146554-df1e-4285-81be-bbb859c518d6"
+}
