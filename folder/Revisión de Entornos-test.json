@@ -1335,8 +1335,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2864,
-        336
+        5536,
+        496
       ],
       "id": "d7f78f56-ccee-48a3-8b48-44ea7bf85ddc",
       "name": "Audit End"
@@ -1364,8 +1364,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        2256,
-        272
+        4928,
+        432
       ],
       "notesInFlow": false,
       "alwaysOutputData": true,
@@ -1995,8 +1995,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2256,
-        128
+        4928,
+        288
       ],
       "id": "b4a717f7-4fb7-4f5a-b4bd-fdf499d81a0e",
       "name": "Classify Error"
@@ -2028,8 +2028,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2496,
-        128
+        5168,
+        288
       ],
       "id": "a0a3c07f-3cc3-4ed2-ba8b-38b2e9b82789",
       "name": "Is Transient?"
@@ -2044,8 +2044,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        2704,
-        80
+        5376,
+        240
       ],
       "alwaysOutputData": true,
       "retryOnFail": true,
@@ -2065,8 +2065,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2256,
-        -64
+        4928,
+        96
       ],
       "id": "8b524a7d-b498-4cc2-a492-2dddfe434235",
       "name": "Audit End (Error)"
@@ -2078,8 +2078,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        3056,
-        -16
+        5728,
+        144
       ],
       "id": "4cd49161-0b96-40e7-8a1d-799f2511d007",
       "name": "Sticky Note7"
@@ -2112,8 +2112,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2048,
-        240
+        4720,
+        400
       ],
       "id": "fdab944e-6163-40d3-8898-ef48b757eff0",
       "name": "If error "
@@ -2124,8 +2124,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2432,
-        -64
+        5104,
+        96
       ],
       "typeVersion": 1,
       "id": "d67b58ee-5c35-4dc0-b1e3-0502ab72d474",
@@ -3557,6 +3557,56 @@
       ],
       "id": "511ee359-5405-4e76-ae62-a0dab3987f44",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "resource": "Actor tasks",
+        "actorTaskId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "timeout": {}
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        3936,
+        1712
+      ],
+      "id": "7a8e97a0-ebab-4186-abb7-49ad7b380bd7",
+      "name": "Run task",
+      "credentials": {
+        "apifyApi": {
+          "id": "vntaPaugZtd2hjha",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.apify.com/v2/acts/harvestapi~linkedin-profile-posts/run-sync-get-dataset-items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "apifyApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"targetUrls\": [\"https://www.https://www.linkedin.com/in/rafael-n%C3%BA%C3%B1ez-/\"],\n  \"maxPosts\": 5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3696,
+        -1216
+      ],
+      "id": "3ef71c07-f61c-428e-a0f5-278c99951b91",
+      "name": "Get LinkedIn Post",
+      "credentials": {
+        "apifyApi": {
+          "id": "vntaPaugZtd2hjha",
+          "name": "Apify account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -3619,6 +3669,6 @@
   },
   "tags": [],
   "triggerCount": 9,
-  "updatedAt": "2026-06-17T19:51:46.640Z",
-  "versionId": "f38000a6-148e-455b-8794-1c3870c58cdc"
+  "updatedAt": "2026-06-18T15:27:32.480Z",
+  "versionId": "4b804a42-11aa-4a71-9716-9a2e6682853c"
 }
