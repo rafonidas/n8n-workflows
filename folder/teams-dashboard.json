@@ -1,0 +1,187 @@
+{
+  "active": true,
+  "connections": {
+    "Plantilla": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Set HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set HTML": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Plantilla",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-18T14:56:01.790Z",
+  "id": "oyJG8JiIrS3VrvYu",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "teams-dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1280,
+        1088
+      ],
+      "id": "451b8435-9328-4e34-bac0-6f60cc96cbb0",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "content": "https://www.mercadopago.com.ar/balance/reports/settlement_v2/statements/1be0e0a2-4a3b-4b2a-a1d2-635cf620f18c/download?format=csv\n",
+        "height": 128
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        1056
+      ],
+      "id": "6f540d6e-11f2-474e-bd6e-02c7412213ab",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e1d2c4e5-d286-47bf-9c5f-4914440bcc8b",
+              "name": "template",
+              "value": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Auditoría de reacciones · Comfiar</title>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js\"></script>\n<style>\n  :root{--bg:#0F1620;--surface:#18222E;--hairline:#28384a;--ink:#E8EEF4;--muted:#7C8D9E;--muted-dim:#56697c;--signal:#46C6B9;--warn:#E0A24A;}\n  *{box-sizing:border-box;}html,body{margin:0;padding:0;}\n  body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}\n  .wrap{max-width:1180px;margin:0 auto;padding:0 22px 64px;}\n  header{border-bottom:1px solid var(--hairline);background:linear-gradient(180deg,#16202c 0%,var(--bg) 100%);}\n  .head-inner{max-width:1180px;margin:0 auto;padding:22px 22px 18px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;}\n  .title{display:flex;align-items:baseline;gap:12px;}\n  .title h1{font-size:21px;font-weight:600;letter-spacing:-0.01em;margin:0;}\n  .title .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--signal);border:1px solid var(--signal);border-radius:3px;padding:2px 7px;letter-spacing:0.06em;}\n  .statusline{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:8px;}\n  .dot{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px rgba(70,198,194,.18);}\n  \n  /* Filtros y Rango */\n  .filters{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;padding:18px 0 22px;border-bottom:1px solid var(--hairline);}\n  .field{display:flex;flex-direction:column;gap:6px;}\n  .field label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted-dim);}\n  select{appearance:none;background:var(--surface);color:var(--ink);border:1px solid var(--hairline);border-radius:5px;padding:9px 34px 9px 12px;font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;min-width:168px;cursor:pointer;\n    background-image:url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%237C8D9E' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>\");background-repeat:no-repeat;background-position:right 12px center;}\n  select:focus-visible,.seg button:focus-visible{outline:2px solid var(--signal);outline-offset:2px;}\n  .seg{display:inline-flex;border:1px solid var(--hairline);border-radius:5px;overflow:hidden;}\n  .seg button{background:var(--surface);color:var(--muted);border:0;border-right:1px solid var(--hairline);padding:9px 13px;font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;transition:background .15s,color .15s;}\n  .seg button:last-child{border-right:0;}\n  .seg button.active{background:var(--signal);color:#06201f;font-weight:600;}\n  .seg button:hover:not(.active){color:var(--ink);}\n\n  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin:26px 0;}\n  .kpi{background:var(--surface);border:1px solid var(--hairline);border-radius:8px;padding:16px 18px;position:relative;overflow:hidden;}\n  .kpi::before{content:\"\";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--signal);opacity:.85;}\n  .kpi.warn::before{background:var(--warn);}\n  .kpi .k-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}\n  .kpi .k-val{font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;margin-top:8px;letter-spacing:-0.02em;}\n  .kpi.warn .k-val{color:var(--warn);}\n  .kpi .k-sub{font-size:11.5px;color:var(--muted-dim);margin-top:3px;}\n  .panel{background:var(--surface);border:1px solid var(--hairline);border-radius:8px;padding:18px 20px 20px;}\n  .panel h2{font-size:13px;font-weight:600;margin:0 0 2px;}\n  .panel .p-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-dim);}\n  .panel-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}\n  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}\n  .full{margin-top:14px;}\n  .chart-box{position:relative;height:240px;}\n  .chart-box.short{height:220px;}\n  table{width:100%;border-collapse:collapse;font-size:13px;}\n  th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted-dim);font-weight:500;padding:0 10px 9px;border-bottom:1px solid var(--hairline);}\n  th.num,td.num{text-align:right;}\n  td{padding:10px;border-bottom:1px solid #202d3b;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}\n  tr:last-child td{border-bottom:0;}\n  .pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 8px;border-radius:99px;}\n  .pill.ok{color:var(--signal);background:rgba(70,198,194,.12);}\n  .pill.low{color:var(--warn);background:rgba(224,162,74,.14);}\n  .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:8px;vertical-align:middle;}\n  .footnote{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted-dim);margin-top:22px;line-height:1.7;}\n  @media (max-width:840px){.grid-2{grid-template-columns:1fr;}select{min-width:150px;}}\n  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}\n</style>\n</head>\n<body>\n<header>\n  <div class=\"head-inner\">\n    <div class=\"title\"><h1>Auditoría de reacciones</h1><span class=\"tag\">COMFIAR</span></div>\n    <div class=\"statusline\"><span class=\"dot\"></span><span id=\"status\">cargando…</span></div>\n  </div>\n</header>\n\n<div class=\"wrap\">\n  <div class=\"filters\">\n    <div class=\"field\"><label for=\"f-pais\">País</label><select id=\"f-pais\"></select></div>\n    <div class=\"field\"><label for=\"f-entorno\">Entorno</label><select id=\"f-entorno\"></select></div>\n    <div class=\"field\">\n      <label>Rango temporal</label>\n      <div class=\"seg\" id=\"f-rango\">\n        <button data-d=\"7\">7d</button>\n        <button data-d=\"30\" class=\"active\">30d</button>\n        <button data-d=\"90\">90d</button>\n        <button data-d=\"0\">Todo</button>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"kpis\">\n    <div class=\"kpi\"><div class=\"k-label\">Mensajes</div><div class=\"k-val\" id=\"kpi-msg\">—</div><div class=\"k-sub\" id=\"kpi-msg-sub\">en el rango</div></div>\n    <div class=\"kpi\"><div class=\"k-label\">Tasa de reacción</div><div class=\"k-val\" id=\"kpi-rate\">—</div><div class=\"k-sub\" id=\"kpi-rate-sub\"></div></div>\n    <div class=\"kpi\"><div class=\"k-label\">Tiempo medio</div><div class=\"k-val\" id=\"kpi-lat\">—</div><div class=\"k-sub\">hasta la reacción</div></div>\n    <div class=\"kpi\"><div class=\"k-label\">Reactores únicos</div><div class=\"k-val\" id=\"kpi-users\">—</div><div class=\"k-sub\">personas que validan</div></div>\n    <div class=\"kpi warn\"><div class=\"k-label\">Sin reaccionar</div><div class=\"k-val\" id=\"kpi-norx\">—</div><div class=\"k-sub\" id=\"kpi-norx-sub\"></div></div>\n  </div>\n\n  <div class=\"panel full\">\n    <div class=\"panel-head\"><div><div class=\"p-eyebrow\">Compromiso</div><h2>Mensajes y reacciones por entorno</h2></div></div>\n    <div class=\"chart-box\"><canvas id=\"chart-ent\"></canvas></div>\n  </div>\n\n  <div class=\"grid-2\">\n    <div class=\"panel\">\n      <div class=\"panel-head\"><div><div class=\"p-eyebrow\">Validación</div><h2>Tasa de reacción por país</h2></div></div>\n      <div class=\"chart-box short\"><canvas id=\"chart-rate\"></canvas></div>\n    </div>\n    <div class=\"panel\">\n      <div class=\"panel-head\"><div><div class=\"p-eyebrow\">Latencia</div><h2>Tiempo hasta la reacción</h2></div></div>\n      <div class=\"chart-box short\"><canvas id=\"chart-lat\"></canvas></div>\n    </div>\n  </div>\n\n  <div class=\"grid-2\">\n    <div class=\"panel\">\n      <div class=\"panel-head\"><div><div class=\"p-eyebrow\">Personas</div><h2>Top usuarios que reaccionan</h2></div></div>\n      <div class=\"chart-box short\"><canvas id=\"chart-users\"></canvas></div>\n    </div>\n    <div class=\"panel\">\n      <div class=\"panel-head\"><div><div class=\"p-eyebrow\">Tipos</div><h2>Reacciones usadas</h2></div></div>\n      <div class=\"chart-box short\"><canvas id=\"chart-types\"></canvas></div>\n    </div>\n  </div>\n\n  <div class=\"panel full\">\n    <div class=\"panel-head\"><div><div class=\"p-eyebrow\">Auditoría</div><h2>Detalle por canal</h2></div></div>\n    <table>\n      <thead><tr><th>País</th><th>Entorno</th><th class=\"num\">Mensajes</th><th class=\"num\">Tasa</th><th class=\"num\">Tiempo medio</th><th class=\"num\">Sin reaccionar</th><th>Estado</th></tr></thead>\n      <tbody id=\"tbody\"></tbody>\n    </table>\n  </div>\n\n  <p class=\"footnote\">\n    Datos desde Supabase vía n8n. Contrato: combos[{country,entorno,dia,mensajes,reaccionados,lat_avg_sec,b0..b4}],<br>\n    tipos[{country,entorno,dia,tipo,n}], reactores[{country,entorno,dia,user_id,name,reacciones}]. Umbral de tasa baja: 70%.\n  </p>\n</div>\n\n<script>\n/* n8n inyecta los datos en la variable DATA */\nlet DATA = \"__N8N_DATA__\";\n\nconst PAIS_NOMBRE={AR:\"Argentina\",CO:\"Colombia\",PE:\"Perú\",EC:\"Ecuador\",CR:\"Costa Rica\",BO:\"Bolivia\"};\nconst PAIS_ORDEN=[\"AR\",\"CO\",\"PE\",\"EC\",\"CR\",\"BO\"];\nconst ENT_ORDEN=[\"APP\",\"APP2\",\"APP3\",\"APP4\",\"Cines\",\"Test\"];\nconst PAIS_COLOR={AR:\"#46C6B9\",CO:\"#7C8CF0\",PE:\"#E0A24A\",EC:\"#E8739B\",CR:\"#9BD15B\",BO:\"#62B6E8\"};\nconst TIPO_COLOR={\"👍\":\"#46C6B9\",\"✅\":\"#9BD15B\",\"❤️\":\"#E8739B\",\"👀\":\"#7C8CF0\",\"🎉\":\"#E0A24A\"};\nconst BUCKETS=[\"<5m\",\"5–15m\",\"15–60m\",\"1–4h\",\">4h\"];\nconst BUCKET_MID=[150,600,2250,9000,21600];\nconst UMBRAL_BAJA=0.70;\n\n/* Fallback de demo si falla n8n */\nfunction buildSample(){\n  const COMBOS={AR:[\"APP\",\"APP2\",\"Cines\",\"Test\"],CO:[\"APP\",\"APP2\",\"APP3\",\"APP4\",\"Test\"],PE:[\"APP\",\"Test\"],EC:[\"APP\",\"Test\"],CR:[\"APP\",\"Test\"],BO:[\"APP\",\"Test\"]};\n  let seed=7; const rnd=()=>{seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;};\n  const paisF={AR:1.3,CO:1.2,PE:0.9,EC:0.7,CR:0.6,BO:0.5},entF={APP:1,APP2:.7,APP3:.6,APP4:.5,Cines:.4,Test:.3};\n  const TIPOS=[\"👍\",\"✅\",\"❤️\",\"👀\",\"🎉\"],tw=[.66,.16,.09,.06,.03];\n  const combos=[],tipos=[],reactores=[],pool={};\n  const NOMBRES=[\"Eduardo Canizales\",\"Roberto Marcano\",\"Andrea Ravenna\",\"Vanessa Rodriguez\",\"Zaida Ruiz\",\"Barbosa Agustín\",\"Lucía Fernández\",\"Marco Pérez\"];\n  for(const c of PAIS_ORDEN)pool[c]=Array.from({length:8},(_,i)=>{let s=\"\";for(let k=0;k<8;k++)s+=\"0123456789abcdef\"[Math.floor(rnd()*16)];return {id:s,name:NOMBRES[i]};});\n  \n  const today = new Date(); today.setHours(0,0,0,0);\n  for(let d=60; d>=0; d--){\n    const dt=new Date(today); dt.setDate(dt.getDate()-d);\n    const dia=dt.toISOString().slice(0,10);\n    for(const c of PAIS_ORDEN)for(const e of COMBOS[c]){\n      const baseMensajes=Math.round(5*paisF[c]*entF[e]*(0.7+rnd()*0.6));\n      if(baseMensajes<=0) continue;\n      let rate=0.86-(e===\"Test\"?0.22:0)-(e===\"Cines\"?0.10:0)+(rnd()*0.14-0.07);rate=Math.max(0.4,Math.min(0.98,rate));\n      const rx=Math.round(baseMensajes*rate);\n      const speed=Math.max(0,Math.min(1,(e===\"Test\"?0.35:0.7)+(rnd()*0.4-0.2)));\n      const wF=[.45,.30,.15,.07,.03],wS=[.08,.18,.30,.27,.17];\n      const w=wF.map((f,i)=>f*speed+wS[i]*(1-speed)),ws=w.reduce((a,b)=>a+b,0);\n      const b=w.map(x=>Math.round(rx*x/ws));\n      const lat_avg_sec=rx?Math.round(b.reduce((a,x,i)=>a+x*BUCKET_MID[i],0)/rx):0;\n      combos.push({country:c,entorno:e,dia:dia,mensajes:baseMensajes,reaccionados:rx,lat_avg_sec,b0:b[0],b1:b[1],b2:b[2],b3:b[3],b4:b[4]});\n      TIPOS.forEach((t,i)=>{const n=Math.round(rx*tw[i]);if(n>0)tipos.push({country:c,entorno:e,dia:dia,tipo:t,n});});\n      const nu=3+Math.floor(rnd()*3);for(let i=0;i<nu;i++){const cnt=Math.round(rx*(i===0?0.4:0.6/(nu-1))*(0.8+rnd()*0.4));if(cnt>0)reactores.push({country:c,entorno:e,dia:dia,user_id:pool[c][i].id,name:pool[c][i].name,reacciones:cnt});}\n    }\n  }\n  return {combos,tipos,reactores};\n}\n\nif(typeof DATA===\"string\") DATA=buildSample();\n\n/* Listados globales */\nconst COMBO_MAP={};\nconst ALL_DAYS=[...new Set(DATA.combos.map(r=>r.dia))].sort();\nconst MAX_DAY=ALL_DAYS.length ? ALL_DAYS[ALL_DAYS.length-1] : new Date().toISOString().slice(0,10);\n\nfor(const r of DATA.combos){\n  if(!COMBO_MAP[r.country]) COMBO_MAP[r.country]=new Set();\n  COMBO_MAP[r.country].add(r.entorno);\n}\nconst PAISES_PRESENTES=PAIS_ORDEN.filter(c=>COMBO_MAP[c]);\n\n/* Estado actual */\nconst state={pais:\"__all\",entorno:\"__all\",dias:30};\n\nfunction fillPais(){\n  document.getElementById(\"f-pais\").innerHTML='<option value=\"__all\">Todos</option>'+PAISES_PRESENTES.map(c=>`<option value=\"${c}\">${PAIS_NOMBRE[c]||c}</option>`).join(\"\");\n}\nfunction fillEntorno(){\n  let ents=state.pais===\"__all\"?[...new Set(DATA.combos.map(r=>r.entorno))]:Array.from(COMBO_MAP[state.pais]||[]);\n  ents=ENT_ORDEN.filter(e=>ents.includes(e));\n  const sel=document.getElementById(\"f-entorno\");\n  sel.innerHTML='<option value=\"__all\">Todos</option>'+ents.map(e=>`<option value=\"${e}\">${e}</option>`).join(\"\");\n  if(state.entorno!==\"__all\"&&!ents.includes(state.entorno))state.entorno=\"__all\";\n  sel.value=state.entorno;\n}\nfillPais(); fillEntorno();\n\n/* Utilidades */\nconst fmt=n=>Math.round(n).toLocaleString(\"es-AR\");\nconst pct=x=>(x*100).toFixed(1)+\"%\";\nfunction fmtLat(s){\n  if(!s||isNaN(s))return \"—\";\n  const m=s/60; if(m<60)return Math.round(m)+\"m\";\n  const h=Math.floor(m/60); return h+\"h \"+Math.round(m-h*60)+\"m\";\n}\n\n/* Lógica de Filtro Temporal */\nfunction rangeStart(){\n  if(state.dias===0) return \"0000-00-00\";\n  const d=new Date(MAX_DAY);\n  d.setDate(d.getDate()-(state.dias-1));\n  return d.toISOString().slice(0,10);\n}\n\nconst inScope=r=>{\n  return (r.dia >= rangeStart()) &&\n         (state.pais===\"__all\"||r.country===state.pais) &&\n         (state.entorno===\"__all\"||r.entorno===state.entorno);\n};\n\n/* Charts Setup */\nChart.defaults.color=\"#7C8D9E\";Chart.defaults.font.family=\"'IBM Plex Mono', monospace\";Chart.defaults.font.size=11;\nconst gridc=\"#202d3b\";\nconst tt={backgroundColor:\"#0F1620\",borderColor:\"#28384a\",borderWidth:1,padding:10,titleColor:\"#E8EEF4\",bodyColor:\"#7C8D9E\"};\nlet cEnt,cRate,cLat,cUsers,cTypes;\n\nfunction render(){\n  const rows = DATA.combos.filter(inScope);\n  const msg = rows.reduce((a,r)=>a+r.mensajes,0);\n  const rx = rows.reduce((a,r)=>a+r.reaccionados,0);\n  const latW = rows.reduce((a,r)=>a+(r.lat_avg_sec*r.reaccionados),0);\n  const ru = DATA.reactores.filter(inScope);\n  const uniq = new Set(ru.map(r=>r.user_id)).size;\n  \n  document.getElementById(\"kpi-msg\").textContent=fmt(msg);\n  document.getElementById(\"kpi-msg-sub\").textContent=state.dias===0?\"histórico completo\":\"últimos \"+state.dias+\" días\";\n  document.getElementById(\"kpi-rate\").textContent=msg?pct(rx/msg):\"—\";\n  document.getElementById(\"kpi-rate-sub\").textContent=fmt(rx)+\" reaccionados\";\n  document.getElementById(\"kpi-lat\").textContent=fmtLat(rx?latW/rx:0);\n  document.getElementById(\"kpi-users\").textContent=fmt(uniq);\n  document.getElementById(\"kpi-norx\").textContent=fmt(msg-rx);\n  document.getElementById(\"kpi-norx-sub\").textContent=msg?pct((msg-rx)/msg)+\" sin validar\":\"\";\n\n  /* por entorno (agrupando los días) */\n  const ents=ENT_ORDEN.filter(e=>rows.some(r=>r.entorno===e));\n  const em=ents.map(e=>rows.filter(r=>r.entorno===e).reduce((a,r)=>a+r.mensajes,0));\n  const er=ents.map(e=>rows.filter(r=>r.entorno===e).reduce((a,r)=>a+r.reaccionados,0));\n  if(cEnt)cEnt.destroy();\n  cEnt=new Chart(document.getElementById(\"chart-ent\"),{type:\"bar\",data:{labels:ents,datasets:[\n      {label:\"Mensajes\",data:em,backgroundColor:\"#46C6B9\",borderRadius:4},\n      {label:\"Reacciones\",data:er,backgroundColor:\"#7C8CF0\",borderRadius:4}]},\n    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:\"top\",labels:{boxWidth:12,padding:14}},tooltip:tt},\n      scales:{x:{grid:{display:false}},y:{grid:{color:gridc,drawTicks:false},beginAtZero:true,ticks:{precision:0}}}}});\n\n  /* tasa por país */\n  const paises=state.pais===\"__all\"?PAISES_PRESENTES:[state.pais];\n  const rd=paises.map(c=>{\n    const rr=rows.filter(r=>r.country===c);\n    const m=rr.reduce((a,r)=>a+r.mensajes,0);\n    const x=rr.reduce((a,r)=>a+r.reaccionados,0);\n    return m?+(x/m*100).toFixed(1):0;\n  });\n  if(cRate)cRate.destroy();\n  cRate=new Chart(document.getElementById(\"chart-rate\"),{type:\"bar\",data:{labels:paises.map(c=>PAIS_NOMBRE[c]||c),datasets:[{data:rd,backgroundColor:paises.map(c=>PAIS_COLOR[c]),borderRadius:4,barThickness:18}]},\n    options:{indexAxis:\"y\",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>c.parsed.x+\"% reaccionados\"}}},\n      scales:{x:{grid:{color:gridc,drawTicks:false},beginAtZero:true,max:100,ticks:{callback:v=>v+\"%\"}},y:{grid:{display:false}}}}});\n\n  /* latencia */\n  const lat=[0,1,2,3,4].map(i=>rows.reduce((a,r)=>a+r[\"b\"+i],0));\n  if(cLat)cLat.destroy();\n  cLat=new Chart(document.getElementById(\"chart-lat\"),{type:\"bar\",data:{labels:BUCKETS,datasets:[{data:lat,backgroundColor:[\"#46C6B9\",\"#5fb9b0\",\"#7caea0\",\"#c2a35e\",\"#E0A24A\"],borderRadius:4}]},\n    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>fmt(c.parsed.y)+\" reacciones\"}}},\n      scales:{x:{grid:{display:false}},y:{grid:{color:gridc,drawTicks:false},beginAtZero:true,ticks:{precision:0}}}}});\n\n  /* top usuarios: SOLUCIÓN NOMBRES CORTADOS CON PADDING LEFT */\n  const byU={}; for(const r of ru){ const k = r.name||r.user_id; byU[k] = (byU[k]||0) + r.reacciones; }\n  const top=Object.entries(byU).sort((a,b)=>b[1]-a[1]).slice(0,8);\n  if(cUsers)cUsers.destroy();\n  cUsers=new Chart(document.getElementById(\"chart-users\"),{type:\"bar\",data:{labels:top.map(t=>t[0]),datasets:[{data:top.map(t=>t[1]),backgroundColor:\"#7C8CF0\",borderRadius:4,barThickness:15}]},\n    options:{\n      layout: { padding: { left: 15 } }, /* ¡Evita que las letras se corten! */\n      indexAxis:\"y\",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>fmt(c.parsed.x)+\" reacciones\"}}},\n      scales:{x:{grid:{color:gridc,drawTicks:false},beginAtZero:true,ticks:{precision:0}},y:{grid:{display:false}}}}});\n\n  /* tipos */\n  const tip={};for(const r of DATA.tipos.filter(inScope))tip[r.tipo]=(tip[r.tipo]||0)+r.n;\n  const tl=Object.keys(tip);\n  if(cTypes)cTypes.destroy();\n  cTypes=new Chart(document.getElementById(\"chart-types\"),{type:\"doughnut\",data:{labels:tl,datasets:[{data:tl.map(t=>tip[t]),backgroundColor:tl.map(t=>TIPO_COLOR[t]||\"#56697c\"),borderColor:\"#18222E\",borderWidth:2}]},\n    options:{responsive:true,maintainAspectRatio:false,cutout:\"58%\",plugins:{legend:{position:\"right\",labels:{boxWidth:12,padding:12,font:{size:14}}},tooltip:{...tt,callbacks:{label:c=>c.label+\"  \"+fmt(c.parsed)}}}}});\n\n  /* Tabla consolidada (agrupando por canal) */\n  const tableMap = {};\n  for(const r of rows){\n    const k = r.country + \"|\" + r.entorno;\n    if(!tableMap[k]) tableMap[k] = { c: r.country, e: r.entorno, msg: 0, rx: 0, lw: 0 };\n    tableMap[k].msg += r.mensajes;\n    tableMap[k].rx += r.reaccionados;\n    tableMap[k].lw += (r.lat_avg_sec * r.reaccionados);\n  }\n  const sortedChannels = Object.values(tableMap).sort((a,b)=>(a.rx/Math.max(a.msg,1))-(b.rx/Math.max(b.msg,1)));\n  \n  document.getElementById(\"tbody\").innerHTML=sortedChannels.map(r=>{\n    const rate = r.msg ? r.rx/r.msg : 0;\n    const low = rate < UMBRAL_BAJA;\n    const avgLat = r.rx ? r.lw/r.rx : 0;\n    return `<tr>\n      <td><span class=\"sw\" style=\"background:${PAIS_COLOR[r.c]||'#56697c'}\"></span>${PAIS_NOMBRE[r.c]||r.c}</td>\n      <td>${r.e}</td>\n      <td class=\"num\">${fmt(r.msg)}</td>\n      <td class=\"num\" style=\"color:${low?'var(--warn)':'var(--ink)'}\">${pct(rate)}</td>\n      <td class=\"num\">${fmtLat(avgLat)}</td>\n      <td class=\"num\">${fmt(r.msg-r.rx)}</td>\n      <td>${low?'<span class=\"pill low\">tasa baja</span>':'<span class=\"pill ok\">ok</span>'}</td>\n    </tr>`;\n  }).join(\"\");\n}\n\n/* Eventos */\ndocument.getElementById(\"f-pais\").addEventListener(\"change\",e=>{state.pais=e.target.value;fillEntorno();render();});\ndocument.getElementById(\"f-entorno\").addEventListener(\"change\",e=>{state.entorno=e.target.value;render();});\ndocument.getElementById(\"f-rango\").addEventListener(\"click\",e=>{\n  if(e.target.tagName!==\"BUTTON\")return;\n  document.querySelectorAll(\"#f-rango button\").forEach(b=>b.classList.remove(\"active\"));\n  e.target.classList.add(\"active\");\n  state.dias=parseInt(e.target.dataset.d,10);\n  render();\n});\n\n/* Init */\nconst totMsg=DATA.combos.reduce((a,r)=>a+r.mensajes,0);\ndocument.getElementById(\"status\").textContent=\"actualizado \"+MAX_DAY+\" · \"+fmt(totMsg)+\" mensajes procesados\";\nrender();\n</script>\n</body>\n</html>",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        640,
+        1088
+      ],
+      "id": "aec45421-064e-43f1-8152-0d8e35e2ca6d",
+      "name": "Plantilla"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select json_build_object(\n  'combos',    (select coalesce(json_agg(c), '[]') from v_audit_canales   c),\n  'tipos',     (select coalesce(json_agg(t), '[]') from v_audit_tipos     t),\n  'reactores', (select coalesce(json_agg(r), '[]') from v_audit_reactores r)\n) as payload;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        848,
+        1088
+      ],
+      "id": "381e66fd-8c03-4605-8b31-27cb45f7cfad",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Plantilla HTML (Set node) + datos (Postgres) → HTML final\nconst tpl     = $('Plantilla').first().json.template;\nconst payload = $('Postgres').first().json.payload;   // ajustá el nombre del nodo Postgres si difiere\n\n// El HTML trae la línea:  let DATA = \"__N8N_DATA__\";\n// La reemplazamos por el JSON real (queda:  let DATA = {...};)\nconst html = tpl.replace('\"__N8N_DATA__\"', JSON.stringify(payload));\n\nreturn [{ json: { html } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        1088
+      ],
+      "id": "32b02d3f-b4c5-4d94-bd97-079fa43dd563",
+      "name": "Set HTML"
+    },
+    {
+      "parameters": {
+        "path": "dashboard-auditoria",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        1088
+      ],
+      "id": "e3be383e-bc6a-4de5-9ec5-baa4922361cd",
+      "name": "Webhook",
+      "webhookId": "c5fbe9b3-8609-4998-bccd-26904bc6f430"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-18T14:56:01.790Z",
+      "updatedAt": "2026-06-18T14:56:01.790Z",
+      "role": "workflow:owner",
+      "workflowId": "oyJG8JiIrS3VrvYu",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-06-19T19:04:57.413Z",
+  "versionId": "aae5d003-355c-4c34-8f75-56cac0080a52"
+}
