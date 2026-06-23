@@ -1,0 +1,101 @@
+{
+  "active": false,
+  "connections": {
+    "SQL Execute2": {
+      "main": [
+        []
+      ]
+    },
+    "Trigger": {
+      "main": [
+        [
+          {
+            "node": "SQL Execute2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-22T13:26:03.531Z",
+  "id": "3pr7wL0vbaiWmaGy",
+  "isArchived": false,
+  "meta": null,
+  "name": "testo",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -304
+      ],
+      "id": "b3371107-2401-49e7-a6d9-38d0d931ff34",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
+      },
+      "id": "573bc57d-3f5c-45ce-a014-e48fcb4b562f",
+      "name": "SQL Execute2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -48
+      ],
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftSql": {
+          "id": "WvkydubM0vPoCR4D",
+          "name": "SQL-DINAMICO-V2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -128,
+        -48
+      ],
+      "id": "e3b1cce9-816f-4e1d-b69b-7b62ecbeb8f5",
+      "name": "Trigger"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timeSavedPerExecution": 5
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-22T13:26:03.531Z",
+      "updatedAt": "2026-06-22T13:26:03.531Z",
+      "role": "workflow:owner",
+      "workflowId": "3pr7wL0vbaiWmaGy",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-22T14:57:54.002Z",
+  "versionId": "9d510047-d58f-4786-80b7-c92b150d4746"
+}
