@@ -373,7 +373,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n// { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    // { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    // { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    // { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    // { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    // { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    // { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    // { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    // { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    // { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
+        "jsCode": "let executionType = 'Daily';\n\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst viga = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"apgcore.apgconsulting.com.ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv\"},\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst beeling = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    // { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    // { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    // { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst comfiar2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(viga);\nconst dbsCol = mapDbs(beeling);\nconst dbsCol4 = mapDbs(comfiar2);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -394,7 +394,7 @@
       "typeVersion": 3,
       "position": [
         -1568,
-        528
+        624
       ],
       "id": "bec91a5e-96f3-47cf-9be3-0a4dae3122f2",
       "name": "Query Loop"
@@ -419,8 +419,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        672,
-        624
+        352,
+        640
       ],
       "id": "91c2bb7d-4d03-4531-a2fd-b902394cadec",
       "name": "Map Results"
@@ -472,8 +472,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        896,
-        336
+        752,
+        256
       ],
       "id": "617ccdd9-21be-402a-b76e-81e947faac09",
       "name": "Wait",
@@ -550,8 +550,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1344,
-        560
+        -1296,
+        640
       ],
       "id": "fd0617a5-f26f-445e-bb06-49fd490056d4",
       "name": "Audit Start"
@@ -673,8 +673,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        672,
-        96
+        608,
+        64
       ],
       "id": "299f2aa4-8466-463b-ba10-6c21596acc7f",
       "name": "Update Tasks",
@@ -707,8 +707,8 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        0,
-        192
+        -48,
+        80
       ],
       "id": "5c6b345a-464f-4fdd-8776-fab7ff2f87a6",
       "name": "Stop and Error"
@@ -741,8 +741,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -224,
-        96
+        -288,
+        0
       ],
       "id": "4b3e9c01-8078-4e66-b8b5-b6b618f2f7d1",
       "name": "Check Error"
@@ -754,8 +754,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        0,
-        0
+        -48,
+        -64
       ],
       "id": "8d08a6e0-f564-43cb-b9ba-2d7bc47d28ff",
       "name": "Wait1",
@@ -784,8 +784,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        224,
-        0
+        144,
+        -64
       ],
       "id": "0a052b1e-2c86-4e0b-905e-ba96fcde9a06",
       "name": "Send Results Retry1",
@@ -824,8 +824,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        448,
-        176
+        384,
+        160
       ],
       "id": "b958fb83-2cc1-406d-a415-5bd8efde5c25",
       "name": "Check Execution"
@@ -1015,8 +1015,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        448,
-        560
+        144,
+        640
       ],
       "id": "ca3b2320-64bb-4cdc-8b2f-5481c2ea8a3f",
       "name": "Update Metrics1",
@@ -1037,8 +1037,8 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        -1120,
-        560
+        -1136,
+        640
       ],
       "notesInFlow": false,
       "alwaysOutputData": false,
@@ -1047,8 +1047,8 @@
       "waitBetweenTries": 5000,
       "credentials": {
         "microsoftSql": {
-          "id": "OJnhwvNxTV90RYTs",
-          "name": "SQL-02"
+          "id": "gxVnkkyySATGmqdw",
+          "name": "SQL - DINAMICO"
         }
       },
       "onError": "continueErrorOutput"
@@ -1060,8 +1060,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -448,
-        560
+        -576,
+        624
       ],
       "id": "a51b9e87-3488-4604-b582-ce1c5ab33192",
       "name": "Classify Error1"
@@ -1076,7 +1076,7 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        0,
+        -240,
         480
       ],
       "alwaysOutputData": true,
@@ -1117,8 +1117,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -224,
-        560
+        -432,
+        624
       ],
       "id": "72471169-3afc-4578-8701-038836e5b9ac",
       "name": "retry?"
@@ -1130,8 +1130,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        224,
-        560
+        -48,
+        640
       ],
       "id": "10c1afba-30b5-47e0-9426-05d932c3045a",
       "name": "Audit End2"
@@ -1159,8 +1159,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -672,
-        560
+        -736,
+        624
       ],
       "id": "fa767005-60cd-4f8d-83e1-70942072b3a7",
       "name": "Edit Fields"
@@ -1173,7 +1173,7 @@
       "typeVersion": 2,
       "position": [
         -896,
-        560
+        624
       ],
       "id": "953dc306-3aa1-4109-b914-94ef147a87d4",
       "name": "Code in JavaScript"
@@ -1205,7 +1205,9 @@
       "parameters": {
         "operation": "executeQuery",
         "query": "SELECT q.id, q.query_id AS \"queryId\", q.revision_query AS \"revisionQuery\",\n       q.type, q.description, q.application\nFROM revision_queries q\nJOIN revision_query_scopes s ON s.revision_query_id = q.id\nWHERE q.type = $1 AND (s.country=$2 OR s.country='ALL')\n                  AND (s.target_env=$3 OR s.target_env='ALL')\nGROUP BY q.id;",
-        "options": {}
+        "options": {
+          "queryReplacement": "="
+        }
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
@@ -1240,6 +1242,19 @@
           "name": "Bolivia?"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## application = viga\n## type == json.type\n## country -- env\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1824,
+        688
+      ],
+      "id": "e3060eba-8ea1-4e16-9d54-99e31cfd5324",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -1258,6 +1273,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-19T20:55:04.943Z",
-  "versionId": "f1253b2c-ae26-45c1-8dcb-ee745e9bdd0b"
+  "updatedAt": "2026-06-22T13:48:30.475Z",
+  "versionId": "908057ba-2a76-40f5-8b70-c1c98bca15a8"
 }
