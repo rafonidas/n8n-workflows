@@ -1,0 +1,225 @@
+{
+  "active": false,
+  "connections": {
+    "Trigger 06:00 CR": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar Directorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger 12:00 CR": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar Directorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger 16:00 CR": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar Directorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SFTP - Listar Directorio": {
+      "main": [
+        [
+          {
+            "node": "Filtrar Archivos > 1 hora",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar Archivos > 1 hora": {
+      "main": [
+        [
+          {
+            "node": "Teams - Alerta FieldGlass CR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-01-13T00:16:49.688Z",
+  "id": "OzCVUbUz3V5ZZ0hW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FieldGlass-FTP-Monitor-CR",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 6 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        384
+      ],
+      "id": "8aa0468b-8cdc-4973-b32f-5a9a73231b93",
+      "name": "Trigger 06:00 CR"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 12 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        544
+      ],
+      "id": "08befb9d-7d51-47fe-a125-d981b304146e",
+      "name": "Trigger 12:00 CR"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 16 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        704
+      ],
+      "id": "487574ff-f842-49b6-b794-686bbe9e7d74",
+      "name": "Trigger 16:00 CR"
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "list"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        416,
+        544
+      ],
+      "id": "546911d4-053a-4374-85dc-692ec5729179",
+      "name": "SFTP - Listar Directorio",
+      "credentials": {
+        "sftp": {
+          "id": "0t2mEvGvmdFT4Kgd",
+          "name": "CR FieldGlass"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = Date.now();\nconst ONE_HOUR_MS = 60 * 60 * 1000;\n\nconst oldFiles = $input.all()\n  .filter(item => {\n    const f = item.json;\n    // solo archivos sueltos (no directorios)\n    return f.type === '-' && (now - f.modifyTime) > ONE_HOUR_MS;\n  })\n  .sort((a, b) => a.json.modifyTime - b.json.modifyTime);\n\nif (oldFiles.length === 0) return [];\n\nconst fileRows = oldFiles.map(item => {\n  const f = item.json;\n  const date = new Date(f.modifyTime).toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' });\n  const ageMin = Math.round((now - f.modifyTime) / 60000);\n  return `<li><b>${f.name}</b> — ${date} (${ageMin} min)</li>`;\n}).join('');\n\nreturn [{\n  json: {\n    count: oldFiles.length,\n    fileRows\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        544
+      ],
+      "id": "34ceeba5-f145-4ee0-8207-4a821a652a60",
+      "name": "Filtrar Archivos > 1 hora"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Costa Rica - APP",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Aa9547625aaea4e02ae5b373bdc352ae9%40thread.tacv2/Costa%20Rica%20-%20APP?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<h3>🚨 FieldGlass FTP Monitor — PROD (Costa Rica)</h3><p>Se detectaron <b>{{ $json.count }} archivo(s)</b> con antigüedad mayor a <b>1 hora</b> en el directorio SFTP del servicio FieldGlass (Accenture CR).</p><p><b>Archivos encontrados (orden cronológico):</b></p><ul>{{ $json.fileRows }}</ul><hr/><p><b>Pasos para soporte:</b></p><ol><li>Buscar LOGs en Kibana del servicio <b>AccentureFieldGlass</b>. Si hay LOG de Error, revisar con el equipo.</li><li>En Servicios Web → <code>/Servicios/FieldGlass</code>, validar que la base de datos <code>APG.Accenture.Comfiar.Win.Service.Connector.db</code> esté registrando fecha de última modificación (indica que está consultando a la DGT y guardando registro).</li></ol>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        896,
+        544
+      ],
+      "id": "b6af3d49-2d04-41db-99d4-3ade970c305a",
+      "name": "Teams - Alerta FieldGlass CR",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "webhookId": "6c26a2a1-3c5c-4fd5-8614-37cf28e9db8c",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Costa_Rica",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "OzCVUbUz3V5ZZ0hW",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-23T14:11:16.364Z",
+  "versionId": "3b065518-40b6-47b8-b553-25439d3a0158"
+}
