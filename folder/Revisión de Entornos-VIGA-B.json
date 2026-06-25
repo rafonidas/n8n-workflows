@@ -68,7 +68,7 @@
       "main": [
         [
           {
-            "node": "Check Execution",
+            "node": "Wait",
             "type": "main",
             "index": 0
           }
@@ -159,7 +159,7 @@
       "main": [
         [
           {
-            "node": "SQL Execute",
+            "node": "Microsoft SQL",
             "type": "main",
             "index": 0
           }
@@ -171,17 +171,6 @@
         [
           {
             "node": "Set Credentials",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Tasks": {
-      "main": [
-        [
-          {
-            "node": "Wait",
             "type": "main",
             "index": 0
           }
@@ -232,24 +221,6 @@
       "main": [
         [
           {
-            "node": "Check Execution",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Check Execution": {
-      "main": [
-        [
-          {
-            "node": "Update Tasks",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
             "node": "Wait",
             "type": "main",
             "index": 0
@@ -290,17 +261,6 @@
         ]
       ]
     },
-    "SQL Execute": {
-      "main": [
-        [
-          {
-            "node": "Audit End",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Set Queries": {
       "main": [
         [
@@ -317,6 +277,17 @@
         [
           {
             "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft SQL": {
+      "main": [
+        [
+          {
+            "node": "Audit End",
             "type": "main",
             "index": 0
           }
@@ -339,7 +310,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         1712,
-        -1552
+        -1600
       ],
       "typeVersion": 1,
       "id": "133fbfc2-0f2d-43a9-b082-bfb2d4b272fc",
@@ -369,7 +340,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let executionType = 'Daily';\n\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n// { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    // { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    // { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    // { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    // { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    // { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    // { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    // { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    // { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    // { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
+        "jsCode": "let executionType = 'Four-Hourly';\n\n\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n{ db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    // { db: \"comfiar_cines\", entorno: \"Cines\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"},\n    // { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    // { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    // { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    // { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    // { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    // { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    // { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    // { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    // { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    // { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    // { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\n\nlet listaMaestra = [...dbsArg, ...dbsCol, ...dbsCol4];\n\n\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -640,136 +611,6 @@
     },
     {
       "parameters": {
-        "operation": "update",
-        "documentId": {
-          "__rl": true,
-          "value": "15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU",
-          "mode": "list",
-          "cachedResultName": "control_revisiones",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Hoja 1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15mYqZzJZ49PhJFsOYbU1tWZH83EpIMJCoWjtmQHXAcU/edit#gid=0"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Estado": "OK",
-            "ID_Unico": "={{ $node[\"Credentials Loop\"].json.country }}_{{ $node[\"Credentials Loop\"].json.entorno }}_{{ $node[\"Credentials Loop\"].json.type }}_{{ $today.format('yyyy-MM-dd') }}",
-            "Ultima_Actualizacion": "={{$now}}"
-          },
-          "matchingColumns": [
-            "ID_Unico"
-          ],
-          "schema": [
-            {
-              "id": "ID_Unico",
-              "displayName": "ID_Unico",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "Pais",
-              "displayName": "Pais",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Entorno",
-              "displayName": "Entorno",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Frecuencia",
-              "displayName": "Frecuencia",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Fecha",
-              "displayName": "Fecha",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Estado",
-              "displayName": "Estado",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "Ultima_Actualizacion",
-              "displayName": "Ultima_Actualizacion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "row_number",
-              "displayName": "row_number",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "readOnly": true,
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        2784,
-        -1184
-      ],
-      "id": "1f18e3b6-10a0-4c48-b849-8e30ffbc192f",
-      "name": "Update Tasks",
-      "alwaysOutputData": true,
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "Dashboards de datos especificos de la bbdd?\n"
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -890,40 +731,6 @@
           "name": "N8N-TeamsAccount"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "a2bb9869-1b64-45a8-8c27-edc10c7380ed",
-              "leftValue": "={{ $(\"Daily Trigger\").isExecuted }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        2560,
-        -1120
-      ],
-      "id": "ad105e71-b34c-49e9-90ec-533b48ba4ad6",
-      "name": "Check Execution"
     },
     {
       "parameters": {
@@ -1190,37 +997,8 @@
     },
     {
       "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "3pr7wL0vbaiWmaGy",
-          "mode": "list",
-          "cachedResultUrl": "/workflow/3pr7wL0vbaiWmaGy",
-          "cachedResultName": "testo"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {}
-        },
-        "mode": "each",
-        "options": {
-          "waitForSubWorkflow": true
-        }
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.3,
-      "position": [
-        992,
-        -800
-      ],
-      "id": "d38bf240-55db-4300-9f5d-49d6271b03f3",
-      "name": "SQL Execute",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT * FROM fn_revision_queries_apps('{{ $json.type }}', ARRAY['VIGA','Beelling']);",
+        "query": "SELECT * FROM fn_revision_queries_apps('{{ $json.type }}', ARRAY['VIGA','Beelling'],'{{ $json.country }}');",
         "options": {
           "queryReplacement": "={{ $json.type }}, {{ $json.country }}, {{ $json.entorno }}"
         }
@@ -1255,20 +1033,21 @@
     },
     {
       "parameters": {
-        "operation": "executeQuery"
+        "operation": "executeQuery",
+        "query": "{{ $json.revisionQuery.replace(/GETDATE\\(\\)/g, \"'\" + $json.hora_ejecucion_real + \"'\") }}"
       },
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1.1,
       "position": [
-        448,
-        -1136
+        992,
+        -800
       ],
       "id": "92914631-732d-4c04-895d-9235819de99a",
       "name": "Microsoft SQL",
       "credentials": {
         "microsoftSql": {
           "id": "OJnhwvNxTV90RYTs",
-          "name": "SQL-02"
+          "name": "apgcore"
         }
       }
     }
@@ -1317,6 +1096,6 @@
   },
   "tags": [],
   "triggerCount": 9,
-  "updatedAt": "2026-06-23T19:09:58.738Z",
-  "versionId": "286a4a66-eb24-4eac-aec2-1cc2d309d58b"
+  "updatedAt": "2026-06-24T20:40:44.541Z",
+  "versionId": "798251ee-3dc0-49e0-872f-3b3ec65fd0aa"
 }
