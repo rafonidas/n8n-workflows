@@ -1,0 +1,385 @@
+{
+  "active": false,
+  "connections": {
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "XML1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-26T12:36:38.275Z",
+  "id": "boUUIfpVuDjLCcLp",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "afm-webservice-test",
+  "nodes": [
+    {
+      "parameters": {
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "watchAllChannels": true
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -16
+      ],
+      "id": "3867eba4-77c8-44d2-9c5e-975daeff8c73",
+      "name": "Microsoft Teams Trigger",
+      "webhookId": "bc4a4e70-5b97-46d4-97f5-936dbbfde18b",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -16
+      ],
+      "id": "8a2bc208-98a6-4582-ab01-8a349cc91565",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "904f0165-57a6-4a77-9130-f4f2751629cd"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f99695a6-6c31-4cac-8489-6643526c42c9",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6e734462-6df2-441e-8603-cb1e8d37b59a",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6633b202-681a-4f92-9ed7-e580178610a7",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        240,
+        -48
+      ],
+      "id": "808ff4fc-e39f-477c-a626-a454889f16f9",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://apg.cloudafm.com/Servicio/WSAFM.asmx",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "SOAPAction",
+              "value": "http://apgconsulting.com.ar/webservices/LogIn"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <LogIn xmlns=\"http://apgconsulting.com.ar/webservices/\">\n      <usuarioId>APG\\rnunez</usuarioId>\n      <password>Apg00001</password>\n    </LogIn>\n  </soap:Body>\n</soap:Envelope>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -32,
+        -240
+      ],
+      "id": "d80ec933-6742-42a5-97ac-0eaaf2e4d6d1",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -240
+      ],
+      "id": "027ed009-f056-4901-9f97-fad5f8e05f28",
+      "name": "XML"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://apg.cloudafm.com/Servicio/WSAFM.asmx?",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "SOAPAction",
+              "value": "http://apgconsulting.com.ar/webservices/DescargarDocumento"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "text/xml",
+        "body": "=<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\n  <soap:Body>\n    <DescargarDocumento xmlns=\"http://apgconsulting.com.ar/webservices/\">\n      <claveToken>{{ $json[\"soap:Envelope\"][\"soap:Body\"].LogInResponse.LogInResult }}</claveToken>\n      <documentoId>51635</documentoId>\n      <versionId>0</versionId>\n    </DescargarDocumento>\n  </soap:Body>\n</soap:Envelope>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        -240
+      ],
+      "id": "10770fab-90a7-46ac-84a9-2c829f52bd17",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        512,
+        -368
+      ],
+      "id": "32196c85-8189-4a86-b537-1d0e28a37ca5",
+      "name": "XML1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        912,
+        -368
+      ],
+      "id": "667a0245-9128-4354-af4f-08202d4304c2",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Iteramos sobre el elemento actual del flujo\nfor (const item of $input.all()) {\n  \n  // 1. Navegamos por el JSON para encontrar el contenido y el nombre\n  // OJO: Verifica si n8n le puso un prefijo como \"soap:Envelope\" a tu JSON tras el parseo.\n  const base64String = $input.first().json[\"soap:Envelope\"][\"soap:Body\"].DescargarDocumentoResponse.DescargarDocumentoResult.ArrayLote;\n  const fileName = $input.first().json[\"soap:Envelope\"][\"soap:Body\"].DescargarDocumentoResponse.DescargarDocumentoResult.NombreArchivo;\n\n  // 2. Le decimos a n8n que cree un objeto binario llamado \"miArchivo\"\n  item.binary = {\n    miArchivo: {\n      data: base64String,\n      fileName: fileName,\n      // Le indicamos que es un documento de Word\n      mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' \n    }\n  };\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -368
+      ],
+      "id": "b8744e42-92a7-4b29-8b85-bef728756b15",
+      "name": "Code in JavaScript1"
+    }
+  ],
+  "pinData": {
+    "HTTP Request1": [
+      {
+        "json": {
+          "data": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><DescargarDocumentoResponse xmlns=\"http://apgconsulting.com.ar/webservices/\"><DescargarDocumentoResult><NombreArchivo>51635-1-0-COMFIAR Reportes FTP - Ezequiel.docx</NombreArchivo><NombreDocInterno>51635-1-0.docx</NombreDocInterno><LongArchivo>11271</LongArchivo><CantidadLotes>1</CantidadLotes><ArrayLote>UEsDBBQAAAAIAPKDnlvR9U7BZSsAAPQ1AAAOAAAANTE2MzUtMS0wLmRvY3jtWwVXHFsSHgguwWFwDzYEl6AJ7q7BPbgMBPcEd7fgEiS4u7u7uxPcfcla3sr7BbvfnJ7TV77qe05XXamqlpN8BYUJgAHAAQAAUsBK9rjFRwgAgAQaAMAAwEFqCFpb2RtZ2esoOdsYgbXeOllakGRCQVKnAyAB/8f/NCpjBqzaGVGFr2PvUCJrlPV3MwtoIYP54ugV9mCBrpAqj1E9jU/NGJDyyhCRCBZklCzXyywq3b5j80kW8GhVjpQHOLxx3tHaphx0czOb9J6GuG/WYhiXP/Sxe1mwNjbhSrFDMJJXdUQNKSLIpmSl+GKp3QDCaGPDVShcQlmIvjxgs6xeNy2/il+mtKGRrYLFf62djo4YXT7D5m4lRgY0nANPqJnESn3RrcQM3Hfbm0yLcYuXi7Bb8AUTnoThAfkT5FTDYH/aE9uzytP1dpPlOurlB5e4KWk615Vmg2QWCFYvlHMoK+/m6YUYICKHF5Myf6hlLKU+U8PmhkI08ghvLBCi0ESu4gG4d2S+YEnxl4icDjRiZGcuBibg1fKImC/BR356leF8NbI9O58SlD1sewFhmrXB371cYvFj2HQVwLQ34amVLDZtMgJ7aZn+nrB3e+He8uYVAPD8/ArwryZJFIlXc/xyJ/NicYgvJqljZ2QBZnj76///pvh//EJRVJtZByPS+2PfR9+xJvn5NmCWDIPB6AJwDhZOQ1wKY2HWbObpkWd2FlJrT090YHwietQFnCLisBqjdYIXp4wc1AQ/favdoXHf6ASI/dqYw+Q0bbOOlLx9ZfzYTy5O0+8brI4VNIIHE3kTkDDUirFFK3S1lYdoSkYzMmlAUZGVaqs8c53gwZKeyDQ1bSam4QpbwCvc7EdYP4zrgWDMXxbPQh8R3r5crtWptB9dyxxqRnMJwrNgZKBMidQvQsA7aRzbd8lqyesK/AqCz4APZLh3M9ZE//i0E7SNy89+TKpeqbNmjZ+i9eEc4r/Zx7RhhfzFyx3Ti/UQAOAgHK3tDBn+ZiSG1gYOli+r169l6x8GA/FiMBCA/3EURQ2Ydfyau78++Sa403O7ywlsWkiQLkw/AoSJ+L+D4Icu1lpKxMQPRnXrT+yKE8AjXuwLI21BjiGTrnnpvXaouyElrjO0TvlEJUcfUM1VzQ8IaYGRuhra2hapo2YykpOX3kKZnAqjTP5VMYZcBKxGfOmSDKHhvtus3SowltoOwXaxO47MMrhyqYxdxSqojpdsAWZIN8TV1knLq74c1q+4+BRJ+W2eQwb3OCXUCDUMoaMZJYUidoRVJINGiYMNmPPkQAWtWV35rXqphS1a5akTb5+qibuPSxPAterjGadhdE01GOFpu9Sksnwut9D/TWs0XZvlmuEBAFRNAADtpeaX1vyLvvzUPFDY4MR+alG+f13wMP/DLOAYx0y3f8aqwLiaBZn3HCw5K7HeVc1T/mqocYjn/XOS6GrXlVg1mImUAvUznW59WzUFMeGe286bhbu1Hmv1ICs4OoyktNebBqZeYkRjnH1Ueb4l8WuRbO+Nvp4D81hfitwKrz147u9XPGp5A01ZB8S0SUki46lqhO25ElSUbZkJ4sZiDGt5hqMCxqLCCjcCjAW5iKjQcJcVsFGwxOM61ds+CfWj353bePgOfBB8e1dNWJWwplGbiDHpN4ZZEeRmbmqI8i4Tui/DTkrdj67WMFrPb+6yiBMyCbo4qpBCuoCbhAqXHteFK6HsIZvUltXEd8VOoWKMYJ57lv1xuuZmCBRE5B+S3fpqaMBUYTCPzPUt2/eUaiErduT1N5ILn2u+FjVJhXnQR0K3Wc5adybksO0k0/SPY6OvUWw7WnS0m6XRU+HKnAn3jCQl5fTFXi7BUaPAASnnQr8sRwDjHOcE2KyC+wayHyLH1MvS4xpD5p09ePO6hgZfV+JVgshr3XBZcBQ1vWhNxvpuKfKQdHJa0XqJvG8iIgDrH5k5X5E7CW9we4DSBbhpGDt2mGbHRmPp56JhMzFBCl2SyMLMyAtsGRdQSFYPW/Yk4nF5tM3cDGd9wJHxfb0huO9czT9cvBm43oqEEKuB4Uy1Y0cx4+Uhy2tJMCRGZ8AeHG1GWzHw2vTfuJznTIGxkjOCMuyZNEZyYN+JCe/MU08H4dueRiUrSZ7lZ4W50jWrWcaB8EYjh1h2/yRHzlvkIyjCWCPpKU6qKS0IRSLPDjbLT7apPQ7J5AuTMxy3geMHca/6bCiWzVJKy+8E3ll6JK5vm8nvjdnH2c7MTNdAZ4rL8NetPiTtpzzNa09taBB1iMZ1PthDiqbLgwvV4pRYahUs9uoTepOEXE268uqh/X4MeJvbnTKsSTg2yoE1XbFUjc8nBLaiHEoV2KjzZ6mipHKVuSVzf9RoVtJn3lm7TsGJIBkMZYu+pX4NhbLug02/xCN+AEODO8KdjKM9VpA556tfPaiu2P9OY4/8DncmJXC4Vm3GO2Pvqmy/Ou/yMnMkNxmfSvqN84DS0E2jNK+oVteMlCAyZ0A89Oan6q1CSEGUrQXlB5mhT/mfxE8HIEV1C9PRiFS/2DZOh1T5ZVDyrDsMQBEx4b6WtKk3Y9gWDi1L0AFLyuvwsGJE3aBNIFTHOzUe2bfm6VvRzOdKZOHTVWcRigb3sqCYQGMpasfXxAnB6b369DXqMt0dr9Lsk0scLegY/RPbEqOyNE6UG15lVCbu59VGzEr/gJGxn7TSZMDZR513BZ+kJGParb2PW+KzNSHe9qA1bcP3CEMnIoxKrU9PrCJ13h6HT3aNOQTX1VuSuOkslScWv7v7eojtxrPHo6TlV9uJcr3Jg5S1letI5GpHVFDonFRcjCAWSxJj757lSDQiPwwm1pKTG8lO6mpCceb9mVS/0es3NNRr153lDzBVvZgycFT9+UR+MwIfFW5k/8Wj21nYrl1OhiVKlKbYGOn53Pb98So2Rce0YIDM9Sa2VP4IzVXhxyjTuqD8k76Pr0eU+OV4jYyYMlR/WCofnD25sknSBMFLMN0ZicxqHRNqM5Xb0jMAWj9bhljRVlfmOEbwBHDm4AjWxnk6vZsPP72AVFQdcu+arJ/rmXQVScVzSjVziMiDLch6B3Pt3HS6yLu2lUiPl8lg2A5eXrZpJnLDghtW6tk+oMX/iehfkn1fnnF7gLRjhuxvrXFB4YaCmELI4mmD+C0tkgXP/f2lvKns5Pb3QJ+B1XW70G4H76y9DCInFSriA+/zN94sCFAgPhJOXPfbn9beKH2MgjqIqXCaLm6N8G6cOmYdkJ4Rjk8lqwIpPt5z4wkJ5RaJcTOuGdcA7JpTAQ19QdWHVuQQIvxjCHzvGgx2pAX4TcafFDpJGfWpdENpWHyRVy0AfH8iFHbj+8i5bcqGHyqfggj3/X5YTE89wa8+W+fPnEPKjnFJNpmt0kVZ2JRdFmI1LBQ1ZoLyClHWVVl35RevBjA11qcjDFXLvlmh6pqnUjo/318uCfruUtLQbebA99H5HI0GjDlhB16LX+lfIQ/4Pc/7Tl2bJD16RLoco4xQijo+HtGmZdZ7k98+aviOjOdHRH4SOaNuS5dPo+4A7emQuU3lTaZufflo4LKdEfwDmEoXl3in5omh2bINXIrgl4Nw77xeOUVQir+w65MnWmW8xcET8ADU+0RGleIzc957RWm6BXTIOc76U/djxgcM0d649ujM1PnYnl0jMQbn9iHTjx2z+CAAXcPK7/mFY0HiM6qutpdJ+7TbT9rbYz+ejFIfk8QV2SzhYrl1bMSKcc2iqkoDmwpXPqx51D+bRwklmCuIZdIcKTbNSF0KqFcJVp3ryoOVO2aEIGfzXPAVm26vIRYHrN/vvxZZiRhqnTw8EhUd0Z6uuH+wGuHKoluNFrRWfh9EwV2PdcFAyisZ6aYgAqLZL7Fqx6VwYe0xtb7VAdvOv3an2wWR5zcXiAdRCd2DBp5lmBsv88NhB1mS9CMxi7wcxVW5o+1tblE5ucXcyY7O4WhpsmuxvAfhhEPeo3cGUHuxs4rCZwthRHVgGYpxdm/ZOiq8toVRgT3V5GBYkEn3a884pqxRvFu0aoEZ/0IT73NUjBJk3cu3wqn3w82V47mzUPISjMqaSYnEmlF0fVICp0tpw1PX4Feo0ZzHOR9nu889fDi8oCx1dDpd9NAk//wEEVth3HWOzHlwaYtXL+im7giKiw8bMxndI+hRAs0EC7w1CTDZ1wJcrR/Ftioh9a3JCl5FTRW6q7TomNP0RR00LDVpX5BMYsoaijc1rMzFPQRl5BVi/sxN27z2NBafLNlufuPn0KFCmddwGWz1tdoS+oG0i53o+ZGvindlc3xl3mCevZ4GQ6iZEjVsx3rd9vChDqTjCWCGclrD7bE1sYHOsidgHBb74Wn0YVzp58bE9z3SsFSsKZUNpLMbG9FbMakeaO2IKCtNJ1fzjylr3LvoLfBT7jfLncloy9jmfg9y1jlzp3upP8WMR50HdMaRV8qnunY4UnaoOIixQj63a3dMQJbcCzdhi4WZHjygzfjuWQcL2c/TLxKIghBLU3FQemqXNZDtmBVaFkILvmxCjcux0pkkUGIWZGKuoJ5KtM7/INK9E1cKnc4wom/QJ3qDoxnAgxRt2czL+h5qGFmyKikw6T1BN+l7ROqZTtcHh4vq2iLf8i628EdsVUUfAyKCqYWmlBAarDIF8LtE5eBRcUDEq+/ytssimD2s69xBdvPiMiLiWBDx+w8aoS6L65XLjZ9rZ/vvf7YA/ttmL6nEuw4TBgBQxQMAsP6x2bP/ZGRp9Ld/pr9u+NSlgxdEgM04d8QwS4QD5RQako1taeLJFujlyTEEJjllrHORIp+6G8wF0il6BDJY6XlZRzVQcixJvLXHdSosJZIFngREyefGZw0E8HDi0BmKdjacV5y33U1ScdVxGL51QxFkheglXYRMQ08AqE9NvaJLTRb5EljrYXQJ3kBQsH7gNQhLsDW97kB5205IlAGE0EsrJZxlIRue+GYcfZuJW47IKhy4mzwO8tNUqijFNTwRugkVn2CWrsEVTAGSeJfZuBpwdfFBwtZJGjiuuUl1tnypaGyjmvM4wqPBRscnqDpjYDcRjPI2EHPxA1KlU8HuxuB7ve8WFh1h3Or5dKRt8TYUbkVXoyK5V9ZUFQ9KNK5yoL0jJ+Nddf1n8z0dSDidntCG25XxNKj3Kzgs9LWTZfQ9bA0qgT+8gzK7a2ZMq5Tdhjxdl1p2XoM02iTl5CtndjhPu8lFf93bT5+4T+A5WUIzfBAe0+pY2PDowaNzgg+CkwmbHrPKW3CQvEBnztkMwj6qK57DjT1BmCr6UdzOt5Y8/RHpeMyCDMBcF7EBdeIclDuKU+vRT/OKfFABcueW0Qa27aPn2GZFVa6bUOsDUl6jiVuKQBkDbe8BDn+zxylSCq+bx9VJfIVo+DDRU1FZPWR0qdXl/j3Dk8cZzc3BnGMJkWdOTwXX03Ua3/3hDMPle23Y5oe7PeKRtOaH7XN+T6ci72sWJzV/4lUgkw3hNy8NVmyMCSSv1xU1FZwBJMUaF9ERbVDb7HgXCaIId3cE6N/bkCPw2rgTUSEJT85+pgo48fcbE5h7qWapQRzJS8CwTgzvmfGp8CJUUEyipA7t12qgEh10ExVvOvJIdgV1c8V3wNGwWqNH2gEzoWwjrsfIv7AaOzKprNf7P4Ywc22tvoV5FVBF+q7Vv9+sIKR4VW3TqJic+uxHp/Hxa6BcJphfoIdW4SeCmP1bNPl2J9xhzpCqED2p/V7zCFGuqPvzQVXI4dpe+wA46A0AU25FXeQQVr1qhhyF5fx1L49KJG6PKNcmm5gp4btM0Q647vw4FplMrivyzxRx1FAcNDNR6fuv+w7IUBjnEo64gTR7HufLzaGCXxWq3p+lqucuoAcU3NvK5KKK7wxhdYXZlqs3V21WU60KMOt43AuVlO4o1N/jTh99U25b/qIRu0c6BOn2pOwCZdInTcHuB3Onnb0SfPGsnc1xuHMoCc7pPhNorv0syXHazX2DiVE+sgOlZaDQk5igzYgWWk4WGqf6xIreZccJjWMsF/dB5JYqQfQeTaqLkf6dQK/EDOkrGqP1MlF2c/cdQkPs47F0t0wz+lTmrxCbyg17oIWuuo5glRpF3qi3SwMfqYldcaDsFmpI5fGlKMemI3ZBeCvvBYYt6EA8yMFWRx7kiLfKxsI/+QHnxNQEDboU0/gU1L3nSrMM5Q2XUtYIuVyWkiy8DDv136ToKMwGpCnlNfzQkEbNzuPAh8o0yrtbGWp5Y3tPOHXDwobC+GKZ062Bs2BL0dpTvXmW3PXX1EG2tA9lmhyk8NGpa+fMo88i6uMhp2iG8hDRWl0PBoPyMHBhXR9L8rwpsGripvp2nGT6nLdvg1MeCqhwpfN6d/A/FhTs0qV8cl1BS1HdlYpYDvfBsBEznqOnhtyy/+gMeDV4w5wEMWwW3BC0HqQZqyF/S188nxmRjQaSjalPwLFR1x7PHxJk1voW+5GBCgzcFnfZUbweEnEWlWblICC5zc+fCX8+iigpK7DX0VMWuy6Ydkb8sWAv0XjvLZelgpwrN4Br/l35B20VvTacWQd9/HYui/5CXtt+wRBKQFeTwvS0Nstoh6v+Vning4MIZ7TSWL6TCPCtB8nbmPfVbye3YnzV/Vy73Sf2FgQHcNkHi1msZi0XLOy/eTSMOaZ8Nv9ZOTjW6kLi055Vu4VpINt5jpQYby1veD+fHONkO9S8OlErvsVbSxO6lRwTV3UrjdBKxnytZb5e1eS9cDL/KN5BhFyPbL37Go/ccRZXWkQw70CaCLiq5nPo4fqpYcOqwxLZ/+VICL7TKhkroy+0drxbKlvylOv+OOh22gRXsll1j/Jfl5GFD8faDFAAgDriH3wGYCN7e1MrE/CvJaRSRRK8wI7a7Jj7/KEDbHRKHxiYUiZcYNttxpXhuodM8QHewGsVkG5IOfG8DC2m9nnQOMXYDr12pbl01lrVeoWXkeudLim8tUqY4xoXxmJMI9mQ1daDQ03i25RApe/5qFvI2u+oQN8c41uezq4SxIowv/fB134ybO+PrVAtkDZmUT9iEjzzqamFKN32IYVO0+cwEFt0PKzcLBIOwvyC7pB0W4zP7YvfbMc1RuEbTEOesxo1I5FM0VgsHuhPbE6qjVHDIe48x7RIjWH7hvErgRP5dXbsNP59yzJgUYPK31prvfX7FLfLEV2x62amS6WTtMt8OlZjp0L7KyYzDIqhdzY37WMGPxEDeDXHaiHBI2x5eYmiKzutnmskcTf3mkK+wYk8TA+6hOJ3SVEXo/Q0UOjuHciXukZ2Fea176G/2qe/xaid7zTc0RSI99xOkQ4TDxaGl0XGtNUyyYWgZiwBf8WEUatOUOhIjNKHsgrvkyGBWbKi7M5tZ9v/Xi8oXOyEKAELNTeyJIxyLHtIxJFL9QxTrc5zkUXEcC2WrqAXWfP9yyfzZeq2/KnCG2LNH97qkEQepYw83GlnqRW6YyQw1+7dHfQlpcONGJuXKFnIUvYjb97hBXSEoGW3O9YP13HJN3pvgs9wddim/GVoIYmGhjxJfK0pAQ5fe4kzWI5k6Jd1s7moJ2QRjLX1BcUbKAVsbCeURrn56YH55iASgLf2ooArWlt47vAxU4Fu5bPu4twEu4+wvLjrTWddeYHHfo5pNZB56ruw5gzKhtFnNj+hfBz/PWC5Wqc3ThjZQatsSU+EA0HDEZC5pb9xFlEkwmjTaOYcDX9kpfYolt+O+JhWC+bAgsLck0i0jUstjORZ/ZtNcwhHMMg1cJDF8dD1UdokPNYkUJvVE8F1nDWpdFk/VI0ULsnikjbJNFRgUSe6ex3aLzIgjcxZVc2G6xCiDzUHP4EFm/E8jBIr0jLIHJyrQfHZpMXXDxjbPnh/sis5IgfywGk0d72glluY6Chw0uNUixJZQjfeKqezM59qRfWEdJC+PCWR+ja89e4NwvxiSKKG4a6+fVmK8e17Klo7aehGYcsFloJZZzr/qCVt5yQohGbamx59vqBv/LrNbQ9ELMTfJzleHa7ZxN2qXAkxlJavghB/gHgGyOiCh8tn+/XpfUO9oUGpriQ1vGbOQzRboppN/BsMQu5om0RVnIfX6JU4x9AdmVHRgj7EugdrQdQ35LNRQRmwTVCPasko85jfnPJS98yk6GpGeJXESLlVUnGTsZ9pcZoYJCEPE9LUbLXBLZeBimR6mNWlaFg42K4GjAxStNrLgOjVSY6pdh1R8xqTRJxE6YKj9L7jtSX+tTs8cU3kBLZQlwkG093uD8DOCZA9zoTNGvSEUb1NXnNDYIVznIg3ziNLxOQTVfMDzn+bXdQrjRi3XzzT7C8bVfR/zC7GL+FXJT19C6Nf00tn1IrVPCOm/zHVISFoJZ6TdBSbTekQQcHapawKRTdEsOhWdtNA7PyKm9NPu9TKSIEtU2z4mMDz3VPv0GHhmCEVL7UJXVI4kHIcoUbls+JY/M5WFxYlaq0W+LCo6BOD9/Jwi0fdnnFVBQTcUQ0jS2amNNwhaOA967gNsE7lI2h6GJ/oZMyaueNxxNKVNMXUWY4uR3m3wqeMRhr4jBZUaE656YuhQW4ZcM/CwIb+7atIlU26A3GGw3CJxvEXqFYWfN4TJNWrgL4BjAj5dm4bB+Ca3rgQ2tcFMLaqSAvEmx2IIIxWzE3nAHEBw1H8W4lAtIqeUIfUEtaoEzGoPDI0qZ29EYqlQTvfLRMjigiqucjjYRt8/I9WhL0Erp81VWOwnKTnEqTVAh29C6OM70XGbFDsUPDx5lBnFqmXiBWI68pGC0iSBJs3tA9FCSTS2dVm24OU7duAdNgDlIRRjZkrjHWNSYt52bMtdE/Fisx8byzSAnoDw29b0SLBP9scjX0DMcj5N7vFz85uwoLuv6dLcfRzCkLbI6zyYG0dK4H6BwTP8mmPbECPxf6mzIyaO27oz6vejyOy68XIr3t9fVTO+e5WuXj09hhvSPZZoLNpzjkgaHDT4AJ6Hiu8DlrgxRATniH/m1bURErjhb9oxepLdAPzH1rhaKSv+IdlJyZ6wWqBEcnvGPGCEGmJo3qC8lMoF7RPZoeXHrWLE0A9FyMjijpAYvFir4dzWE+SYZ9Onv/S882Hu6OnjiRDZG/WeoXNLCmKVczpeXqJ06s7Jwdy9KDxqfF0XwULr87Hn2frxfQfv2uTiHiIwysSYKnE6uNmMYzHTKIXZaO52KRYMKrh3uJh58euuW+VYH5kyCquHLONDquwoHWRunkNnSxC5/S+qnxVf0f2FfBNZlbOVWVe1UpGFdCMWA4C7dpgKMwk5zOs1NMGkmEVgthsJxrHhOpkxmyqiZbhEBojLgwwDSIXqgM1mihyvLvdX6yI1oOeAEYd942tJLxqrL0u00bktIv0Y2Ll12JJ22idle3o04vqAVU1a6L6xY942jiRVspEu9af1rWHXu9XaINaInTG0oLBIWiHnlwzTCUd7EGi4RvCmG4ZI4cNlqs5PnwqnyKuRYvJjlC3s8v1hvfTgvycO0x3BIv2yva0avkb6tLD5/dlnToZUWbRvxyZjwMt0p4eFm9lnwbmdP7rpkGQIaVv/eUFrry8QNSX8NRLjEHOztoGzKBnY/Pr5f0/JPU3pCgOvCgxaiPOLj9cfU+M77xVSJVP+4dIwQVgaVSKupkRRo6Yjya+7XO+zhjxgUSQcv1hPtcQUnzhHOzaVQ7bHJrg5HDx2V52L0tl/9T8kcqtweXpvnuqcFR1XLe65hZVyK3l7RWyhc85UMxgkPNraKGb7Ga8gFBVj0o3PLEGn6nmJ0omZO61JBG6RvD+aCalrRYm2JvhS3X3XX84/DnpxpnYc3Ll54JznLSC6B03SqVZF3L4AYYlaZZ8wioSESxa0XGl+i47LhN3w9JI7pAtzE7A6tzXpNsLmE6AXlP8B9p17LjzOUih9jXfaxE68cXFswqVNuEZuatR7uH6e5Jx1FXa6u+vP0zkg95nY/KZDsAYk8C0DvssQu9dl1yJwGhQIhfXPZVHviELWIFczPpp3BBZf+6YvYWGVRch/Pgtz/WbiY5RZ7F54QO1b1zcGakFCS87nwJ1YRr/ri5BgPyeHl6C/mNxxTuvgdbUi7dAnbtCVtwQFGRV0edSbunDKyKYisBvk3O3xJ6GWg3TkgOE2OTr2J7B4c12jkufGz+fKkhtPxWZtlwqnCphB6vXQ/TBW6h3JYlyyRhhrqbSweUOjDgevj4AD67ALsnwIh/HOjoonMwwjKlvKAOJFW4R/5td1Jf3/fjyovWnL9Me2h/twsDazuj/hvEbIVFLMu2MmF7H0m7+OddZC3K+A8BA9OJOYNenxsJDCNoD2fn21pozXDemBmQ/Fk0nR5kRx+aUVHZ8S2E0i1a14k3UriY4aJJ8fc23frvO7PCw1KVhYiIIlHoBn3XHqPn5B77L5DOf6MbAbHDOtiZnS+cTZeaAubpmxynh9F1TI5o5VUVQdxQrWpNGsdQBMpm7CIg2X9BEbSiRHMyFXCmzfiiUSMsjArvkvAB7oDBXJr7y1yGlVPj7/QwKNjUTNui8mBou5s6IcUZzdPds+zvhpwcXR/nNZr1GVXQI1CNAaUJH6E1cPj++8oNrlPTid1YYxIqvOmmi+aPeeZPV6nh6tplIE9JODauW0sXqTV87MoczlU7aHD5Isl8Ne+ch6i9N8h+mvGqY25LVpMYNiU1EJDNfIk7fZypdm1rpZTDLlK54zExe84L2+GBaMSy4lePJnSotlyrUZwSk0osaXP+Ap5Mnf6EyNLPHj9Dl4eUJvB8bPLiznXFCZaXb9xh/gP2v7kRzGvyBF6V2BAMAKP88B9o7Wxj9dTlu/LZgt8CJ7ndcY7binVO4hCgaFy5uxqNYjVGiFe1LZfdmBhVeXS36CzaFgWuqB0REjBjHh7I2op032DlPgPVjYqFzksezBUV0WP66/i9SI28qOO6jvfIyQoRcPNlvPRyrrj+jG76TJMceiEmTTnVmvz2c8XzaiO+5Vn8iOAeNerG6pn0xiVZOLVmRzVOvXYcfWO5lk71MlsxHjzuI3/dIYryUK7oWSCxSf4tNhn17fqHr+WyooDeJGqT5VriXv7dUzClp4SZ/vexNP6tGoIPKBJH/KFFO0LSEH8/AhQyVbZ9kghhHwhwagJJMiTl64CF0ObFAFDunw+T+qoRiGTLM1usVgLOP87WtJmnuHLg97c0H9OaWOtkc/WC16Iu30PWq3tCyHlNmIswPrfFFAeeDjUo1BS7qTeXPWn2sIz491yDEr7UTTaPfhT7tXzonBQZ6+FeA+EegDtzARk+7blSDZ93biGiBfZOVCY85Kw996xV9bfJNW+MX6VX0xnvuTaEmrsQ7Q6m70nvLjg2mGXUmGLlX2ztvbD4eqt16GjjOMOjM+c2AMKsJqwfrZCbn+pq9u9tv1lcvtB7XNfREErDqivDKvM6ekT8jiGjulAxvO5vSPr7V8YhaexW+XeexYaG/MI7fsrJISxrLPjy3+c1S0TrlXEgzmHrddMN3T0LooScob4WFyLLm2dYoumUetZ9sypM4ddgCu1P94pRm09yA8tGqP+SNjtR7Cz6tAMsN9gdPNgsVmjGslvXBQaq2n5Ttn4m/cjKiqRtYNyR2BbvXpAmw2d98RCZsUhHsKZka7TNns7/7iNzk/sMPtH1sIZaN5kkbCpcMMalF4I8/RuA/N0rgH/9yKb9cGKMEoplZ78J4RMAEpkGrm8z2RnrkcyiEc8sjS+4hJxtHfBQ3to7EEA+1DVRu/EdHt0vhDa5c1xtHqU2PL1XmPDWaZtAc88amfPNGkjTnSts8vbcTTniSbAPY6qw84NGNIEMqeMatQRXCANEJAWOd42FUc4XnDWer/rr3b31zahliiod6Pqfk8TsXFW56CUduo0FijSBuAdHSUlTc+rBkBWUSZ+3lFOFhTCNBcHbgoaM+NZ7QAP+SN1FSCMlfpi/P+xOEUCkc2gUoexylmctv16J7u8NjvaFwhAnAZNM4SZgVRadV3l0hDMggYzejl40goq+fsZKg0liASEEmGrKaMDleDTN/fvePTLRQjV+FIHaPxSMhogWa5rr9BGR+R0dcSfBHN3v+7XU+IxcIxicbxW8syFaJ+tdBP1S939EthVoesVR/Q8TlhXXE7KlEDjTTslbcVDiuEgs+fTWfKZ9o3kFePuMnaliKbN3YxXdgVK6erjUxyXKuH+mYNB0Fk/h5eD1TczTMEX+gx2R2GqAqYGTIvtuNbniCU5HCZqcw6LagHXY8G8e2rMJgQjl+pCzmo93N7Jae6FeSNqO5V/5Tj3VPorvMbRON0DaVTn3748QZrErUh7jnhCJVEEa1ihmpH/H+AeJ+m0k1UZNgDRMGTagV8TX6m3UvK2hb9+tbRRuqmdxB1leCrxojnN9iMBs7vDnR4b9ZX2El5JkRtrmTqqzZEcrzB/1UQCUwlIgKCRBzSaRR+GCHVNW4cnsuwIw1NmqFxXCs1/cOzXY4yqFul+QkLhWH+PJBsBSvvJE/EX27ETU2/0hMN3TCT73shgGlR9ZBx/C9nfGueeTCefjnfPOsPZuNeHj6xRtKH2VFYiKpJ/SfFogcHiYanAXfmkLU4+B3KJWsiaaOpnn2Hwl1HpR5cCWrQPr1EEXehuRqr/r85LqFo4xjXC2cv3BbOE/eSyYwx4naSAyfPWUJCb3x+ypPo6enxKwGjIXBFqFtveG2xys9rdlj1d04nqLRE5L0ggmhHRFDeRZSdcZjLOCp+MPF/YB6sqXA4LP3mgmZQnmYLcIeNol1p+8jbW5qYASxgccInExEXKUGZfz2GkxiHIctBsnQu/0EmzKt9e9CT204hlosoH4PtBQ0I1sQ5Vhd1SFEj0j1sdYClnHaJnDp60LCVzfKjQC6Hr46A4cmHgbiAac594XQD3m8/IH3ykSDqskVj9KDfU/DvfW61l8PrUrNB2Vfu7TznYthii/J3zB29a2d6CaP/Vi9E09KXT2UyMRy5mFEr3Yu57ZrkLASTn0d8sWymRBo6j4f9PO8AzaXiAtjrZLBk50tlfxW5r78E8binIUOmSVZg8JJJUPwRxX44Y5RTXqvfaTzEG6PBOfFUyBOHQ2Qu47G131L5AL3J/4zzWAkIYvp/BW7o6yX88rbTNihFE/Mch7rlfpV1oeMYvwmGwkWInu71/46tWZDzEe2BDxLtWi+O4Qc+idQmyJISYEpa99p+qRxeTjq0HypaDggeTXayCGtqn1Oa+cQuu8HVSLWWTRC1aBfSPGvrKDmv6N6s+8HxPrgezPTwl0z02anhyKgfcoSeGmxgfBjoQ3pwcXqvgdiKbiFINC81P+NQSv0t24uxYff1rRFvmJWypNCWioFvMefKsYRBWJ1b4QgbLi/MPj+2IZFNiryFe5X0UgJ9chISezDP6sGRJEfQxE2bEW+nv6iEGcJIPzhQX9/7n8O8Up/DS6r3SlFXq8xXJ60q+d7hM+/UX4VQxDam36Pfiw+bYpSYsbyiuVBXXaH8L6DQUv52920W0xDIBdBWIHrljGyJ/aaQL9/+nlbh6CGNZJvgDAom1f4sLZoeXNeg0wOh69F+4p/bSI7/GE8Z18dznUIszXcT8QHTCvqTrMSAiW8LK+Ty0HeVnD+3frKUsSnY1V+JdvcXX0lJhNFlKTWOskUaoRgzb3CgZzgte0KwRLcF/JFDhYOyDXA9VBPaOtGq9QwQ1Y4bNhE3/aTwvtdyR6YtUnpXUnJ78q8hIIGSFhD0sCC1GRGJREOiJw8DF+c6VABup8it+LIln6x8yvfrSBVzMROovB0H3L8qK3zSftlzTiZ9HP8oIomn6Irklcp2VpvJJHllxUEY9ImT+T8YvHQSxUEIVX2I2ENqbp1zALO4vAyH7L9grmLJiO8/tbqEz8J2GBgE3J+IXoo+NLi0rNR6P5VZMQf5CmlTV6BJCTNYtpDbRbJitACuEk4IG2jweSjWR/NhFxVJJF9TKqgqgrYepQlpccWv2Ts18ELGtljyLlwMTnpLVFXtlu9DKnWLF/SzDOrHl4t33YqStFMs2qSjq34434snip9XU63sqSWwkZBztv8RyoTjjbJP2t+4SrET5Kj9MqEtPwSqfrScTPupY+DeGhhXH323ztS5v218R9S7CT/2vhPKf82gnl5emliDf5Ww9mr66EL//MdNo6VtiUn3Te0Lb6V9XCf+J0wLD2o+6CSU6GmZBWUky39CxH9jILZUdmxiu019C4PxcNyixGWVIlOqxQsaGYknk0htdkPb8qVFmIPSSbTimEcXJkqHzQP2k2sR8Asu7xN7JmlldYxEkuahG6qlOvFRPtPoPUzk4YLYg7TbIjwKVmVWN7QVLXA8WOdM86nwX7Zgar7LCad7a2GCvf72Yfga5wtjtZ3G7HfaFO8TBtYtgb28zoINrQ8qNwckBeYtsGR3fOoRQath/RYBj0u79krL1GM8LBBCnpoHTKx1Ww73AVMRvWxJd0LyTUHUHYX97X7Nf1fIpesFlZa6jmTCJXim7T4d6cf3tVkDQUfpYHNTWa/KqGpfp6mZumtNmvmrMPzarmgMHsetTwbki3ZS+y7GHqomNNNzas+jyXifoqZAWsmfo7plc5VEDi4yDUMUirsLXnG3k/LnhwvThbatbN+VL06eP5npjEEJD3gzz6P+Xf8l49l/ibgz5L5/4joF//QH1L7/0b8syznP6LixV/8ZznPvyX9eebrb+zB/Zc82L/R/zyX4jem0f9LZsVvEX8eR/sNQtx/i6r9pv+5o/w3XAn/3W3+m//nLtXfiCT+Twfrbwl/5tP7IxRIAYA/evh+s//M8/FHmFH8lf3bD/Kb/uenz9+gpPqXs+jfyNAwv5oQX35tL88jZPlV+gtQSwECPwAUAAAACADyg55b0fVOwWUrAAD0NQAADgAkAAAAAAAAACAAAAAAAAAANTE2MzUtMS0wLmRvY3gKACAAAAAAAAEAGAA6dKfownncASY2Ce3CedwBJjYJ7cJ53AFQSwUGAAAAAAEAAQBgAAAAkSsAAAAA</ArrayLote><XmlInfo>&lt;Documento_51635&gt;\r\n  &lt;Documento&gt;\r\n    &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n    &lt;Titulo&gt;COMFIAR Reportes FTP - Ezequiel&lt;/Titulo&gt;\r\n    &lt;Descripcion&gt;&lt;/Descripcion&gt;\r\n    &lt;UsuarioCreadorId&gt;APG\\SDORFMAN&lt;/UsuarioCreadorId&gt;\r\n    &lt;FechaCreacion&gt;2025-12-23T14:44:18.55-03:00&lt;/FechaCreacion&gt;\r\n    &lt;UsuarioModificadorId&gt;APG\\SDORFMAN&lt;/UsuarioModificadorId&gt;\r\n    &lt;FechaModificacion&gt;2026-01-14T14:22:17.487-03:00&lt;/FechaModificacion&gt;\r\n    &lt;UltimaVersionId&gt;1&lt;/UltimaVersionId&gt;\r\n    &lt;PropietarioId&gt;APG\\SDORFMAN&lt;/PropietarioId&gt;\r\n    &lt;Carpeta&gt;false&lt;/Carpeta&gt;\r\n    &lt;Tarjeta&gt;false&lt;/Tarjeta&gt;\r\n    &lt;Mail&gt;false&lt;/Mail&gt;\r\n    &lt;Trackeo&gt;false&lt;/Trackeo&gt;\r\n    &lt;Version&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;VersionId&gt;1&lt;/VersionId&gt;\r\n      &lt;Descripcion&gt;&lt;/Descripcion&gt;\r\n      &lt;SubVersionIdCerrada&gt;0&lt;/SubVersionIdCerrada&gt;\r\n      &lt;TipoSubVersionado&gt;0&lt;/TipoSubVersionado&gt;\r\n      &lt;SubVersion&gt;\r\n        &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n        &lt;VersionId&gt;1&lt;/VersionId&gt;\r\n        &lt;SubVersionId&gt;0&lt;/SubVersionId&gt;\r\n        &lt;FileName&gt;000000000\\050000\\1600\\51635-1-0.docx&lt;/FileName&gt;\r\n        &lt;UsuarioCreadorId&gt;APG\\SDORFMAN&lt;/UsuarioCreadorId&gt;\r\n        &lt;FechaCreacion&gt;2025-12-23T14:44:18.557-03:00&lt;/FechaCreacion&gt;\r\n        &lt;UsuarioModificadorId&gt;APG\\SDORFMAN&lt;/UsuarioModificadorId&gt;\r\n        &lt;FechaModificacion&gt;2025-12-30T16:31:43.22-03:00&lt;/FechaModificacion&gt;\r\n        &lt;FileSize&gt;13812&lt;/FileSize&gt;\r\n        &lt;MD5&gt;41009AC1EE4372C78AA74F2C0588F9E7&lt;/MD5&gt;\r\n      &lt;/SubVersion&gt;\r\n    &lt;/Version&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;1000000&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;3000001&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;7000000&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;8000002&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;9000004&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10000155&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10000765&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10000773&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10000866&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10011051&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10016267&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n    &lt;AtributoXDocumento&gt;\r\n      &lt;DocumentoId&gt;51635&lt;/DocumentoId&gt;\r\n      &lt;AtributoId&gt;10021458&lt;/AtributoId&gt;\r\n    &lt;/AtributoXDocumento&gt;\r\n  &lt;/Documento&gt;\r\n&lt;/Documento_51635&gt;</XmlInfo></DescargarDocumentoResult></DescargarDocumentoResponse></soap:Body></soap:Envelope>"
+        }
+      }
+    ],
+    "HTTP Request": [
+      {
+        "json": {
+          "data": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><LogInResponse xmlns=\"http://apgconsulting.com.ar/webservices/\"><LogInResult>eba483e09174476ab0c86883e60522e8</LogInResult></LogInResponse></soap:Body></soap:Envelope>"
+        }
+      }
+    ],
+    "XML": [
+      {
+        "json": {
+          "soap:Envelope": {
+            "xmlns:soap": "http://schemas.xmlsoap.org/soap/envelope/",
+            "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+            "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+            "soap:Body": {
+              "LogInResponse": {
+                "xmlns": "http://apgconsulting.com.ar/webservices/",
+                "LogInResult": "eba483e09174476ab0c86883e60522e8"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-26T12:36:38.275Z",
+      "updatedAt": "2026-06-26T12:36:38.275Z",
+      "role": "workflow:owner",
+      "workflowId": "boUUIfpVuDjLCcLp",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-26T14:14:55.085Z",
+  "versionId": "67e32f17-d2f9-4483-9e32-fa8730def7ac"
+}
