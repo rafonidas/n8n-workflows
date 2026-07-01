@@ -617,7 +617,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst credentials = $node[\"Credentials Loop\"].json\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n  item.json.timeout = 90000,\n  item.json.user=credentials.user,\n  item.json.password=credentials.password,\n  item.json.database=credentials.database,\n  item.json.port=credentials.port,\n  item.json.server= credentials.server_host\n}\n\nreturn items;"
+        "jsCode": "const items = $input.all();\nconst credentials = $node[\"Credentials Loop\"].json\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n  item.json.timeout = 90000,\n  item.json.user=credentials.user,\n  item.json.password=credentials.password,\n  item.json.database=credentials.database,\n  item.json.port=credentials.port,\n  item.json.server= credentials.server_host\n  item.json.flag = \"comfiar\"\n}\n\nreturn items;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1072,6 +1072,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-06-24T16:08:00.248Z",
-  "versionId": "94287f0d-3833-443e-8255-502bb393c90f"
+  "updatedAt": "2026-06-30T17:09:11.324Z",
+  "versionId": "570a27a6-7132-4e49-afe3-8f153419062e"
 }
