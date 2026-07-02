@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Trigger 06:00 CR": {
       "main": [
@@ -198,6 +198,26 @@
           "name": "N8N-TeamsAccount"
         }
       }
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        400,
+        304
+      ],
+      "id": "b8ed9ec0-0886-4215-b989-59ba8fede81b",
+      "name": "FTP",
+      "credentials": {
+        "sftp": {
+          "id": "0t2mEvGvmdFT4Kgd",
+          "name": "CR FieldGlass"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -217,9 +237,19 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Trigger 06:00 CR": {
+      "recurrenceRules": []
+    },
+    "node:Trigger 12:00 CR": {
+      "recurrenceRules": []
+    },
+    "node:Trigger 16:00 CR": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-06-23T14:11:16.364Z",
-  "versionId": "3b065518-40b6-47b8-b553-25439d3a0158"
+  "triggerCount": 3,
+  "updatedAt": "2026-07-01T16:42:00.715Z",
+  "versionId": "22d1deb8-eca2-4c96-90ad-3b5e97580383"
 }
