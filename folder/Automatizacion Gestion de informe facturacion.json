@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Cron mensual 1er día 3am1": {
       "main": [
@@ -313,7 +313,7 @@
           "item": [
             {
               "mode": "everyMonth",
-              "hour": 10,
+              "hour": 22,
               "minute": 30
             }
           ]
@@ -904,6 +904,19 @@
       ],
       "id": "8f6023f8-c772-41fb-b245-4fd321aa77c5",
       "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "entre el 1 y el 3 dias\na la noche entre "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1456,
+        -96
+      ],
+      "id": "c2ccfbfd-2c4e-42f3-a186-d3dd6be85ca3",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {},
@@ -1417,6 +1430,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-17T14:47:16.929Z",
-  "versionId": "62d18963-1858-4795-b026-435ee420cfad"
+  "updatedAt": "2026-07-01T17:35:57.138Z",
+  "versionId": "2e8e5971-e124-4a6b-a535-089808fdabd7"
 }
