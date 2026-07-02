@@ -152,8 +152,7 @@
     },
     {
       "parameters": {
-        "operation": "list",
-        "path": "/Directorios/FTP/1028501021/BackUpSeparador"
+        "operation": "list"
       },
       "id": "d2eea054-5cb4-4f98-a36d-afba4773ffe5",
       "name": "FTP - Listar BackUpSeparador",
@@ -162,7 +161,13 @@
       "position": [
         -1920,
         160
-      ]
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "XmUPciCcnZLVZeBe",
+          "name": "Bolivia?"
+        }
+      }
     },
     {
       "parameters": {
@@ -353,6 +358,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-04-24T02:11:44.784Z",
-  "versionId": "ad618ce4-04dd-4866-9998-70aa3919cd45"
+  "updatedAt": "2026-07-01T15:20:29.628Z",
+  "versionId": "a0304548-fc02-41c5-9518-dcc0621949cb"
 }
