@@ -1,33 +1,11 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Get Queries": {
       "main": [
         [
           {
             "node": "If valid",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Daily Trigger1": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Four-hourly Trigger1": {
-      "main": [
-        [
-          {
-            "node": "Set Credentials1",
             "type": "main",
             "index": 0
           }
@@ -198,6 +176,28 @@
           }
         ]
       ]
+    },
+    "Four-hourly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-01-14T18:39:13.443Z",
@@ -315,57 +315,7 @@
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 0 5 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -176,
-        224
-      ],
-      "id": "45a0a182-8cbf-4b6f-9299-fd92b97591b8",
-      "name": "Daily Trigger1",
-      "alwaysOutputData": true,
-      "notes": "De Lunes a Viernes 7:00 AM\n0 0 5 * * 1-5"
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "40 9 * * 1-5"
-            },
-            {
-              "field": "cronExpression",
-              "expression": "40 13 * * 1-5"
-            },
-            {
-              "field": "cronExpression",
-              "expression": "40 17 * * 1-5"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -176,
-        -32
-      ],
-      "id": "fac964d8-9914-42db-b603-b3bb89cae64d",
-      "name": "Four-hourly Trigger1"
-    },
-    {
-      "parameters": {
-        "jsCode": "let type = 'Daily';\nif ($('Four-hourly Trigger1').isExecuted)  type = 'Four-hourly';\nelse if ($('Daily Trigger1').isExecuted)   type = 'Daily';\nconst paises = [\n  { country: 'AR', canal_prod: '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2', canal_test: '19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2' },\n  { country: 'BO', canal_prod: '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2', canal_test: '19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2' },\n  { country: 'CO', canal_prod: '19:af378cf202564cfc87591f580cd70935@thread.tacv2', canal_test: '19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2' },\n  { country: 'PE', canal_prod: '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2', canal_test: '19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2' },\n];\nreturn paises.map(p => ({ json: { ...p, type } }));\n"
+        "jsCode": "let type = 'Daily';\nif ($('Four-hourly Trigger').isExecuted)  type = 'Four-hourly';\nelse if ($('Daily Trigger').isExecuted)   type = 'Daily';\nconst paises = [\n  // { country: 'AR', channelId: '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2', canal_test: '19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2' },\n  // { country: 'BO', channelId: '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2', canal_test: '19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2' },\n  { country: 'CO', channelId: '19:af378cf202564cfc87591f580cd70935@thread.tacv2', canal_test: '19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2' },\n  { country: 'PE', channelId: '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2', canal_test: '19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2' },\n];\nreturn paises.map(p => ({ json: { ...p, type } }));\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -537,16 +487,14 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+          "value": "={{ $(\"Credentials Loop1\").first().json.channelId }}",
+          "mode": "id"
         },
         "contentType": "html",
         "message": "={{ $json.htmlContent }}",
@@ -608,7 +556,8 @@
       ],
       "id": "4512d3cd-986f-45e6-8a8f-34af170a51eb",
       "name": "SQL Execute",
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -644,6 +593,56 @@
       "id": "62a87738-0361-433d-a6e6-91c3fa776a4f",
       "name": "If valid",
       "notes": "Revisa si hay o no consultas para ejecutar en el país actual\nSi las hay, sigue el flujo normal\nSi no hay, salta al siguiente país"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "40 9 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "40 13 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "40 17 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        -32
+      ],
+      "id": "fac964d8-9914-42db-b603-b3bb89cae64d",
+      "name": "Four-hourly Trigger"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 5 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        224
+      ],
+      "id": "45a0a182-8cbf-4b6f-9299-fd92b97591b8",
+      "name": "Daily Trigger",
+      "alwaysOutputData": true,
+      "notes": "De Lunes a Viernes 7:00 AM\n0 0 5 * * 1-5"
     }
   ],
   "pinData": {},
@@ -690,7 +689,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 9,
-  "updatedAt": "2026-06-30T23:09:48.078Z",
-  "versionId": "f7a95bbc-6702-4125-859d-8ac43d51ac66"
+  "triggerCount": 2,
+  "updatedAt": "2026-07-01T13:07:32.636Z",
+  "versionId": "4b110fb8-cfad-442d-a454-aaf014da1021"
 }
