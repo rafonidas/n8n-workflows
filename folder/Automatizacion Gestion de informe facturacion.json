@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Cron mensual 1er día 3am1": {
       "main": [
@@ -1430,6 +1430,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-01T17:35:57.138Z",
+  "updatedAt": "2026-07-02T13:17:20.322Z",
   "versionId": "2e8e5971-e124-4a6b-a535-089808fdabd7"
 }
