@@ -35,11 +35,6 @@
         []
       ]
     },
-    "end": {
-      "main": [
-        []
-      ]
-    },
     "Colombia?": {
       "main": [
         [
@@ -91,28 +86,6 @@
         ]
       ]
     },
-    "Loop Over Items": {
-      "main": [
-        [],
-        []
-      ]
-    },
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        []
-      ]
-    },
-    "AI Agent": {
-      "main": [
-        [],
-        []
-      ]
-    },
-    "Set Config2": {
-      "main": [
-        []
-      ]
-    },
     "Set Config 11": {
       "main": [
         [
@@ -130,22 +103,6 @@
         [
           {
             "node": "GET Tickets1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        []
-      ]
-    },
-    "Get row(s) in sheet": {
-      "main": [
-        [
-          {
-            "node": "Summarize",
             "type": "main",
             "index": 0
           }
@@ -256,35 +213,6 @@
     },
     {
       "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "value": "PFDVh56AhLe86jKz",
-          "mode": "list",
-          "cachedResultName": "ticketNotifications",
-          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/PFDVh56AhLe86jKz"
-        },
-        "matchType": "allConditions",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "date",
-              "keyValue": "={{$now.format('yyyy-MM-dd')}}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [
-        -1952,
-        1504
-      ],
-      "id": "7a1ed0d3-80fc-42f5-bb04-e95c2a43b97d",
-      "name": "Get row(s)"
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -316,17 +244,6 @@
       ],
       "id": "40f44af0-ee15-4c92-b53e-7a51ae64404f",
       "name": "new tikcet?"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.noOp",
-      "name": "end",
-      "typeVersion": 1,
-      "position": [
-        -1952,
-        3072
-      ],
-      "id": "248f5b70-624f-48e5-bd78-ddef7c96cde6"
     },
     {
       "parameters": {
@@ -484,121 +401,6 @@
     },
     {
       "parameters": {
-        "content": "# RESTAR 3 HORAS AL TIEMPO\n"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -2112,
-        1456
-      ],
-      "id": "48102202-05e0-4c69-8b70-e4ca87deb83b",
-      "name": "Sticky Note1"
-    },
-    {
-      "parameters": {
-        "operation": "send",
-        "phoneNumberId": "833780986474867",
-        "recipientPhoneNumber": "+5491164282905",
-        "textBody": "¡Hola Mundo!",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.whatsApp",
-      "typeVersion": 1.1,
-      "position": [
-        -1952,
-        2400
-      ],
-      "id": "6d66ef47-5d81-40bf-aff5-f26f2489f7f8",
-      "name": "Send message2",
-      "webhookId": "d4b77649-448f-4715-a4a6-fa31d55c33b5",
-      "credentials": {
-        "whatsAppApi": {
-          "id": "gFf5xMPVgDp987TZ",
-          "name": "WSP Colombia - Comercial Test"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        -1952,
-        4192
-      ],
-      "id": "2f6059d1-7e21-4a48-80b2-849571c4a9cd",
-      "name": "Loop Over Items"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.message }}",
-        "options": {
-          "systemMessage": "Tu rol es el de un asistente de soporte.\nTu objetivo es resumir la descripción del ticket entrante via input para notificar al equipo con una síntesis de alto nivel sobre el ticket.\n\nTu ouput debe contener ÚNICAMENTE el resumen del problema del cliente y este debe dar a entender el 80% del ticket."
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        -1952,
-        2176
-      ],
-      "id": "62e52f2e-658f-43ba-bf08-edc01313f9a7",
-      "name": "AI Agent",
-      "disabled": true,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -1952,
-        2848
-      ],
-      "id": "006b7167-d5f5-4ae5-9481-70634e0218e5",
-      "name": "When clicking ‘Execute workflow’"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "f1",
-              "name": "phone",
-              "value": "541164282905",
-              "type": "string"
-            },
-            {
-              "id": "f2",
-              "name": "phone",
-              "value": "541164282905",
-              "type": "string"
-            },
-            {
-              "id": "f3",
-              "name": "phone",
-              "value": "541164282905",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "841c3c06-ed71-4660-b297-20668e4fa4d8",
-      "name": "Set Config2",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1952,
-        3744
-      ]
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -640,41 +442,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "f1",
-              "name": "phone",
-              "value": "573046321844",
-              "type": "string"
-            },
-            {
-              "id": "f2",
-              "name": "phone",
-              "value": "573228458489",
-              "type": "string"
-            },
-            {
-              "id": "f3",
-              "name": "phone",
-              "value": "573106210793",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "a92dce3a-cd36-44c3-8737-f9fcdb822de4",
-      "name": "Set Config",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1952,
-        3520
-      ]
-    },
-    {
-      "parameters": {
         "options": {}
       },
       "type": "n8n-nodes-base.splitInBatches",
@@ -685,106 +452,6 @@
       ],
       "id": "aacb1807-a79d-4999-9cde-947be8aa033b",
       "name": "Ticket Loop"
-    },
-    {
-      "parameters": {
-        "jsCode": "return [\n  \"list\":\n\n  \n]\n  ;"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -1952,
-        2624
-      ],
-      "id": "12dc5e4d-bf3c-4554-bc04-a66fde751371",
-      "name": "Code in JavaScript"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Retornamos un arreglo que contiene exactamente 3 objetos.\n// Cada objeto debe tener la propiedad 'json' según el estándar de n8n.\n\nreturn [\n  {\n    json: {\n      id: 1,\n      nombre: \"Vane\",\n      number: \"573046321844\"\n    }\n  },\n  {\n    json: {\n      id: 2,\n      nombre: \"Agus\",\n      number: \"573228458489\"\n    }\n  },\n  {\n    json: {\n      id: 3,\n      nombre: \"Zaida\",\n      number: \"573106210793\"\n    }\n  }\n];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -1952,
-        1952
-      ],
-      "id": "7034e316-b051-43bb-b73d-f2157c149388",
-      "name": "Code in JavaScript1"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT Id, TicketId, Tiempo, ComentId,\n       DATEADD(hour, -3, Tiempo) AS HoraLocal,\n       ROW_NUMBER() OVER(PARTITION BY TicketId ORDER BY Tiempo ASC) AS Fila\nFROM dbo.VistasTickes\nWHERE TicketId = 47801 -- Filtramos solo este ticket para auditarlo\nORDER BY Id ASC;"
-      },
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1.1,
-      "position": [
-        -1952,
-        3296
-      ],
-      "id": "315ebcc5-a719-4137-855c-e6a9153f88d3",
-      "name": "Microsoft SQL",
-      "credentials": {
-        "microsoftSql": {
-          "id": "Dy10nKTWCqBd32O5",
-          "name": "Soporte - SQL01"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "documentId": {
-          "__rl": true,
-          "value": "1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0",
-          "mode": "list",
-          "cachedResultName": "query_metrics",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": "gid=0",
-          "mode": "list",
-          "cachedResultName": "Métricas",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h0ttpG6sc3P7tRTIYOlJW2Gwx9dzDxP2vS75nnUYta0/edit#gid=0"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -1952,
-        3968
-      ],
-      "id": "b297d5dc-e8de-4d0a-9079-f24356df0132",
-      "name": "Get row(s) in sheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "YtjFVoybbkWVfDYe",
-          "name": "Rafa-Sheets"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "fieldsToSummarize": {
-          "values": [
-            {
-              "aggregation": "max",
-              "field": "tiempo"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.summarize",
-      "typeVersion": 1.1,
-      "position": [
-        -1728,
-        3968
-      ],
-      "id": "74963574-493b-43ca-ace3-a36944cedae9",
-      "name": "Summarize"
     },
     {
       "parameters": {
@@ -884,33 +551,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1952,
-        1728
-      ],
-      "id": "b92d2beb-793a-42b0-817a-1d37d60d9dd4",
-      "name": "Set Log"
-    },
-    {
-      "parameters": {
-        "content": "## Falta la validación inicial donde consultamos si de los ids que vienen del SQL haya alguno que ya notificamos",
-        "height": 176
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -912,
-        1728
-      ],
-      "id": "130aa6ae-43f0-4633-8092-6959430101e5",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
         "operation": "rowNotExists",
         "dataTableId": {
           "__rl": true,
@@ -937,20 +577,6 @@
       ],
       "id": "53c5a16e-a0a7-47ff-b4c7-d5320aa8ea0a",
       "name": "If row does not exist"
-    },
-    {
-      "parameters": {
-        "content": "## IF TICKET ID FROM SQL DOES NOT EXIST IN DATATABLE -> CONTINUE",
-        "width": 352
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -1440,
-        1648
-      ],
-      "id": "b8ef7a92-574c-4e64-b0bd-cd903bb55ab7",
-      "name": "Sticky Note2"
     },
     {
       "parameters": {
@@ -1029,51 +655,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1488,
-        4144
+        -1232,
+        4000
       ],
       "id": "ec67d5c0-6f2d-4eb6-8aed-e3590ec524fe",
       "name": "Sticky Note3"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT \n    v.Id, \n    v.TicketId, \n    v.ComentId, \n    v.Tiempo\nFROM dbo.VistasTickes v\nWHERE \n    -- Filtramos PRIMERO por los registros de hoy. \n    -- Esto reduce drásticamente los datos a evaluar.\n    v.Tiempo >= DATEADD(hour, 3, CAST(CAST(GETDATE() AS DATE) AS DATETIME))\n    AND v.Tiempo < DATEADD(hour, 3, DATEADD(day, 1, CAST(CAST(GETDATE() AS DATE) AS DATETIME)))\n    -- SEGUNDO: Confirmamos que ese registro de hoy sea realmente el primer evento del ticket\n    AND v.Id = (\n        SELECT MIN(Id) \n        FROM dbo.VistasTickes v_min \n        WHERE v_min.TicketId = v.TicketId\n    )\nORDER BY v.TicketId ASC;"
-      },
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1.1,
-      "position": [
-        -1200,
-        4816
-      ],
-      "id": "eb6f7fae-c0bf-49ee-9a07-39464907ddba",
-      "name": "Microsoft SQL2",
-      "credentials": {
-        "microsoftSql": {
-          "id": "hL9EZkFVhAg4kqAo",
-          "name": "Utiles-Viga"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT *\nFROM dbo.TicketsView\n  WHERE Id = 47899\nORDER BY Id DESC;"
-      },
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1.1,
-      "position": [
-        -1200,
-        5008
-      ],
-      "id": "90f3fecd-83f9-4cc0-8e97-f8cafd430c51",
-      "name": "Microsoft SQL3",
-      "credentials": {
-        "microsoftSql": {
-          "id": "Dy10nKTWCqBd32O5",
-          "name": "Soporte - SQL01"
-        }
-      }
     },
     {
       "parameters": {
@@ -1116,28 +702,7 @@
       ]
     }
   ],
-  "pinData": {
-    "Set Config": [
-      {
-        "json": {
-          "phone_1": "+5491100000001",
-          "phone_2": "+5491100000002",
-          "phone_3": "+5491100000003",
-          "phone_4": "+5491100000004",
-          "country": "Colombia",
-          "campo_cliente": "cliente",
-          "campo_descripcion": "descripcion"
-        }
-      }
-    ],
-    "AI Agent": [
-      {
-        "json": {
-          "output": "First item"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1175,6 +740,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-05-11T13:59:13.002Z",
-  "versionId": "fc77d199-dd09-469d-8052-588aec354a66"
+  "updatedAt": "2026-07-02T16:54:21.219Z",
+  "versionId": "83227c54-62ed-4af8-a0cf-16106083bd05"
 }
