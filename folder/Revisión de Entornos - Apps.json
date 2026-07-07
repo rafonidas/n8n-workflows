@@ -315,7 +315,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let type = 'Daily';\nif ($('Four-hourly Trigger').isExecuted)  type = 'Four-hourly';\nelse if ($('Daily Trigger').isExecuted)   type = 'Daily';\nconst paises = [\n  // { country: 'AR', channelId: '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2', canal_test: '19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2' },\n  // { country: 'BO', channelId: '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2', canal_test: '19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2' },\n  { country: 'CO', channelId: '19:af378cf202564cfc87591f580cd70935@thread.tacv2', canal_test: '19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2' },\n  { country: 'PE', channelId: '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2', canal_test: '19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2' },\n];\nreturn paises.map(p => ({ json: { ...p, type } }));\n"
+        "jsCode": "let type = 'Daily';\nif ($('Four-hourly Trigger').isExecuted)  type = 'Four-hourly';\nelse if ($('Daily Trigger').isExecuted)   type = 'Daily';\nconst paises = [\n  { country: 'AR', channelId: '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2', canal_test: '19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2' },\n  { country: 'BO', channelId: '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2', canal_test: '19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2' },\n  { country: 'CO', channelId: '19:af378cf202564cfc87591f580cd70935@thread.tacv2', canal_test: '19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2' },\n  { country: 'PE', channelId: '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2', canal_test: '19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2' },\n];\nreturn paises.map(p => ({ json: { ...p, type } }));\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -690,6 +690,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-07-01T13:07:32.636Z",
-  "versionId": "4b110fb8-cfad-442d-a454-aaf014da1021"
+  "updatedAt": "2026-07-06T19:13:22.173Z",
+  "versionId": "9c6302c1-3e65-42c7-82e7-a06e367ffab9"
 }
