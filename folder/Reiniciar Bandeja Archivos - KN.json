@@ -310,7 +310,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Detectar tipo de resultado\nconst input = $input.first().json;\nconst isError = !!input.error;\nconst currentCountry = $('Loop Over Items1').first().json.country\n\n\n// En el loop tenemos los datos de la bandeja\nconst bandeja = input;\nconst country = bandeja.country || currentCountry || 'UNKNOWN';\n\nlet messageType = 'success';\nlet errorMsg = '';\n\nif (isError) {\n  // Distinguir si es error de login o de reinicio\n  // Heurística: si tenemos StatusCode y no hay token parseado, fue login\n  // Si llegamos al nodo de reinicio pero falla, fue restart\n  \n  // Por ahora: asumir que si Error en WebService Log In, es login_error\n  // Si error después de token, es restart_error\n  // Chequeamos por presencia de SesionId\n  \n  if (input.SesionId) {\n    messageType = 'restart_error';\n  } else {\n    messageType = 'login_error';\n  }\n  errorMsg = input.error?.message || String(input.error).slice(0, 200);\n} else {\n  // Si no hay error, pero viene de ReiniciarBandejaArchivos, validar SOAP response\n  const raw = typeof input.data === 'string' ? input.data : JSON.stringify(input || {});\n  if (/soap:Fault|<faultstring>/i.test(raw)) {\n    messageType = 'restart_error';\n    const faultMatch = raw.match(/<faultstring>(.*?)<\\/faultstring>/);\n    errorMsg = faultMatch ? faultMatch[1] : 'SOAP Fault en respuesta';\n  }\n}\n\n// Limpiar mensaje de error si viene del servidor (SOAP Exception)\n// Extrae solo el mensaje de la excepción, eliminando el stack trace\nif (errorMsg && errorMsg.includes('Exception: ')) {\n  try {\n    errorMsg = errorMsg.split('Exception: ')[1].split(/\\r\\n|\\n/)[0].trim();\n  } catch (e) {\n    // Si falla la limpieza, mantener el original\n  }\n}\n\nreturn [{\n  json: {\n    messageType,\n    country,\n    errorMsg: errorMsg || '',\n    timestamp: new Date().toISOString(),\n    ws_status: 'fail',\n    ws_response_raw: errorMsg.slice(0, 2000) || ''\n  }\n}];"
+        "jsCode": "// Detectar tipo de resultado\nconst input = $input.first().json;\nconst isError = !!input.error;\nconst currentCountry = $('Loop Over Items').first().json.country\n\n\n// En el loop tenemos los datos de la bandeja\nconst bandeja = input;\nconst country = bandeja.country || currentCountry || 'UNKNOWN';\n\nlet messageType = 'success';\nlet errorMsg = '';\n\nif (isError) {\n  // Distinguir si es error de login o de reinicio\n  // Heurística: si tenemos StatusCode y no hay token parseado, fue login\n  // Si llegamos al nodo de reinicio pero falla, fue restart\n  \n  // Por ahora: asumir que si Error en WebService Log In, es login_error\n  // Si error después de token, es restart_error\n  // Chequeamos por presencia de SesionId\n  \n  if (input.SesionId) {\n    messageType = 'restart_error';\n  } else {\n    messageType = 'login_error';\n  }\n  errorMsg = input.error?.message || String(input.error).slice(0, 200);\n} else {\n  // Si no hay error, pero viene de ReiniciarBandejaArchivos, validar SOAP response\n  const raw = typeof input.data === 'string' ? input.data : JSON.stringify(input || {});\n  if (/soap:Fault|<faultstring>/i.test(raw)) {\n    messageType = 'restart_error';\n    const faultMatch = raw.match(/<faultstring>(.*?)<\\/faultstring>/);\n    errorMsg = faultMatch ? faultMatch[1] : 'SOAP Fault en respuesta';\n  }\n}\n\n// Limpiar mensaje de error si viene del servidor (SOAP Exception)\n// Extrae solo el mensaje de la excepción, eliminando el stack trace\nif (errorMsg && errorMsg.includes('Exception: ')) {\n  try {\n    errorMsg = errorMsg.split('Exception: ')[1].split(/\\r\\n|\\n/)[0].trim();\n  } catch (e) {\n    // Si falla la limpieza, mantener el original\n  }\n}\n\nreturn [{\n  json: {\n    messageType,\n    country,\n    errorMsg: errorMsg || '',\n    timestamp: new Date().toISOString(),\n    ws_status: 'fail',\n    ws_response_raw: errorMsg.slice(0, 2000) || ''\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -326,16 +326,14 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+          "value": "={{ $('Loop Over Items').item.json.channelId }}",
+          "mode": "id"
         },
         "contentType": "html",
         "message": "={{ $json.text }}",
@@ -361,7 +359,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const input = $input.first().json;\nconst { messageType, country, errorMsg, timestamp } = input;\n\n// 1. Definimos un diccionario de zonas horarias por país\nconst timezones = {\n  'ARG': 'America/Argentina/Buenos_Aires',\n  'ECU': 'America/Guayaquil',\n  'PER': 'America/Lima'\n};\n\n// 2. Buscamos la zona horaria del país. \n// Si country viene vacío o no está en la lista, el || asegura que use Argentina por defecto.\nconst selectedTimeZone = timezones[country] || 'America/Argentina/Buenos_Aires';\n\nconst time = new Date(timestamp).toLocaleString('es-AR', {\n  timeZone: selectedTimeZone,\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit'\n});\n\nlet text = '';\n\n// 3. Formateo de la salida en HTML usando <strong> y <br>\nif (messageType === 'success') {\n  text = `✅ <strong>Reinicio Exitoso</strong><br><strong>País:</strong> ${country}<br><strong>Hora:</strong> ${time}`;\n} else if (messageType === 'login_error') {\n  text = `❌ <strong>Error de Conexión</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n} else if (messageType === 'restart_error') {\n  text = `⚠️ <strong>Falla al Reiniciar</strong><br><strong>País:</strong> ${country}<br><strong>Error:</strong> ${errorMsg}<br><strong>Hora:</strong> ${time}`;\n}\n\nreturn [{\n  json: {\n    text\n  }\n}];"
+        "jsCode": "// 1. Capturamos el ítem actual que se está validando en la vuelta del bucle.\n// IMPORTANTE: Asegúrate de que el nombre del nodo entre comillas coincida exactamente con tu nodo de bucle.\nconst currentItem = $('Loop Over Items').item.json;\n\n// 2. Extraemos el país desde el elemento actual del loop\nconst country = currentItem.pais;\n\n// 3. Extraemos las demás variables. Priorizamos el elemento del bucle por si también viajan allí, \n// con fallback al input inmediato del nodo anterior si es necesario.\nconst msgType = currentItem.messageType || $input.first().json.messageType;\nconst err = currentItem.errorMsg || $input.first().json.errorMsg;\nconst timestamp = currentItem.timestamp || $input.first().json.timestamp;\n\n// 4. Diccionario de zonas horarias por país\nconst timezones = {\n  'ARG': 'America/Argentina/Buenos_Aires',\n  'ECU': 'America/Guayaquil',\n  'PER': 'America/Lima'\n};\n\n// 5. Configuración de zona horaria y visualización segura\nconst selectedTimeZone = timezones[country] || 'America/Argentina/Buenos_Aires';\nconst displayCountry = country || 'ARG';\n\n// 6. Formateo de fecha y hora localizadas\nconst time = new Date(timestamp || Date.now()).toLocaleString('es-AR', {\n  timeZone: selectedTimeZone,\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit'\n});\n\nlet text = '';\n\n// 7. Formateo de la salida en HTML con la estructura de título solicitada\nif (msgType === 'success') {\n  text = `✅ <strong>REINICIO EXITOSO - BANDEJA ARCHIVOS KN - ${displayCountry}</strong><br>${time}`;\n} else if (msgType === 'login_error') {\n  text = `❌ <strong>ERROR DE CONEXIÓN - BANDEJA ARCHIVOS KN - ${displayCountry}</strong><br><strong>Error:</strong> ${err}<br>${time}`;\n} else if (msgType === 'restart_error') {\n  text = `⚠️ <strong>FALLA AL REINICIAR - BANDEJA ARCHIVOS KN - ${displayCountry}</strong><br><strong>Error:</strong> ${err}<br>${time}`;\n}\n\nreturn [{\n  json: {\n    text\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -508,6 +506,33 @@
       ],
       "id": "eddb9bcd-183d-40aa-966d-2d5cbb0b42c3",
       "name": "Set Success"
+    },
+    {
+      "parameters": {
+        "content": "## error id bandeja\n## mejora html mensaje\n##pais - reinicio de ...\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        64
+      ],
+      "id": "b7fd891a-d115-48d7-9204-4aaee508598a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## el country viene de when executed by... \n\n## reinicio bandeja archiivos kn\n",
+        "height": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        16
+      ],
+      "id": "1d7691f0-5550-41f9-b21e-170f0d809b02",
+      "name": "Sticky Note1"
     }
   ],
   "pinData": {},
@@ -526,6 +551,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-10T13:54:39.422Z",
-  "versionId": "959d2bd7-e7f0-4b73-8f9f-94916aab4d15"
+  "updatedAt": "2026-07-06T15:13:09.650Z",
+  "versionId": "fc13307b-2646-412e-a282-4a60c606958f"
 }
