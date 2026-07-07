@@ -1,16 +1,11 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Cron mensual 1er día 3am1": {
       "main": [
         [
           {
-            "node": "Lista de BD",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Lista de BD1",
+            "node": "Lista de BD3",
             "type": "main",
             "index": 0
           }
@@ -26,6 +21,11 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Ejecutar en SQL Server (INSERT)1": {
+      "main": [
+        []
       ]
     },
     "Loop Over Items": {
@@ -45,6 +45,17 @@
         [
           {
             "node": "Ejecutar en SQL Server (SELECT)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n",
             "type": "main",
             "index": 0
           }
@@ -84,6 +95,11 @@
         ]
       ]
     },
+    "Ejecutar en SQL Server (INSERT)": {
+      "main": [
+        []
+      ]
+    },
     "Loop Over Items1": {
       "main": [
         [
@@ -101,6 +117,17 @@
         [
           {
             "node": "Ejecutar en SQL Server (SELECT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos1": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n1",
             "type": "main",
             "index": 0
           }
@@ -178,22 +205,355 @@
         ]
       ]
     },
-    "Normalizacion de datos1": {
+    "Create message": {
+      "main": [
+        []
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)2": {
       "main": [
         [
           {
-            "node": "Guardar datos en n8n1",
+            "node": "Normalizacion de datos2",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Normalizacion de datos": {
+    "Loop Over Items2": {
       "main": [
         [
           {
-            "node": "Guardar datos en n8n",
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos2": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (INSERT)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar datos en n8n2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de BD2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)3": {
+      "main": [
+        [
+          {
+            "node": "Normalizacion de datos3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos3": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (INSERT)3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar datos en n8n3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de BD3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron mensual 1er día 3am": {
+      "main": [
+        [
+          {
+            "node": "Lista de BD4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lista de BD5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)4": {
+      "main": [
+        [
+          {
+            "node": "Normalizacion de datos5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items4": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (INSERT)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar datos en n8n4": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar en SQL Server (SELECT)5": {
+      "main": [
+        [
+          {
+            "node": "Normalizacion de datos4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items5": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Ejecutar en SQL Server (SELECT)5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript6": {
+      "main": [
+        [
+          {
+            "node": "Ejecutar en SQL Server (INSERT)5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar datos en n8n5": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de BD4": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de BD5": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript7": {
+      "main": [
+        [
+          {
+            "node": "Enviar mail de insercion exitosa1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos4": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizacion de datos5": {
+      "main": [
+        [
+          {
+            "node": "Guardar datos en n8n4",
             "type": "main",
             "index": 0
           }
@@ -201,10 +561,12 @@
       ]
     }
   },
-  "createdAt": "2025-11-05T18:54:41.468Z",
-  "id": "BPvVV8reRqU0zMuW",
-  "isArchived": true,
-  "meta": null,
+  "createdAt": "2025-09-16T20:39:10.001Z",
+  "id": "Cli8NIZaHvhPaYsN",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Workflow Comprobantes Detallado",
   "nodes": [
     {
@@ -213,8 +575,8 @@
           "item": [
             {
               "mode": "everyMonth",
-              "hour": 15,
-              "minute": 3
+              "hour": 22,
+              "minute": 30
             }
           ]
         }
@@ -223,24 +585,24 @@
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
       "position": [
-        -672,
-        544
+        -1120,
+        80
       ],
-      "id": "d3c7a9a9-1f02-459c-99ff-b2919f69fe26"
+      "id": "1ca0bfad-f89b-4ddb-8c32-0b7c20af1e42"
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "USE {{$json[\"db\"]}};\nSET LANGUAGE Spanish\nselect  \n    DB_NAME() as dbname,\n     -- Normalización de Pais: elimina cualquier número al final\n    RTRIM(\n        LEFT(\n            RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n            PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1)    ) AS Pais,\n     -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n    YEAR(DATEADD(MONTH, -1, GETDATE())) as anio, MONTH(DATEADD(MONTH, -1, GETDATE())) as mes,\n \nProcesados.MesTexto,  procesados , \nCASE WHEN aprobados is null THEN 0 ELSE aprobados END as aprobados,\nCASE WHEN aprobados is null THEN procesados ELSE procesados-aprobados END as Erroneos,\n \nCASE \n    WHEN aprobados IS NULL THEN '0%'\n    WHEN aprobados = 0 THEN '100%'\n    ELSE \n        FORMAT((procesados - aprobados) * 1.0 / procesados, 'P2', 'es-AR')\n    END AS PorcentajeError\n \n \nfrom \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as procesados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Procesados\n \nleft join \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as Aprobados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n        and c.Resultado !='R'\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Aprobados\n \non \nprocesados.MesTexto= aprobados.MesTexto"
+        "query": "USE {{$json[\"db\"]}};\nSELECT  \n    DB_NAME() as dbname,\n\n    -- Normalización de Pais\n    CASE \n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES'\n            THEN 'AR'\n        ELSE RTRIM(\n            LEFT(\n                RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n                PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1\n            )\n        )\n    END AS Pais,\n\n    -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n\n    YEAR(T.Fecha) as anio,\n    MONTH(T.Fecha) as mes,\n    COUNT(C.CuitId) AS cantidad\nFROM Comprobante AS C WITH(NOLOCK)\nINNER JOIN rol  \n    ON C.CuitId = Rol.CuitId  \n   AND C.RolEmisorId = Rol.RolId  \n   AND Rol.TipoRol = 1\nINNER JOIN Transaccion AS T  \n    ON T.CuitId = C.CuitId  \n   AND T.TransaccionId = C.TransaccionId\nWHERE C.Resultado <> 'R'\n  AND YEAR(T.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n  AND MONTH(T.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\nGROUP BY YEAR(T.Fecha), MONTH(T.Fecha)\nORDER BY Pais, Entorno, anio, mes;"
       },
       "name": "Ejecutar en SQL Server (SELECT)1",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        0,
-        192
+        -400,
+        -304
       ],
-      "id": "bcbe441f-4fe2-475c-a531-0fe81f5f23f9",
+      "id": "3ec8ad26-bff1-4dd0-bd19-b6afdf83f2d0",
       "executeOnce": false,
       "credentials": {
         "microsoftSql": {
@@ -258,15 +620,15 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        224,
-        0
+        -176,
+        -496
       ],
-      "id": "e85dff8b-d5ca-4a42-8b86-1e01127bfaa8",
+      "id": "6d1fc1cf-9822-4845-bbea-093610289fe4",
       "alwaysOutputData": false,
       "credentials": {
         "microsoftSql": {
-          "id": "zhkh4iIZSEdvDMT7",
-          "name": "Conexion Test Interno Utiles"
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
         }
       }
     },
@@ -277,51 +639,98 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -224,
-        288
+        -624,
+        -208
       ],
-      "id": "51a50f26-943b-457c-85e9-81ee112193b6",
+      "id": "40d82514-3c2b-4d01-90a3-5cb4ff811125",
       "name": "Loop Over Items"
     },
     {
       "parameters": {
-        "jsCode": "const values = items.map(r => {\n  const j = r.json;\n  return `(\n    '${j.dbname || ''}',\n    '${j.Pais || ''}',\n    '${j.Entorno || ''}',\n    ${j.anio ?? 'NULL'},\n    ${j.mes ?? 'NULL'},\n    '${j.MesTexto || ''}',\n    ${j.procesados ?? 'NULL'},\n    ${j.aprobados ?? 'NULL'},\n    ${j.Erroneos ?? 'NULL'},\n    '${j.PorcentajeError || ''}'\n  )`;\n}).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\nINSERT INTO [dbo].[Dashboard_COMFIAR_DatosMensualesTexto]\n           ([dbname]\n           ,[Pais]\n           ,[Entorno]\n           ,[anio]\n           ,[mes]\n           ,[MesTexto]\n           ,[procesados]\n           ,[aprobados]\n           ,[Erroneos]\n           ,[PorcentajeError])\n     VALUES\n${values};\n    `\n  }\n}];\n"
+        "assignments": {
+          "assignments": [
+            {
+              "id": "014fffcc-241c-4cab-b91a-0c7f62c24d26",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "72576cc3-6ba4-41f1-a4fa-b1661d0d5f73",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "71898983-7e4f-4583-8f50-a3e7bfcdf054",
+              "name": "anio",
+              "value": "={{ $json.anio }}",
+              "type": "number"
+            },
+            {
+              "id": "3903e286-34a6-40e6-9a2d-c963ea29e8a0",
+              "name": "mes",
+              "value": "={{ $json.mes }}",
+              "type": "number"
+            },
+            {
+              "id": "853e889c-8b58-4527-a303-a2f5c0a76253",
+              "name": "cantidad",
+              "value": "={{ $json.cantidad }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        -304
+      ],
+      "id": "4c842de1-34f4-4949-bbc5-9f4d690f4f8e",
+      "name": "Normalizacion de datos"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => \n  `('${r.json.Pais}', '${r.json.Entorno}', ${r.json.anio}, ${r.json.mes}, ${r.json.cantidad})`\n).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ${values};\n    `\n  }\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        0,
-        0
+        -400,
+        -496
       ],
-      "id": "7abcfb36-c8ea-4fe5-a545-2b270e150a36",
+      "id": "d8df706f-2301-4e8d-ab45-b032aef7ecfa",
       "name": "Code in JavaScript"
     },
     {
       "parameters": {
-        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    mesTexto: json.MesTexto || 'N/A',\n    procesados: json.procesados ?? 0,\n    aprobados: json.aprobados ?? 0,\n    erroneos: json.Erroneos ?? 0,\n    porcentajeError: json.PorcentajeError ?? 0,\n    // Conserva también la cantidad si la sigues usando\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
       },
       "name": "Guardar datos en n8n",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        448,
-        192
+        48,
+        -304
       ],
-      "id": "434c8335-a51c-42f0-a365-78993cf040b1"
+      "id": "eb499cd3-512c-4149-85fe-70b50cc5a6bd"
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "USE {{$json[\"db\"]}};\nSET LANGUAGE Spanish\nselect  \n    DB_NAME() as dbname,\n     -- Normalización de Pais: elimina cualquier número al final\n    RTRIM(\n        LEFT(\n            RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n            PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1)    ) AS Pais,\n     -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n    YEAR(DATEADD(MONTH, -1, GETDATE())) as anio, MONTH(DATEADD(MONTH, -1, GETDATE())) as mes,\n \nProcesados.MesTexto,  procesados , \nCASE WHEN aprobados is null THEN 0 ELSE aprobados END as aprobados,\nCASE WHEN aprobados is null THEN procesados ELSE procesados-aprobados END as Erroneos,\n \nCASE \n    WHEN aprobados IS NULL THEN '0%'\n    WHEN aprobados = 0 THEN '100%'\n    ELSE \n        FORMAT((procesados - aprobados) * 1.0 / procesados, 'P2', 'es-AR')\n    END AS PorcentajeError\n \n \nfrom \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as procesados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Procesados\n \nleft join \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as Aprobados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n        and c.Resultado !='R'\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Aprobados\n \non \nprocesados.MesTexto= aprobados.MesTexto"
+        "query": "USE {{$json[\"db\"]}};\nSELECT  \n    DB_NAME() as dbname,\n\n    -- Normalización de Pais\n    CASE \n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES'\n            THEN 'AR'\n        ELSE RTRIM(\n            LEFT(\n                RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n                PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1\n            )\n        )\n    END AS Pais,\n\n    -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n\n    YEAR(T.Fecha) as anio,\n    MONTH(T.Fecha) as mes,\n    COUNT(C.CuitId) AS cantidad\nFROM Comprobante AS C WITH(NOLOCK)\nINNER JOIN rol  \n    ON C.CuitId = Rol.CuitId  \n   AND C.RolEmisorId = Rol.RolId  \n   AND Rol.TipoRol = 1\nINNER JOIN Transaccion AS T  \n    ON T.CuitId = C.CuitId  \n   AND T.TransaccionId = C.TransaccionId\nWHERE C.Resultado <> 'R'\n  AND YEAR(T.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n  AND MONTH(T.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\nGROUP BY YEAR(T.Fecha), MONTH(T.Fecha)\nORDER BY Pais, Entorno, anio, mes;\n"
       },
       "name": "Ejecutar en SQL Server (SELECT)",
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        0,
-        1008
+        -384,
+        288
       ],
-      "id": "dd68f980-9220-4928-a53a-885af2737ec5",
+      "id": "419368cc-5c22-4584-85f2-14e601f60e13",
       "executeOnce": false,
       "credentials": {
         "microsoftSql": {
@@ -339,15 +748,15 @@
       "type": "n8n-nodes-base.microsoftSql",
       "typeVersion": 1,
       "position": [
-        432,
-        816
+        48,
+        96
       ],
-      "id": "fa919e46-d3bd-4761-b678-632858021207",
+      "id": "892ce2cb-07fc-4ac1-9f18-39e8e43d17e9",
       "alwaysOutputData": false,
       "credentials": {
         "microsoftSql": {
-          "id": "zhkh4iIZSEdvDMT7",
-          "name": "Conexion Test Interno Utiles"
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
         }
       }
     },
@@ -364,10 +773,10 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        592,
-        624
+        992,
+        352
       ],
-      "id": "26f8f14b-ce5f-4e36-9742-12994c9771da",
+      "id": "37a5cda8-8854-4a21-872f-7159812a230e",
       "name": "Enviar mail de insercion exitosa",
       "webhookId": "dc767dcc-ee1a-4bb5-8452-1a915db98c6f",
       "credentials": {
@@ -384,51 +793,99 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -224,
-        896
+        -608,
+        176
       ],
-      "id": "23e6a075-770d-4559-813a-7c1daa98dfab",
+      "id": "1e60ab18-e052-40f5-bfab-f8206ffbb4c4",
       "name": "Loop Over Items1"
     },
     {
       "parameters": {
-        "jsCode": "const values = items.map(r => {\n  const j = r.json;\n  return `(\n    '${j.dbname || ''}',\n    '${j.Pais || ''}',\n    '${j.Entorno || ''}',\n    ${j.anio ?? 'NULL'},\n    ${j.mes ?? 'NULL'},\n    '${j.MesTexto || ''}',\n    ${j.procesados ?? 'NULL'},\n    ${j.aprobados ?? 'NULL'},\n    ${j.Erroneos ?? 'NULL'},\n    '${j.PorcentajeError || ''}'\n  )`;\n}).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\nINSERT INTO [dbo].[Dashboard_COMFIAR_DatosMensualesTexto]\n           ([dbname]\n           ,[Pais]\n           ,[Entorno]\n           ,[anio]\n           ,[mes]\n           ,[MesTexto]\n           ,[procesados]\n           ,[aprobados]\n           ,[Erroneos]\n           ,[PorcentajeError])\n     VALUES\n${values};\n    `\n  }\n}];\n"
+        "assignments": {
+          "assignments": [
+            {
+              "id": "014fffcc-241c-4cab-b91a-0c7f62c24d26",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "72576cc3-6ba4-41f1-a4fa-b1661d0d5f73",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "71898983-7e4f-4583-8f50-a3e7bfcdf054",
+              "name": "anio",
+              "value": "={{ $json.anio }}",
+              "type": "number"
+            },
+            {
+              "id": "3903e286-34a6-40e6-9a2d-c963ea29e8a0",
+              "name": "mes",
+              "value": "={{ $json.mes }}",
+              "type": "number"
+            },
+            {
+              "id": "853e889c-8b58-4527-a303-a2f5c0a76253",
+              "name": "cantidad",
+              "value": "={{ $json.cantidad }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -144,
+        288
+      ],
+      "id": "f4209b15-c049-4ffb-8de8-4795d2f30e08",
+      "name": "Normalizacion de datos1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => \n  `('${r.json.Pais}', '${r.json.Entorno}', ${r.json.anio}, ${r.json.mes}, ${r.json.cantidad})`\n).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ${values};\n    `\n  }\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        208,
-        816
+        -176,
+        96
       ],
-      "id": "5a4c84f0-4eaf-4264-9550-d1d2dbaa2d41",
+      "id": "e2be0a14-53db-48eb-bdcf-747fcd6a5071",
       "name": "Code in JavaScript1"
     },
     {
       "parameters": {
-        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    mesTexto: json.MesTexto || 'N/A',\n    procesados: json.procesados ?? 0,\n    aprobados: json.aprobados ?? 0,\n    erroneos: json.Erroneos ?? 0,\n    porcentajeError: json.PorcentajeError ?? 0,\n    // Conserva también la cantidad si la sigues usando\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
       },
       "name": "Guardar datos en n8n1",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        544,
-        1008
+        160,
+        288
       ],
-      "id": "024e9f32-45b2-4989-91f3-32e3d9ff4d8e"
+      "id": "70a60bcb-35cc-4b56-9f58-9932a686a4e7"
     },
     {
       "parameters": {
-        "functionCode": "return [\n  { db: \"COMFIAR_AR\" },\n  { db: \"COMFIAR_AR2\" },\n  { db: \"COMFIAR_CINES\" },\n  { db: \"COMFIAR_BO\" },\n  { db: \"COMFIAR_EC\" },\n  { db: \"COMFIAR_PE\" },\n  { db: \"COMFIAR_CR\" }\n];\n"
+        "functionCode": "return [\n  { db: \"COMFIAR_AR\" },\n  { db: \"COMFIAR_AR2\" },\n  { db: \"COMFIAR_BO\" },\n  { db: \"COMFIAR_EC\" },\n  { db: \"COMFIAR_PE\" },\n  { db: \"COMFIAR_CR\" },\n];\n"
       },
       "name": "Lista de BD",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        -448,
-        896
+        -832,
+        176
       ],
-      "id": "55528004-ee44-44de-8f22-e7aadd911733",
-      "executeOnce": false
+      "id": "a1b3bdc3-1629-474f-b71f-fc5553f48318",
+      "executeOnce": false,
+      "disabled": true
     },
     {
       "parameters": {
@@ -438,34 +895,37 @@
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [
-        -448,
-        288
+        -848,
+        -208
       ],
-      "id": "6ec305da-b800-4ae5-80a0-8a09f4cf1e48",
-      "executeOnce": false
+      "id": "3e09aa4a-fde9-4438-805d-114e43830459",
+      "executeOnce": false,
+      "disabled": true
     },
     {
       "parameters": {
-        "jsCode": "const registros = $input.all();   // aquí llegan TODOS los items de todos los loops\nconst mailSubject = `Informe de ejecución - Valores Mensuales (Consolidado)`;\n\nif (!registros.length) {\n  return [{\n    json: {\n      mailSubject,\n      mailBody: `<p>No se encontraron registros en ninguna conexión.</p>`\n    }\n  }];\n}\n\n// Construcción de filas con los nuevos campos\nconst filas = registros.map(r => `\n  <tr>\n    <td>${r.json.dbname}</td>\n    <td>${r.json.Pais}</td>\n    <td>${r.json.Entorno}</td>\n    <td>${r.json.anio}</td>\n    <td>${r.json.mes}</td>\n    <td>${r.json.MesTexto}</td>\n    <td>${r.json.procesados}</td>\n    <td>${r.json.aprobados}</td>\n    <td>${r.json.Erroneos}</td>\n    <td>${r.json.PorcentajeError}</td>\n  </tr>\n`).join(\"\");\n\n// Totales consolidados\nconst totalProcesados = registros.reduce((acc, r) => acc + (r.json.procesados || 0), 0);\nconst totalAprobados = registros.reduce((acc, r) => acc + (r.json.aprobados || 0), 0);\nconst totalErroneos  = registros.reduce((acc, r) => acc + (r.json.Erroneos || 0), 0);\n\n// Porcentaje de error consolidado (si quieres calcularlo globalmente)\nconst porcentajeErrorGlobal = totalProcesados > 0 \n  ? ((totalErroneos / totalProcesados) * 100).toFixed(2) + \" %\" \n  : \"0 %\";\n\nconst mailBody = `\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }\n    .container { max-width: 1000px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }\n    .header { text-align: center; margin-bottom: 20px; }\n    .company-name { font-size: 24px; font-weight: bold; color: #921E30; }\n    h1 { color: #333; margin-bottom: 10px; }\n    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }\n    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }\n    th { background-color: #f2f2f2; color: #333; }\n    tfoot td { font-weight: bold; background-color: #fafafa; }\n    .footer { font-size: 12px; color: #777; text-align: center; margin-top: 20px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting</div>\n      <h1>Informe Consolidado Valores Mensuales</h1>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th>DB</th>\n          <th>País</th>\n          <th>Entorno</th>\n          <th>Año</th>\n          <th>Mes</th>\n          <th>Mes Texto</th>\n          <th>Procesados</th>\n          <th>Aprobados</th>\n          <th>Erróneos</th>\n          <th>% Error</th>\n        </tr>\n      </thead>\n      <tbody>\n        ${filas}\n      </tbody>\n      <tfoot>\n        <tr>\n          <td colspan=\"6\">TOTAL CONSOLIDADO</td>\n          <td>${totalProcesados}</td>\n          <td>${totalAprobados}</td>\n          <td>${totalErroneos}</td>\n          <td>${porcentajeErrorGlobal}</td>\n        </tr>\n      </tfoot>\n    </table>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    mailSubject,\n    mailBody\n  }\n}];\n"
+        "jsCode": "const registros = $input.all();   // aquí llegan TODOS los items de todos los loops\nconst mailSubject = `Informe de ejecución - Valores Mensuales (Consolidado)`;\n\nif (!registros.length) {\n  return [{\n    json: {\n      mailSubject,\n      mailBody: `<p>No se encontraron registros en ninguna conexión.</p>`\n    }\n  }];\n}\n\nconst filas = registros.map(r => `\n  <tr>\n    <td>${r.json.Pais}</td>\n    <td>${r.json.Entorno}</td>\n    <td>${r.json.anio}</td>\n    <td>${r.json.mes}</td>\n    <td>${r.json.cantidad}</td>\n  </tr>\n`).join(\"\");\n\nconst total = registros.reduce((acc, r) => acc + (r.json.cantidad || 0), 0);\n\nconst mailBody = `\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }\n    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }\n    .header { text-align: center; margin-bottom: 20px; }\n    .company-name { font-size: 24px; font-weight: bold; color: #921E30; }\n    h1 { color: #333; margin-bottom: 10px; }\n    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }\n    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }\n    th { background-color: #f2f2f2; color: #333; }\n    tfoot td { font-weight: bold; background-color: #fafafa; }\n    .footer { font-size: 12px; color: #777; text-align: center; margin-top: 20px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting </div>\n      <h1>Informe Consolidado Valores Mensuales</h1>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th>País</th>\n          <th>Entorno</th>\n          <th>Año</th>\n          <th>Mes</th>\n          <th>Cantidad</th>\n        </tr>\n      </thead>\n      <tbody>\n        ${filas}\n      </tbody>\n      <tfoot>\n        <tr>\n          <td colspan=\"4\">TOTAL CONSOLIDADO</td>\n          <td>${total}</td>\n        </tr>\n      </tfoot>\n    </table>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    mailSubject,\n    mailBody\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        352,
-        544
+        752,
+        624
       ],
-      "id": "4eedb743-6cef-4d41-bb66-e978b2cc2f55",
+      "id": "587e12e6-b142-4236-a998-ab88211d3d2d",
       "name": "Code in JavaScript2"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "numberInputs": 3
+      },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        160,
-        544
+        576,
+        240
       ],
-      "id": "fb7cfd81-869c-4094-873d-c7f00c94852b",
+      "id": "a2c326f0-5ae4-4140-bd7f-46d13bcb9ad6",
       "name": "Merge"
     },
     {
@@ -494,11 +954,682 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        592,
-        432
+        992,
+        128
       ],
-      "id": "027f54eb-6e99-42d3-bf85-2302b30ba415",
+      "id": "faebec5b-c7a4-4595-b5ea-b816a69e3bad",
       "name": "Create message",
+      "webhookId": "e6199b36-ad36-4010-a698-fa9598e3d2b6",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Ojo se esta ejecutando sobre la BD de ValoresCOMFIAR\n",
+        "height": 80,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1200,
+        -464
+      ],
+      "typeVersion": 1,
+      "id": "ecc2efd5-5de8-4eae-bbcc-b13a53685f65",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "USE {{$json[\"db\"]}};\nSELECT  \n    DB_NAME() as dbname,\n\n    -- Normalización de Pais\n    CASE \n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES'\n            THEN 'AR'\n        ELSE RTRIM(\n            LEFT(\n                RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n                PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1\n            )\n        )\n    END AS Pais,\n\n    -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n\n    YEAR(T.Fecha) as anio,\n    MONTH(T.Fecha) as mes,\n    COUNT(C.CuitId) AS cantidad\nFROM Comprobante AS C WITH(NOLOCK)\nINNER JOIN rol  \n    ON C.CuitId = Rol.CuitId  \n   AND C.RolEmisorId = Rol.RolId  \n   AND Rol.TipoRol = 1\nINNER JOIN Transaccion AS T  \n    ON T.CuitId = C.CuitId  \n   AND T.TransaccionId = C.TransaccionId\nWHERE C.Resultado <> 'R'\n  AND YEAR(T.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n  AND MONTH(T.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\nGROUP BY YEAR(T.Fecha), MONTH(T.Fecha)\nORDER BY Pais, Entorno, anio, mes;\n"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        848
+      ],
+      "id": "76b2c89e-c99e-49d2-9e53-cec02e4c47f2",
+      "executeOnce": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "rDH0EClblto49len",
+          "name": "SQL-04"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "name": "Ejecutar en SQL Server (INSERT)2",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        48,
+        656
+      ],
+      "id": "93598ad4-ee6f-458f-8a17-8f83efee2558",
+      "alwaysOutputData": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -608,
+        736
+      ],
+      "id": "7bc5c07d-47a2-4a57-9611-1e17c28346b8",
+      "name": "Loop Over Items2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "014fffcc-241c-4cab-b91a-0c7f62c24d26",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "72576cc3-6ba4-41f1-a4fa-b1661d0d5f73",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "71898983-7e4f-4583-8f50-a3e7bfcdf054",
+              "name": "anio",
+              "value": "={{ $json.anio }}",
+              "type": "number"
+            },
+            {
+              "id": "3903e286-34a6-40e6-9a2d-c963ea29e8a0",
+              "name": "mes",
+              "value": "={{ $json.mes }}",
+              "type": "number"
+            },
+            {
+              "id": "853e889c-8b58-4527-a303-a2f5c0a76253",
+              "name": "cantidad",
+              "value": "={{ $json.cantidad }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -144,
+        848
+      ],
+      "id": "3f3cfafa-1f96-4937-9bbf-84c5ad143b6b",
+      "name": "Normalizacion de datos2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => \n  `('${r.json.Pais}', '${r.json.Entorno}', ${r.json.anio}, ${r.json.mes}, ${r.json.cantidad})`\n).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        656
+      ],
+      "id": "5e91efac-5168-4551-861e-cef229d40b87",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+      },
+      "name": "Guardar datos en n8n2",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        160,
+        848
+      ],
+      "id": "f4a95ef9-fd9d-4c03-b96c-baa0944ca32f"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { db: \"COMFIAR_CO4\" }\n];\n"
+      },
+      "name": "Lista de BD2",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        640
+      ],
+      "id": "d8337d13-5043-4d4c-bbde-44eb4f2e9732",
+      "executeOnce": false,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## SQL02\n",
+        "height": 496,
+        "width": 1184
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        -528
+      ],
+      "id": "209f9362-3f95-4c47-9aa1-93fa8e7f7099",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## SQL01\n",
+        "height": 496,
+        "width": 1232
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        32
+      ],
+      "id": "4b6844c7-32e2-4a5b-8d8c-86a6bda7cd93",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## SQL04\n",
+        "height": 496,
+        "width": 1184
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        592
+      ],
+      "id": "8f6023f8-c772-41fb-b245-4fd321aa77c5",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "entre el 1 y el 3 dias\na la noche entre "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1152,
+        -368
+      ],
+      "id": "c2ccfbfd-2c4e-42f3-a186-d3dd6be85ca3",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## agregar base cins\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1152,
+        -656
+      ],
+      "id": "76a8befe-831b-481b-96fa-b946c2b666a0",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "USE {{$json[\"db\"]}};\nSELECT  \n    DB_NAME() as dbname,\n\n    -- Normalización de Pais\n    CASE \n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES'\n            THEN 'AR'\n        ELSE RTRIM(\n            LEFT(\n                RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n                PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1\n            )\n        )\n    END AS Pais,\n\n    -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n\n    YEAR(T.Fecha) as anio,\n    MONTH(T.Fecha) as mes,\n    COUNT(C.CuitId) AS cantidad\nFROM Comprobante AS C WITH(NOLOCK)\nINNER JOIN rol  \n    ON C.CuitId = Rol.CuitId  \n   AND C.RolEmisorId = Rol.RolId  \n   AND Rol.TipoRol = 1\nINNER JOIN Transaccion AS T  \n    ON T.CuitId = C.CuitId  \n   AND T.TransaccionId = C.TransaccionId\nWHERE C.Resultado <> 'R'\n  AND YEAR(T.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n  AND MONTH(T.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\nGROUP BY YEAR(T.Fecha), MONTH(T.Fecha)\nORDER BY Pais, Entorno, anio, mes;"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)3",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        1376
+      ],
+      "id": "a90a1bf1-65fb-4e28-9d3d-e566dd4880c6",
+      "executeOnce": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "sfr7SqKElXB7VYG2",
+          "name": "SQL-06 - CINES"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "name": "Ejecutar en SQL Server (INSERT)3",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        16,
+        1184
+      ],
+      "id": "9e7ae5ac-84c9-40a1-837f-5ec0745985c1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "uQ22qJm1GlTnqjdB",
+          "name": "Conexion Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -640,
+        1264
+      ],
+      "id": "cbafa457-005a-4fdf-b32c-7e74d4516fa6",
+      "name": "Loop Over Items3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "014fffcc-241c-4cab-b91a-0c7f62c24d26",
+              "name": "Pais",
+              "value": "={{ $json.Pais }}",
+              "type": "string"
+            },
+            {
+              "id": "72576cc3-6ba4-41f1-a4fa-b1661d0d5f73",
+              "name": "Entorno",
+              "value": "={{ $json.Entorno }}",
+              "type": "string"
+            },
+            {
+              "id": "71898983-7e4f-4583-8f50-a3e7bfcdf054",
+              "name": "anio",
+              "value": "={{ $json.anio }}",
+              "type": "number"
+            },
+            {
+              "id": "3903e286-34a6-40e6-9a2d-c963ea29e8a0",
+              "name": "mes",
+              "value": "={{ $json.mes }}",
+              "type": "number"
+            },
+            {
+              "id": "853e889c-8b58-4527-a303-a2f5c0a76253",
+              "name": "cantidad",
+              "value": "={{ $json.cantidad }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -176,
+        1376
+      ],
+      "id": "40eaee23-4858-422e-86af-b59c8ee55354",
+      "name": "Normalizacion de datos3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => \n  `('${r.json.Pais}', '${r.json.Entorno}', ${r.json.anio}, ${r.json.mes}, ${r.json.cantidad})`\n).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        1184
+      ],
+      "id": "ad99d1fa-13e6-49a1-ada9-7e0822befeb9",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+      },
+      "name": "Guardar datos en n8n3",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        128,
+        1376
+      ],
+      "id": "74450618-6b70-4272-ae2e-087932bb69b5"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { db: \"COMFIAR_CINES\" }\n];\n"
+      },
+      "name": "Lista de BD3",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -864,
+        1264
+      ],
+      "id": "2c8093bc-9e79-4eea-abd0-b68a99c24afb",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyMonth",
+              "hour": 15,
+              "minute": 3
+            }
+          ]
+        }
+      },
+      "name": "Cron mensual 1er día 3am",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        -2720,
+        176
+      ],
+      "id": "414710c0-a8b1-4bc9-bfba-fe5adc0cc858"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "USE {{$json[\"db\"]}};\nSET LANGUAGE Spanish\nselect  \n    DB_NAME() as dbname,\n     -- Normalización de Pais: elimina cualquier número al final\n    RTRIM(\n        LEFT(\n            RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n            PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1)    ) AS Pais,\n     -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n    YEAR(DATEADD(MONTH, -1, GETDATE())) as anio, MONTH(DATEADD(MONTH, -1, GETDATE())) as mes,\n \nProcesados.MesTexto,  procesados , \nCASE WHEN aprobados is null THEN 0 ELSE aprobados END as aprobados,\nCASE WHEN aprobados is null THEN procesados ELSE procesados-aprobados END as Erroneos,\n \nCASE \n    WHEN aprobados IS NULL THEN '0%'\n    WHEN aprobados = 0 THEN '100%'\n    ELSE \n        FORMAT((procesados - aprobados) * 1.0 / procesados, 'P2', 'es-AR')\n    END AS PorcentajeError\n \n \nfrom \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as procesados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Procesados\n \nleft join \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as Aprobados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n        and c.Resultado !='R'\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Aprobados\n \non \nprocesados.MesTexto= aprobados.MesTexto"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)4",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -2048,
+        -176
+      ],
+      "id": "098eef8e-f69b-4292-a353-ecb0dcd7f3ad",
+      "executeOnce": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "fJiH8DThwB6YtjLT",
+          "name": "Conexion SQL-02"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "name": "Ejecutar en SQL Server (INSERT)4",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -1824,
+        -368
+      ],
+      "id": "cc2fb68e-a63e-465b-9d29-1c138c311ed0",
+      "alwaysOutputData": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "zhkh4iIZSEdvDMT7",
+          "name": "Conexion Test Interno Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2272,
+        -80
+      ],
+      "id": "0fe85428-694b-44b4-832d-62f93368b3f7",
+      "name": "Loop Over Items4"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => {\n  const j = r.json;\n  return `(\n    '${j.dbname || ''}',\n    '${j.Pais || ''}',\n    '${j.Entorno || ''}',\n    ${j.anio ?? 'NULL'},\n    ${j.mes ?? 'NULL'},\n    '${j.MesTexto || ''}',\n    ${j.procesados ?? 'NULL'},\n    ${j.aprobados ?? 'NULL'},\n    ${j.Erroneos ?? 'NULL'},\n    '${j.PorcentajeError || ''}'\n  )`;\n}).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\nINSERT INTO [dbo].[Dashboard_COMFIAR_DatosMensualesTexto]\n           ([dbname]\n           ,[Pais]\n           ,[Entorno]\n           ,[anio]\n           ,[mes]\n           ,[MesTexto]\n           ,[procesados]\n           ,[aprobados]\n           ,[Erroneos]\n           ,[PorcentajeError])\n     VALUES\n${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2048,
+        -368
+      ],
+      "id": "f96f7765-d092-43cd-9d38-24ed453ebd3b",
+      "name": "Code in JavaScript5"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    mesTexto: json.MesTexto || 'N/A',\n    procesados: json.procesados ?? 0,\n    aprobados: json.aprobados ?? 0,\n    erroneos: json.Erroneos ?? 0,\n    porcentajeError: json.PorcentajeError ?? 0,\n    // Conserva también la cantidad si la sigues usando\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+      },
+      "name": "Guardar datos en n8n4",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        -176
+      ],
+      "id": "f6628a45-1252-4a01-85aa-e97f4be62ba1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "USE {{$json[\"db\"]}};\nSET LANGUAGE Spanish\nselect  \n    DB_NAME() as dbname,\n     -- Normalización de Pais: elimina cualquier número al final\n    RTRIM(\n        LEFT(\n            RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())),\n            PATINDEX('%[0-9]%', RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) + '0') - 1)    ) AS Pais,\n     -- Normalización de Entorno\n    CASE \n        WHEN RIGHT(DB_NAME(), 1) LIKE '[0-9]' \n            THEN 'APP' + RIGHT(DB_NAME(), 1)\n        WHEN RIGHT(DB_NAME(), LEN(DB_NAME()) - CHARINDEX('_', DB_NAME())) = 'CINES' \n            THEN 'CINES'\n        ELSE 'APP'\n    END AS Entorno,\n    YEAR(DATEADD(MONTH, -1, GETDATE())) as anio, MONTH(DATEADD(MONTH, -1, GETDATE())) as mes,\n \nProcesados.MesTexto,  procesados , \nCASE WHEN aprobados is null THEN 0 ELSE aprobados END as aprobados,\nCASE WHEN aprobados is null THEN procesados ELSE procesados-aprobados END as Erroneos,\n \nCASE \n    WHEN aprobados IS NULL THEN '0%'\n    WHEN aprobados = 0 THEN '100%'\n    ELSE \n        FORMAT((procesados - aprobados) * 1.0 / procesados, 'P2', 'es-AR')\n    END AS PorcentajeError\n \n \nfrom \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as procesados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Procesados\n \nleft join \n(select DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01') as MesTexto,\n        COUNT(c.NroCbte) as Aprobados\n        from comprobante as C\n        inner join Transaccion as T on (c.CuitId=t.CuitId and c.TransaccionId=t.TransaccionId)\n        where year( t.Fecha) = YEAR(DATEADD(MONTH, -1, GETDATE()))\n        and month( t.Fecha) = MONTH(DATEADD(MONTH, -1, GETDATE()))\n        and c.Resultado !='R'\n    group by  DATENAME(mm, convert(varchar,YEAR(t.Fecha))+'-'+ right('00'+convert(varchar,MONTH(t.Fecha)),2) +'-01')\n) as Aprobados\n \non \nprocesados.MesTexto= aprobados.MesTexto"
+      },
+      "name": "Ejecutar en SQL Server (SELECT)5",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -2048,
+        640
+      ],
+      "id": "8ea974b9-1570-49d6-b617-410df7995105",
+      "executeOnce": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "Sx3U8PUa7HcdOpAt",
+          "name": "Conexion SQL-01"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json[\"query\"] }}"
+      },
+      "name": "Ejecutar en SQL Server (INSERT)5",
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1,
+      "position": [
+        -1616,
+        448
+      ],
+      "id": "ee2e57f8-59a5-47c0-af37-d919723fbd99",
+      "alwaysOutputData": false,
+      "credentials": {
+        "microsoftSql": {
+          "id": "zhkh4iIZSEdvDMT7",
+          "name": "Conexion Test Interno Utiles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "n8n@apg-consulting.com",
+        "toEmail": "jjimenez@apg-consulting.com",
+        "subject": "={{ $json.mailSubject }}",
+        "html": "={{ $json.mailBody }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1456,
+        256
+      ],
+      "id": "7c516230-a999-457d-90e0-8d75428fa334",
+      "name": "Enviar mail de insercion exitosa1",
+      "webhookId": "dc767dcc-ee1a-4bb5-8452-1a915db98c6f",
+      "credentials": {
+        "smtp": {
+          "id": "7BCf6E4STzoP3zci",
+          "name": "APG SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2272,
+        528
+      ],
+      "id": "3bfeb895-81eb-4593-b253-eb99a29cd180",
+      "name": "Loop Over Items5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const values = items.map(r => {\n  const j = r.json;\n  return `(\n    '${j.dbname || ''}',\n    '${j.Pais || ''}',\n    '${j.Entorno || ''}',\n    ${j.anio ?? 'NULL'},\n    ${j.mes ?? 'NULL'},\n    '${j.MesTexto || ''}',\n    ${j.procesados ?? 'NULL'},\n    ${j.aprobados ?? 'NULL'},\n    ${j.Erroneos ?? 'NULL'},\n    '${j.PorcentajeError || ''}'\n  )`;\n}).join(\",\\n\");\n\nreturn [{\n  json: {\n    query: `\nINSERT INTO [dbo].[Dashboard_COMFIAR_DatosMensualesTexto]\n           ([dbname]\n           ,[Pais]\n           ,[Entorno]\n           ,[anio]\n           ,[mes]\n           ,[MesTexto]\n           ,[procesados]\n           ,[aprobados]\n           ,[Erroneos]\n           ,[PorcentajeError])\n     VALUES\n${values};\n    `\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1840,
+        448
+      ],
+      "id": "55c5751f-8322-47c4-9d64-01c830d282e4",
+      "name": "Code in JavaScript6"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Acceso al storage global del workflow\nconst sd = this.getWorkflowStaticData('global');\n\n// Reinicia el log al inicio de la ejecución si quieres que no se acumulen históricos\nif (!sd.logs) sd.logs = [];\n\n// Procesa los items que llegan\nitems.forEach(item => {\n  const json = item.json || {};\n  const ts = new Date().toISOString();\n\n  sd.logs.push({\n    ts,\n    db: json.dbname || 'N/A',\n    pais: json.Pais || 'N/A',\n    entorno: json.Entorno || 'N/A',\n    anio: json.anio || null,\n    mes: json.mes || null,\n    mesTexto: json.MesTexto || 'N/A',\n    procesados: json.procesados ?? 0,\n    aprobados: json.aprobados ?? 0,\n    erroneos: json.Erroneos ?? 0,\n    porcentajeError: json.PorcentajeError ?? 0,\n    // Conserva también la cantidad si la sigues usando\n    cantidad: json.cantidad ?? 0\n  });\n});\n\n// Devuelve los mismos items para que el flujo continúe\nreturn items;\n"
+      },
+      "name": "Guardar datos en n8n5",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -1504,
+        640
+      ],
+      "id": "893a036a-cf70-4c71-9a2b-e4a378d4bf11"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { db: \"COMFIAR_AR\" },\n  { db: \"COMFIAR_AR2\" },\n  { db: \"COMFIAR_CINES\" },\n  { db: \"COMFIAR_BO\" },\n  { db: \"COMFIAR_EC\" },\n  { db: \"COMFIAR_PE\" },\n  { db: \"COMFIAR_CR\" }\n];\n"
+      },
+      "name": "Lista de BD4",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -2496,
+        528
+      ],
+      "id": "e3bf69b7-e757-469c-875a-f00abea8e4a2",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "functionCode": "return [\n  { db: \"COMFIAR_CO\" },\n  { db: \"COMFIAR_CO2\" },\n  { db: \"COMFIAR_CO3\" }\n];\n"
+      },
+      "name": "Lista de BD5",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        -2496,
+        -80
+      ],
+      "id": "f474d0b8-8f2e-41d4-9757-a25fad7c22f1",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "const registros = $input.all();   // aquí llegan TODOS los items de todos los loops\nconst mailSubject = `Informe de ejecución - Valores Mensuales (Consolidado)`;\n\nif (!registros.length) {\n  return [{\n    json: {\n      mailSubject,\n      mailBody: `<p>No se encontraron registros en ninguna conexión.</p>`\n    }\n  }];\n}\n\n// Construcción de filas con los nuevos campos\nconst filas = registros.map(r => `\n  <tr>\n    <td>${r.json.dbname}</td>\n    <td>${r.json.Pais}</td>\n    <td>${r.json.Entorno}</td>\n    <td>${r.json.anio}</td>\n    <td>${r.json.mes}</td>\n    <td>${r.json.MesTexto}</td>\n    <td>${r.json.procesados}</td>\n    <td>${r.json.aprobados}</td>\n    <td>${r.json.Erroneos}</td>\n    <td>${r.json.PorcentajeError}</td>\n  </tr>\n`).join(\"\");\n\n// Totales consolidados\nconst totalProcesados = registros.reduce((acc, r) => acc + (r.json.procesados || 0), 0);\nconst totalAprobados = registros.reduce((acc, r) => acc + (r.json.aprobados || 0), 0);\nconst totalErroneos  = registros.reduce((acc, r) => acc + (r.json.Erroneos || 0), 0);\n\n// Porcentaje de error consolidado (si quieres calcularlo globalmente)\nconst porcentajeErrorGlobal = totalProcesados > 0 \n  ? ((totalErroneos / totalProcesados) * 100).toFixed(2) + \" %\" \n  : \"0 %\";\n\nconst mailBody = `\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }\n    .container { max-width: 1000px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }\n    .header { text-align: center; margin-bottom: 20px; }\n    .company-name { font-size: 24px; font-weight: bold; color: #921E30; }\n    h1 { color: #333; margin-bottom: 10px; }\n    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }\n    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }\n    th { background-color: #f2f2f2; color: #333; }\n    tfoot td { font-weight: bold; background-color: #fafafa; }\n    .footer { font-size: 12px; color: #777; text-align: center; margin-top: 20px; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <div class=\"company-name\">APG Consulting</div>\n      <h1>Informe Consolidado Valores Mensuales</h1>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th>DB</th>\n          <th>País</th>\n          <th>Entorno</th>\n          <th>Año</th>\n          <th>Mes</th>\n          <th>Mes Texto</th>\n          <th>Procesados</th>\n          <th>Aprobados</th>\n          <th>Erróneos</th>\n          <th>% Error</th>\n        </tr>\n      </thead>\n      <tbody>\n        ${filas}\n      </tbody>\n      <tfoot>\n        <tr>\n          <td colspan=\"6\">TOTAL CONSOLIDADO</td>\n          <td>${totalProcesados}</td>\n          <td>${totalAprobados}</td>\n          <td>${totalErroneos}</td>\n          <td>${porcentajeErrorGlobal}</td>\n        </tr>\n      </tfoot>\n    </table>\n    <div class=\"footer\">\n      © ${new Date().getFullYear()} APG Consulting · Este informe fue generado automáticamente.\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    mailSubject,\n    mailBody\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1696,
+        176
+      ],
+      "id": "939123c8-8743-4953-a25c-433dbcce1bd4",
+      "name": "Code in JavaScript7"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1888,
+        176
+      ],
+      "id": "21962182-8ffa-43ba-8891-188eabb572e7",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "389ab60c-4f23-4a7f-9764-841485242703",
+          "mode": "list",
+          "cachedResultName": "IT APG"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:e493dac9b5c54887af024e5dbe762d90@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "IT - Notificaciones n8n",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Ae493dac9b5c54887af024e5dbe762d90%40thread.tacv2/IT%20-%20Notificaciones%20n8n?groupId=389ab60c-4f23-4a7f-9764-841485242703&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=True&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.mailBody }}",
+        "options": {
+          "includeLinkToWorkflow": false,
+          "makeReply": ""
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -1456,
+        64
+      ],
+      "id": "7b85d19e-a122-4336-b5f4-080e3e12ce4d",
+      "name": "Create message1",
       "webhookId": "e6199b36-ad36-4010-a698-fa9598e3d2b6",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
@@ -513,12 +1644,12 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -752,
-        80
+        -2800,
+        -288
       ],
       "typeVersion": 1,
-      "id": "539994db-0c5b-4421-9296-b2f09e97507e",
-      "name": "Sticky Note"
+      "id": "9ca892da-455e-49e2-96b7-c0877c65b257",
+      "name": "Sticky Note6"
     },
     {
       "parameters": {
@@ -591,11 +1722,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        240,
-        1008
+        -1808,
+        640
       ],
-      "id": "eaf272a1-a401-4a30-b23f-99e854c2678a",
-      "name": "Normalizacion de datos1"
+      "id": "0dbf6ac6-f4b1-41e4-9f68-2f40cd55e109",
+      "name": "Normalizacion de datos4"
     },
     {
       "parameters": {
@@ -668,29 +1799,532 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        192,
-        192
+        -1856,
+        -176
       ],
-      "id": "b42af805-aeb4-4a76-a5d3-c910dfedf0bf",
-      "name": "Normalizacion de datos"
+      "id": "adfc6162-2685-47a2-b3b3-2c700dfb78cd",
+      "name": "Normalizacion de datos5"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Code in JavaScript4": [
+      {
+        "json": {
+          "query": "\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ('AR', 'CINES', 2026, 6, 949668);\n    "
+        }
+      }
+    ]
+  },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Bogota",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
       "createdAt": "2026-01-26T21:54:00.001Z",
       "updatedAt": "2026-01-26T21:54:00.001Z",
       "role": "workflow:owner",
-      "workflowId": "BPvVV8reRqU0zMuW",
+      "workflowId": "Cli8NIZaHvhPaYsN",
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "global": {
+      "logs": [
+        {
+          "ts": "2025-11-05T20:03:50.269Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 218456
+        },
+        {
+          "ts": "2025-11-05T20:04:42.476Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 513898
+        },
+        {
+          "ts": "2025-11-05T20:10:13.300Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 612803
+        },
+        {
+          "ts": "2025-11-05T20:12:06.896Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 58916
+        },
+        {
+          "ts": "2025-11-05T20:14:27.240Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 373265
+        },
+        {
+          "ts": "2025-11-05T20:17:39.099Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 722334
+        },
+        {
+          "ts": "2025-11-05T20:59:05.525Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 97163
+        },
+        {
+          "ts": "2025-11-05T20:59:08.134Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 42690
+        },
+        {
+          "ts": "2025-11-05T20:59:36.560Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 48856
+        },
+        {
+          "ts": "2025-11-05T20:59:38.500Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 2041
+        },
+        {
+          "ts": "2025-11-06T20:03:55.105Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 218456
+        },
+        {
+          "ts": "2025-11-06T20:04:20.749Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 513898
+        },
+        {
+          "ts": "2025-11-06T20:06:52.668Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 612803
+        },
+        {
+          "ts": "2025-11-06T20:07:05.157Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 58916
+        },
+        {
+          "ts": "2025-11-06T20:07:10.576Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 373265
+        },
+        {
+          "ts": "2025-11-06T20:07:17.105Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 722334
+        },
+        {
+          "ts": "2025-11-06T20:08:11.247Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 97163
+        },
+        {
+          "ts": "2025-11-06T20:08:14.559Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 42690
+        },
+        {
+          "ts": "2025-11-06T20:08:18.932Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 48856
+        },
+        {
+          "ts": "2025-11-06T20:08:20.806Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 9,
+          "cantidad": 2041
+        },
+        {
+          "ts": "2025-12-01T10:05:20.261Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 248275
+        },
+        {
+          "ts": "2025-12-01T10:11:57.569Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 513022
+        },
+        {
+          "ts": "2025-12-01T10:27:08.920Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 575879
+        },
+        {
+          "ts": "2025-12-01T10:27:20.522Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 66972
+        },
+        {
+          "ts": "2025-12-01T10:27:25.519Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 388640
+        },
+        {
+          "ts": "2025-12-01T10:27:31.621Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 502059
+        },
+        {
+          "ts": "2025-12-01T10:28:57.865Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 77935
+        },
+        {
+          "ts": "2025-12-01T10:29:00.495Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 37763
+        },
+        {
+          "ts": "2025-12-01T10:29:04.861Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 51588
+        },
+        {
+          "ts": "2025-12-01T10:29:06.669Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2025,
+          "mes": 10,
+          "cantidad": 2044
+        },
+        {
+          "ts": "2026-02-01T10:04:13.459Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 1,
+          "cantidad": 173504
+        },
+        {
+          "ts": "2026-02-01T10:05:13.271Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 1,
+          "cantidad": 496116
+        },
+        {
+          "ts": "2026-02-01T10:09:39.767Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 1,
+          "cantidad": 534737
+        },
+        {
+          "ts": "2026-03-01T10:04:17.577Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 2,
+          "cantidad": 164619
+        },
+        {
+          "ts": "2026-03-01T10:04:44.704Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 2,
+          "cantidad": 443834
+        },
+        {
+          "ts": "2026-03-01T10:07:34.465Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 2,
+          "cantidad": 532801
+        },
+        {
+          "ts": "2026-04-01T15:31:15.222Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 3,
+          "cantidad": 162704
+        },
+        {
+          "ts": "2026-04-01T15:31:52.941Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 3,
+          "cantidad": 542763
+        },
+        {
+          "ts": "2026-05-01T15:30:34.491Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 191095
+        },
+        {
+          "ts": "2026-05-01T15:31:09.584Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 529623
+        },
+        {
+          "ts": "2026-05-01T15:33:43.245Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 646231
+        },
+        {
+          "ts": "2026-05-01T15:33:51.094Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 71286
+        },
+        {
+          "ts": "2026-05-01T15:35:09.154Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 316105
+        },
+        {
+          "ts": "2026-05-01T15:35:31.683Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 600350
+        },
+        {
+          "ts": "2026-05-01T15:36:46.714Z",
+          "db": "N/A",
+          "pais": "BO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 100361
+        },
+        {
+          "ts": "2026-05-01T15:36:49.790Z",
+          "db": "N/A",
+          "pais": "EC",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 34028
+        },
+        {
+          "ts": "2026-05-01T15:37:02.926Z",
+          "db": "N/A",
+          "pais": "PE",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 66280
+        },
+        {
+          "ts": "2026-05-01T15:37:04.944Z",
+          "db": "N/A",
+          "pais": "CR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 2354
+        },
+        {
+          "ts": "2026-05-01T15:37:08.332Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP4",
+          "anio": 2026,
+          "mes": 4,
+          "cantidad": 7744
+        },
+        {
+          "ts": "2026-06-01T15:32:00.313Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 182704
+        },
+        {
+          "ts": "2026-06-01T15:42:50.299Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 559881
+        },
+        {
+          "ts": "2026-06-01T15:45:35.811Z",
+          "db": "N/A",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 562776
+        },
+        {
+          "ts": "2026-06-01T15:45:48.503Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 62031
+        },
+        {
+          "ts": "2026-06-01T15:45:54.583Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 5,
+          "cantidad": 420702
+        }
+      ]
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-04-23T14:25:01.030Z",
-  "versionId": "f23d5dcd-622a-4937-81bd-3cb24406fa1c"
+  "triggerCount": 2,
+  "updatedAt": "2026-07-06T20:40:22.789Z",
+  "versionId": "41ee2f24-f3b3-4e7c-983d-a48107d6e51b"
 }
