@@ -1,0 +1,582 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Fechas": {
+      "main": [
+        [
+          {
+            "node": "FTP - Leer Bandeja",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FTP - Leer Separador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear y Formatear": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Calcular Fechas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Parsear y Formatear1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Leer Bandeja": {
+      "main": [
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Parsear y Formatear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear y Formatear1": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Leer Separador": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Leer Logs": {
+      "main": [
+        [
+          {
+            "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Calcular Fechas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Fechas1": {
+      "main": [
+        [
+          {
+            "node": "FTP - Leer Logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "node": "Parsear y Formatear2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear y Formatear2": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-06T12:25:50.405Z",
+  "id": "G1DOhTOaWFXFpInD",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Belcorp - Interfaz TXT y Separador",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "f4554e5c-4db2-4252-b37d-bf34f0908912",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ayer = new Date();\nayer.setDate(ayer.getDate() - 1);\n\nconst year = ayer.getFullYear();\nconst month = ayer.getMonth() + 1;\nconst day = ayer.getDate();\n\nconst fechaLog     = `${year}${String(month).padStart(2,'0')}${String(day).padStart(2,'0')}`;\nconst rutaMes      = `${year}/${month}`;\nconst fechaDisplay = `${String(day).padStart(2,'0')}/${String(month).padStart(2,'0')}/${year}`;\n\nreturn [{ json: { fechaLog, rutaMes, fechaDisplay } }];"
+      },
+      "id": "941151ba-85ad-433a-a35a-91d1a2203aba",
+      "name": "Calcular Fechas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        192,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// === Parser logs Belcorp: Separador + Bandeja (InterfazTXT) ===\n// Modo: Run Once for All Items. Recibe los Extract from File (uno por log).\n// Clasifica cada log por contenido, no por nombre de campo (robusto).\n\nconst dt = (s) => {\n  const [d, t] = s.split(' ');\n  const [dd, mm, yy] = d.split('/');\n  return new Date(`${yy}-${mm}-${dd}T${t}`);\n};\n\n// --- 1. Clasificar los logs recibidos ---\nlet sepLog = \"\", banLog = \"\";\nfor (const it of $input.all()) {\n  const txt = it.json.data ?? it.json.text ?? it.json.fileContent ?? \"\";\n  if (/Inicio parseador documentos/i.test(txt)) sepLog += \"\\n\" + txt;\n  else if (/Inicio Procesado Comprobantes/i.test(txt)) banLog += \"\\n\" + txt;\n}\n\n// --- 2. Separador: bloque por archivo, ÚLTIMA corrida gana ---\nfunction parseSeparador(txt) {\n  const bloques = txt.split(/(?=Inicio parseador documentos:)/g).map(b => b.trim()).filter(Boolean);\n  const porArchivo = new Map();\n  let reprocesos = 0;\n\n  for (const b of bloques) {\n    const mFile = b.match(/Inicio parseador documentos:\\s*(.+?)\\s*\\.\\.\\.\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    if (!mFile) continue;\n    const archivo = mFile[1].trim();\n    const ts = dt(mFile[2]);\n\n    const mOk  = b.match(/Parseados Correctamente\\s*:\\s*(\\d+)/i);\n    const mErr = b.match(/Con error:\\s*(\\d+)/i);\n    if (!mOk && !mErr) continue; // corrida trunca (servicio cayó) -> ignorar\n\n    const ok  = mOk  ? parseInt(mOk[1], 10)  : 0;\n    const err = mErr ? parseInt(mErr[1], 10) : 0;\n\n    const detalles = [];\n    const re = /Codigo:\\s*([^,]*),\\s*Nombre:\\s*(.+?),\\s*Nit:\\s*([^,]*),.*?ERROR DE FORMATO:\\s*(.+?)(?=\\n|Fin parseador|$)/gis;\n    let m;\n    while ((m = re.exec(b)) !== null) {\n      detalles.push({ codigo: m[1].trim(), nombre: m[2].trim(), nit: m[3].trim(), error: m[4].trim() });\n    }\n\n    const prev = porArchivo.get(archivo);\n    if (prev) reprocesos++;\n    if (!prev || ts >= prev.ts) porArchivo.set(archivo, { ts, ok, err, detalles });\n  }\n\n  let exitosos = 0, errores = 0, detalles = [];\n  for (const v of porArchivo.values()) { exitosos += v.ok; errores += v.err; detalles.push(...v.detalles); }\n  return { exitosos, errores, detalles, reprocesos };\n}\n\n// --- 3. Bandeja: estado final por comprobante (SAP). \"ya existe\" = duplicado benigno ---\nfunction parseBandeja(txt) {\n  const bloques = txt.split(/(?=Inicio Procesado Comprobantes)/g).map(b => b.trim()).filter(Boolean);\n  const porSap = new Map(); // SAP -> {..., tipo}, última ocurrencia gana\n  let cargasExitosas = 0;\n\n  for (const b of bloques) {\n    const mTs = b.match(/Inicio Procesado Comprobantes\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    const bTs = mTs ? dt(mTs[1]) : new Date(0);\n    const mOk = b.match(/Procesados Exitosamente:\\s*(\\d+)/i);\n    if (mOk) cargasExitosas = Math.max(cargasExitosas, parseInt(mOk[1], 10)); // pico, no suma\n\n    for (const p of b.split(/Se proceso Comprobante:/i).slice(1)) {\n      const sap    = (p.match(/SAP:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const codigo = (p.match(/digo:\\s*(\\d+)/i)   || [])[1] || \"\";\n      const nombre = (p.match(/Nombre:\\s*(.+?),/i)|| [])[1] || \"\";\n      const nit    = (p.match(/Nit:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const error  = ((p.match(/Error:\\s*(.+?)(?:\\n|$)/i) || [])[1] || \"\").trim();\n      if (!sap) continue;\n      const tipo = /ya existe/i.test(error) ? \"duplicado\" : \"real\";\n      const prev = porSap.get(sap);\n      if (!prev || bTs >= prev.ts) porSap.set(sap, { sap, codigo, nombre: nombre.trim(), nit, error, tipo, ts: bTs });\n    }\n  }\n\n  const erroresReales = [...porSap.values()].filter(x => x.tipo === \"real\");\n  const duplicados    = [...porSap.values()].filter(x => x.tipo === \"duplicado\").length;\n  return { cargasExitosas, erroresReales, duplicados };\n}\n\n// --- 4. Ejecutar ---\nconst sep = parseSeparador(sepLog);\nconst ban = parseBandeja(banLog);\nconst fecha = $node[\"Calcular Fechas\"]?.json?.fechaDisplay || new Date().toLocaleDateString(\"es-AR\");\n\nconst hayErrores = sep.errores > 0 || ban.erroresReales.length > 0;\n\n// --- 5. Armar mensaje HTML para Teams ---\nconst MAX = 10;\nconst fmtSep = sep.detalles.slice(0, MAX)\n  .map(d => `&bull; Cod ${d.codigo} (NIT ${d.nit}) ${d.nombre} — ${d.error}`).join(\"<br>\");\nconst fmtBan = ban.erroresReales.slice(0, MAX)\n  .map(d => `&bull; SAP ${d.sap} / Cod ${d.codigo} (NIT ${d.nit}) — ${d.error}`).join(\"<br>\");\n\nlet msg = `<b>Reporte Procesamiento Belcorp — ${fecha}</b><br><br>`;\nmsg += `<b>Separador</b><br>✅ Procesados: ${sep.exitosos} &nbsp; 🔴 Errores: ${sep.errores}<br>`;\nif (sep.detalles.length) msg += fmtSep + (sep.detalles.length > MAX ? `<br>… +${sep.detalles.length - MAX} más` : \"\") + \"<br>\";\nmsg += `<br><b>InterfazTXT (Bandeja)</b><br>✅ Cargas OK: ${ban.cargasExitosas} &nbsp; 🔴 Errores reales: ${ban.erroresReales.length}`;\nif (ban.duplicados) msg += ` &nbsp; ⚠️ Duplicados (“ya existe”): ${ban.duplicados}`;\nmsg += \"<br>\";\nif (ban.erroresReales.length) msg += fmtBan + (ban.erroresReales.length > MAX ? `<br>… +${ban.erroresReales.length - MAX} más` : \"\") + \"<br>\";\nif (sep.reprocesos) msg += `<br><i>⚠️ Se detectó reprocesamiento (${sep.reprocesos} corrida/s repetida/s). Conteos = estado final; validar contra comfiar si hay dudas.</i>`;\nif (!hayErrores) msg += `<br>🟢 <b>Sin errores reales. Todo procesado.</b>`;\n\nreturn [{ json: { fecha, hayErrores, mensaje: msg, reporte: { separador: sep, bandeja: ban } } }];\n"
+      },
+      "id": "78acb62f-96e0-4223-be42-688aca7d0bf7",
+      "name": "Parsear y Formatear",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      server: \"ftp.comfiar.com.bo\",\n      puerto: 21,\n      user: \"1028501021\",\n      pass: \"qwNq(#R6xb\"\n    }\n  },\n  {\n    json: {\n      server: \"ftp.comfiar.com.bo\",\n      puerto: 21,\n      user: \"T1028501021\",\n      pass: \"&K-b6K(E\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        -80
+      ],
+      "id": "7546d4dc-a3f1-4908-87e8-57379ef4116c",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{$json.mensaje}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "ff8ba713-5279-4f00-a38c-cadb557f5467",
+      "name": "Create message",
+      "webhookId": "4d5f3a16-63a0-4622-87cb-bc87607a0b5b",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        608,
+        -224
+      ],
+      "id": "1487a27d-4486-4964-9a9a-3fe69f06f368",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "content": "## Que dia de log reviso? Si no existe el que estoy busacndo busco el del dia de hoy o el del dia anterior o el del dia pasado al anterior\n",
+        "height": 240,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        -656
+      ],
+      "id": "87bff35a-ad63-4eff-9c61-db886dbb229c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "formTitle": "test",
+        "formDescription": "test",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "data",
+              "fieldType": "file"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        656,
+        -544
+      ],
+      "id": "f7b7a835-c7c3-4ed9-bae2-d0c8180b2ae6",
+      "name": "On form submission",
+      "webhookId": "b53381d5-227a-4085-b5cc-b3ca0b243e47"
+    },
+    {
+      "parameters": {
+        "path": "=/LogsSeparador/LogBandeja20260702.txt",
+        "options": {}
+      },
+      "id": "71ef86c1-9ae0-4311-bc42-78aa6c5a4bba",
+      "name": "FTP - Leer Bandeja",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        384,
+        80
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "QHOqeKBNbTYCB2qD",
+          "name": "FTP Dinámico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "/LogsSeparador/LogSeparador20260706.txt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        336,
+        -544
+      ],
+      "id": "d0ea343f-4d38-4cab-b977-e968d00f14ae",
+      "name": "FTP",
+      "credentials": {
+        "ftp": {
+          "id": "QHOqeKBNbTYCB2qD",
+          "name": "FTP Dinámico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -576
+      ],
+      "id": "e7ea0d09-bdc1-4322-9bee-251abc2ddc4e",
+      "name": "FTP1",
+      "credentials": {
+        "ftp": {
+          "id": "sZ3lVQeVeeJ0JgH5",
+          "name": "FTP account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        560,
+        176
+      ],
+      "id": "46dcb805-6ed6-4c00-bff6-e725523c2b71",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// === Parser logs Belcorp: Separador + Bandeja (InterfazTXT) ===\n// Modo: Run Once for All Items. Recibe los Extract from File (uno por log).\n// Clasifica cada log por contenido, no por nombre de campo (robusto).\n\nconst dt = (s) => {\n  const [d, t] = s.split(' ');\n  const [dd, mm, yy] = d.split('/');\n  return new Date(`${yy}-${mm}-${dd}T${t}`);\n};\n\n// --- 1. Clasificar los logs recibidos ---\nlet sepLog = \"\", banLog = \"\";\nfor (const it of $input.all()) {\n  const txt = it.json.data ?? it.json.text ?? it.json.fileContent ?? \"\";\n  if (/Inicio parseador documentos/i.test(txt)) sepLog += \"\\n\" + txt;\n  else if (/Inicio Procesado Comprobantes/i.test(txt)) banLog += \"\\n\" + txt;\n}\n\n// --- 2. Separador: bloque por archivo, ÚLTIMA corrida gana ---\nfunction parseSeparador(txt) {\n  const bloques = txt.split(/(?=Inicio parseador documentos:)/g).map(b => b.trim()).filter(Boolean);\n  const porArchivo = new Map();\n  let reprocesos = 0;\n\n  for (const b of bloques) {\n    const mFile = b.match(/Inicio parseador documentos:\\s*(.+?)\\s*\\.\\.\\.\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    if (!mFile) continue;\n    const archivo = mFile[1].trim();\n    const ts = dt(mFile[2]);\n\n    const mOk  = b.match(/Parseados Correctamente\\s*:\\s*(\\d+)/i);\n    const mErr = b.match(/Con error:\\s*(\\d+)/i);\n    if (!mOk && !mErr) continue; // corrida trunca (servicio cayó) -> ignorar\n\n    const ok  = mOk  ? parseInt(mOk[1], 10)  : 0;\n    const err = mErr ? parseInt(mErr[1], 10) : 0;\n\n    const detalles = [];\n    const re = /Codigo:\\s*([^,]*),\\s*Nombre:\\s*(.+?),\\s*Nit:\\s*([^,]*),.*?ERROR DE FORMATO:\\s*(.+?)(?=\\n|Fin parseador|$)/gis;\n    let m;\n    while ((m = re.exec(b)) !== null) {\n      detalles.push({ codigo: m[1].trim(), nombre: m[2].trim(), nit: m[3].trim(), error: m[4].trim() });\n    }\n\n    const prev = porArchivo.get(archivo);\n    if (prev) reprocesos++;\n    if (!prev || ts >= prev.ts) porArchivo.set(archivo, { ts, ok, err, detalles });\n  }\n\n  let exitosos = 0, errores = 0, detalles = [];\n  for (const v of porArchivo.values()) { exitosos += v.ok; errores += v.err; detalles.push(...v.detalles); }\n  return { exitosos, errores, detalles, reprocesos };\n}\n\n// --- 3. Bandeja: estado final por comprobante (SAP). \"ya existe\" = duplicado benigno ---\nfunction parseBandeja(txt) {\n  const bloques = txt.split(/(?=Inicio Procesado Comprobantes)/g).map(b => b.trim()).filter(Boolean);\n  const porSap = new Map(); // SAP -> {..., tipo}, última ocurrencia gana\n  let cargasExitosas = 0;\n\n  for (const b of bloques) {\n    const mTs = b.match(/Inicio Procesado Comprobantes\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    const bTs = mTs ? dt(mTs[1]) : new Date(0);\n    const mOk = b.match(/Procesados Exitosamente:\\s*(\\d+)/i);\n    if (mOk) cargasExitosas = Math.max(cargasExitosas, parseInt(mOk[1], 10)); // pico, no suma\n\n    for (const p of b.split(/Se proceso Comprobante:/i).slice(1)) {\n      const sap    = (p.match(/SAP:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const codigo = (p.match(/digo:\\s*(\\d+)/i)   || [])[1] || \"\";\n      const nombre = (p.match(/Nombre:\\s*(.+?),/i)|| [])[1] || \"\";\n      const nit    = (p.match(/Nit:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const error  = ((p.match(/Error:\\s*(.+?)(?:\\n|$)/i) || [])[1] || \"\").trim();\n      if (!sap) continue;\n      const tipo = /ya existe/i.test(error) ? \"duplicado\" : \"real\";\n      const prev = porSap.get(sap);\n      if (!prev || bTs >= prev.ts) porSap.set(sap, { sap, codigo, nombre: nombre.trim(), nit, error, tipo, ts: bTs });\n    }\n  }\n\n  const erroresReales = [...porSap.values()].filter(x => x.tipo === \"real\");\n  const duplicados    = [...porSap.values()].filter(x => x.tipo === \"duplicado\").length;\n  return { cargasExitosas, erroresReales, duplicados };\n}\n\n// --- 4. Ejecutar ---\nconst sep = parseSeparador(sepLog);\nconst ban = parseBandeja(banLog);\nconst fecha = $node[\"Calcular Fechas\"]?.json?.fechaDisplay || new Date().toLocaleDateString(\"es-AR\");\n\nconst hayErrores = sep.errores > 0 || ban.erroresReales.length > 0;\n\n// --- 5. Armar mensaje HTML para Teams ---\nconst MAX = 10;\nconst fmtSep = sep.detalles.slice(0, MAX)\n  .map(d => `&bull; Cod ${d.codigo} (NIT ${d.nit}) ${d.nombre} — ${d.error}`).join(\"<br>\");\nconst fmtBan = ban.erroresReales.slice(0, MAX)\n  .map(d => `&bull; SAP ${d.sap} / Cod ${d.codigo} (NIT ${d.nit}) — ${d.error}`).join(\"<br>\");\n\nlet msg = `<b>Reporte Procesamiento Belcorp — ${fecha}</b><br><br>`;\nmsg += `<b>Separador</b><br>✅ Procesados: ${sep.exitosos} &nbsp; 🔴 Errores: ${sep.errores}<br>`;\nif (sep.detalles.length) msg += fmtSep + (sep.detalles.length > MAX ? `<br>… +${sep.detalles.length - MAX} más` : \"\") + \"<br>\";\nmsg += `<br><b>InterfazTXT (Bandeja)</b><br>✅ Cargas OK: ${ban.cargasExitosas} &nbsp; 🔴 Errores reales: ${ban.erroresReales.length}`;\nif (ban.duplicados) msg += ` &nbsp; ⚠️ Duplicados (“ya existe”): ${ban.duplicados}`;\nmsg += \"<br>\";\nif (ban.erroresReales.length) msg += fmtBan + (ban.erroresReales.length > MAX ? `<br>… +${ban.erroresReales.length - MAX} más` : \"\") + \"<br>\";\nif (sep.reprocesos) msg += `<br><i>⚠️ Se detectó reprocesamiento (${sep.reprocesos} corrida/s repetida/s). Conteos = estado final; validar contra comfiar si hay dudas.</i>`;\nif (!hayErrores) msg += `<br>🟢 <b>Sin errores reales. Todo procesado.</b>`;\n\nreturn [{ json: { fecha, hayErrores, mensaje: msg, reporte: { separador: sep, bandeja: ban } } }];\n"
+      },
+      "id": "bcec3cbe-62df-4702-94de-9388e3089b09",
+      "name": "Parsear y Formatear1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        -224
+      ]
+    },
+    {
+      "parameters": {
+        "path": "=/LogsSeparador/LogSeparador20260702.txt",
+        "options": {}
+      },
+      "id": "8d635f47-4c1a-4c33-9d84-e822ed4419ae",
+      "name": "FTP - Leer Separador",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -160
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "QHOqeKBNbTYCB2qD",
+          "name": "FTP Dinámico"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        1104,
+        -336
+      ],
+      "id": "b1895023-9a08-49f7-bbc8-3f47a4b68cb0",
+      "name": "Microsoft SQL",
+      "credentials": {
+        "microsoftSql": {
+          "id": "hL9EZkFVhAg4kqAo",
+          "name": "Utiles-Viga"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "={{ $json.path }}",
+        "options": {}
+      },
+      "id": "10fc9ece-220f-428f-b912-7d52d09be325",
+      "name": "FTP - Leer Logs",
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        208,
+        640
+      ],
+      "credentials": {
+        "ftp": {
+          "id": "QHOqeKBNbTYCB2qD",
+          "name": "FTP Dinámico"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "952a76d2-fde0-428a-8dd0-8d2190b222ba",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Emite un item por log a leer (Separador y Bandeja) para el dia actual.\n// La fecha del log = hoy (el lote diario se procesa 00:31 y las correcciones caen durante el dia).\nconst hoy = new Date();\nconst y = hoy.getFullYear();\nconst m = String(hoy.getMonth() + 1).padStart(2, '0');\nconst d = String(hoy.getDate()).padStart(2, '0');\n\nconst fechaLog     = `${y}${m}${d}`;\nconst fechaDisplay = `${d}/${m}/${y}`;\n\n// OJO: confirmar la carpeta real de Bandeja. Se deja /LogsSeparador segun el flujo previo.\nreturn [\n  { json: { fechaLog, fechaDisplay, servicio: 'separador', path: `/LogsSeparador/LogSeparador${fechaLog}.txt` } },\n  { json: { fechaLog, fechaDisplay, servicio: 'bandeja',   path: `/LogsSeparador/LogBandeja${fechaLog}.txt` } },\n];"
+      },
+      "id": "36c28d5d-f763-4c6a-9518-fa4138827430",
+      "name": "Calcular Fechas1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        432,
+        640
+      ],
+      "id": "01dea7db-07db-442f-96bc-870ae6a8e839",
+      "name": "Extract from File2",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// === Parser logs Belcorp: Separador + Bandeja (InterfazTXT) ===\n// Modo: Run Once for All Items. Recibe 2 items (un log cada uno) desde Extract from File.\n// FILOSOFIA FAIL-SAFE: ante ambiguedad avisamos. Preferimos falsa alarma a omitir un error.\n\nconst dt = (s) => {\n  const [d, t] = String(s).split(' ');\n  const [dd, mm, yy] = d.split('/');\n  return new Date(`${yy}-${mm}-${dd}T${t || '00:00:00'}`);\n};\n\n// --- 1. Clasificar logs por contenido (robusto al nombre de campo) ---\nlet sepLog = '', banLog = '';\nfor (const it of $input.all()) {\n  const txt = it.json.data ?? it.json.text ?? it.json.fileContent ?? '';\n  if (/Inicio parseador documentos/i.test(txt)) sepLog += '\\n' + txt;\n  else if (/Inicio Procesado Comprobantes/i.test(txt)) banLog += '\\n' + txt;\n}\n\n// --- 2. Separador: bloque por archivo, ULTIMA corrida gana ---\nfunction parseSeparador(txt) {\n  const bloques = txt.split(/(?=Inicio parseador documentos:)/g).map(b => b.trim()).filter(Boolean);\n  const porArchivo = new Map();\n  let reprocesos = 0, truncas = 0;\n\n  for (const b of bloques) {\n    const mFile = b.match(/Inicio parseador documentos:\\s*(.+?)\\s*\\.\\.\\.\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    if (!mFile) continue;\n    const archivo = mFile[1].trim();\n    const ts = dt(mFile[2]);\n\n    const mOk  = b.match(/Parseados Correctamente\\s*:\\s*(\\d+)/i);\n    const mErr = b.match(/Con error:\\s*(\\d+)/i);\n    if (!mOk && !mErr) { truncas++; continue; } // corrida cortada (posible caida de servicio)\n\n    const ok  = mOk  ? parseInt(mOk[1], 10)  : 0;\n    const err = mErr ? parseInt(mErr[1], 10) : 0;\n\n    const detalles = [];\n    const re = /Codigo:\\s*([^,]*),\\s*Nombre:\\s*(.+?),\\s*Nit:\\s*([^,]*),.*?ERROR DE FORMATO:\\s*(.+?)(?=\\n|Fin parseador|$)/gis;\n    let m;\n    while ((m = re.exec(b)) !== null) {\n      detalles.push({ codigo: m[1].trim(), nombre: m[2].trim(), nit: m[3].trim(), error: m[4].trim() });\n    }\n\n    const prev = porArchivo.get(archivo);\n    if (prev) reprocesos++;\n    if (!prev || ts >= prev.ts) porArchivo.set(archivo, { ts, ok, err, detalles });\n  }\n\n  let exitosos = 0, errores = 0, detalles = [];\n  for (const v of porArchivo.values()) { exitosos += v.ok; errores += v.err; detalles.push(...v.detalles); }\n  return { exitosos, errores, detalles, reprocesos, truncas, archivos: porArchivo.size };\n}\n\n// --- 3. Bandeja: estado final por comprobante (ULTIMA aparicion gana) ---\nfunction parseBandeja(txt) {\n  const bloques = txt.split(/(?=Inicio Procesado Comprobantes)/g).map(b => b.trim()).filter(Boolean);\n  const porSap = new Map();      // clave SAP (o codigo) -> estado final\n  const porCodigo = new Map();   // indice por codigo de cliente, para cruzar con Separador\n  let bloquesConError = 0;\n\n  for (const b of bloques) {\n    const mTs = b.match(/Inicio Procesado Comprobantes\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    const bTs = mTs ? dt(mTs[1]) : new Date(0);\n    const mErr = b.match(/con error:\\s*(\\d+)/i);\n    if (mErr && parseInt(mErr[1], 10) > 0) bloquesConError++;\n\n    for (const p of b.split(/Se proceso Comprobante:/i).slice(1)) {\n      const sap    = (p.match(/SAP:\\s*(\\d+)/i)     || [])[1] || '';\n      const codigo = (p.match(/digo:\\s*(\\d+)/i)    || [])[1] || ''; // 'Codigo:' antes del SAP\n      const nombre = (p.match(/Nombre:\\s*(.+?),/i) || [])[1] || '';\n      const nit    = (p.match(/Nit:\\s*(\\d+)/i)     || [])[1] || '';\n      const error  = ((p.match(/Error:\\s*(.+?)(?:\\n|$)/i) || [])[1] || '').trim();\n      const key = sap || codigo;\n      if (!key) continue;\n      const tipo = /ya existe/i.test(error) ? 'duplicado' : 'real';\n      const rec = { sap, codigo, nombre: nombre.trim(), nit, error, tipo, ts: bTs };\n      const prev = porSap.get(key);\n      if (!prev || bTs >= prev.ts) porSap.set(key, rec);\n      if (codigo) {\n        const prevC = porCodigo.get(codigo);\n        if (!prevC || bTs >= prevC.ts) porCodigo.set(codigo, rec);\n      }\n    }\n  }\n\n  const vals = [...porSap.values()];\n  return {\n    erroresReales: vals.filter(x => x.tipo === 'real'),\n    duplicados:    vals.filter(x => x.tipo === 'duplicado'),\n    porCodigo,\n    bloquesConError,\n  };\n}\n\n// --- 4. CRUCE Separador <-> Bandeja (fail-safe) ---\nconst sep = parseSeparador(sepLog);\nconst ban = parseBandeja(banLog);\n\n// Un error de formato del Separador (en su ultima corrida) puede haberse resuelto:\n// si ese mismo codigo aparece en Bandeja con estado final NO-error, llego a comfiar.\nconst sepErroresConfirmados = []; // no recuperados -> error duro\nconst sepErroresResueltos   = []; // reprocesados OK segun Bandeja\nfor (const e of sep.detalles) {\n  const enBandeja = e.codigo ? ban.porCodigo.get(e.codigo) : null;\n  if (enBandeja && enBandeja.tipo !== 'real') sepErroresResueltos.push(e);\n  else sepErroresConfirmados.push(e); // fail-safe: si no lo confirmo, es error\n}\n\n// --- 5. Consolidar estado ---\nconst erroresDuros = sepErroresConfirmados.length + ban.erroresReales.length;\n\n// Ambiguedad: no es error duro, pero amerita revision humana\nconst ambiguo =\n  sep.reprocesos > 0 || sep.truncas > 0 ||\n  ban.duplicados.length > 0 || sepErroresResueltos.length > 0;\n\nconst universo = sep.exitosos;                          // docs separados OK (denominador)\nconst cargados = universo - ban.erroresReales.length;   // estimados en comfiar\n\nlet estado = 'OK';\nif (erroresDuros > 0) estado = 'ERROR';\nelse if (ambiguo) estado = 'REVISAR';\n// Si falto leer un log, no podemos afirmar que todo esta OK\nif ((!sepLog || !banLog) && estado !== 'ERROR') estado = 'REVISAR';\n\nconst hayErrores = estado !== 'OK';\n\n// --- 6. Mensaje Teams (HTML) ---\nconst fecha = $node['Calcular Fechas1']?.json?.fechaDisplay || new Date().toLocaleDateString('es-AR');\nconst MAX = 15;\nconst icono = estado === 'ERROR' ? '🔴' : estado === 'REVISAR' ? '🟡' : '🟢';\nconst lista = (arr, fn) => arr.slice(0, MAX).map(fn).join('<br>') +\n  (arr.length > MAX ? `<br>… +${arr.length - MAX} mas` : '');\n\nlet msg = `${icono} <b>Reporte Belcorp — ${fecha}</b> — <b>${estado}</b><br><br>`;\nmsg += `📄 Documentos (Separador): <b>${universo}</b><br>`;\nmsg += `☁️ Estimados en comfiar: <b>${cargados}</b><br>`;\nmsg += `🔴 Errores a resolver: <b>${erroresDuros}</b><br>`;\n\nif (sepErroresConfirmados.length) {\n  msg += `<br><b>Separador — no se separaron (${sepErroresConfirmados.length}):</b><br>`;\n  msg += lista(sepErroresConfirmados, d => `• Cod ${d.codigo} (NIT ${d.nit}) ${d.nombre} — ${d.error}`) + '<br>';\n}\nif (ban.erroresReales.length) {\n  msg += `<br><b>Bandeja — no cargaron a comfiar (${ban.erroresReales.length}):</b><br>`;\n  msg += lista(ban.erroresReales, d => `• SAP ${d.sap} / Cod ${d.codigo} (NIT ${d.nit}) — ${d.error}`) + '<br>';\n}\n\n// Zona informativa: ambiguedades (no son errores duros, pero avisamos)\nconst notas = [];\nif (sepErroresResueltos.length) notas.push(`${sepErroresResueltos.length} error(es) de separacion se reprocesaron OK (llegaron a comfiar).`);\nif (ban.duplicados.length)      notas.push(`${ban.duplicados.length} comprobante(s) marcados \"ya existe\": reprocesamiento, presuntamente ya cargados.`);\nif (sep.reprocesos)             notas.push(`${sep.reprocesos} corrida(s) repetida(s) del mismo archivo en Separador.`);\nif (sep.truncas)                notas.push(`${sep.truncas} corrida(s) del Separador quedaron cortadas (posible caida de servicio).`);\nif (notas.length) {\n  msg += `<br><b>⚠️ A revisar (ambiguedades):</b><br>` + notas.map(n => `• ${n}`).join('<br>') + '<br>';\n  msg += `<i>Si los numeros no cuadran, validar contra comfiar: SELECT codigoerp, resultado, errordesc FROM comprobante WITH(NOLOCK) WHERE cuitid=1028501021.</i><br>`;\n}\nif (estado === 'OK') msg += `<br><b>Todo procesado sin novedades.</b>`;\n\nif (!sepLog) msg += `<br>🟡 <b>No se pudo leer el log del Separador.</b>`;\nif (!banLog) msg += `<br>🟡 <b>No se pudo leer el log de la Bandeja.</b>`;\n\nreturn [{\n  json: {\n    fecha, estado, hayErrores,\n    universo, cargados, erroresDuros,\n    mensaje: msg,\n    reporte: {\n      separador: { exitosos: sep.exitosos, errores: sep.errores, reprocesos: sep.reprocesos, truncas: sep.truncas,\n                   erroresConfirmados: sepErroresConfirmados, erroresResueltos: sepErroresResueltos },\n      bandeja: { erroresReales: ban.erroresReales, duplicados: ban.duplicados.length },\n    },\n  },\n}];"
+      },
+      "id": "6c99cadc-8e64-4eb5-9c5c-1b73010b6385",
+      "name": "Parsear y Formatear2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{$json.mensaje}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        896,
+        640
+      ],
+      "id": "e5b355cc-2636-4162-b642-19fac14095ea",
+      "name": "Create message1",
+      "webhookId": "4d5f3a16-63a0-4622-87cb-bc87607a0b5b",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-07-06T12:25:50.405Z",
+      "updatedAt": "2026-07-06T12:25:50.405Z",
+      "role": "workflow:owner",
+      "workflowId": "G1DOhTOaWFXFpInD",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-06T20:49:26.067Z",
+  "versionId": "1600ee74-bacb-4835-978d-990447b6297b"
+}
