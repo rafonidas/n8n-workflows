@@ -229,10 +229,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1312,
-        928
+        -1216,
+        1328
       ],
-      "id": "c5659230-8b02-4ec6-a76f-3b2b83210bea",
+      "id": "193c5140-4ea1-43d6-85e0-1d8079e8780e",
       "name": "Sticky Note3"
     },
     {
@@ -252,10 +252,10 @@
       "type": "n8n-nodes-imap.imap",
       "typeVersion": 1,
       "position": [
-        -608,
-        1120
+        -512,
+        1520
       ],
-      "id": "8f55e54d-d34b-4465-83b3-e9995856113a",
+      "id": "e9aa7b7c-415c-44bb-9ba1-74095966f6f1",
       "name": "WebMail",
       "alwaysOutputData": true,
       "retryOnFail": true,
@@ -275,10 +275,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -384,
-        1120
+        -288,
+        1520
       ],
-      "id": "547eeadd-4ee0-42f7-bbea-dfdc956aa9c4",
+      "id": "60baa317-e77d-49f8-898f-63448bb0e546",
       "name": "Detect Stuck Emails"
     },
     {
@@ -289,10 +289,10 @@
       "type": "n8n-nodes-base.ftp",
       "typeVersion": 1,
       "position": [
-        -608,
-        1312
+        -512,
+        1712
       ],
-      "id": "41cf091d-540a-4c65-9c57-be67cf46f321",
+      "id": "9601a575-5068-4b67-b500-d97274b5208d",
       "name": "FTP - FileZilla",
       "retryOnFail": true,
       "waitBetweenTries": 5000,
@@ -310,16 +310,14 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+          "value": "={{ $node[\"Loop\"].json[\"channelId\"] }}",
+          "mode": "id"
         },
         "contentType": "html",
         "message": "={{ $json.mensaje }}",
@@ -330,10 +328,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        736,
-        1152
+        832,
+        1552
       ],
-      "id": "93df57a8-151e-475d-9ffb-27c353778368",
+      "id": "4e70fba8-3033-4a59-bbeb-47209ccd204e",
       "name": "Send Notification",
       "webhookId": "3a5d3601-6cbe-45db-ab32-f8f9999eee75",
       "retryOnFail": true,
@@ -354,10 +352,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -384,
-        1312
+        -288,
+        1712
       ],
-      "id": "156a3e3e-fb84-4e99-9f7f-b69169b59a71",
+      "id": "0e0020e5-d570-46aa-9459-8dbf538d987f",
       "name": "Detect Stuck Files"
     },
     {
@@ -365,10 +363,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        64,
-        1216
+        160,
+        1616
       ],
-      "id": "0aa16e4f-b3d9-4fa9-b980-c2acdb46f08e",
+      "id": "fcb20c3c-1eab-4af6-a6fe-2780de1c15a1",
       "name": "Merge"
     },
     {
@@ -385,10 +383,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1424,
-        1376
+        -1328,
+        1776
       ],
-      "id": "3a1869bf-4998-48da-a068-73710e0d0ed5",
+      "id": "b0eb8098-8d80-4283-b786-1362c5b93e2a",
       "name": "Schedule Trigger"
     },
     {
@@ -398,10 +396,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        288,
-        1216
+        384,
+        1616
       ],
-      "id": "b613526c-d145-4304-ae09-7689aa3ec3fb",
+      "id": "0c73ed23-3b3a-41d9-9ba3-abcc3688d9ea",
       "name": "Handle Previous Events",
       "notes": "Se encarga de mapear los resultados previos y de armar el mensaje posterior en base a los mismos"
     },
@@ -433,10 +431,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        512,
-        1216
+        608,
+        1616
       ],
-      "id": "6c79b879-f436-4793-a5bd-c702864cb2a9",
+      "id": "f35b32a9-f0f4-4870-b7e5-af6a5706d080",
       "name": "Errors Detected"
     },
     {
@@ -446,10 +444,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1200,
-        1376
+        -1104,
+        1776
       ],
-      "id": "279b8f86-ecca-435d-a9d6-ce4bdaa51b9b",
+      "id": "527ba5ff-a3dc-4f91-b899-bae958bc5d7c",
       "name": "Set Credentials"
     },
     {
@@ -459,10 +457,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -976,
-        1376
+        -880,
+        1776
       ],
-      "id": "b2cd51ac-ee37-4fdb-9775-30cf636c8e29",
+      "id": "0ac91223-957d-4636-a440-4fed877cf987",
       "name": "Loop"
     },
     {
@@ -483,24 +481,23 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        -96,
-        912
+        0,
+        1312
       ],
-      "id": "a9b25bd1-e049-4c36-896e-84f3f47e9358",
-      "name": "Call 'Reiniciar Bandeja Archivos - KN'",
-      "disabled": true
+      "id": "63d4e8d1-0861-494a-a8a4-2be0879dbe82",
+      "name": "Call 'Reiniciar Bandeja Archivos - KN'"
     },
     {
       "parameters": {
-        "jsCode": "// --- MERGE DATA ---\nconst auditRecords = $input.all() \nif (!auditRecords || auditRecords.length === 0) {\n  // CORRECCIÓN 1: n8n siempre requiere que retornes un Array de objetos\n  return [{ json: { bandejas: [] } }];\n}\n// 1. Obtener credenciales de Set Credentials\nconst itemsCredentials = $items(\"Set Credentials\");\nconst credentialsMap = itemsCredentials.reduce((acc, item) => {\n  const cred = item.json;\n  // CORRECCIÓN 2: Normalizamos a mayúsculas para evitar fallos por case-sensitivity\n  const llavePais = (cred.country || cred.pais || \"\").toUpperCase();\n  if (llavePais) {\n    acc[llavePais] = cred;\n  }\n  return acc;\n}, {});\n\n// 2. Filtrar auditoría\nconst paraReiniciar = auditRecords\n  .map(item => item.json)\n  .filter(audit => {\n    return audit.notification_type === \"emails_stuck\" || audit.notification_type === \"both\";\n  })\n  .map(audit => {\n    const paisAudit = (audit.country || \"\").toUpperCase();\n    const creds = credentialsMap[paisAudit];\n    \n    if (!creds) {\n      console.log(`No credentials found for country: ${audit.country}`);\n      return null;\n    }\n    \n    return {\n      pais: audit.country,\n      bandejaId: creds.bandejaId,\n      url: creds.WSurl,\n      user: creds.WSuser,\n      password: creds.WSpass,\n      channelId: creds.channelId\n    };\n  })\n  .filter(item => item !== null);\n\n// 3. Retornar array para reiniciar\n// CORRECCIÓN 3: Envuelto en un Array para respetar la API de n8n\nreturn [{ json: { bandejas: paraReiniciar } }];\n\n/* NOTA PRO: Si prefieres que el nodo entregue múltiples ítems (uno por cada bandeja) \npara que el siguiente nodo cicle automáticamente sobre ellos, usa esto en lugar de la línea anterior:\nreturn paraReiniciar.map(bandeja => ({ json: bandeja }));\n*/"
+        "jsCode": "// 1. Obtener credenciales y armar el diccionario\nconst itemsCredentials = $items(\"Set Credentials\");\nconst credentialsMap = itemsCredentials.reduce((acc, item) => {\n  const cred = item.json;\n  const llavePais = (cred.country || cred.pais || \"\").toUpperCase();\n  if (llavePais) acc[llavePais] = cred;\n  return acc;\n}, {});\n\n// 2. Reconstruir historial FTP por vuelta del loop\nconst totalVueltas = itemsCredentials.length;\nconst historialFTP = [];\n\nfor (let vuelta = 0; vuelta < totalVueltas; vuelta++) {\n  try {\n    const resultadoVuelta = $items(\"Detect Stuck Files\", 0, vuelta);\n    if (resultadoVuelta && resultadoVuelta.length > 0) {\n      historialFTP.push(resultadoVuelta[0].json);\n    }\n  } catch (error) {\n    console.log(`No se encontraron datos FTP para la vuelta ${vuelta}`);\n  }\n}\n\n// 3. Filtrar por archivos atascados en FTP y mapear con credenciales\nconst paraReiniciar = historialFTP\n  .filter(ftp => ftp.alerta_ftp === true)\n  .map(ftp => {\n    const paisKey = (ftp.country || \"\").toUpperCase();\n    const creds = credentialsMap[paisKey];\n    if (!creds) {\n      console.log(`No credentials found for country: ${ftp.country}`);\n      return null;\n    }\n    return {\n      pais: ftp.country,\n      bandejaId: creds.bandejaId,\n      WSurl: creds.WSurl,\n      WSuser: creds.WSuser,\n      WSpass: creds.WSpass,\n      channelId: creds.channelId\n    };\n  })\n  .filter(item => item !== null);\n\nreturn [{ json: { bandejas: paraReiniciar } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -608,
-        928
+        -512,
+        1328
       ],
-      "id": "2cc21895-da06-42b7-919e-e945d82b2241",
+      "id": "db28461d-c3a7-43b3-9a84-3e92dea9e866",
       "name": "Merge Data"
     },
     {
@@ -531,10 +528,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -384,
-        928
+        -288,
+        1328
       ],
-      "id": "2d6519df-6245-4620-9a44-a13c5f691788",
+      "id": "bb5f42b5-d3e0-45a6-88d5-f29688743dd7",
       "name": "If"
     },
     {
@@ -544,10 +541,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        960,
-        1344
+        1056,
+        1744
       ],
-      "id": "1b51e6b4-1b4a-48da-bbdc-5b9b24ba0a33",
+      "id": "307b37da-4764-4809-9709-e1c645b4052a",
       "name": "Audit Log Builder"
     },
     {
@@ -673,10 +670,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        1168,
-        1344
+        1264,
+        1744
       ],
-      "id": "fbdf6f38-d422-429c-8fed-4bc30bd97e00",
+      "id": "565950ad-a36d-4cad-bcbb-006905ba0f05",
       "name": "Insert row"
     },
     {
@@ -686,11 +683,26 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -800,
-        928
+        -704,
+        1328
       ],
-      "id": "70678d6a-ebb0-4e62-8c5d-b2b06a3f55fb",
+      "id": "05ae1b68-014a-4926-bf05-f6d7c06d66f4",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "content": "## OBJETIVOS A FUTURO\n - REINICIAR LECTURA MAIL\n - CREAR TICKET \n - REINICIAR BANDEJA DESDE COMFIAR\n - SSH Y HTTP METHOD?",
+        "height": 192,
+        "width": 560
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1328,
+        1120
+      ],
+      "typeVersion": 1,
+      "id": "c1fff9a3-8b50-4d6d-b12e-ece237616308",
+      "name": "Sticky Note6"
     }
   ],
   "pinData": {},
@@ -721,16 +733,16 @@
       "skipCount": 1,
       "history": {
         "ARG": {
-          "lastSignature": "",
-          "skipCount": 0
+          "lastSignature": "__FTP_STUCK:1",
+          "skipCount": 2
         },
         "PER": {
-          "lastSignature": "__FTP_STUCK:6",
+          "lastSignature": "__FTP_STUCK:1",
           "skipCount": 0
         },
         "ECU": {
           "lastSignature": "__FTP_STUCK:1",
-          "skipCount": 0
+          "skipCount": 2
         }
       }
     },
@@ -744,6 +756,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-10T20:43:33.392Z",
-  "versionId": "0a2ced28-9d5e-41a2-b316-59e081a282b5"
+  "updatedAt": "2026-07-06T18:37:46.254Z",
+  "versionId": "f8dd50b1-8f11-481e-9a54-08769f6da207"
 }
