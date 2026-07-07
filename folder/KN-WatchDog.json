@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "WebMail": {
       "main": [
@@ -632,15 +632,15 @@
       "history": {
         "ARG": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 1
+          "skipCount": 2
         },
         "PER": {
-          "lastSignature": "MAIL:[]__FTP:[1-1006-00213801.pdf,Error]",
+          "lastSignature": "MAIL:[]__FTP:[Error]",
           "skipCount": 0
         },
         "ECU": {
           "lastSignature": "MAIL:[]__FTP:[Error]",
-          "skipCount": 2
+          "skipCount": 0
         }
       }
     },
@@ -651,6 +651,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-16T14:03:39.462Z",
-  "versionId": "876b49a1-fae4-4006-83aa-3810adde4e47"
+  "updatedAt": "2026-07-06T12:43:48.702Z",
+  "versionId": "db18adff-3a5b-4484-9879-d16fb4d4e64d"
 }
