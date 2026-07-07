@@ -1,0 +1,350 @@
+{
+  "active": false,
+  "connections": {
+    "Trigger Diario 05:00": {
+      "main": [
+        [
+          {
+            "node": "Config Entornos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config Entornos": {
+      "main": [
+        [
+          {
+            "node": "Calcular Nombre Log + Expandir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Nombre Log + Expandir": {
+      "main": [
+        [
+          {
+            "node": "Loop Entornos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Entornos": {
+      "main": [
+        [
+          {
+            "node": "FTP - Listar Log Dir",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Armar Resumen Errores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Listar Log Dir": {
+      "main": [
+        [
+          {
+            "node": "Verificar Existencia + Peso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar Existencia + Peso": {
+      "main": [
+        [
+          {
+            "node": "¿Necesita verificar contenido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Necesita verificar contenido?": {
+      "main": [
+        [
+          {
+            "node": "FTP - Descargar Log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Entornos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FTP - Descargar Log": {
+      "main": [
+        [
+          {
+            "node": "Verificar Contenido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar Contenido": {
+      "main": [
+        [
+          {
+            "node": "Loop Entornos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar Resumen Errores": {
+      "main": [
+        [
+          {
+            "node": "Teams - Alerta Publicación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-06T14:51:18.018Z",
+  "id": "KK94BvdajB3qk8TW",
+  "isArchived": false,
+  "meta": null,
+  "name": "Publicacion-Informes-FTP-Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 5 * * *"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1536,
+        176
+      ],
+      "id": "97883758-911c-4ee5-87e4-45ebcf911523",
+      "name": "Trigger Diario 05:00"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "env-list",
+              "name": "environments",
+              "type": "array",
+              "value": "=[\n  { \"env\": \"CO-APP\",       \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"CO-APP2\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"CO-APP3\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"CO-APP4\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"CO-TEST\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"PE-TEST\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"PE-PROD\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"COMFIAR-PE-SRV\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"AR-APP\",       \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"AR-APP-CINES\", \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"AR-APP2\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"AR-TEST\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"BO-APP\",       \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"BO-TEST\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"EC-APP\",       \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" },\n  { \"env\": \"EC-TEST\",      \"host\": \"REEMPLAZAR\", \"port\": 21, \"user\": \"REEMPLAZAR\", \"pass\": \"REEMPLAZAR\" }\n]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1280,
+        176
+      ],
+      "id": "4441d4c6-5f40-42f0-8bbf-8783693c8b3c",
+      "name": "Config Entornos"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calcula el nombre del archivo log del día anterior\nconst yesterday = new Date();\nyesterday.setDate(yesterday.getDate() - 1);\nconst y = yesterday.getFullYear();\nconst m = String(yesterday.getMonth() + 1).padStart(2, '0');\nconst d = String(yesterday.getDate()).padStart(2, '0');\nconst logFileName = `log_${y}${m}${d}.txt`;\n\nconst envs = $input.first().json.environments;\nreturn envs.map(e => ({ json: { ...e, logFileName } }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        176
+      ],
+      "id": "2fa0e753-c2c5-4ddd-a47b-16f6b93634ae",
+      "name": "Calcular Nombre Log + Expandir"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -800,
+        176
+      ],
+      "id": "cb7a5576-e49f-4190-be40-64db6ca72ee1",
+      "name": "Loop Entornos"
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "path": "/ServicioInformes/Log"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        -48
+      ],
+      "id": "46a4b81e-8024-46bc-a892-320a31ebd1d7",
+      "name": "FTP - Listar Log Dir"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Busca el log del día anterior y evalúa su estado\nconst envItem = $('Loop Entornos').first().json;\nconst logFileName = envItem.logFileName;\nconst env = envItem.env;\n\nconst files = $input.all().map(i => i.json);\nconst logFile = files.find(f => f.name === logFileName && f.type === '-');\n\nif (!logFile) {\n  return [{ json: { env, logFileName, error: true, reason: 'Archivo no encontrado' } }];\n}\n\nif (logFile.size === 0) {\n  return [{ json: { env, logFileName, error: true, reason: 'Archivo existe pero tiene peso = 0' } }];\n}\n\n// Si existe y tiene peso, necesitamos descargar para verificar contenido\nreturn [{ json: { env, logFileName, error: false, size: logFile.size, needsContentCheck: true } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        16
+      ],
+      "id": "ab79061c-9a45-43ef-93cd-5d597586339b",
+      "name": "Verificar Existencia + Peso"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.needsContentCheck }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        16
+      ],
+      "id": "ed6489d1-2a9c-4ebe-acbc-bd314c474cbb",
+      "name": "¿Necesita verificar contenido?"
+    },
+    {
+      "parameters": {
+        "path": "=/ServicioInformes/Log/{{ $json.logFileName }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -64
+      ],
+      "id": "5405d7b8-d020-42de-9c41-99ff3e032cf1",
+      "name": "FTP - Descargar Log"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lee el contenido del archivo descargado y busca la palabra 'error'\nconst meta = $('Verificar Existencia + Peso').first().json;\nconst binaryData = $input.first().binary;\n\nlet content = '';\nif (binaryData && binaryData.data) {\n  content = Buffer.from(binaryData.data.data, 'base64').toString('utf-8');\n}\n\nconst hasError = content.toLowerCase().includes('error');\n\nreturn [{\n  json: {\n    env: meta.env,\n    logFileName: meta.logFileName,\n    error: hasError,\n    reason: hasError ? 'El archivo contiene la palabra \"error\" en su contenido' : null,\n    size: meta.size\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -64
+      ],
+      "id": "82e2d154-0bb4-469f-b12c-472a873cdeda",
+      "name": "Verificar Contenido"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Recibe todos los resultados (con error directo o tras verificar contenido)\n// y filtra solo los que tienen error\nconst all = $input.all();\nconst errores = all.filter(i => i.json.error);\n\nif (errores.length === 0) return [];\n\nconst rows = errores.map(i => {\n  const f = i.json;\n  return `<li>[${f.env}] <b>${f.logFileName}</b> — ${f.reason}</li>`;\n}).join('');\n\nreturn [{ json: { count: errores.length, rows } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        384
+      ],
+      "id": "5d2f4ce7-1c6d-4b03-9ba2-cf7d3c10d649",
+      "name": "Armar Resumen Errores"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Argentina"
+        },
+        "contentType": "html",
+        "message": "=<h3>🚨 Publicación Informes FTP — Error de Ejecución</h3><p>Se detectaron <b>{{ $json.count }} entorno(s)</b> con problemas en el resumen de ventas del día anterior.</p><p><b>Detalle de errores:</b></p><ul>{{ $json.rows }}</ul><p>Verificar el servicio de publicación de informes. El reporte de ventas es crítico para los clientes.</p>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        384
+      ],
+      "id": "6dd8ff33-c3c2-40be-9005-d7cb279f0b6e",
+      "name": "Teams - Alerta Publicación",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "webhookId": "99c98b17-0c8a-4239-abec-ad9f4de837da",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "N8N-TeamsAccount"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-07-06T14:51:18.018Z",
+      "updatedAt": "2026-07-06T14:51:18.018Z",
+      "role": "workflow:owner",
+      "workflowId": "KK94BvdajB3qk8TW",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-06T14:51:18.018Z",
+  "versionId": "26e9ae29-7296-49df-8ba8-43137524d3b8"
+}
