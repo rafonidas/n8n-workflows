@@ -439,7 +439,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Vow&45\",\n      \"WSurl\":\"https://app.comfiar.com.ar/WSCOMFIAR/\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-PE-WEB/D$/Test/Directorios/FTP/20347845150/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Oxs@612416\",\n      \"WSurl\":\"https://app.comfiar.com.pe/ws/\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\",\n      \"bandejaId\": \"//COMFIAR-EC-WEB/D$/COMFIAR_EC/Directorios/FTP/0991321764001/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Voy>87\",\n      \"WSurl\":\"https://app.comfiar.com.ec/wscomfiar/\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
+        "jsCode": "const kn_credentials = {\n  \"ARG\": [\n    { \n      \"country\": \"ARG\",\n      \"timezone\": \"America/Argentina/Buenos_Aires\",\n      \"user\": \"kn@la.comfiar.com.ar\",\n      \"password\": \"Apg0000001!\",\n      \"url\": \"webmail.la.comfiar.com.ar\",\n      \"path\": \"\\\\30608517746\\\\PDF\",\n      \"host\": \"172.17.1.60\",\n      \"channelId\": \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-AR-WEB/D$/COMFIAR/Directorios/FTP/localuser/30608517746/PDF\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Vow&45\",\n      \"WSurl\":\"https://app.comfiar.com.ar/WSCOMFIAR/\"\n    }\n  ],\n  \"PER\": [\n    { \n      \"country\": \"PER\",\n      \"timezone\": \"America/Lima\",\n      \"user\": \"kn@la.comfiar.com.pe\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\20347845150\\\\PDF\",\n      \"host\": \"172.17.1.14\",\n      \"channelId\": \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\",\n      \"bandejaId\":\"//COMFIAR-PE-WEB/D$/COMFIAR_PE/Directorios/FTP/20347845150/pdf\", \n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Oxs@612416\",\n      \"WSurl\":\"https://app.comfiar.com.pe/ws/\"\n    }\n  ],\n  \"ECU\": [\n    { \n      \"country\": \"ECU\",\n      \"timezone\": \"America/Guayaquil\",\n      \"user\": \"kn@la.comfiar.com.ec\",\n      \"password\": \"Apg0000001\",\n      \"url\": \"webmail.la.comfiar.com.ec\",\n      \"path\": \"\\\\0991321764001\\\\pdf\",\n      \"host\": \"172.17.1.11\",\n      \"channelId\": \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\",\n      \"bandejaId\": \"//COMFIAR-EC-WEB/D$/COMFIAR_EC/Directorios/FTP/0991321764001/pdf\",\n      \"WSuser\":\"WSN8N\",\n      \"WSpass\":\"Voy>87\",\n      \"WSurl\":\"https://app.comfiar.com.ec/wscomfiar/\"\n    }\n  ]\n};\n\n// 1. Obtenemos los valores del objeto (los arrays de cada país)\nconst values = Object.values(kn_credentials);\n\n// 2. Aplanamos la lista de listas en una sola lista de objetos.\n// .flat() hace el mismo trabajo que la comprensión de lista en Python.\nconst flat_list = values.flat();\n\n// 3. En n8n, devolvemos el resultado. \nreturn flat_list;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -734,7 +734,7 @@
       "history": {
         "ARG": {
           "lastSignature": "__FTP_STUCK:1",
-          "skipCount": 2
+          "skipCount": 0
         },
         "PER": {
           "lastSignature": "__FTP_STUCK:1",
@@ -742,7 +742,7 @@
         },
         "ECU": {
           "lastSignature": "__FTP_STUCK:1",
-          "skipCount": 2
+          "skipCount": 0
         }
       }
     },
@@ -756,6 +756,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-06T18:37:46.254Z",
-  "versionId": "f8dd50b1-8f11-481e-9a54-08769f6da207"
+  "updatedAt": "2026-07-07T12:45:56.806Z",
+  "versionId": "0d0564f0-bf50-48f7-b7ed-c23f18ec043e"
 }
