@@ -188,7 +188,7 @@
   },
   "createdAt": "2026-06-03T00:12:56.649Z",
   "id": "ksbDnaYiUEsp60UV",
-  "isArchived": false,
+  "isArchived": true,
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -669,6 +669,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-10T20:13:16.746Z",
-  "versionId": "c92111b3-93bc-47a6-b5e6-e3c3118d0f92"
+  "updatedAt": "2026-07-08T13:34:18.804Z",
+  "versionId": "52421332-5613-4e8c-8aff-ea099ab26a8b"
 }
