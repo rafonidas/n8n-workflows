@@ -195,7 +195,7 @@
   },
   "createdAt": "2025-10-22T20:32:16.306Z",
   "id": "UilHn5FQ93FuOGEQ",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "Flujo de correo base",
   "nodes": [
@@ -560,6 +560,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-10-22T20:32:16.306Z",
-  "versionId": "2e31136c-1642-485e-8709-2550c3d4832c"
+  "updatedAt": "2026-07-08T13:36:42.283Z",
+  "versionId": "755c2ce7-064b-48eb-862a-7ed028422346"
 }
