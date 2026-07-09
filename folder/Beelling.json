@@ -344,7 +344,7 @@
   },
   "createdAt": "2026-06-19T19:29:24.504Z",
   "id": "IuQ2yiCPOXHIQN4V",
-  "isArchived": false,
+  "isArchived": true,
   "meta": null,
   "name": "Beelling",
   "nodes": [
@@ -1273,6 +1273,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-22T13:48:30.475Z",
-  "versionId": "908057ba-2a76-40f5-8b70-c1c98bca15a8"
+  "updatedAt": "2026-07-08T13:34:02.702Z",
+  "versionId": "809eec25-eed2-4f3e-8e42-77e0753463ba"
 }
