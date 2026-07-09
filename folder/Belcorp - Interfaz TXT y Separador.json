@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -104,6 +104,13 @@
         [
           {
             "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
             "type": "main",
             "index": 0
           }
@@ -216,7 +223,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -240,
+        -320,
         656
       ],
       "id": "7546d4dc-a3f1-4908-87e8-57379ef4116c",
@@ -446,24 +453,24 @@
       "type": "n8n-nodes-base.ftp",
       "typeVersion": 1,
       "position": [
-        208,
-        640
+        48,
+        656
       ],
+      "retryOnFail": false,
       "credentials": {
         "ftp": {
           "id": "QHOqeKBNbTYCB2qD",
           "name": "FTP Dinámico"
         }
       },
-      "onError": "continueRegularOutput"
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
         "rule": {
           "interval": [
             {
-              "field": "cronExpression",
-              "expression": "0 8 * * *"
+              "triggerAtHour": 8
             }
           ]
         }
@@ -473,8 +480,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -496,
-        640
+        -512,
+        656
       ]
     },
     {
@@ -486,8 +493,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -16,
-        640
+        -144,
+        656
       ]
     },
     {
@@ -498,8 +505,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        432,
-        640
+        224,
+        624
       ],
       "id": "01dea7db-07db-442f-96bc-870ae6a8e839",
       "name": "Extract from File2",
@@ -514,8 +521,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        656,
-        640
+        400,
+        624
       ]
     },
     {
@@ -523,26 +530,28 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "channelId": {
           "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "value": "19:5e3bf46869f140a39d48f869795379c5@thread.tacv2",
           "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+          "cachedResultName": "Bolivia - APP",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A5e3bf46869f140a39d48f869795379c5%40thread.tacv2/Bolivia%20-%20APP?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
         },
         "contentType": "html",
         "message": "={{$json.mensaje}}",
-        "options": {}
+        "options": {
+          "includeLinkToWorkflow": false
+        }
       },
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        896,
-        640
+        592,
+        624
       ],
       "id": "e5b355cc-2636-4162-b642-19fac14095ea",
       "name": "Create message1",
@@ -553,58 +562,56 @@
           "name": "Teams"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## canal de bolivia \n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        976,
+        432
+      ],
+      "id": "fb96ac3b-0ed9-4d25-a3d6-24de7bc84718",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3e8de9bd-4751-4c72-8382-5afab7bc4980",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        928
+      ],
+      "id": "e0105966-01c2-4971-99f6-e539f4679d98",
+      "name": "Error"
     }
   ],
-  "pinData": {
-    "Extract from File2": [
-      {
-        "json": {
-          "data": "\n Inicio parseador documentos: BOFACTURA_202607060002.PFA ... 07/07/2026 01:06:05\r\n- Cantidad Documentos: 4367\r\n- Cantidad Documentos Parseados Correctamente : 4367\r\n- Cantidad Documentos Con error: 0\r\nFin parseador documentos ... 07/07/2026 01:06:39\r\n\n Inicio parseador documentos: BOFACTURATIGO_202607060002.PFA ... 07/07/2026 02:38:19\r\n- Cantidad Documentos: 0\r\n- Cantidad Documentos Parseados Correctamente : 0\r\n- Cantidad Documentos Con error: 0\r\n   No se encontro ningun archivo en: BOFACTURATIGO_202607060002.PFA ... 07/07/2026 02:38:19\r\nFin parseador documentos ... 07/07/2026 02:38:19\r\n\n Inicio parseador documentos: BOFACTURATV_202607060002.PFA ... 07/07/2026 02:38:19\r\n- Cantidad Documentos: 0\r\n- Cantidad Documentos Parseados Correctamente : 0\r\n- Cantidad Documentos Con error: 10\r\n   No se encontro ningun archivo en: BOFACTURATV_202607060002.PFA ... 07/07/2026 02:38:19\r\nFin parseador documentos ... 07/07/2026 02:38:19\r\n"
-        }
-      },
-      {
-        "json": {
-          "data": "\r\nInicio Procesado Comprobantes 07/07/2026 01:06:44\r\nTotal procesados: 4367\r\nCantidad de Facturas Procesados Exitosamente: 4367\r\nCantidad de Facturas Procesados con error: 10\r\n\r\nFin Procesado Comprobantes 07/07/2026 02:38:18\r\n"
-        }
-      }
-    ],
-    "FTP - Leer Logs": [
-      {
-        "json": {
-          "fechaLog": "20260707",
-          "fechaDisplay": "07/07/2026",
-          "servicio": "separador",
-          "path": "/LogsSeparador/LogSeparador20260707.txt"
-        },
-        "binary": {
-          "data": {
-            "mimeType": "text/plain",
-            "fileType": "text",
-            "data": "CiBJbmljaW8gcGFyc2VhZG9yIGRvY3VtZW50b3M6IEJPRkFDVFVSQV8yMDI2MDcwNjAwMDIuUEZBIC4uLiAwNy8wNy8yMDI2IDAxOjA2OjA1DQotIENhbnRpZGFkIERvY3VtZW50b3M6IDQzNjcNCi0gQ2FudGlkYWQgRG9jdW1lbnRvcyBQYXJzZWFkb3MgQ29ycmVjdGFtZW50ZSA6IDQzNjcNCi0gQ2FudGlkYWQgRG9jdW1lbnRvcyBDb24gZXJyb3I6IDANCkZpbiBwYXJzZWFkb3IgZG9jdW1lbnRvcyAuLi4gMDcvMDcvMjAyNiAwMTowNjozOQ0KCiBJbmljaW8gcGFyc2VhZG9yIGRvY3VtZW50b3M6IEJPRkFDVFVSQVRJR09fMjAyNjA3MDYwMDAyLlBGQSAuLi4gMDcvMDcvMjAyNiAwMjozODoxOQ0KLSBDYW50aWRhZCBEb2N1bWVudG9zOiAwDQotIENhbnRpZGFkIERvY3VtZW50b3MgUGFyc2VhZG9zIENvcnJlY3RhbWVudGUgOiAwDQotIENhbnRpZGFkIERvY3VtZW50b3MgQ29uIGVycm9yOiAwDQogICBObyBzZSBlbmNvbnRybyBuaW5ndW4gYXJjaGl2byBlbjogQk9GQUNUVVJBVElHT18yMDI2MDcwNjAwMDIuUEZBIC4uLiAwNy8wNy8yMDI2IDAyOjM4OjE5DQpGaW4gcGFyc2VhZG9yIGRvY3VtZW50b3MgLi4uIDA3LzA3LzIwMjYgMDI6Mzg6MTkNCgogSW5pY2lvIHBhcnNlYWRvciBkb2N1bWVudG9zOiBCT0ZBQ1RVUkFUVl8yMDI2MDcwNjAwMDIuUEZBIC4uLiAwNy8wNy8yMDI2IDAyOjM4OjE5DQotIENhbnRpZGFkIERvY3VtZW50b3M6IDANCi0gQ2FudGlkYWQgRG9jdW1lbnRvcyBQYXJzZWFkb3MgQ29ycmVjdGFtZW50ZSA6IDANCi0gQ2FudGlkYWQgRG9jdW1lbnRvcyBDb24gZXJyb3I6IDANCiAgIE5vIHNlIGVuY29udHJvIG5pbmd1biBhcmNoaXZvIGVuOiBCT0ZBQ1RVUkFUVl8yMDI2MDcwNjAwMDIuUEZBIC4uLiAwNy8wNy8yMDI2IDAyOjM4OjE5DQpGaW4gcGFyc2VhZG9yIGRvY3VtZW50b3MgLi4uIDA3LzA3LzIwMjYgMDI6Mzg6MTkNCg==",
-            "fileName": "LogSeparador20260707.txt",
-            "fileSize": "934 B"
-          }
-        }
-      },
-      {
-        "json": {
-          "fechaLog": "20260707",
-          "fechaDisplay": "07/07/2026",
-          "servicio": "bandeja",
-          "path": "/LogsSeparador/LogBandeja20260707.txt"
-        },
-        "binary": {
-          "data": {
-            "mimeType": "text/plain",
-            "fileType": "text",
-            "data": "DQpJbmljaW8gUHJvY2VzYWRvIENvbXByb2JhbnRlcyAwNy8wNy8yMDI2IDAxOjA2OjQ0DQpUb3RhbCBwcm9jZXNhZG9zOiA0MzY3DQpDYW50aWRhZCBkZSBGYWN0dXJhcyBQcm9jZXNhZG9zIEV4aXRvc2FtZW50ZTogNDM2Nw0KQ2FudGlkYWQgZGUgRmFjdHVyYXMgUHJvY2VzYWRvcyBjb24gZXJyb3I6IDANCg0KRmluIFByb2Nlc2FkbyBDb21wcm9iYW50ZXMgMDcvMDcvMjAyNiAwMjozODoxOA0K",
-            "fileName": "LogBandeja20260707.txt",
-            "fileSize": "225 B"
-          }
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1"
   },
@@ -617,9 +624,16 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-07-07T13:53:30.900Z",
-  "versionId": "c9fd8164-be3b-4994-8a72-6f277daf2d6c"
+  "triggerCount": 3,
+  "updatedAt": "2026-07-09T03:16:16.674Z",
+  "versionId": "b0fd597e-b156-4aac-a902-103e2c8b2bda"
 }
