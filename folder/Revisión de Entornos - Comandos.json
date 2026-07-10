@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Parse Command": {
       "main": [
@@ -793,16 +793,10 @@
     }
   ],
   "staticData": {
-    "node:Microsoft Teams Trigger": {
-      "subscriptionIds": [
-        "33528f10-8e8d-4197-92ca-c8404a9161e4",
-        "b2973b3f-de0f-42f4-a293-853800b820db",
-        "db630047-71bc-4334-a147-fd81879e0670"
-      ]
-    }
+    "node:Microsoft Teams Trigger": {}
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-08T20:54:35.430Z",
+  "updatedAt": "2026-07-09T12:00:42.871Z",
   "versionId": "5708d970-518c-46a3-bde4-a4ef9a63ec16"
 }
