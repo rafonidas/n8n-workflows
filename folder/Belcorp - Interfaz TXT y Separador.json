@@ -1,98 +1,11 @@
 {
   "active": true,
   "connections": {
-    "Schedule Trigger": {
-      "main": [
-        []
-      ]
-    },
-    "Calcular Fechas": {
-      "main": [
-        [
-          {
-            "node": "FTP - Leer Bandeja",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "FTP - Leer Separador",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parsear y Formatear": {
-      "main": [
-        [
-          {
-            "node": "Create message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Code in JavaScript": {
       "main": [
         [
           {
             "node": "Calcular Fechas1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extract from File": {
-      "main": [
-        [
-          {
-            "node": "Parsear y Formatear1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "FTP - Leer Bandeja": {
-      "main": [
-        [
-          {
-            "node": "Extract from File1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extract from File1": {
-      "main": [
-        [
-          {
-            "node": "Parsear y Formatear",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parsear y Formatear1": {
-      "main": [
-        [
-          {
-            "node": "Create message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "FTP - Leer Separador": {
-      "main": [
-        [
-          {
-            "node": "Extract from File",
             "type": "main",
             "index": 0
           }
@@ -110,7 +23,7 @@
         ],
         [
           {
-            "node": "Error",
+            "node": "Create message",
             "type": "main",
             "index": 0
           }
@@ -172,52 +85,6 @@
   "nodes": [
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "cronExpression",
-              "expression": "0 8 * * *"
-            }
-          ]
-        }
-      },
-      "id": "f4554e5c-4db2-4252-b37d-bf34f0908912",
-      "name": "Schedule Trigger",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.2,
-      "position": [
-        -176,
-        -80
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "const ayer = new Date();\nayer.setDate(ayer.getDate() - 1);\n\nconst year = ayer.getFullYear();\nconst month = ayer.getMonth() + 1;\nconst day = ayer.getDate();\n\nconst fechaLog     = `${year}${String(month).padStart(2,'0')}${String(day).padStart(2,'0')}`;\nconst rutaMes      = `${year}/${month}`;\nconst fechaDisplay = `${String(day).padStart(2,'0')}/${String(month).padStart(2,'0')}/${year}`;\n\nreturn [{ json: { fechaLog, rutaMes, fechaDisplay } }];"
-      },
-      "id": "941151ba-85ad-433a-a35a-91d1a2203aba",
-      "name": "Calcular Fechas",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        192,
-        -80
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// === Parser logs Belcorp: Separador + Bandeja (InterfazTXT) ===\n// Modo: Run Once for All Items. Recibe los Extract from File (uno por log).\n// Clasifica cada log por contenido, no por nombre de campo (robusto).\n\nconst dt = (s) => {\n  const [d, t] = s.split(' ');\n  const [dd, mm, yy] = d.split('/');\n  return new Date(`${yy}-${mm}-${dd}T${t}`);\n};\n\n// --- 1. Clasificar los logs recibidos ---\nlet sepLog = \"\", banLog = \"\";\nfor (const it of $input.all()) {\n  const txt = it.json.data ?? it.json.text ?? it.json.fileContent ?? \"\";\n  if (/Inicio parseador documentos/i.test(txt)) sepLog += \"\\n\" + txt;\n  else if (/Inicio Procesado Comprobantes/i.test(txt)) banLog += \"\\n\" + txt;\n}\n\n// --- 2. Separador: bloque por archivo, ÚLTIMA corrida gana ---\nfunction parseSeparador(txt) {\n  const bloques = txt.split(/(?=Inicio parseador documentos:)/g).map(b => b.trim()).filter(Boolean);\n  const porArchivo = new Map();\n  let reprocesos = 0;\n\n  for (const b of bloques) {\n    const mFile = b.match(/Inicio parseador documentos:\\s*(.+?)\\s*\\.\\.\\.\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    if (!mFile) continue;\n    const archivo = mFile[1].trim();\n    const ts = dt(mFile[2]);\n\n    const mOk  = b.match(/Parseados Correctamente\\s*:\\s*(\\d+)/i);\n    const mErr = b.match(/Con error:\\s*(\\d+)/i);\n    if (!mOk && !mErr) continue; // corrida trunca (servicio cayó) -> ignorar\n\n    const ok  = mOk  ? parseInt(mOk[1], 10)  : 0;\n    const err = mErr ? parseInt(mErr[1], 10) : 0;\n\n    const detalles = [];\n    const re = /Codigo:\\s*([^,]*),\\s*Nombre:\\s*(.+?),\\s*Nit:\\s*([^,]*),.*?ERROR DE FORMATO:\\s*(.+?)(?=\\n|Fin parseador|$)/gis;\n    let m;\n    while ((m = re.exec(b)) !== null) {\n      detalles.push({ codigo: m[1].trim(), nombre: m[2].trim(), nit: m[3].trim(), error: m[4].trim() });\n    }\n\n    const prev = porArchivo.get(archivo);\n    if (prev) reprocesos++;\n    if (!prev || ts >= prev.ts) porArchivo.set(archivo, { ts, ok, err, detalles });\n  }\n\n  let exitosos = 0, errores = 0, detalles = [];\n  for (const v of porArchivo.values()) { exitosos += v.ok; errores += v.err; detalles.push(...v.detalles); }\n  return { exitosos, errores, detalles, reprocesos };\n}\n\n// --- 3. Bandeja: estado final por comprobante (SAP). \"ya existe\" = duplicado benigno ---\nfunction parseBandeja(txt) {\n  const bloques = txt.split(/(?=Inicio Procesado Comprobantes)/g).map(b => b.trim()).filter(Boolean);\n  const porSap = new Map(); // SAP -> {..., tipo}, última ocurrencia gana\n  let cargasExitosas = 0;\n\n  for (const b of bloques) {\n    const mTs = b.match(/Inicio Procesado Comprobantes\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    const bTs = mTs ? dt(mTs[1]) : new Date(0);\n    const mOk = b.match(/Procesados Exitosamente:\\s*(\\d+)/i);\n    if (mOk) cargasExitosas = Math.max(cargasExitosas, parseInt(mOk[1], 10)); // pico, no suma\n\n    for (const p of b.split(/Se proceso Comprobante:/i).slice(1)) {\n      const sap    = (p.match(/SAP:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const codigo = (p.match(/digo:\\s*(\\d+)/i)   || [])[1] || \"\";\n      const nombre = (p.match(/Nombre:\\s*(.+?),/i)|| [])[1] || \"\";\n      const nit    = (p.match(/Nit:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const error  = ((p.match(/Error:\\s*(.+?)(?:\\n|$)/i) || [])[1] || \"\").trim();\n      if (!sap) continue;\n      const tipo = /ya existe/i.test(error) ? \"duplicado\" : \"real\";\n      const prev = porSap.get(sap);\n      if (!prev || bTs >= prev.ts) porSap.set(sap, { sap, codigo, nombre: nombre.trim(), nit, error, tipo, ts: bTs });\n    }\n  }\n\n  const erroresReales = [...porSap.values()].filter(x => x.tipo === \"real\");\n  const duplicados    = [...porSap.values()].filter(x => x.tipo === \"duplicado\").length;\n  return { cargasExitosas, erroresReales, duplicados };\n}\n\n// --- 4. Ejecutar ---\nconst sep = parseSeparador(sepLog);\nconst ban = parseBandeja(banLog);\nconst fecha = $node[\"Calcular Fechas\"]?.json?.fechaDisplay || new Date().toLocaleDateString(\"es-AR\");\n\nconst hayErrores = sep.errores > 0 || ban.erroresReales.length > 0;\n\n// --- 5. Armar mensaje HTML para Teams ---\nconst MAX = 10;\nconst fmtSep = sep.detalles.slice(0, MAX)\n  .map(d => `&bull; Cod ${d.codigo} (NIT ${d.nit}) ${d.nombre} — ${d.error}`).join(\"<br>\");\nconst fmtBan = ban.erroresReales.slice(0, MAX)\n  .map(d => `&bull; SAP ${d.sap} / Cod ${d.codigo} (NIT ${d.nit}) — ${d.error}`).join(\"<br>\");\n\nlet msg = `<b>Reporte Procesamiento Belcorp — ${fecha}</b><br><br>`;\nmsg += `<b>Separador</b><br>✅ Procesados: ${sep.exitosos} &nbsp; 🔴 Errores: ${sep.errores}<br>`;\nif (sep.detalles.length) msg += fmtSep + (sep.detalles.length > MAX ? `<br>… +${sep.detalles.length - MAX} más` : \"\") + \"<br>\";\nmsg += `<br><b>InterfazTXT (Bandeja)</b><br>✅ Cargas OK: ${ban.cargasExitosas} &nbsp; 🔴 Errores reales: ${ban.erroresReales.length}`;\nif (ban.duplicados) msg += ` &nbsp; ⚠️ Duplicados (“ya existe”): ${ban.duplicados}`;\nmsg += \"<br>\";\nif (ban.erroresReales.length) msg += fmtBan + (ban.erroresReales.length > MAX ? `<br>… +${ban.erroresReales.length - MAX} más` : \"\") + \"<br>\";\nif (sep.reprocesos) msg += `<br><i>⚠️ Se detectó reprocesamiento (${sep.reprocesos} corrida/s repetida/s). Conteos = estado final; validar contra comfiar si hay dudas.</i>`;\nif (!hayErrores) msg += `<br>🟢 <b>Sin errores reales. Todo procesado.</b>`;\n\nreturn [{ json: { fecha, hayErrores, mensaje: msg, reporte: { separador: sep, bandeja: ban } } }];\n"
-      },
-      "id": "78acb62f-96e0-4223-be42-688aca7d0bf7",
-      "name": "Parsear y Formatear",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        800,
-        176
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "return [\n  {\n    json: {\n      server: \"ftp.comfiar.com.bo\",\n      puerto: 21,\n      user: \"1028501021\",\n      pass: \"qwNq(#R6xb\"\n    }\n  },\n  {\n    json: {\n      server: \"ftp.comfiar.com.bo\",\n      puerto: 21,\n      user: \"T1028501021\",\n      pass: \"&K-b6K(E\"\n    }\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
@@ -231,56 +98,6 @@
     },
     {
       "parameters": {
-        "resource": "channelMessage",
-        "teamId": {
-          "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
-          "mode": "list",
-          "cachedResultName": "n8n notifications"
-        },
-        "channelId": {
-          "__rl": true,
-          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
-          "mode": "list",
-          "cachedResultName": "test-interno",
-          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
-        },
-        "contentType": "html",
-        "message": "={{$json.mensaje}}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.microsoftTeams",
-      "typeVersion": 2,
-      "position": [
-        1120,
-        0
-      ],
-      "id": "ff8ba713-5279-4f00-a38c-cadb557f5467",
-      "name": "Create message",
-      "webhookId": "4d5f3a16-63a0-4622-87cb-bc87607a0b5b",
-      "credentials": {
-        "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "text",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.extractFromFile",
-      "typeVersion": 1,
-      "position": [
-        608,
-        -224
-      ],
-      "id": "1487a27d-4486-4964-9a9a-3fe69f06f368",
-      "name": "Extract from File"
-    },
-    {
-      "parameters": {
         "content": "## Que dia de log reviso? Si no existe el que estoy busacndo busco el del dia de hoy o el del dia anterior o el del dia pasado al anterior\n",
         "height": 240,
         "width": 336
@@ -288,160 +105,11 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -368,
-        -656
+        -288,
+        240
       ],
       "id": "87bff35a-ad63-4eff-9c61-db886dbb229c",
       "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "formTitle": "test",
-        "formDescription": "test",
-        "formFields": {
-          "values": [
-            {
-              "fieldLabel": "data",
-              "fieldType": "file"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.formTrigger",
-      "typeVersion": 2.3,
-      "position": [
-        656,
-        -544
-      ],
-      "id": "f7b7a835-c7c3-4ed9-bae2-d0c8180b2ae6",
-      "name": "On form submission",
-      "webhookId": "b53381d5-227a-4085-b5cc-b3ca0b243e47"
-    },
-    {
-      "parameters": {
-        "path": "=/LogsSeparador/LogBandeja20260702.txt",
-        "options": {}
-      },
-      "id": "71ef86c1-9ae0-4311-bc42-78aa6c5a4bba",
-      "name": "FTP - Leer Bandeja",
-      "type": "n8n-nodes-base.ftp",
-      "typeVersion": 1,
-      "position": [
-        384,
-        80
-      ],
-      "credentials": {
-        "ftp": {
-          "id": "QHOqeKBNbTYCB2qD",
-          "name": "FTP Dinámico"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "path": "/LogsSeparador/LogSeparador20260706.txt",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.ftp",
-      "typeVersion": 1,
-      "position": [
-        336,
-        -544
-      ],
-      "id": "d0ea343f-4d38-4cab-b977-e968d00f14ae",
-      "name": "FTP",
-      "credentials": {
-        "ftp": {
-          "id": "QHOqeKBNbTYCB2qD",
-          "name": "FTP Dinámico"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.ftp",
-      "typeVersion": 1,
-      "position": [
-        0,
-        -576
-      ],
-      "id": "e7ea0d09-bdc1-4322-9bee-251abc2ddc4e",
-      "name": "FTP1",
-      "credentials": {
-        "ftp": {
-          "id": "sZ3lVQeVeeJ0JgH5",
-          "name": "FTP account 4"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "text",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.extractFromFile",
-      "typeVersion": 1,
-      "position": [
-        560,
-        176
-      ],
-      "id": "46dcb805-6ed6-4c00-bff6-e725523c2b71",
-      "name": "Extract from File1"
-    },
-    {
-      "parameters": {
-        "jsCode": "// === Parser logs Belcorp: Separador + Bandeja (InterfazTXT) ===\n// Modo: Run Once for All Items. Recibe los Extract from File (uno por log).\n// Clasifica cada log por contenido, no por nombre de campo (robusto).\n\nconst dt = (s) => {\n  const [d, t] = s.split(' ');\n  const [dd, mm, yy] = d.split('/');\n  return new Date(`${yy}-${mm}-${dd}T${t}`);\n};\n\n// --- 1. Clasificar los logs recibidos ---\nlet sepLog = \"\", banLog = \"\";\nfor (const it of $input.all()) {\n  const txt = it.json.data ?? it.json.text ?? it.json.fileContent ?? \"\";\n  if (/Inicio parseador documentos/i.test(txt)) sepLog += \"\\n\" + txt;\n  else if (/Inicio Procesado Comprobantes/i.test(txt)) banLog += \"\\n\" + txt;\n}\n\n// --- 2. Separador: bloque por archivo, ÚLTIMA corrida gana ---\nfunction parseSeparador(txt) {\n  const bloques = txt.split(/(?=Inicio parseador documentos:)/g).map(b => b.trim()).filter(Boolean);\n  const porArchivo = new Map();\n  let reprocesos = 0;\n\n  for (const b of bloques) {\n    const mFile = b.match(/Inicio parseador documentos:\\s*(.+?)\\s*\\.\\.\\.\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    if (!mFile) continue;\n    const archivo = mFile[1].trim();\n    const ts = dt(mFile[2]);\n\n    const mOk  = b.match(/Parseados Correctamente\\s*:\\s*(\\d+)/i);\n    const mErr = b.match(/Con error:\\s*(\\d+)/i);\n    if (!mOk && !mErr) continue; // corrida trunca (servicio cayó) -> ignorar\n\n    const ok  = mOk  ? parseInt(mOk[1], 10)  : 0;\n    const err = mErr ? parseInt(mErr[1], 10) : 0;\n\n    const detalles = [];\n    const re = /Codigo:\\s*([^,]*),\\s*Nombre:\\s*(.+?),\\s*Nit:\\s*([^,]*),.*?ERROR DE FORMATO:\\s*(.+?)(?=\\n|Fin parseador|$)/gis;\n    let m;\n    while ((m = re.exec(b)) !== null) {\n      detalles.push({ codigo: m[1].trim(), nombre: m[2].trim(), nit: m[3].trim(), error: m[4].trim() });\n    }\n\n    const prev = porArchivo.get(archivo);\n    if (prev) reprocesos++;\n    if (!prev || ts >= prev.ts) porArchivo.set(archivo, { ts, ok, err, detalles });\n  }\n\n  let exitosos = 0, errores = 0, detalles = [];\n  for (const v of porArchivo.values()) { exitosos += v.ok; errores += v.err; detalles.push(...v.detalles); }\n  return { exitosos, errores, detalles, reprocesos };\n}\n\n// --- 3. Bandeja: estado final por comprobante (SAP). \"ya existe\" = duplicado benigno ---\nfunction parseBandeja(txt) {\n  const bloques = txt.split(/(?=Inicio Procesado Comprobantes)/g).map(b => b.trim()).filter(Boolean);\n  const porSap = new Map(); // SAP -> {..., tipo}, última ocurrencia gana\n  let cargasExitosas = 0;\n\n  for (const b of bloques) {\n    const mTs = b.match(/Inicio Procesado Comprobantes\\s*(\\d{2}\\/\\d{2}\\/\\d{4} \\d{2}:\\d{2}:\\d{2})/);\n    const bTs = mTs ? dt(mTs[1]) : new Date(0);\n    const mOk = b.match(/Procesados Exitosamente:\\s*(\\d+)/i);\n    if (mOk) cargasExitosas = Math.max(cargasExitosas, parseInt(mOk[1], 10)); // pico, no suma\n\n    for (const p of b.split(/Se proceso Comprobante:/i).slice(1)) {\n      const sap    = (p.match(/SAP:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const codigo = (p.match(/digo:\\s*(\\d+)/i)   || [])[1] || \"\";\n      const nombre = (p.match(/Nombre:\\s*(.+?),/i)|| [])[1] || \"\";\n      const nit    = (p.match(/Nit:\\s*(\\d+)/i)    || [])[1] || \"\";\n      const error  = ((p.match(/Error:\\s*(.+?)(?:\\n|$)/i) || [])[1] || \"\").trim();\n      if (!sap) continue;\n      const tipo = /ya existe/i.test(error) ? \"duplicado\" : \"real\";\n      const prev = porSap.get(sap);\n      if (!prev || bTs >= prev.ts) porSap.set(sap, { sap, codigo, nombre: nombre.trim(), nit, error, tipo, ts: bTs });\n    }\n  }\n\n  const erroresReales = [...porSap.values()].filter(x => x.tipo === \"real\");\n  const duplicados    = [...porSap.values()].filter(x => x.tipo === \"duplicado\").length;\n  return { cargasExitosas, erroresReales, duplicados };\n}\n\n// --- 4. Ejecutar ---\nconst sep = parseSeparador(sepLog);\nconst ban = parseBandeja(banLog);\nconst fecha = $node[\"Calcular Fechas\"]?.json?.fechaDisplay || new Date().toLocaleDateString(\"es-AR\");\n\nconst hayErrores = sep.errores > 0 || ban.erroresReales.length > 0;\n\n// --- 5. Armar mensaje HTML para Teams ---\nconst MAX = 10;\nconst fmtSep = sep.detalles.slice(0, MAX)\n  .map(d => `&bull; Cod ${d.codigo} (NIT ${d.nit}) ${d.nombre} — ${d.error}`).join(\"<br>\");\nconst fmtBan = ban.erroresReales.slice(0, MAX)\n  .map(d => `&bull; SAP ${d.sap} / Cod ${d.codigo} (NIT ${d.nit}) — ${d.error}`).join(\"<br>\");\n\nlet msg = `<b>Reporte Procesamiento Belcorp — ${fecha}</b><br><br>`;\nmsg += `<b>Separador</b><br>✅ Procesados: ${sep.exitosos} &nbsp; 🔴 Errores: ${sep.errores}<br>`;\nif (sep.detalles.length) msg += fmtSep + (sep.detalles.length > MAX ? `<br>… +${sep.detalles.length - MAX} más` : \"\") + \"<br>\";\nmsg += `<br><b>InterfazTXT (Bandeja)</b><br>✅ Cargas OK: ${ban.cargasExitosas} &nbsp; 🔴 Errores reales: ${ban.erroresReales.length}`;\nif (ban.duplicados) msg += ` &nbsp; ⚠️ Duplicados (“ya existe”): ${ban.duplicados}`;\nmsg += \"<br>\";\nif (ban.erroresReales.length) msg += fmtBan + (ban.erroresReales.length > MAX ? `<br>… +${ban.erroresReales.length - MAX} más` : \"\") + \"<br>\";\nif (sep.reprocesos) msg += `<br><i>⚠️ Se detectó reprocesamiento (${sep.reprocesos} corrida/s repetida/s). Conteos = estado final; validar contra comfiar si hay dudas.</i>`;\nif (!hayErrores) msg += `<br>🟢 <b>Sin errores reales. Todo procesado.</b>`;\n\nreturn [{ json: { fecha, hayErrores, mensaje: msg, reporte: { separador: sep, bandeja: ban } } }];\n"
-      },
-      "id": "bcec3cbe-62df-4702-94de-9388e3089b09",
-      "name": "Parsear y Formatear1",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        816,
-        -224
-      ]
-    },
-    {
-      "parameters": {
-        "path": "=/LogsSeparador/LogSeparador20260702.txt",
-        "options": {}
-      },
-      "id": "8d635f47-4c1a-4c33-9d84-e822ed4419ae",
-      "name": "FTP - Leer Separador",
-      "type": "n8n-nodes-base.ftp",
-      "typeVersion": 1,
-      "position": [
-        384,
-        -160
-      ],
-      "credentials": {
-        "ftp": {
-          "id": "QHOqeKBNbTYCB2qD",
-          "name": "FTP Dinámico"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "update"
-      },
-      "type": "n8n-nodes-base.microsoftSql",
-      "typeVersion": 1.1,
-      "position": [
-        1104,
-        -336
-      ],
-      "id": "b1895023-9a08-49f7-bbc8-3f47a4b68cb0",
-      "name": "Microsoft SQL",
-      "credentials": {
-        "microsoftSql": {
-          "id": "hL9EZkFVhAg4kqAo",
-          "name": "Utiles-Viga"
-        }
-      }
     },
     {
       "parameters": {
@@ -558,8 +226,8 @@
       "webhookId": "4d5f3a16-63a0-4622-87cb-bc87607a0b5b",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
         }
       }
     },
@@ -570,50 +238,58 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        976,
-        432
+        -560,
+        320
       ],
       "id": "fb96ac3b-0ed9-4d25-a3d6-24de7bc84718",
       "name": "Sticky Note1"
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "3e8de9bd-4751-4c72-8382-5afab7bc4980",
-              "leftValue": "",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
         },
-        "options": {}
+        "channelId": {
+          "__rl": true,
+          "value": "19:5e3bf46869f140a39d48f869795379c5@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Bolivia - APP",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A5e3bf46869f140a39d48f869795379c5%40thread.tacv2/Bolivia%20-%20APP?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=Error al listar directorio",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
       },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
       "position": [
-        240,
-        928
+        224,
+        864
       ],
-      "id": "e0105966-01c2-4971-99f6-e539f4679d98",
-      "name": "Error"
+      "id": "ad37814a-7b00-4de4-9210-4e883cf0bea6",
+      "name": "Create message",
+      "webhookId": "4d5f3a16-63a0-4622-87cb-bc87607a0b5b",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
     }
   ],
   "pinData": {},
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Costa_Rica",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
@@ -633,7 +309,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 3,
-  "updatedAt": "2026-07-09T03:16:16.674Z",
-  "versionId": "b0fd597e-b156-4aac-a902-103e2c8b2bda"
+  "triggerCount": 1,
+  "updatedAt": "2026-07-14T22:07:11.638Z",
+  "versionId": "9a720887-dc2f-45c4-bd83-4adc2fad7488"
 }
