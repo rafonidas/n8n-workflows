@@ -340,14 +340,14 @@
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
+          "name": "APG-Teams"
         }
       },
       "notes": "{{ $node[\"Loop1\"].json[\"channelId\"] }}\n\n{{ $json.mensaje }}"
     },
     {
       "parameters": {
-        "jsCode": "const THRESHOLD_MINUTES = 240;\nconst stuckFiles = [];\n\n// Obtener datos del loop de forma segura\nconst loopItem = $node[\"Loop\"]?.json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - THRESHOLD_MINUTES * 60000);\n\n// --- 1. DETECTAR ERROR DEL NODO FTP ---\nif (items && items.length > 0) {\n  const firstItem = items[0];\n  \n  if (firstItem.json?.error) {\n    return [{\n      json: {\n        alerta_ftp: false,\n        nodo_error: true,\n        error_type: \"ftp\",\n        error_message: firstItem.json.error.message || \"FTP error\",\n        country: country,\n        cantidad_archivos: 0,\n        detalle_archivos: []\n      }\n    }];\n  }\n}\n\n// --- 2. PROCESAR ARCHIVOS NORMALMENTE ---\nfor (const item of items) {\n  try {\n    const { modifyTime, name } = item.json;\n\n    if (modifyTime && name) {\n      const fileDate = new Date(modifyTime);\n      \n      if (!isNaN(fileDate.getTime())) {\n        const fileInTz = new Date(fileDate.toLocaleString('en-US', { timeZone: tz }));\n        \n        if (fileInTz < limitDate) {\n          const diffMs = nowInTz - fileInTz;\n          const minsStuck = Math.floor(diffMs / (1000 * 60));\n          \n          stuckFiles.push({\n            filename: name,\n            minutes_stuck: minsStuck,\n            country: country\n          });\n        }\n      }\n    }\n  } catch (error) {\n    // Evitamos silenciar el error por completo para poder debuggear en n8n\n    console.log(`Error calculando fecha del archivo ${item.json?.name}: ${error.message}`);\n  }\n}\n\nreturn [{\n  json: {\n    alerta_ftp: stuckFiles.length > 0,\n    cantidad_archivos: stuckFiles.length,\n    detalle_archivos: stuckFiles,\n    country: country\n  }\n}];"
+        "jsCode": "const THRESHOLD_MINUTES = 240;\nconst stuckFiles = [];\n\n// Obtener datos del loop de forma segura\nconst loopItem = $node[\"Loop\"]?.json || {};\nconst country = loopItem.country || \"ARG\";\nconst tz = loopItem.timezone || \"America/Argentina/Buenos_Aires\";\n\nconst nowUTC = new Date();\nconst nowInTz = new Date(nowUTC.toLocaleString('en-US', { timeZone: tz }));\nconst limitDate = new Date(nowInTz.getTime() - THRESHOLD_MINUTES * 60000);\n\n// --- 1. DETECTAR ERROR DEL NODO FTP ---\nif (items && items.length > 0) {\n  const firstItem = items[0];\n  \n  if (firstItem.json?.error) {\n    return [{\n      json: {\n        alerta_ftp: false,\n        nodo_error: true,\n        error_type: \"ftp\",\n        error_message: firstItem.json.error.message || \"FTP error\",\n        country: country,\n        cantidad_archivos: 0,\n        detalle_archivos: []\n      }\n    }];\n  }\n}\n\n// --- 2. PROCESAR ARCHIVOS NORMALMENTE ---\nfor (const item of items) {\n  try {\n    // Agregamos 'type' a la desestructuración\n    const { modifyTime, name, type } = item.json;\n\n    // Cláusula de guarda: si es un directorio, saltamos a la siguiente iteración\n    if (type === 'd') continue; \n\n    if (modifyTime && name) {\n      const fileDate = new Date(modifyTime);\n      \n      if (!isNaN(fileDate.getTime())) {\n        const fileInTz = new Date(fileDate.toLocaleString('en-US', { timeZone: tz }));\n        \n        if (fileInTz < limitDate) {\n          const diffMs = nowInTz - fileInTz;\n          const minsStuck = Math.floor(diffMs / (1000 * 60));\n          \n          stuckFiles.push({\n            filename: name,\n            minutes_stuck: minsStuck,\n            country: country\n          });\n        }\n      }\n    }\n  } catch (error) {\n    // Evitamos silenciar el error por completo para poder debuggear en n8n\n    console.log(`Error calculando fecha del archivo ${item.json?.name}: ${error.message}`);\n  }\n}\n\nreturn [{\n  json: {\n    alerta_ftp: stuckFiles.length > 0,\n    cantidad_archivos: stuckFiles.length,\n    detalle_archivos: stuckFiles,\n    country: country\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -733,15 +733,15 @@
       "skipCount": 1,
       "history": {
         "ARG": {
-          "lastSignature": "__FTP_STUCK:1",
+          "lastSignature": "",
           "skipCount": 0
         },
         "PER": {
-          "lastSignature": "__FTP_STUCK:1",
+          "lastSignature": "__FTP_STUCK:3",
           "skipCount": 0
         },
         "ECU": {
-          "lastSignature": "__FTP_STUCK:1",
+          "lastSignature": "",
           "skipCount": 0
         }
       }
@@ -756,6 +756,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-07T12:45:56.806Z",
-  "versionId": "0d0564f0-bf50-48f7-b7ed-c23f18ec043e"
+  "updatedAt": "2026-07-15T12:52:34.650Z",
+  "versionId": "fbc3f888-7c45-4782-b90f-bc0244eb30c9"
 }
