@@ -224,7 +224,7 @@
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
-    "saveDataSuccessExecution": "none",
+    "saveDataSuccessExecution": "all",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
@@ -242,6 +242,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-30T19:29:04.357Z",
-  "versionId": "39523662-443b-49a3-bd1e-0e699477f250"
+  "updatedAt": "2026-07-16T23:52:07.659Z",
+  "versionId": "3131c682-7c40-4d3a-a63b-2d5e3c453955"
 }
