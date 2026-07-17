@@ -1,0 +1,1870 @@
+{
+  "active": true,
+  "connections": {
+    "Parse Command": {
+      "main": [
+        [
+          {
+            "node": "Switch Comando",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Comando": {
+      "main": [
+        [
+          {
+            "node": "List Query",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Script Query",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Docs Build",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Retry Split",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Default",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Query": {
+      "main": [
+        [
+          {
+            "node": "List Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Format": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Script Query": {
+      "main": [
+        [
+          {
+            "node": "Script Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Script Format": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Docs Build": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Split": {
+      "main": [
+        [
+          {
+            "node": "Retry Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Query": {
+      "main": [
+        [
+          {
+            "node": "Retry Mini Audit Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Mini Audit Start": {
+      "main": [
+        [
+          {
+            "node": "Retry Exec (call testo)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Exec (call testo)": {
+      "main": [
+        [
+          {
+            "node": "Retry Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Format": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default": {
+      "main": [
+        [
+          {
+            "node": "Create message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Teams Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create message": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Parse Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "Message Data": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Context": {
+      "main": [
+        [
+          {
+            "node": "Channel Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Merge": {
+      "main": [
+        [
+          {
+            "node": "Switch Comando1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Retry Has Id": {
+      "main": [
+        [
+          {
+            "node": "Retry Target",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Msg Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Msg Lookup": {
+      "main": [
+        [
+          {
+            "node": "Msg Resolve",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Msg Resolve": {
+      "main": [
+        [
+          {
+            "node": "IF Msg Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Msg Found": {
+      "main": [
+        [
+          {
+            "node": "Retry Target",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Target": {
+      "main": [
+        [
+          {
+            "node": "Retry Query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Creds": {
+      "main": [
+        [
+          {
+            "node": "Retry Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Payload": {
+      "main": [
+        [
+          {
+            "node": "IF Payload OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Payload OK": {
+      "main": [
+        [
+          {
+            "node": "Retry Exec (call testo)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Success Format": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Error Format": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Teams Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Message Data1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Data1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Parse Command1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Command1": {
+      "main": [
+        [
+          {
+            "node": "Channel Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Comando1": {
+      "main": [
+        [
+          {
+            "node": "List Query1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Script Query1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Docs Build1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Retry Split1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Default1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Query1": {
+      "main": [
+        [
+          {
+            "node": "List Format1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Format1": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Script Query1": {
+      "main": [
+        [
+          {
+            "node": "Script Format1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Script Format1": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Docs Build1": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Split1": {
+      "main": [
+        [
+          {
+            "node": "IF Retry Has Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Query1": {
+      "main": [
+        [
+          {
+            "node": "Retry Creds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retry Exec (call testo)1": {
+      "main": [
+        [
+          {
+            "node": "Retry Success Format",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Retry Error Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default1": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-08T19:19:04.275Z",
+  "id": "mm3XCBBVlL3jd1yX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Revision de Entornos - Comandos",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\n\n// 1. Extraemos el contenido string directamente\nconst contentString = item.body?.content || '';\n\n// 2. Limpiamos las etiquetas HTML para dejar solo el comando (ej: \"/query 51748\")\nconst raw = contentString.replace(/<at>.*?<\\/at>/g, '').replace(/<[^>]+>/g, '').trim();\n\n// 3. Match del comando\nconst m = raw.match(/^\\/(\\w+)\\s*(.*)$/);\n\n// Si el mensaje no tiene el formato de comando (no empieza con \"/\"), devolvemos objeto vacío\nif (!m) {\n  return []; \n  // Nota: Si querías detener el flujo por completo, usa: return [];\n}\n\n// 4. Extraemos el channelId desde el @odata.context usando la regex probada\nlet channelId = '';\nconst contextUrl = item['@odata.context'] || '';\nconst channelMatch = contextUrl.match(/channels\\('([^']+)'\\)/);\n\nif (channelMatch && channelMatch[1]) {\n    // 5. Clave: Decodificar el string para transformar %3A en : y %40 en @\n    channelId = decodeURIComponent(channelMatch[1]);\n}\n\n// 6. Diccionario de países\nconst canalPais = {\n  '19:NohjVulNVM9XkmN1lG0Y4aRWueYhTX1eLWX66T-n83Y1@thread.tacv2': 'CO',\n  '19:NQRQiHrUhszmot2VXKYb_bU_YEOJCW1DGq5vKLpnTpw1@thread.tacv2': 'AR' \n};\n\n// 7. Retorno exitoso\nreturn [{ \n  json: {\n    comando: m[1].toLowerCase(),\n    arg: m[2].trim(),\n    channelId: channelId,\n    pais_canal: canalPais[channelId] || null\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        896
+      ],
+      "id": "0474d029-d988-4d10-b6b2-f76c13a953e5",
+      "name": "Parse Command"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c1",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "list",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "list"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c2a",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "script",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "id": "c2b",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "query",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "or"
+              },
+              "renameOutput": true,
+              "outputKey": "script"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c3",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "docs",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "docs"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c4",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "retry",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "retry"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        592,
+        848
+      ],
+      "id": "28b0e50f-c811-4578-a1c3-db4c389eb974",
+      "name": "Switch Comando"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT query_id, description, type, target_env, application FROM revision_queries WHERE ($1='ALL') OR upper(country)=upper($1) OR country='ALL' ORDER BY type, query_id;",
+        "options": {
+          "queryReplacement": "={{ $json.arg || $json.pais_canal || 'ALL' }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1488,
+        512
+      ],
+      "id": "8d391ec2-0c69-453b-9626-b6a7516f26b1",
+      "name": "List Query",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json);\nconst scope = $('Parse Command').first().json.arg || $('Parse Command').first().json.pais_canal || 'TODOS';\nif (!rows.length) return [{ json: { reply: `No hay queries para ${scope}.` } }];\nconst grupos = {};\nfor (const r of rows) (grupos[r.type || 'sin-type'] ||= []).push(r.query_id);\nlet txt = `**Queries (${scope})**\\n`;\nfor (const [t, ids] of Object.entries(grupos)) txt += `\\n**${t} (${ids.length}):** ${ids.join(', ')}`;\nreturn [{ json: { reply: txt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        512
+      ],
+      "id": "3a878004-f132-4eab-8624-251483f7ee4a",
+      "name": "List Format"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT query_id, description, revision_query FROM revision_queries WHERE query_id = $1;",
+        "options": {
+          "queryReplacement": "={{ $json.arg }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1488,
+        704
+      ],
+      "id": "b42c43bc-0ffb-4ef9-aefd-556ec0f4decd",
+      "name": "Script Query",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(j => j.query_id);\nconst id = $('Parse Command').first().json.arg;\nif (!rows.length) return [{ json: { reply: `No encontré la query ${id}.` } }];\nlet txt = '';\nrows.forEach((r, i) => {\n  const tag = rows.length > 1 ? ` (variante ${i+1}/${rows.length})` : '';\n  // Se reemplaza el bloque de markdown por etiquetas HTML <code>\n  txt += `**${r.query_id}${tag}** — ${r.description || ''}\\n\\n<code>\\n${r.revision_query}\\n</code>\\n\\n`;\n});\nreturn [{ json: { reply: txt.trim() } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        704
+      ],
+      "id": "7c07a918-56a2-492b-90e8-ed7674e0c8b4",
+      "name": "Script Format"
+    },
+    {
+      "parameters": {
+        "jsCode": "const id = $json.arg;\nif (!id) return [{ json: { reply: 'Uso: /docs [id]' } }];\nconst url = `https://apg.cloudafm.com:443/default.aspx?accion=editardoc&DocumentoId=${id}&VersionId=1`;\nreturn [{ json: { reply: `<a href=\"${url}\">Link al AFM</a>` } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        896
+      ],
+      "id": "4f594705-4ee1-4ea8-a335-e7f9da9ca240",
+      "name": "Docs Build"
+    },
+    {
+      "parameters": {
+        "jsCode": "const parts = ($json.arg || '').split(/\\s+/).filter(Boolean);\nreturn [{ json: { ...$json, retry_id: parts[0] || '', retry_entorno: (parts[1] || '').toUpperCase() } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        1088
+      ],
+      "id": "f893e315-dc21-445d-a48d-bf30089301ff",
+      "name": "Retry Split"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM revision_queries WHERE query_id = $1;",
+        "options": {
+          "queryReplacement": "={{ $json.retry_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1040,
+        1088
+      ],
+      "id": "a0e1b7b7-8a13-4b81-973b-506945210fbf",
+      "name": "Retry Query",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const q = $json;\nif (!q.query_id) return [{ json: { reply: `No encontré la query ${$('Retry Split').first().json.retry_id}.`, _skip: true } }];\nconst app = (q.application || '').trim();\nconst flag = app === 'COMFIAR 2' ? 'comfiar2' : (app === 'VIGA' || app === 'Beelling') ? 'apgcore' : 'COMFIAR';\nreturn [{ json: { ...q,\n  flag,\n  country: $('Parse Command').first().json.pais_canal,\n  entorno: $('Retry Split').first().json.retry_entorno,\n  hora_ejecucion_real: DateTime.now().setZone('America/Argentina/Buenos_Aires').toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\"),\n  audit_startTime: new Date().getTime()\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        1088
+      ],
+      "id": "5bc1353d-e968-443f-86d2-a3ec969b5a59",
+      "name": "Retry Mini Audit Start"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "3pr7wL0vbaiWmaGy",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/3pr7wL0vbaiWmaGy",
+          "cachedResultName": "SQL Execute"
+        },
+        "workflowInputs": {
+          "mappingMode": "passthrough",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1488,
+        1088
+      ],
+      "id": "24a3acfb-be71-41c3-a5a9-2af4a00669d1",
+      "name": "Retry Exec (call testo)",
+      "notes": "Reemplazar workflowId por el de 'call testo'."
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $input.all().map(i => i.json);\nconst id = $('Retry Split').first().json.retry_id;\nconst ent = $('Retry Split').first().json.retry_entorno || '';\nconst err = r.find(x => typeof x.error === 'string');\nif (err) return [{ json: { reply: `❌ Retry ${id} ${ent}: ${err.error}` } }];\nconst filas = r.filter(x => x && Object.keys(x).length > 0).length;\nreturn [{ json: { reply: `✅ Retry ${id} ${ent}: ${filas} fila(s).` } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        1088
+      ],
+      "id": "16290c01-7862-4ca5-8ac1-25d10e4d71c0",
+      "name": "Retry Format"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { reply: 'Comandos: /list [país] · /script [id] · /docs [id] · /retry [id] [entorno]' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        1280
+      ],
+      "id": "2bdada08-aa66-4ef7-90f8-f0627af76e6b",
+      "name": "Default"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $item(\"0\").$node[\"Message Data\"].json[\"channelId\"] }}\n",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $json.reply }}",
+        "options": {
+          "includeLinkToWorkflow": false,
+          "makeReply": "={{ $item(\"0\").$node[\"Message Data\"].json[\"rootMessageId\"] }}\n"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        896
+      ],
+      "id": "44eb90f8-d301-401a-93bd-742839d43471",
+      "name": "Create message",
+      "webhookId": "67c06470-33e8-4bf0-a2e2-f683fd494116",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "watchAllChannels": true
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        896
+      ],
+      "id": "f4981c26-c22d-43f0-b5c4-4ede860a72fa",
+      "name": "Microsoft Teams Trigger",
+      "webhookId": "105dea8c-95ac-41f7-a22d-72e71ababdfd",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## /ayuda para explicaicon de los comandos y que hacen como funcionan\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        336,
+        1104
+      ],
+      "id": "7f997818-eeee-40d2-bae2-911dc4a0d02b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.isReply\n  ? \"https://graph.microsoft.com/v1.0/teams/\" + $json.teamId + \"/channels/\" + $json.channelId + \"/messages/\" + $json.rootMessageId + \"/replies/\" + $json.replyId\n  : \"https://graph.microsoft.com/v1.0/teams/\" + $json.teamId + \"/channels/\" + $json.channelId + \"/messages/\" + $json.rootMessageId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        896
+      ],
+      "id": "d0411575-16b1-4390-b6f1-3d545dc35249",
+      "name": "HTTP Request",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e986d62f-92dd-426c-9830-362f74ae251e",
+              "name": "=channel",
+              "value": "={{ $json['@odata.id'].match(/channels\\('([^']+)'\\)/) ? $json['@odata.id'].match(/channels\\('([^']+)'\\)/)[1] : null }}",
+              "type": "string"
+            },
+            {
+              "id": "eda46b3c-c4a4-487e-8628-26a827dc7c45",
+              "name": "message",
+              "value": "={{ $json['@odata.id'].match(/messages\\('([^']+)'\\)/) ? $json['@odata.id'].match(/messages\\('([^']+)'\\)/)[1] : null }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -304,
+        288
+      ],
+      "id": "667b50fd-8d23-47ad-808d-a83074026f42",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "CHANNEL ID MESSAGE ID \nTEAMS ID\n",
+        "width": 224
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        880
+      ],
+      "id": "57a25d4d-a383-4693-ad81-2e9427662576",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## TEXTO DEL MENSAJE\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        880
+      ],
+      "id": "dfa79a7e-bf49-4a21-9548-a8251e647979",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n}  else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = \"Monthly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n} else if ($(\"When Executed by Another Workflow\").isExecuted) {\n  executionType = 'Backup';\n}\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst serverSQL_Cines = {\n  server: \"172.17.0.150\",\n  db_info: [\n    { db: \"COMFIAR_CINES\", entorno: \"CINES\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"}\n  ],\n  port: 1433, \n  user: \"Soporte\",\n  password: \"FaLla:1+\"\n};\n\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\nconst dbsCines = mapDbs(serverSQL_Cines);\n\nlet listaMaestra = [...dbsArg, ...dbsCines, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        1504
+      ],
+      "id": "89db8825-bc81-4ad7-9f87-fd6f3c4338ad",
+      "name": "Set Credentials"
+    },
+    {
+      "parameters": {
+        "jsCode": "const odataId = $input.item.json[\"@odata.id\"];\n\nconst teamMatch    = odataId.match(/teams\\('([^']+)'\\)/);\nconst channelMatch = odataId.match(/channels\\('([^']+)'\\)/);\nconst rootMatch    = odataId.match(/messages\\('([^']+)'\\)/);\nconst replyMatch   = odataId.match(/replies\\('([^']+)'\\)/);\n\nreturn {\n  json: {\n    teamId: teamMatch ? teamMatch[1] : null,\n    channelId: channelMatch ? channelMatch[1] : null,\n    rootMessageId: rootMatch ? rootMatch[1] : null,\n    replyId: replyMatch ? replyMatch[1] : null,\n    isReply: !!replyMatch\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        896
+      ],
+      "id": "2c92d75a-3c1d-4ea2-b13d-9abd1971dde2",
+      "name": "Message Data"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT channel_id, team_id, country, entorno, application, timezone\nFROM canales\nWHERE channel_id = $1 AND activo = true\nLIMIT 1;",
+        "options": {
+          "queryReplacement": "={{ $json.channelId }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        592,
+        2112
+      ],
+      "id": "7a76d210-6f44-4ca3-a494-cb177b46ceaf",
+      "name": "Channel Context",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      },
+      "notes": "Resuelve channelId -> pais + entorno. Sin secretos. Se lee SIEMPRE, antes del Switch."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Une el comando parseado con el contexto del canal.\n// Desde aca, TODAS las ramas del Switch tienen pais + entorno disponibles.\nconst cmd  = $('Parse Command1').first().json;\nconst rows = $input.all().map(i => i.json).filter(r => r && r.channel_id);\nconst canal = rows[0] || {};\n\nreturn [{ json: {\n  ...cmd,\n  pais_canal:    canal.country     || null,\n  entorno_canal: canal.entorno     || null,\n  app_canal:     canal.application || null,\n  tz_canal:      canal.timezone    || 'America/Argentina/Buenos_Aires',\n  canal_conocido: !!canal.channel_id\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        2112
+      ],
+      "id": "f460cc3d-f2e8-40bd-86ab-3668dc1ac5f8",
+      "name": "Channel Merge"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "r1",
+              "leftValue": "={{ $json.retry_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1408,
+        2160
+      ],
+      "id": "0c7a5ee2-d3b1-4be8-839e-061bfccf47d7",
+      "name": "IF Retry Has Id"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT message_id, query_id, country, entorno, type\nFROM mensajes\nWHERE message_id = $1\nLIMIT 1;",
+        "options": {
+          "queryReplacement": "={{ $json.rootMessageId }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1536,
+        2304
+      ],
+      "id": "8cadbe9d-0156-4c6d-ba61-0b94c84a735a",
+      "name": "Msg Lookup",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      },
+      "notes": "Retry por reply: deduce query_id a partir del mensaje raiz. Depende del insert pendiente en el flujo de revision de entornos."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rama \"no vino id explicito\": deducirlo del mensaje al que se respondio.\nconst ctx  = $('Retry Split1').first().json;\nconst rows = $input.all().map(i => i.json).filter(r => r && r.message_id);\n\nif (!rows.length) {\n  return [{ json: { ...ctx, retry_id: '',\n    reply: 'No pude deducir a que query corresponde este mensaje. Indica el id: <code>/retry [id] [entorno]</code>' }}];\n}\n\nconst msg = rows[0];\nreturn [{ json: { ...ctx,\n  retry_id: String(msg.query_id),\n  _msg_pais: msg.country,\n  _msg_entorno: msg.entorno\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1696,
+        2304
+      ],
+      "id": "ecdb63ff-5c66-43f9-bbd8-5aec6e0a6825",
+      "name": "Msg Resolve"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "r2",
+              "leftValue": "={{ $json.retry_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1856,
+        2304
+      ],
+      "id": "6c891d11-45cd-4c29-876a-aa14a2558bcf",
+      "name": "IF Msg Found"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Convergen las 2 ramas. Prioridad:\n//   pais/entorno explicito en el arg  >  lo que dice el mensaje  >  default del canal\nconst j = $json;\nreturn [{ json: { ...j,\n  retry_pais:    j._msg_pais || j.pais_canal || '',\n  retry_entorno: j.retry_entorno_arg || j._msg_entorno || j.entorno_canal || ''\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1984,
+        2160
+      ],
+      "id": "6ac85f94-cda1-4119-bd41-5fd0cc697bbd",
+      "name": "Retry Target"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================================\n// PLACEHOLDER — credenciales hardcodeadas hasta tener el OK para\n// subirlas a Supabase. La forma de salida (sql_*) es IDENTICA a la\n// que devolveria \"select * from credenciales where country=$1 and entorno=$2\",\n// asi que migrar = reemplazar SOLO este nodo por uno Postgres.\n// ============================================================\nconst CREDS = {\n  // serverSQL1 — host.docker.internal:11434\n  'ARG|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_ar',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ARG|APP2':  { server:'host.docker.internal', port:11434, database:'comfiar_ar2',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'PER|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_pe',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CRI|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_cr',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'BOL|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_bo',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ECU|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_ec',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ARG|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.ar', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'PER|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.pe', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CRI|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.co.cr',  user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'BOL|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.bo', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ECU|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.ec', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL2 — host.docker.internal:11433\n  'COL|APP':   { server:'host.docker.internal', port:11433, database:'comfiar_co',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'COL|APP2':  { server:'host.docker.internal', port:11433, database:'comfiar_co2',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'COL|APP3':  { server:'host.docker.internal', port:11433, database:'comfiar_co3',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'COL|TEST':  { server:'host.docker.internal', port:11433, database:'test.comfiar.co',     user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL4 — host.docker.internal:11436\n  'COL|APP4':  { server:'host.docker.internal', port:11436, database:'comfiar_co4',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL_Cines — 172.17.0.150:1433\n  'ARG|CINES': { server:'172.17.0.150',         port:1433,  database:'COMFIAR_CINES',       user:'Soporte', password:'FaLla:1+' }\n};\n\nconst t = $('Retry Target').first().json;\nconst q = $json; // fila de revision_queries que viene de Retry Query\n\nconst key = `${t.retry_pais}|${t.retry_entorno}`;\nconst c = CREDS[key];\n\nif (!c) {\n  return [{ json: { _stop: true,\n    reply: `❌ No hay credenciales cargadas para <b>${t.retry_pais} / ${t.retry_entorno}</b>.` }}];\n}\n\nreturn [{ json: { ...q, ...c, sql_timeout: 90000 } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2432,
+        2160
+      ],
+      "id": "340366c5-2441-40ce-aba2-fc1d435aec09",
+      "name": "Retry Creds",
+      "notes": "PLACEHOLDER: credenciales hardcodeadas. Reemplazar por nodo Postgres contra 'credenciales' cuando tengas el OK."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Arma el payload EXACTO que espera el subflujo (call testo).\n// Reemplaza al viejo \"Retry Mini Audit Start\".\nif ($json._stop) return [{ json: $json }];\n\nconst t = $('Retry Target').first().json;\nconst j = $json; // fila de query + credenciales\n\nif (!j.query_id) {\n  return [{ json: { _stop: true, reply: `❌ No encontre la query ${t.retry_id}.` } }];\n}\n\nconst app  = (j.application || '').trim();\nconst flag = app === 'COMFIAR 2' ? 'comfiar2'\n           : (app === 'VIGA' || app === 'Beelling') ? 'apgcore'\n           : 'comfiar'; // ⚠️ minuscula, para matchear la captura del audit start original\n\nreturn [{ json: {\n  // --- query (mapeo snake_case -> camelCase que espera el subflujo) ---\n  id: j.id,\n  queryId: String(j.query_id),\n  revisionQuery: j.revision_query,\n  type: j.type,\n  description: j.description,\n  application: j.application,\n  flag,\n  // --- auditoria ---\n  hora_ejecucion_real: DateTime.now().setZone(t.tz_canal || 'America/Argentina/Buenos_Aires')\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\"),\n  audit_startTime: new Date().getTime(),\n  // --- conexion SQL (unico punto donde viajan los secretos) ---\n  timeout: j.timeout ?? 90000,\n  user: j.user,\n  password: j.password,\n  database: j.database,\n  port: j.port,\n  server: j.server,\n  // --- contexto extra (no esta en la captura; sacar si el subflujo se queja) ---\n  country: t.retry_pais,\n  entorno: t.retry_entorno\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2656,
+        2160
+      ],
+      "id": "27cca62e-898e-41bd-824e-8fee253e94e6",
+      "name": "Retry Payload"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "p1",
+              "leftValue": "={{ !!$json._stop }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2880,
+        2160
+      ],
+      "id": "1be779f5-7e0f-422d-abcc-9c27475a4229",
+      "name": "IF Payload OK"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(r => r && Object.keys(r).length);\nconst t = $('Retry Target').first().json;\nconst head = `Retry ${t.retry_id} ${t.retry_pais} ${t.retry_entorno}`;\nif (!rows.length) return [{ json: { reply: `✅ <b>${head}</b> — 0 filas.` } }];\nconst cols = Object.keys(rows[0]);\nconst header = `<tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr>`;\nconst body = rows.map(r => `<tr>${cols.map(c => `<td>${r[c]}</td>`).join('')}</tr>`).join('');\nreturn [{ json: { reply: `✅ <b>${head}</b> — ${rows.length} fila(s)<br><table border=\"1\">${header}${body}</table>` } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3488,
+        1856
+      ],
+      "id": "fc8e8e1c-e5db-4fd3-b287-66ff159e8d75",
+      "name": "Retry Success Format"
+    },
+    {
+      "parameters": {
+        "jsCode": "const t = $('Retry Target').first().json;\nconst err = $json.error?.message || $json.message || JSON.stringify($json);\nreturn [{ json: { reply: `❌ <b>Retry ${t.retry_id} ${t.retry_pais} ${t.retry_entorno}</b><br>${err}` } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3472,
+        2064
+      ],
+      "id": "25b97a02-bc94-4c3e-b004-af192ac7cb92",
+      "name": "Retry Error Format"
+    },
+    {
+      "parameters": {
+        "content": "## Contexto de canal\nChannel Context (Postgres -> tabla `canales`) resuelve channelId -> pais + entorno ANTES del Switch.\nNo trae secretos. Si el canal no esta cargado, pais_canal queda null."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        2560
+      ],
+      "id": "46534eb5-6ba6-4ca2-88e0-a88e3278bb04",
+      "name": "Sticky Context"
+    },
+    {
+      "parameters": {
+        "content": "## PENDIENTE\n- /help como rama propia del Switch\n- insert en `mensajes` desde el flujo de revision de entornos (sin eso, Msg Lookup nunca resuelve)\n- migrar revision_queries.country a alpha-3"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        3328
+      ],
+      "id": "3853d235-a611-42bf-80cf-f84523a5ffcd",
+      "name": "Sticky Pendientes"
+    },
+    {
+      "parameters": {
+        "content": "## SECRETOS\nRetry Creds tiene los passwords hardcodeados (placeholders).\nEs el UNICO nodo a reemplazar cuando pases `credenciales` a Supabase."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2144,
+        2736
+      ],
+      "id": "24231b29-73c9-46ba-95fb-ec6674002499",
+      "name": "Sticky Secretos"
+    },
+    {
+      "parameters": {
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "watchAllChannels": true
+      },
+      "type": "n8n-nodes-base.microsoftTeamsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        2112
+      ],
+      "id": "89e8fc93-c4e7-48fb-921b-d3a9e9ca32f5",
+      "name": "Microsoft Teams Trigger1",
+      "webhookId": "105dea8c-95ac-41f7-a22d-72e71ababdfd",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const odataId = $input.item.json[\"@odata.id\"];\n\nconst teamMatch    = odataId.match(/teams\\('([^']+)'\\)/);\nconst channelMatch = odataId.match(/channels\\('([^']+)'\\)/);\nconst rootMatch    = odataId.match(/messages\\('([^']+)'\\)/);\nconst replyMatch   = odataId.match(/replies\\('([^']+)'\\)/);\n\nreturn {\n  json: {\n    teamId: teamMatch ? teamMatch[1] : null,\n    channelId: channelMatch ? channelMatch[1] : null,\n    rootMessageId: rootMatch ? rootMatch[1] : null,\n    replyId: replyMatch ? replyMatch[1] : null,\n    isReply: !!replyMatch\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        2112
+      ],
+      "id": "a3a166d4-232d-45cb-a216-fa3d75e4b22b",
+      "name": "Message Data1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.isReply\n  ? \"https://graph.microsoft.com/v1.0/teams/\" + $json.teamId + \"/channels/\" + $json.channelId + \"/messages/\" + $json.rootMessageId + \"/replies/\" + $json.replyId\n  : \"https://graph.microsoft.com/v1.0/teams/\" + $json.teamId + \"/channels/\" + $json.channelId + \"/messages/\" + $json.rootMessageId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        2112
+      ],
+      "id": "f2a965ab-f216-40bd-8684-75b407b5bb73",
+      "name": "HTTP Request1",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// El channelId ya viene limpio desde Message Data (@odata.id trae \":\" y \"@\" crudos).\n// Ya NO hay diccionario canalPais: el país/entorno los resuelve \"Channel Context\" contra Supabase.\nconst item = $input.first().json;\nconst msg  = $('Message Data1').first().json;\n\nconst raw = (item.body?.content || '')\n  .replace(/<at>.*?<\\/at>/g, '')\n  .replace(/<[^>]+>/g, '')\n  .trim();\n\nconst m = raw.match(/^\\/(\\w+)\\s*(.*)$/);\nif (!m) return [];\n\nreturn [{ json: {\n  comando: m[1].toLowerCase(),\n  arg: m[2].trim(),\n  teamId: msg.teamId,\n  channelId: msg.channelId,\n  rootMessageId: msg.rootMessageId,\n  replyId: msg.replyId,\n  isReply: msg.isReply\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        368,
+        2112
+      ],
+      "id": "41eb8ea4-aa15-4577-93bc-ddaf5cfb25ed",
+      "name": "Parse Command1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c1",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "list",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "list"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c2a",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "script",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "id": "c2b",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "query",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "or"
+              },
+              "renameOutput": true,
+              "outputKey": "script"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c3",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "docs",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "docs"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "c4",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "retry",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "retry"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        2064
+      ],
+      "id": "793b156f-bec2-4139-96a2-1eab8995a8f4",
+      "name": "Switch Comando1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT query_id, description, type, target_env, application\nFROM revision_queries\nWHERE ($1='ALL' OR upper(country)=upper($1) OR country='ALL')\nORDER BY type, query_id;",
+        "options": {
+          "queryReplacement": "={{ ($json.arg || $json.pais_canal || 'ALL').toUpperCase() }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1264,
+        1552
+      ],
+      "id": "2596b190-9517-49dd-8fd7-b0d11dc44ab4",
+      "name": "List Query1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(r => r && r.query_id);\nconst ctx = $('Channel Merge').first().json;\nconst scope = ctx.arg || ctx.pais_canal || 'TODOS';\nif (!rows.length) return [{ json: { reply: `No hay queries para ${scope}.` } }];\nconst grupos = {};\nfor (const r of rows) (grupos[r.type || 'sin-type'] ||= []).push(r.query_id);\nlet txt = `<b>Queries (${scope})</b><br>`;\nfor (const [t, ids] of Object.entries(grupos)) txt += `<br><b>${t} (${ids.length}):</b> ${ids.join(', ')}`;\nreturn [{ json: { reply: txt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        1552
+      ],
+      "id": "1d62b32d-c1c3-4d15-806f-88f3292fd47e",
+      "name": "List Format1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT query_id, description, revision_query FROM revision_queries WHERE query_id = $1;",
+        "options": {
+          "queryReplacement": "={{ $json.arg }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1264,
+        1744
+      ],
+      "id": "cb0e0f1a-1ddb-44b9-9b5a-8e9376700cfd",
+      "name": "Script Query1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(j => j.query_id);\nconst id = $('Channel Merge').first().json.arg;\nif (!rows.length) return [{ json: { reply: `No encontre la query ${id}.` } }];\nlet txt = '';\nrows.forEach((r, i) => {\n  const tag = rows.length > 1 ? ` (variante ${i+1}/${rows.length})` : '';\n  txt += `<b>${r.query_id}${tag}</b> — ${r.description || ''}<br><br><code>${r.revision_query}</code><br><br>`;\n});\nreturn [{ json: { reply: txt.trim() } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        1744
+      ],
+      "id": "d2cc84ce-3eb1-4931-9ca6-0c5f9f442053",
+      "name": "Script Format1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const id = $json.arg;\nif (!id) return [{ json: { reply: 'Uso: /docs [id]' } }];\nconst url = `https://apg.cloudafm.com:443/default.aspx?accion=editardoc&DocumentoId=${id}&VersionId=1`;\nreturn [{ json: { reply: `<a href=\"${url}\">${url}</a>` } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        1936
+      ],
+      "id": "ce9d1c46-7a23-439b-b0e2-2fa033d73163",
+      "name": "Docs Build1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Arrastra el contexto del canal + separa los args de /retry\nconst parts = ($json.arg || '').split(/\\s+/).filter(Boolean);\nreturn [{ json: {\n  ...$json,\n  retry_id: parts[0] || '',\n  retry_entorno_arg: (parts[1] || '').toUpperCase()\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        2144
+      ],
+      "id": "460a52d6-8a83-4064-b30e-3f479dbf493d",
+      "name": "Retry Split1"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM revision_queries WHERE query_id = $1;",
+        "options": {
+          "queryReplacement": "={{ $json.retry_id }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2208,
+        2160
+      ],
+      "id": "28c685bc-4fd0-4d88-bb10-325202e5a016",
+      "name": "Retry Query1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "3pr7wL0vbaiWmaGy",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/3pr7wL0vbaiWmaGy",
+          "cachedResultName": "SQL Execute"
+        },
+        "workflowInputs": {
+          "mappingMode": "passthrough",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3200,
+        2048
+      ],
+      "id": "69a14e7f-5e0b-4cae-89d8-47f23f7a57bf",
+      "name": "Retry Exec (call testo)1",
+      "alwaysOutputData": true,
+      "onError": "continueErrorOutput",
+      "notes": "Reemplazar workflowId por el de 'call testo'. On Error = Continue (using error output)."
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { reply: 'Comando no reconocido. Comandos: /list [pais] · /script [id] · /docs [id] · /retry [id] [entorno]' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        2768
+      ],
+      "id": "83747079-f22c-4c9d-be36-4f920b71020f",
+      "name": "Default1"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $('Message Data1').first().json.channelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "={{ $json.reply }}",
+        "options": {
+          "includeLinkToWorkflow": false,
+          "makeReply": "={{ $('Message Data1').first().json.rootMessageId }}"
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        3952,
+        2784
+      ],
+      "id": "be7d4ddc-ba53-40fc-af47-3881b19be916",
+      "name": "Create message1",
+      "webhookId": "67c06470-33e8-4bf0-a2e2-f683fd494116",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "https://teams.cloud.microsoft/l/channel/19%3AKqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1%40thread.tacv2/Argentina%20-%20APP?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336",
+        "height": 304,
+        "width": 816
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        1504
+      ],
+      "id": "31e1b338-b0ac-48e4-85ac-e9303e565d2c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "operation": "getAll",
+        "teamId": {
+          "__rl": true,
+          "value": "=2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "id",
+          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
+        },
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        2608,
+        1616
+      ],
+      "id": "73f1d3fe-0ca1-48ce-ac29-525c93d49aad",
+      "name": "Get many messages",
+      "webhookId": "5a292ad7-0eae-4ad9-bd05-fc7fdcee9ec4",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Message Data": [
+      {
+        "json": {
+          "teamId": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "channelId": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "rootMessageId": "1783598110541",
+          "replyId": "1784128990595",
+          "isReply": true
+        }
+      }
+    ],
+    "Microsoft Teams Trigger": [
+      {
+        "json": {
+          "id": "1784221642646",
+          "@odata.type": "#Microsoft.Graph.chatMessage",
+          "@odata.id": "teams('53f577e2-4094-42b5-8a8b-695b91d0d74f')/channels('19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2')/messages('1784221642646')"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "createdAt": "2026-06-08T19:19:04.275Z",
+      "updatedAt": "2026-06-08T19:19:04.275Z",
+      "role": "workflow:owner",
+      "workflowId": "mm3XCBBVlL3jd1yX",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Microsoft Teams Trigger": {},
+    "node:Microsoft Teams Trigger1": {
+      "subscriptionIds": [
+        "034a25b8-cca7-4f37-ae55-2760ad067cc1",
+        "8a281f17-ff08-4e3b-9c67-239962392c98",
+        "3a4cd428-9528-455f-b1ee-b3b02f006048"
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-16T23:44:48.790Z",
+  "versionId": "cf5f72ca-abf0-42c6-a712-11c90c37d43f"
+}
