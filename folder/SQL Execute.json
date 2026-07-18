@@ -224,7 +224,7 @@
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
-    "saveDataSuccessExecution": "all",
+    "saveDataSuccessExecution": "none",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
@@ -239,9 +239,11 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Microsoft Teams Trigger": {}
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2026-07-16T23:52:07.659Z",
-  "versionId": "3131c682-7c40-4d3a-a63b-2d5e3c453955"
+  "triggerCount": 1,
+  "updatedAt": "2026-07-17T18:32:00.205Z",
+  "versionId": "d4561a9e-81a3-4354-8a6b-a88403684683"
 }
