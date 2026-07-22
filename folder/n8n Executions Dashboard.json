@@ -1,0 +1,173 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Plantilla",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Plantilla": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Set HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set HTML": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-04-24T02:11:44.784Z",
+  "id": "6Zg98cvLN9fsA3Iz",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "n8n Executions Dashboard",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "n8n-dashboard",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "24910693-4f30-442c-be8e-b543c2647688",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        848,
+        352
+      ],
+      "webhookId": "n8n-executions-dashboard"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "tpl-001",
+              "name": "template",
+              "value": "<!DOCTYPE html>\n<html lang='es'>\n<head>\n<meta charset='UTF-8'>\n<meta name='viewport' content='width=device-width,initial-scale=1.0'>\n<title>n8n Dashboard — Ejecuciones</title>\n<script src='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js'></script>\n<style>\n:root {\n  --bg:      #0d1117;\n  --surface: #161b22;\n  --card:    #1c2128;\n  --border:  #30363d;\n  --text:    #e6edf3;\n  --muted:   #7d8590;\n  --primary: #6e7bf8;\n  --green:   #3fb950;\n  --red:     #f85149;\n  --yellow:  #d29922;\n  --blue:    #58a6ff;\n}\n*{box-sizing:border-box;margin:0;padding:0}\nbody{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}\na{color:var(--blue);text-decoration:none}\n\n/* ── Layout ── */\n.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}\n.header h1{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:8px}\n.header-meta{font-size:.75rem;color:var(--muted);text-align:right}\n\n.filters{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}\n.filter-group{display:flex;align-items:center;gap:8px}\n.filter-label{font-size:.75rem;color:var(--muted);white-space:nowrap}\nselect{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.82rem;cursor:pointer;min-width:180px}\nselect:focus{outline:none;border-color:var(--primary)}\n.btn-group{display:flex;gap:3px}\n.btn{padding:5px 11px;font-size:.78rem;border:1px solid var(--border);background:var(--card);color:var(--muted);border-radius:5px;cursor:pointer;transition:all .12s}\n.btn:hover{color:var(--text);border-color:var(--muted)}\n.btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}\n\n.main{padding:18px 24px;max-width:1600px}\n\n/* ── KPI cards ── */\n.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:18px}\n.kpi{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;position:relative;overflow:hidden}\n.kpi-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}\n.kpi-value{font-size:1.65rem;font-weight:700;line-height:1}\n.kpi-sub{font-size:.72rem;color:var(--muted);margin-top:5px}\n.kpi.c-green .kpi-value{color:var(--green)}\n.kpi.c-red   .kpi-value{color:var(--red)}\n.kpi.c-blue  .kpi-value{color:var(--blue)}\n.kpi.c-pri   .kpi-value{color:var(--primary)}\n.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:currentColor;opacity:.4}\n.kpi.c-green::after{color:var(--green)}\n.kpi.c-red::after{color:var(--red)}\n.kpi.c-blue::after{color:var(--blue)}\n.kpi.c-pri::after{color:var(--primary)}\n\n/* ── Charts ── */\n.charts-row{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}\n.chart-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}\n.chart-card h3{font-size:.82rem;color:var(--muted);margin-bottom:12px;font-weight:500}\n.chart-full{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px}\n.chart-full h3{font-size:.82rem;color:var(--muted);margin-bottom:12px;font-weight:500}\n\n/* ── Tables ── */\n.table-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px}\n.table-card h3{font-size:.9rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px}\n.table-card h3 .badge-count{font-size:.7rem;background:var(--surface);border:1px solid var(--border);padding:1px 7px;border-radius:10px;color:var(--muted);font-weight:400}\n.tscroll{overflow-x:auto}\ntable{width:100%;border-collapse:collapse;font-size:.8rem}\nth{padding:7px 10px;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);text-align:left;cursor:pointer;user-select:none;white-space:nowrap}\nth:hover{color:var(--text)}\ntd{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}\ntr:last-child td{border-bottom:none}\ntr:hover td{background:rgba(255,255,255,.025)}\n.tar{text-align:right}\n\n/* ── Utilities ── */\n.badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:.7rem;font-weight:600;white-space:nowrap}\n.badge.success {background:rgba(63,185,80,.15);color:var(--green)}\n.badge.error   {background:rgba(248,81,73,.15);color:var(--red)}\n.badge.crashed {background:rgba(210,153,34,.15);color:var(--yellow)}\n.badge.canceled{background:rgba(125,133,144,.15);color:var(--muted)}\n\n.bar-wrap{display:flex;align-items:center;gap:7px;min-width:100px}\n.bar-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}\n.bar-fill{height:100%;border-radius:2px;transition:width .3s}\n.bar-ok {background:var(--green)}\n.bar-bad{background:var(--red)}\n.pct-text{font-size:.75rem;min-width:40px}\n\n.chip-list{display:flex;flex-wrap:wrap;gap:3px}\n.chip{font-size:.68rem;padding:1px 5px;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--muted)}\n\n.err-msg{font-size:.75rem;color:var(--muted);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:default}\n.mono{font-family:'Consolas','Courier New',monospace;font-size:.75rem}\n\n@media(max-width:900px){\n  .charts-row{grid-template-columns:1fr}\n  .main{padding:12px}\n}\n</style>\n</head>\n<body>\n\n<div class='header'>\n  <h1>⚡ n8n Execution Dashboard</h1>\n  <div class='header-meta' id='hMeta'>–</div>\n</div>\n\n<div class='filters'>\n  <div class='filter-group'>\n    <span class='filter-label'>Workflow</span>\n    <select id='selWf'><option value=''>Todos</option></select>\n  </div>\n  <div class='filter-group'>\n    <span class='filter-label'>Período</span>\n    <div class='btn-group'>\n      <button class='btn' onclick='setRange(7,this)'>7d</button>\n      <button class='btn active' onclick='setRange(30,this)'>30d</button>\n      <button class='btn' onclick='setRange(90,this)'>90d</button>\n      <button class='btn' onclick='setRange(0,this)'>Todo</button>\n    </div>\n  </div>\n</div>\n\n<div class='main'>\n\n  <div class='kpi-grid'>\n    <div class='kpi c-pri'>\n      <div class='kpi-label'>Ejecuciones</div>\n      <div class='kpi-value' id='kTotal'>–</div>\n      <div class='kpi-sub' id='kTotalSub'></div>\n    </div>\n    <div class='kpi c-green'>\n      <div class='kpi-label'>Tasa de éxito</div>\n      <div class='kpi-value' id='kSuccess'>–</div>\n      <div class='kpi-sub' id='kSuccessSub'></div>\n    </div>\n    <div class='kpi c-red'>\n      <div class='kpi-label'>Tasa de error</div>\n      <div class='kpi-value' id='kError'>–</div>\n      <div class='kpi-sub' id='kErrorSub'></div>\n    </div>\n    <div class='kpi c-blue'>\n      <div class='kpi-label'>Duración prom.</div>\n      <div class='kpi-value' id='kAvg'>–</div>\n      <div class='kpi-sub'>min · P95: <span id='kP95'>–</span></div>\n    </div>\n    <div class='kpi c-blue'>\n      <div class='kpi-label'>Tiempo activo</div>\n      <div class='kpi-value' id='kActive'>–</div>\n      <div class='kpi-sub' id='kActiveSub'>minutos totales</div>\n    </div>\n    <div class='kpi'>\n      <div class='kpi-label'>Workflows</div>\n      <div class='kpi-value' id='kWf'>–</div>\n      <div class='kpi-sub' id='kWfSub'>activos en período</div>\n    </div>\n  </div>\n\n  <div class='charts-row'>\n    <div class='chart-card'>\n      <h3>📈 Ejecuciones diarias</h3>\n      <canvas id='cDaily'></canvas>\n    </div>\n    <div class='chart-card'>\n      <h3>🍩 Distribución de estados</h3>\n      <canvas id='cStatus'></canvas>\n    </div>\n  </div>\n\n  <div class='chart-full'>\n    <h3>📊 Top workflows por volumen</h3>\n    <canvas id='cWf' height='100'></canvas>\n  </div>\n\n  <div class='table-card'>\n    <h3>⚙️ Detalle por workflow <span class='badge-count' id='cntWf'>0</span></h3>\n    <div class='tscroll'>\n      <table>\n        <thead>\n          <tr>\n            <th onclick='srt(\"tbWf\",0)'>Workflow ↕</th>\n            <th onclick='srt(\"tbWf\",1)' class='tar'>Total ↕</th>\n            <th onclick='srt(\"tbWf\",2)' class='tar'>Exitosas ↕</th>\n            <th onclick='srt(\"tbWf\",3)' class='tar'>Fallidas ↕</th>\n            <th onclick='srt(\"tbWf\",4)'>Éxito %</th>\n            <th onclick='srt(\"tbWf\",5)' class='tar'>Avg min ↕</th>\n            <th onclick='srt(\"tbWf\",6)' class='tar'>Total min ↕</th>\n            <th onclick='srt(\"tbWf\",7)'>Última ejecución ↕</th>\n          </tr>\n        </thead>\n        <tbody id='tbWf'></tbody>\n      </table>\n    </div>\n  </div>\n\n  <div class='table-card'>\n    <h3>🔴 Top errores <span class='badge-count' id='cntErr'>0</span></h3>\n    <div class='tscroll'>\n      <table>\n        <thead>\n          <tr>\n            <th onclick='srt(\"tbErr\",0)'>Tipo de error ↕</th>\n            <th>Código</th>\n            <th>Nodo</th>\n            <th onclick='srt(\"tbErr\",3)' class='tar'>Ocurrencias ↕</th>\n            <th onclick='srt(\"tbErr\",4)' class='tar'>Workflows</th>\n            <th onclick='srt(\"tbErr\",5)'>Última vez ↕</th>\n            <th>Afecta a</th>\n          </tr>\n        </thead>\n        <tbody id='tbErr'></tbody>\n      </table>\n    </div>\n  </div>\n\n  <div class='table-card'>\n    <h3>⚠️ Fallas recientes <span class='badge-count' id='cntFail'>0</span></h3>\n    <div class='tscroll'>\n      <table>\n        <thead>\n          <tr>\n            <th onclick='srt(\"tbFail\",0)'>Fecha ↕</th>\n            <th onclick='srt(\"tbFail\",1)'>Workflow ↕</th>\n            <th>Estado</th>\n            <th onclick='srt(\"tbFail\",3)' class='tar'>Dur. (min) ↕</th>\n            <th>Error</th>\n            <th>Nodo</th>\n            <th>Mensaje</th>\n          </tr>\n        </thead>\n        <tbody id='tbFail'></tbody>\n      </table>\n    </div>\n  </div>\n\n</div>\n\n<script>\nlet DATA = \"__N8N_DATA__\";\n\n// ── State ────────────────────────────────────────────────\nlet curWf = '', curDays = 30;\nlet cDaily = null, cStatus = null, cWf = null;\nlet sortDir = {};\n\n// ── Helpers ──────────────────────────────────────────────\nconst n  = (v, d=0) => v == null ? '–' : (+v).toFixed(d);\nconst pn = v => v == null ? '–' : Number(v).toLocaleString('es-AR');\nconst fmtDate = s => {\n  if (!s) return '–';\n  const d = new Date(s);\n  return d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'2-digit'})\n    + ' ' + d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});\n};\nconst fmtDay = s => s ? new Date(s+'T00:00:00').toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'}) : s;\nconst cutoff = days => {\n  if (!days) return null;\n  const d = new Date(); d.setDate(d.getDate() - days); return d;\n};\nconst esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');\n\n// ── Filter helpers ────────────────────────────────────────\nfunction getDaily() {\n  const cut = cutoff(curDays);\n  let rows = curWf\n    ? (DATA.daily_by_workflow||[]).filter(r => r.workflow_name === curWf)\n    : (DATA.daily||[]);\n  if (cut) rows = rows.filter(r => new Date(r.day) >= cut);\n  return rows;\n}\n\nfunction aggDaily(rows) {\n  return rows.reduce((a,r) => ({\n    total: a.total + (+r.total||0),\n    suc:   a.suc   + (+r.successful||0),\n    fail:  a.fail  + (+r.failed||0)\n  }), {total:0, suc:0, fail:0});\n}\n\n// ── Init ─────────────────────────────────────────────────\nfunction init() {\n  if (typeof DATA === 'string') { try { DATA = JSON.parse(DATA); } catch(e){ DATA = {}; } }\n\n  // populate dropdown\n  const sel = document.getElementById('selWf');\n  (DATA.by_workflow||[]).forEach(w => {\n    const o = document.createElement('option');\n    o.value = w.workflow_name; o.textContent = w.workflow_name;\n    sel.appendChild(o);\n  });\n  sel.addEventListener('change', e => { curWf = e.target.value; render(); });\n\n  // last updated\n  const s = DATA.summary||{};\n  const meta = document.getElementById('hMeta');\n  if (s.last_execution) {\n    meta.innerHTML = 'Datos hasta: <b>' + fmtDate(s.last_execution) + '</b><br>'\n      + pn(s.total_executions) + ' ejecuciones históricas · '\n      + pn(s.unique_workflows) + ' workflows';\n  }\n\n  render();\n}\n\nwindow.setRange = function(days, btn) {\n  curDays = days;\n  document.querySelectorAll('.btn-group .btn').forEach(function(b){ b.classList.remove('active'); });\n  btn.classList.add('active');\n  render();\n};\n\n// ── Render ────────────────────────────────────────────────\nfunction render() {\n  renderKPIs();\n  renderDaily();\n  renderStatus();\n  renderWfChart();\n  renderTableWf();\n  renderTableErr();\n  renderTableFail();\n}\n\nfunction renderKPIs() {\n  const daily = getDaily();\n  const agg   = aggDaily(daily);\n  const s     = DATA.summary||{};\n  const rate  = agg.total ? (100*agg.suc/agg.total).toFixed(1) : '–';\n  const err   = agg.total ? (100*agg.fail/agg.total).toFixed(1) : '–';\n\n  document.getElementById('kTotal').textContent    = pn(agg.total);\n  document.getElementById('kTotalSub').textContent = curDays ? curDays+'d seleccionados' : 'histórico';\n  document.getElementById('kSuccess').textContent  = rate !== '–' ? rate+'%' : '–';\n  document.getElementById('kSuccessSub').textContent = pn(agg.suc) + ' exitosas';\n  document.getElementById('kError').textContent    = err !== '–' ? err+'%' : '–';\n  document.getElementById('kErrorSub').textContent = pn(agg.fail) + ' fallidas';\n\n  if (curWf) {\n    const wf = (DATA.by_workflow||[]).find(w => w.workflow_name === curWf)||{};\n    document.getElementById('kAvg').textContent    = n(wf.avg_duration_mins,2);\n    document.getElementById('kP95').textContent    = '–';\n    document.getElementById('kActive').textContent = n(wf.total_mins,1);\n    document.getElementById('kActiveSub').textContent = 'min total (histórico)';\n    document.getElementById('kWf').textContent     = '1';\n    document.getElementById('kWfSub').textContent  = 'workflow seleccionado';\n  } else {\n    document.getElementById('kAvg').textContent    = n(s.avg_duration_mins,2);\n    document.getElementById('kP95').textContent    = n(s.p95_duration_mins,2);\n    // estimate active mins for period from daily\n    const activeMins = daily.reduce((a,r) => a + (+(r.avg_duration||0) * (+r.total||0)), 0);\n    document.getElementById('kActive').textContent = activeMins > 0 ? n(activeMins,0) : n(s.total_active_mins,0);\n    document.getElementById('kActiveSub').textContent = 'min totales en período';\n    // unique workflows in period\n    const wfsInPeriod = curWf ? 1\n      : new Set((DATA.daily_by_workflow||[])\n          .filter(r => !cutoff(curDays) || new Date(r.day) >= cutoff(curDays))\n          .map(r => r.workflow_name)).size;\n    document.getElementById('kWf').textContent    = wfsInPeriod || pn(s.unique_workflows);\n    document.getElementById('kWfSub').textContent = 'activos en período';\n  }\n}\n\nfunction renderDaily() {\n  const daily  = getDaily();\n  const labels = daily.map(r => fmtDay(r.day));\n  const suc    = daily.map(r => +r.successful||0);\n  const fail   = daily.map(r => +r.failed||0);\n\n  const ctx = document.getElementById('cDaily').getContext('2d');\n  if (cDaily) cDaily.destroy();\n  cDaily = new Chart(ctx, {\n    type:'line',\n    data:{\n      labels,\n      datasets:[\n        {label:'Exitosas',data:suc,borderColor:'#3fb950',backgroundColor:'rgba(63,185,80,.12)',fill:true,tension:.35,pointRadius:daily.length>40?0:3},\n        {label:'Fallidas',data:fail,borderColor:'#f85149',backgroundColor:'rgba(248,81,73,.1)',fill:true,tension:.35,pointRadius:daily.length>40?0:3}\n      ]\n    },\n    options:{\n      responsive:true,\n      interaction:{intersect:false,mode:'index'},\n      plugins:{legend:{labels:{color:'#7d8590',font:{size:11}}}},\n      scales:{\n        x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7d8590',font:{size:10},maxRotation:0,maxTicksLimit:15}},\n        y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7d8590',font:{size:10}},beginAtZero:true}\n      }\n    }\n  });\n}\n\nfunction renderStatus() {\n  const daily = getDaily();\n  const agg   = aggDaily(daily);\n  const other = agg.total - agg.suc - agg.fail;\n\n  const ctx = document.getElementById('cStatus').getContext('2d');\n  if (cStatus) cStatus.destroy();\n  cStatus = new Chart(ctx, {\n    type:'doughnut',\n    data:{\n      labels:['Exitosas','Fallidas','Otras'],\n      datasets:[{\n        data:[agg.suc, agg.fail, Math.max(0,other)],\n        backgroundColor:['#3fb950','#f85149','#7d8590'],\n        borderWidth:0,\n        hoverOffset:5\n      }]\n    },\n    options:{\n      responsive:true,\n      plugins:{\n        legend:{position:'bottom',labels:{color:'#7d8590',font:{size:11},padding:14}},\n        tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${pn(ctx.raw)} (${agg.total?((100*ctx.raw/agg.total).toFixed(1)):'0'}%)`}}\n      }\n    }\n  });\n}\n\nfunction renderWfChart() {\n  let wfs = DATA.by_workflow||[];\n  if (curWf) wfs = wfs.filter(w => w.workflow_name===curWf);\n  else wfs = wfs.slice(0,15);\n  const trunc = s => s.length>26 ? s.slice(0,23)+'…' : s;\n  const labels = wfs.map(w => trunc(w.workflow_name));\n  const suc    = wfs.map(w => +w.successful||0);\n  const fail   = wfs.map(w => +w.failed||0);\n\n  const ctx = document.getElementById('cWf').getContext('2d');\n  if (cWf) cWf.destroy();\n  cWf = new Chart(ctx, {\n    type:'bar',\n    data:{\n      labels,\n      datasets:[\n        {label:'Exitosas',data:suc,backgroundColor:'#3fb950',borderRadius:3,stack:'s'},\n        {label:'Fallidas',data:fail,backgroundColor:'#f85149',borderRadius:3,stack:'s'}\n      ]\n    },\n    options:{\n      responsive:true,\n      plugins:{legend:{labels:{color:'#7d8590',font:{size:11}}}},\n      scales:{\n        x:{stacked:true,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7d8590',font:{size:10}}},\n        y:{stacked:true,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#7d8590',font:{size:10}},beginAtZero:true}\n      }\n    }\n  });\n}\n\nfunction renderTableWf() {\n  let wfs = DATA.by_workflow||[];\n  if (curWf) wfs = wfs.filter(function(w){ return w.workflow_name===curWf; });\n  document.getElementById('cntWf').textContent = wfs.length;\n  const tb = document.getElementById('tbWf');\n  tb.innerHTML = '';\n  wfs.forEach(function(w) {\n    const pct      = +w.success_pct||0;\n    const bc       = pct>=90 ? 'bar-ok' : 'bar-bad';\n    const pctColor = pct>=90 ? 'var(--green)' : 'var(--red)';\n    const row = document.createElement('tr');\n    row.innerHTML =\n      '<td><b>' + esc(w.workflow_name) + '</b></td>' +\n      '<td class=\"tar\">' + pn(w.total) + '</td>' +\n      '<td class=\"tar\" style=\"color:var(--green)\">' + pn(w.successful) + '</td>' +\n      '<td class=\"tar\" style=\"color:var(--red)\">' + pn(w.failed) + '</td>' +\n      '<td><div class=\"bar-wrap\">' +\n        '<div class=\"bar-track\"><div class=\"bar-fill ' + bc + '\" style=\"width:' + pct + '%\"></div></div>' +\n        '<span class=\"pct-text\" style=\"color:' + pctColor + '\">' + pct + '%</span>' +\n      '</div></td>' +\n      '<td class=\"tar mono\">' + n(w.avg_duration_mins,3) + '</td>' +\n      '<td class=\"tar mono\">' + n(w.total_mins,1) + '</td>' +\n      '<td style=\"color:var(--muted);font-size:.75rem\">' + fmtDate(w.last_run) + '</td>';\n    tb.appendChild(row);\n  });\n}\n\nfunction renderTableErr() {\n  let errs = DATA.errors||[];\n  if (curWf) errs = errs.filter(function(e){ return (e.affected_workflows||[]).indexOf(curWf)>=0; });\n  document.getElementById('cntErr').textContent = errs.length;\n  const tb = document.getElementById('tbErr');\n  tb.innerHTML = '';\n  errs.slice(0,25).forEach(function(e) {\n    const wfList = (e.affected_workflows||[]).slice(0,3);\n    const extra  = (e.affected_workflows||[]).length - 3;\n    const chips  = wfList.map(function(w){ return '<span class=\"chip\">' + esc(w) + '</span>'; }).join('') +\n                   (extra>0 ? '<span class=\"chip\">+' + extra + '</span>' : '');\n    const row = document.createElement('tr');\n    row.innerHTML =\n      '<td><span class=\"badge error\">' + esc(e.error_name) + '</span></td>' +\n      '<td class=\"mono\" style=\"color:var(--muted)\">' + esc(e.error_code||'–') + '</td>' +\n      '<td style=\"color:var(--muted)\">' + esc(e.error_node||'–') + '</td>' +\n      '<td class=\"tar\" style=\"color:var(--red)\">' + pn(e.occurrences) + '</td>' +\n      '<td class=\"tar\" style=\"color:var(--muted)\">' + e.workflows_affected + '</td>' +\n      '<td style=\"color:var(--muted);font-size:.75rem\">' + fmtDate(e.last_seen) + '</td>' +\n      '<td><div class=\"chip-list\">' + chips + '</div></td>';\n    tb.appendChild(row);\n  });\n}\n\nfunction renderTableFail() {\n  let fails = DATA.recent_failures||[];\n  if (curWf) fails = fails.filter(function(f){ return f.workflow_name===curWf; });\n  const cut = cutoff(curDays);\n  if (cut) fails = fails.filter(function(f){ return new Date(f.started_at) >= cut; });\n  document.getElementById('cntFail').textContent = fails.length;\n  const tb = document.getElementById('tbFail');\n  tb.innerHTML = '';\n  fails.slice(0,40).forEach(function(f) {\n    const st  = f.status||'error';\n    const row = document.createElement('tr');\n    row.innerHTML =\n      '<td style=\"color:var(--muted);font-size:.75rem;white-space:nowrap\">' + fmtDate(f.started_at) + '</td>' +\n      '<td>' + esc(f.workflow_name) + '</td>' +\n      '<td><span class=\"badge ' + esc(st) + '\">' + esc(st) + '</span></td>' +\n      '<td class=\"tar mono\">' + n(f.duration_mins,2) + '</td>' +\n      '<td><span class=\"badge error\" style=\"font-size:.68rem\">' + esc(f.error_name||'–') + '</span></td>' +\n      '<td style=\"color:var(--muted);font-size:.75rem\">' + esc(f.error_node||'–') + '</td>' +\n      '<td><div class=\"err-msg\" title=\"' + esc(f.error_message||'') + '\">' + esc(f.error_message||'–') + '</div></td>';\n    tb.appendChild(row);\n  });\n}\n\n// ── Sort (expuesto globalmente para los onclick) ──────────\nwindow.srt = function(tbodyId, col) {\n  const key = tbodyId + '_' + col;\n  const asc = sortDir[key] !== 'asc';\n  sortDir[key] = asc ? 'asc' : 'desc';\n  const tb  = document.getElementById(tbodyId);\n  if (!tb) return;\n  const rows = Array.from(tb.querySelectorAll('tr'));\n  rows.sort(function(a,b) {\n    const av = (a.cells[col] ? a.cells[col].textContent.trim() : '');\n    const bv = (b.cells[col] ? b.cells[col].textContent.trim() : '');\n    const an = parseFloat(av.replace(/[^0-9.-]/g,''));\n    const bn = parseFloat(bv.replace(/[^0-9.-]/g,''));\n    if (!isNaN(an) && !isNaN(bn)) return asc ? an-bn : bn-an;\n    return asc ? av.localeCompare(bv,'es') : bv.localeCompare(av,'es');\n  });\n  rows.forEach(function(r){ tb.appendChild(r); });\n};\n\ninit();\n</script>\n</body>\n</html>\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4026ae31-f4d8-41b4-92bf-57cf6e2e47c5",
+      "name": "Plantilla",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT json_build_object(\n  'summary',            COALESCE((SELECT row_to_json(s) FROM v_n8n_summary s LIMIT 1), '{}'::json),\n  'by_workflow',        (SELECT COALESCE(json_agg(w), '[]'::json) FROM v_n8n_by_workflow w),\n  'daily',              (SELECT COALESCE(json_agg(d), '[]'::json) FROM v_n8n_daily d WHERE d.day >= CURRENT_DATE - 90),\n  'daily_by_workflow',  (SELECT COALESCE(json_agg(dbw), '[]'::json) FROM v_n8n_daily_by_workflow dbw WHERE dbw.day >= CURRENT_DATE - 90),\n  'errors',             (SELECT COALESCE(json_agg(e), '[]'::json) FROM v_n8n_errors e),\n  'recent_failures',    (SELECT COALESCE(json_agg(f), '[]'::json) FROM v_n8n_recent_failures f),\n  'by_mode',            (SELECT COALESCE(json_agg(m), '[]'::json) FROM v_n8n_by_mode m)\n) AS payload;",
+        "options": {}
+      },
+      "id": "8e211c2e-1154-48d9-905a-e512bb963d57",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1296,
+        352
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const tpl = $('Plantilla').first().json.template;\nconst payload = $('Postgres').first().json.payload || {};\n\n// Convertimos el payload a una cadena JSON\nconst jsonString = JSON.stringify(payload);\n\n// Escapamos comillas simples, diagonales invertidas y saltos de línea \n// para evitar que rompan la literal de JS 'let DATA = ...'\nconst safeJsonString = jsonString\n  .replace(/\\\\/g, '\\\\\\\\')\n  .replace(/'/g, \"\\\\'\")\n  .replace(/\\n/g, \"\\\\n\")\n  .replace(/\\r/g, \"\\\\r\")\n  .replace(/\\u2028/g, \"\\\\u2028\")\n  .replace(/\\u2029/g, \"\\\\u2029\");\n\n// O si el template usa comillas dobles alrededor de __N8N_DATA__:\nconst html = tpl\n  .replace('\"__N8N_DATA__\"', jsonString)\n  .replace(\"'__N8N_DATA__'\", JSON.stringify(jsonString))\n  .replace('__N8N_DATA__', JSON.stringify(jsonString));\n\nreturn [{ json: { html } }];"
+      },
+      "id": "62a77504-6ed4-4e8a-8178-39dd2ee64f67",
+      "name": "Set HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "a94bd703-099b-4765-acf7-29f0c76dbf1d",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1728,
+        352
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-04-24T02:11:44.784Z",
+      "updatedAt": "2026-04-24T02:11:44.784Z",
+      "role": "workflow:owner",
+      "workflowId": "6Zg98cvLN9fsA3Iz",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-22T01:57:44.759Z",
+  "versionId": "f886cd29-7687-4efa-9235-5c970672aa9e"
+}
