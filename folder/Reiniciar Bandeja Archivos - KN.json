@@ -353,7 +353,7 @@
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
+          "name": "APG-Teams"
         }
       }
     },
@@ -372,7 +372,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Recupera los datos de Set Error Log o Set Success para guardar en tabla\n// Se ejecuta DENTRO del loop, después de enviar el mensaje\n\nlet messageType = 'success';\nlet country = 'UNKNOWN';\nlet errorMsg = '';\nlet timestamp = new Date().toISOString();\n\nlet teamsMessage = $input.first().json\n\n// Intentar obtener de Set Error Log (si hubo error)\ntry {\n  const errorLogData = $('Set Error Log').first().json;\n  if (errorLogData && errorLogData.messageType) {\n    messageType = errorLogData.messageType;\n    country = errorLogData.country || country;\n    errorMsg = errorLogData.errorMsg || '';\n    timestamp = errorLogData.errorTimestamp || timestamp;\n  }\n} catch (e) {\n  // Si no hay Set Error Log, fue Set Success\n  try {\n    const successData = $('Set Success').first().json;\n    if (successData) {\n      messageType = 'success';\n      timestamp = successData.timestamp || timestamp;\n      // country se obtiene del Loop\n      country = $('Loop Over Items').first().json.country || country;\n    }\n  } catch (e2) {\n    // Fallback: usar datos del input actual\n    const input = $input.first().json;\n    country = input.country || country;\n  }\n}\n\nreturn [{\n  json: {\n    timestamp,\n    entorno: country,\n    ws_status: messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: errorMsg,\n    resultado: messageType === 'success' ? 'success' : 'fail',\n    teamsMsgId: teamsMessage.id,\n    teamsTimestamp: teamsMessage.createdDateTime,\n    teamsMsg: teamsMessage.messageType,\n    executionId: $execution.id\n  }\n}];"
+        "jsCode": "// Recupera los datos de Set Error Log o Set Success para guardar en tabla\n// Se ejecuta DENTRO del loop, después de enviar el mensaje\n\nlet messageType = 'success';\nlet country = 'UNKNOWN';\nlet errorMsg = '';\nlet timestamp = new Date().toISOString();\n\nlet teamsMessage = $input.first().json\n\n// Intentar obtener de Set Error Log (si hubo error)\ntry {\n  const errorLogData = $('Set Error Log').first().json;\n  if (errorLogData && errorLogData.messageType) {\n    messageType = errorLogData.messageType;\n    country = errorLogData.country || country;\n    errorMsg = errorLogData.errorMsg || '';\n    timestamp = errorLogData.errorTimestamp || timestamp;\n  }\n} catch (e) {\n  // Si no hay Set Error Log, fue Set Success\n  try {\n    const successData = $('Set Success').first().json;\n    if (successData) {\n      messageType = 'success';\n      timestamp = successData.timestamp || timestamp;\n      // country se obtiene del Loop\n      country = $('Loop Over Items').first().json.pais || country;\n    }\n  } catch (e2) {\n    // Fallback: usar datos del input actual\n    const input = $input.first().json;\n    country = input.country || country;\n  }\n}\n\nreturn [{\n  json: {\n    timestamp,\n    entorno: country,\n    ws_status: messageType === 'success' ? 'success' : 'fail',\n    ws_response_raw: errorMsg,\n    resultado: messageType === 'success' ? 'success' : 'fail',\n    teamsMsgId: teamsMessage.id,\n    teamsTimestamp: teamsMessage.createdDateTime,\n    teamsMsg: teamsMessage.messageType,\n    executionId: $execution.id\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -551,6 +551,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-06T15:13:09.650Z",
-  "versionId": "fc13307b-2646-412e-a282-4a60c606958f"
+  "updatedAt": "2026-07-22T13:38:26.928Z",
+  "versionId": "9d143b89-bac4-481e-b5af-8e74b5db5475"
 }
