@@ -1,0 +1,137 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook - Recibe CSV de Cowork": {
+      "main": [
+        [
+          {
+            "node": "5. Parsear CSV1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Parsear CSV1": {
+      "main": [
+        [
+          {
+            "node": "6. Armar SQL1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Armar SQL1": {
+      "main": [
+        [
+          {
+            "node": "7. Guardar en Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-06T14:51:18.018Z",
+  "id": "KK94BvdajB3qk8TW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Mercado Pago - Liquidaciones via Webhook (Cowork) a Base de Datos",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mercadopago-settlement",
+        "authentication": "headerAuth",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "6f37fc56-2609-4b55-a230-4a873433bfdd",
+      "name": "Webhook - Recibe CSV de Cowork",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -576
+      ],
+      "webhookId": "REEMPLAZAR_AUTOGENERADO",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yPfvRZzfD46C0qlE",
+          "name": "Header Test-MP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrae el texto del CSV del payload que manda Cowork, sea cual sea la forma\n// en que n8n lo haya envuelto (varia segun version).\n// Cowork deberia mandar POST con JSON: { \"csv_text\": \"...todo el contenido del csv...\" }\nconst j = $input.first().json;\n\nlet raw = null;\nif (j.body && typeof j.body === 'object' && j.body.csv_text) raw = j.body.csv_text;\nelse if (j.csv_text) raw = j.csv_text;\nelse if (typeof j.body === 'string') raw = j.body;\nelse if (typeof j === 'string') raw = j;\n\nif (!raw) {\n  throw new Error('No encontre csv_text en el payload del webhook. Mira el JSON crudo de este nodo (deberia estar en json.body) y ajusta esta linea.');\n}\n\nconst text = raw;\nconst lines = text.split(/\\r?\\n/).filter(l => l.trim().length > 0);\nif (lines.length < 2) {\n  return [];\n}\nconst headers = lines[0].split(';').map(h => h.trim());\n\nconst rows = lines.slice(1).map(line => {\n  const cols = line.split(';');\n  const obj = {};\n  headers.forEach((h, i) => { obj[h] = cols[i] !== undefined ? cols[i].trim() : null; });\n  return obj;\n});\n\nreturn rows.map(r => ({ json: r }));"
+      },
+      "id": "928bc984-84db-4a16-87d0-605c4feae0f3",
+      "name": "5. Parsear CSV1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -576
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Arma un unico INSERT ... ON CONFLICT DO NOTHING con todas las filas del dia,\n// usando SOURCE_ID como clave de idempotencia (evita duplicar si Cowork reintenta o corre dos veces).\nconst items = $input.all();\n\nif (items.length === 0) {\n  return [{ json: { query: 'SELECT 1;', note: 'Sin movimientos en el CSV recibido.' } }];\n}\n\nconst esc = v => (v === null || v === undefined || v === '') ? 'NULL' : (\"'\" + String(v).replace(/'/g, \"''\") + \"'\");\nconst num = v => (v === null || v === undefined || v === '') ? '0' : String(v);\n\nconst values = items.map(item => {\n  const r = item.json;\n  return '(' + esc(r.SOURCE_ID) + ', ' + esc(r.PAYMENT_METHOD_TYPE) + ', ' + esc(r.TRANSACTION_TYPE) + ', ' +\n    num(r.TRANSACTION_AMOUNT) + ', ' + esc(r.TRANSACTION_DATE) + ', ' + num(r.FEE_AMOUNT) + ', ' +\n    esc(r.SETTLEMENT_DATE) + ', ' + num(r.REAL_AMOUNT) + ', ' + num(r.TAXES_AMOUNT) + ', ' +\n    esc(r.BUSINESS_UNIT) + ', ' + esc(r.SUB_UNIT) + ', ' + esc(r.MONEY_RELEASE_DATE) + ')';\n}).join(',\\n');\n\nconst query = 'INSERT INTO mercadopago_settlements ' +\n  '(source_id, payment_method_type, transaction_type, transaction_amount, transaction_date, ' +\n  'fee_amount, settlement_date, real_amount, taxes_amount, business_unit, sub_unit, money_release_date) ' +\n  'VALUES\\n' + values + '\\nON CONFLICT (source_id) DO NOTHING ' +\n  'RETURNING source_id;';\n\nreturn [{ json: { query, filas_recibidas: items.length } }];"
+      },
+      "id": "e3d522b0-4e04-423f-a1cc-c9756a765403",
+      "name": "6. Armar SQL1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        -576
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $json.query }}",
+        "options": {}
+      },
+      "id": "c06e081b-71f8-4fc2-8873-0a7582d0f26e",
+      "name": "7. Guardar en Postgres1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1168,
+        -576
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-07-06T14:51:18.018Z",
+      "updatedAt": "2026-07-06T14:51:18.018Z",
+      "role": "workflow:owner",
+      "workflowId": "KK94BvdajB3qk8TW",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-22T16:28:09.119Z",
+  "versionId": "dd19af01-cbfd-40ee-856c-8086b81f32cb"
+}
