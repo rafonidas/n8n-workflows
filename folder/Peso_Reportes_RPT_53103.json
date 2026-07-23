@@ -1,0 +1,686 @@
+{
+  "active": true,
+  "connections": {
+    "Disparador Mensual": {
+      "main": [
+        [
+          {
+            "node": "Configurar Ambientes y Rutas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Manual": {
+      "main": [
+        [
+          {
+            "node": "Configurar Ambientes y Rutas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configurar Ambientes y Rutas": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verificar Existencia Local": {
+      "main": [
+        [
+          {
+            "node": "¿Existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Existe?": {
+      "main": [
+        [
+          {
+            "node": "Leer Archivo TXT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preparar Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer Archivo TXT": {
+      "main": [
+        [
+          {
+            "node": "Extraer Texto del Archivo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subir a SharePoint (ID Directo)": {
+      "main": [
+        [
+          {
+            "node": "Notificar Link Teams",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar Link Teams": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Log": {
+      "main": [
+        [
+          {
+            "node": "Escribir Log Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escribir Log Local": {
+      "main": [
+        [
+          {
+            "node": "Merge Loop",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge Loop": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar RPT >500KB": {
+      "main": [
+        [
+          {
+            "node": "¿Hay RPT >500KB?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay RPT >500KB?": {
+      "main": [
+        [
+          {
+            "node": "Set Query",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Loop",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "¿Hay Resultados en DB?": {
+      "main": [
+        [
+          {
+            "node": "Generar Archivo de Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Loop",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Generar Archivo de Resultados": {
+      "main": [
+        [
+          {
+            "node": "Subir a SharePoint (ID Directo)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Texto del Archivo": {
+      "main": [
+        [
+          {
+            "node": "Filtrar RPT >500KB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Verificar Existencia Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sql Execute": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Query": {
+      "main": [
+        [
+          {
+            "node": "Sql Execute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "¿Hay Resultados en DB?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-06T20:07:03.283Z",
+  "id": "KIdUY8Mih9y44wGp",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Peso_Reportes_RPT_53103",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": 5,
+              "triggerAtHour": 14
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -784,
+        416
+      ],
+      "id": "132b04e0-5a7d-409f-9508-04fada199b0c",
+      "name": "Disparador Mensual"
+    },
+    {
+      "parameters": {},
+      "id": "bf1f0bd9-d152-4463-b6a5-1d7ff8ee0a1a",
+      "name": "Trigger Manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1) Configuración de Ambientes\nconst environments = ['AR','BO','CO','CO2','CO3','CR','EC','PE'];\n\n// -------------------------------------------------------------\n// 2) MAPEO MAESTRO: ID SHAREPOINT + ID CANAL TEAMS + CONEXIÓN SQL\n// -------------------------------------------------------------\nconst channelMap = {\n  'AR':  {\n    name: 'Argentina - APP',\n    spId: '01HWKKASXFJOHNNKRITZFYVTXSOF2VZ6K7',\n    teamsId: '19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11434, database: 'comfiar_ar', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'BO':  {\n    name: 'Bolivia - APP',\n    spId: '01HWKKAST2AVTCXU4QOJGY6FRPUOVAHIYF',\n    teamsId: '19:5e3bf46869f140a39d48f869795379c5@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11434, database: 'comfiar_bo', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'CO':  {\n    name: 'Colombia - APP',\n    spId: '01HWKKASSEZYVFULZFWBCIGB7AACVTYK3N',\n    teamsId: '19:af378cf202564cfc87591f580cd70935@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11433, database: 'comfiar_co', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'CO2': {\n    name: 'Colombia - APP2',\n    spId: '01HWKKASS3LKA6P44CT5BKZBRDBC6WOI7G',\n    teamsId: '19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11433, database: 'comfiar_co2', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'CO3': {\n    name: 'Colombia - APP3',\n    spId: '01HWKKASRV2W4DJ4YQJFE3AOIBMQD3CBMT',\n    teamsId: '19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11433, database: 'comfiar_co3', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'CR':  {\n    name: 'Costa Rica - APP',\n    spId: '01HWKKASUFWHODOYG6TNAZANBKSP2EXIXC',\n    teamsId: '19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11434, database: 'comfiar_cr', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'EC':  {\n    name: 'Ecuador - APP',\n    spId: '01HWKKASTMHFO5ZNCYWZDZLMU2L6SUBHK7',\n    teamsId: '19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11434, database: 'comfiar_ec', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n  'PE':  {\n    name: 'Peru - APP',\n    spId: '01HWKKASRH3EFVYY2HQFE2H5XLVBDR6HJO',\n    teamsId: '19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2',\n    server_host: 'host.docker.internal', port: 11434, database: 'comfiar_pe', user: 'usr_automatico', password: '1qaz2wsx3edc'\n  },\n\n  // Fallback\n  'DEFAULT': {\n    name: 'General',\n    spId: 'PON_AQUI_UN_ID_DEFAULT_SI_QUIERES',\n    teamsId: '19:e2644020e0de42b0b55da552614c8ea5@thread.tacv2',\n    server_host: '', port: null, database: '', user: '', password: ''\n  }\n};\n\n// 3) Cálculo de Fecha Dinámica\nconst date = new Date();\ndate.setMonth(date.getMonth());\n\nconst year = date.getFullYear();\nconst month = String(date.getMonth() + 1).padStart(2, '0');\nconst dateSuffix = `${year}${month}`; // Ej: 202602\n\nreturn environments.map(env => {\n  const config = channelMap[env] || channelMap['DEFAULT'];\n\n  return {\n    json: {\n      env,\n      dateSuffix,\n      fileName: `ListadoDeReportes_${env}_APP_${dateSuffix}.txt`,\n      fullPath: `/files_host/XML_Mails_error/${env}/ListadoDeReportes_${env}_APP_${dateSuffix}.txt`,\n      logPath: `/files_host/XML_Mails_error/Resultados/Log_Ausencias_${dateSuffix}.txt`,\n      resultFileName: `RPT_Mayor500KB_${env}_APP_${dateSuffix}.csv`,\n\n      // Datos maestros\n      folderName: config.name,\n      folderId: config.spId,\n      teamsChannelId: config.teamsId,\n\n      // Conexión SQL del ambiente (para validar tamaño de RPT en base)\n      server_host: config.server_host,\n      port: config.port,\n      database: config.database,\n      user: config.user,\n      password: config.password\n    }\n  };\n});"
+      },
+      "id": "2d4fb3a2-5d9c-4b8d-ba47-5b84491f333b",
+      "name": "Configurar Ambientes y Rutas",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=test -f \"{{ $json.fullPath }}\" && echo \"EXISTS\" || echo \"MISSING\""
+      },
+      "id": "d948e7ae-35ab-488f-9ad7-a80c5fe24ddd",
+      "name": "Verificar Existencia Local",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout.trim() }}",
+              "operation": "equal",
+              "value2": "EXISTS"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6f2af808-dab6-4ae7-9b80-aef93221f101",
+      "name": "¿Existe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        16,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "filePath": "={{ $('Credentials Loop').item.json.fullPath }}"
+      },
+      "id": "18795b32-b3f5-4067-988b-96675d1dbac4",
+      "name": "Leer Archivo TXT",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        176,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "site": {
+          "__rl": true,
+          "value": "apgcon.sharepoint.com,8c77454a-477c-49d8-8e8e-d36eb1e878f3,e9ee4b3b-2e5a-4b8c-9ea7-0e4bbc344c5c",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "folder": {
+          "__rl": true,
+          "value": "={{ $('Credentials Loop').item.json.folderId }}",
+          "mode": "id"
+        },
+        "fileName": "={{ $('Credentials Loop').item.json.resultFileName }}",
+        "fileContents": "data",
+        "requestOptions": {}
+      },
+      "id": "95eaa14c-ae47-4fb6-ba19-41290a2be883",
+      "name": "Subir a SharePoint (ID Directo)",
+      "type": "n8n-nodes-base.microsoftSharePoint",
+      "typeVersion": 1,
+      "position": [
+        2288,
+        -208
+      ],
+      "credentials": {
+        "microsoftSharePointOAuth2Api": {
+          "id": "yGpzald5d5ehr6Pz",
+          "name": "Sharepoint notificaciones APG"
+        }
+      },
+      "notes": "{{ $('Credentials Loop').item.json.folderId }}\n\n{{ $('Credentials Loop').item.json.resultFileName }}"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $('Credentials Loop').item.json.teamsChannelId }}",
+          "mode": "id"
+        },
+        "contentType": "html",
+        "message": "=<h3>✅ Validacion tamaño rpt por ambiente -  Reporte Mensual Cargado</h3>\n<p>Se encontraron RPT que superan los 500 KB en <strong>{{ $('Credentials Loop').item.json.env }}</strong>.</p>\n<p>📂 <strong>Carpeta:</strong> {{ $('Credentials Loop').item.json.folderName }}</p>\n<p>🔗 <a href=\"{{ $json.webUrl }}\"><strong>Click aquí para abrir el archivo</strong></a></p>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        2544,
+        48
+      ],
+      "id": "99a4396d-9ee8-4278-9a36-33d4edd802c1",
+      "name": "Notificar Link Teams",
+      "webhookId": "415af6af-2dac-47b4-8ef2-0f60b133c664",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "ueHY9A2J5aF54WT3",
+          "name": "Notificaciones n8n"
+        }
+      },
+      "notes": "{{ $('Loop x Ambiente').item.json.teamsChannelId }}"
+    },
+    {
+      "parameters": {
+        "jsCode": "const loopData = $('Credentials Loop').item.json;\nconst timestamp = new Date().toISOString();\n\nconst logLine = `[${timestamp}] MISSING: No se encontró ${loopData.fileName} en ${loopData.fullPath}\\n`;\n\nreturn {\n  json: {\n    logLine,\n    logPath: loopData.logPath\n  }\n};"
+      },
+      "id": "607aa771-a76f-45da-aab2-41bef51f2c4b",
+      "name": "Preparar Log",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append"
+      },
+      "id": "33c874f6-4b28-4b95-9ee2-5d3a3802243e",
+      "name": "Escribir Log Local",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        784,
+        656
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "id": "86922680-321f-40ec-ad78-8522bfe137c4",
+      "name": "Merge Loop",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2816,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## mails que tienen error en el servicio de mail\n",
+        "height": 112
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -224,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "f3f69716-7d2f-439a-b9c1-6aa1ff6d6091",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst fileContent = $json.text;\nconst lines = fileContent.split('\\n');\nconst matches = [];\n\nfor (const line of lines) {\n  const trimmed = line.trim();\n  if (!trimmed) continue;\n\n  const spaceIdx = trimmed.indexOf(' ');\n  if (spaceIdx === -1) continue;\n\n  const kb = parseInt(trimmed.substring(0, spaceIdx), 10);\n  if (isNaN(kb) || kb <= 500) continue;\n\n  const path = trimmed.substring(spaceIdx + 1).trim();\n  const parts = path.split('\\\\');\n\n  // Requiere estructura con carpeta de versión: [..., nombre_carpeta, version, nombre.rpt]\n  if (parts.length < 7) continue;\n\n  const version = parseInt(parts[5], 10);\n  const nombreRpt = parts[6].trim();\n\n  // Versión debe ser entero positivo\n  if (isNaN(version) || version <= 0) continue;\n\n  // Solo archivos .rpt reales (sin sufijos extra como .rpt20210201 o .rptfb)\n  if (!nombreRpt.toLowerCase().endsWith('.rpt')) continue;\n\n  matches.push({ kb, version, nombreRpt });\n}\n\nreturn {\n  json: {\n    matches,\n    hasMatches: matches.length > 0\n  }\n};\n"
+      },
+      "id": "af80ea0c-5f92-46a7-b522-5503a1c3fce5",
+      "name": "Filtrar RPT >500KB",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.hasMatches }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "99b6ad8c-f613-4ead-ab74-bebf7cbfa4f1",
+      "name": "¿Hay RPT >500KB?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        944,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.sqlResults }}",
+              "rightValue": true,
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "looseTypeValidation": true
+        }
+      },
+      "id": "cabc12dd-6802-4cfe-9675-e49062d22f90",
+      "name": "¿Hay Resultados en DB?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const sqlResults = $json.sqlResults;\nconst resultFileName = $('Credentials Loop').item.json.resultFileName;\n\nconst headers = ['CuitId','RazonSocial','PuntoDeVentaId','TipoComprobanteId','VersionRpt','NombreRpt','FechaSubida','UsuarioId'];\nconst rows = sqlResults.map(r =>\n  headers.map(h => `\"${(r[h] ?? '').toString().replace(/\"/g, '\"\"')}\"`).join(';')\n);\nconst csvContent = [headers.join(';'), ...rows].join('\\n');\n\nreturn [{\n  json: { ...$json },\n  binary: {\n    data: {\n      data: Buffer.from(csvContent, 'utf8').toString('base64'),\n      mimeType: 'text/csv',\n      fileExtension: 'csv',\n      fileName: resultFileName\n    }\n  }\n}];\n"
+      },
+      "id": "3cc8b77c-c56c-4bc2-9505-500c66b82838",
+      "name": "Generar Archivo de Resultados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2080,
+        -208
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "text",
+        "options": {}
+      },
+      "id": "bcf85e19-ba82-419e-a4c4-928a5ea65eee",
+      "name": "Extraer Texto del Archivo",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        448,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Contra la base de datos de comfiar de cada ambiente\n\n## se puede llamar a sql execute y agregar un nodo al merge para que se encargue de ejecutar este script tambien\n\n\n## podemos hacer quenos devuelva el error, y realizar alguna acción en base a eso -- ejecutar por la noche",
+        "height": 496,
+        "width": 368
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        -480
+      ],
+      "id": "4880239c-4df0-42b1-909c-496e558fb0dd",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "98dc6709-f267-40e6-8de6-8654d8bc3463",
+      "name": "Credentials Loop",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -352,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.sqlQuery }}"
+      },
+      "type": "n8n-nodes-base.microsoftSql",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        -128
+      ],
+      "id": "964aab77-f249-4db1-b622-a8318dd047e3",
+      "name": "Sql Execute",
+      "credentials": {
+        "microsoftSql": {
+          "id": "gxVnkkyySATGmqdw",
+          "name": "SQL - DINAMICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const { matches, env, dateSuffix } = $json;\n\nconst validos = matches.filter(r => r.version !== null && r.version !== undefined);\n\nif (validos.length === 0) {\n  return { json: { ...$json, sqlQuery: null } };\n}\n\nconst valuesList = validos\n  .map(r => `        ('${r.nombreRpt.replace(/'/g, \"''\")}', ${r.version})`)\n  .join(',\\n');\n\nconst sql =\n  `SELECT c.CuitId, c.RazonSocial, t.PuntoDeVentaId, t.TipoComprobanteId, ` +\n  `t.VersionRpt, t.NombreRpt, a.FechaSubida, a.UsuarioId\\n` +\n  `FROM TipoComprobanteXPuntoDeVenta t\\n` +\n  `INNER JOIN VersionReporte a ON t.VersionRpt=a.VersionId AND t.NombreRpt=a.NombreRpt\\n` +\n  `INNER JOIN Cuit c ON t.CuitId = c.CuitId\\n` +\n  `INNER JOIN (VALUES\\n${valuesList})\\n` +\n  `v(NombreRpt, VersionId) ON a.NombreRpt=v.NombreRpt AND a.VersionId=v.VersionId\\n` +\n  `WHERE c.FechaBajaServicio IS NULL;`;\n\nreturn { json: { ...$json, sqlQuery: sql } };\n"
+      },
+      "id": "2d8116b9-d6c1-425f-a75f-4406f60b2d50",
+      "name": "Set Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "sqlResults",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        -128
+      ],
+      "id": "ea00977e-2f92-451a-93aa-b4f2c512e2cb",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-07-06T20:07:03.283Z",
+      "updatedAt": "2026-07-06T20:07:03.283Z",
+      "role": "workflow:owner",
+      "workflowId": "KIdUY8Mih9y44wGp",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Disparador Mensual": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-22T14:27:04.949Z",
+  "versionId": "6c237f10-4f56-408d-96d6-12b863a111bd"
+}
