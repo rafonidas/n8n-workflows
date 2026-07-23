@@ -1,0 +1,404 @@
+{
+  "active": true,
+  "connections": {
+    "Filtrar Archivos y Detectar Errores": {
+      "main": [
+        [
+          {
+            "node": "¿Es Error de Conexión?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Es Error de Conexión?": {
+      "main": [
+        [
+          {
+            "node": "Teams - Alerta Error Genérico FieldGlass CR",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Teams - Alerta FieldGlass CR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Teams - Alerta Error Genérico FieldGlass CR": {
+      "main": [
+        [
+          {
+            "node": "Save Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SFTP - Listar Directorio": {
+      "main": [
+        [
+          {
+            "node": "Filtrar Archivos y Detectar Errores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Teams - Alerta FieldGlass CR": {
+      "main": [
+        [
+          {
+            "node": "Save Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger 16:00 CR": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar Directorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger 06:00 CR": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar Directorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger 12:00 CR": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar Directorio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-01-13T00:16:49.688Z",
+  "id": "OzCVUbUz3V5ZZ0hW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "FieldGlassMonitor-CR_52036",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Si el listado SFTP falló (onError: continue), n8n devuelve un item con json.error\nconst errorItem = items.find(item => item.json.error !== undefined);\nif (errorItem) {\n  return [{\n    json: {\n      alertType: 'error',\n      errorMessage: errorItem.json.error\n    }\n  }];\n}\n\nconst now = Date.now();\nconst ONE_HOUR_MS = 60 * 60 * 1000;\n\n// modifyTime llega como ISO string UTC (\"...Z\"), no como epoch numerico: hay que parsearlo\nconst oldFiles = items\n  .map(item => ({ ...item.json, modifyTimeMs: new Date(item.json.modifyTime).getTime() }))\n  .filter(f => f.type === '-' && (now - f.modifyTimeMs) > ONE_HOUR_MS) // solo archivos sueltos (no directorios) directamente en /home\n  .sort((a, b) => a.modifyTimeMs - b.modifyTimeMs);\n\nif (oldFiles.length === 0) return [];\n\nconst fileRows = oldFiles.map(f => {\n  const date = new Date(f.modifyTimeMs).toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' });\n  const ageMin = Math.round((now - f.modifyTimeMs) / 60000);\n  return `<li><b>${f.name}</b> — ${date} (${ageMin} min)</li>`;\n}).join('');\n\nconst detail = oldFiles.map(f => {\n  const ageMin = Math.round((now - f.modifyTimeMs) / 60000);\n  return `${f.name} (${ageMin} min)`;\n}).join(', ');\n\nreturn [{\n  json: {\n    alertType: 'files',\n    count: oldFiles.length,\n    fileRows,\n    detail\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        1152
+      ],
+      "id": "789964ba-d67b-4af4-8865-a519ead27cdf",
+      "name": "Filtrar Archivos y Detectar Errores"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1a1b1e1-0001-4000-8000-000000000001",
+              "leftValue": "={{ $json.alertType }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        1152
+      ],
+      "id": "14237b62-8cf8-4592-8cfa-80ea50e79dcb",
+      "name": "¿Es Error de Conexión?"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Costa Rica - APP",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Aa9547625aaea4e02ae5b373bdc352ae9%40thread.tacv2/Costa%20Rica%20-%20APP?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<h3>⚠️ FieldGlass FTP Monitor</h3><p>No se pudo listar el directorio SFTP del servicio FieldGlass. El monitoreo de archivos pendientes no pudo ejecutarse.</p><p><b>Detalle del error:</b><br/><code>{{ $json.detail }}</code>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1104,
+        960
+      ],
+      "id": "f8f32f5f-7d57-4d25-b701-381e32629b3a",
+      "name": "Teams - Alerta Error Genérico FieldGlass CR",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "webhookId": "164c4964-d360-480a-a1b8-b6d032ac6053",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "protocol": "sftp",
+        "operation": "list",
+        "path": "/home"
+      },
+      "type": "n8n-nodes-base.ftp",
+      "typeVersion": 1,
+      "position": [
+        464,
+        1152
+      ],
+      "id": "7f594a12-6327-451a-827e-fbdddbb450fe",
+      "name": "SFTP - Listar Directorio",
+      "credentials": {
+        "sftp": {
+          "id": "0t2mEvGvmdFT4Kgd",
+          "name": "CR FieldGlass"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
+          "mode": "list",
+          "cachedResultName": "Notificaciones Soporte"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "Costa Rica - APP",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3Aa9547625aaea4e02ae5b373bdc352ae9%40thread.tacv2/Costa%20Rica%20-%20APP?groupId=2f7e4d78-5cc0-4b00-bb44-372596f96fcf&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False"
+        },
+        "contentType": "html",
+        "message": "=<h3>🚨 FieldGlass FTP Monitor </h3><p>Se detectaron <b>{{ $json.count }} archivo(s)</b> con antigüedad mayor a <b>1 hora</b> en el directorio SFTP del servicio FieldGlass.</p><p><b>Archivos encontrados (orden cronológico):</b></p><ul>{{ $json.fileRows }}</ul><hr/><p><b>Pasos para soporte:</b></p><ol><li>Buscar LOGs en Kibana del servicio <b>AccentureFieldGlass</b>. Si hay LOG de Error, revisar con el equipo.</li><li>En Servicios Web → <code>/Servicios/FieldGlass</code>, validar que la base de datos <code>APG.Accenture.Comfiar.Win.Service.Connector.db</code> esté registrando fecha de última modificación (indica que está consultando a la DGT y guardando registro).</li></ol>",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        1104,
+        1280
+      ],
+      "id": "59bd4a3d-dcf0-41b7-958d-543efee174f2",
+      "name": "Teams - Alerta FieldGlass CR",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "webhookId": "6c26a2a1-3c5c-4fd5-8614-37cf28e9db8c",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 16 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        1280
+      ],
+      "id": "964b8606-b4d5-4b40-b46a-570ebb13176a",
+      "name": "Trigger 16:00 CR"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 6 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        992
+      ],
+      "id": "a277d908-780f-456b-838d-de52b45511fe",
+      "name": "Trigger 06:00 CR"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 12 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        1136
+      ],
+      "id": "977900a2-c60b-40ee-a523-499d1f4eb720",
+      "name": "Trigger 12:00 CR"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "dpjB6coBxiSr4rh5",
+          "mode": "list",
+          "cachedResultName": "fieldglass_log",
+          "cachedResultUrl": "/projects/xeIbd1uqzDdhrEnK/datatables/dpjB6coBxiSr4rh5"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "count": "={{ $('Filtrar Archivos y Detectar Errores').item.json.count }}",
+            "detail": "={{ $('Filtrar Archivos y Detectar Errores').item.json.detail }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "detail",
+              "displayName": "detail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        1168
+      ],
+      "id": "57ef24d2-543c-488f-8895-a1513a61e715",
+      "name": "Save Log"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Costa_Rica",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-01-26T21:54:00.001Z",
+      "updatedAt": "2026-01-26T21:54:00.001Z",
+      "role": "workflow:owner",
+      "workflowId": "OzCVUbUz3V5ZZ0hW",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Trigger 06:00 CR": {
+      "recurrenceRules": []
+    },
+    "node:Trigger 12:00 CR": {
+      "recurrenceRules": []
+    },
+    "node:Trigger 16:00 CR": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 3,
+  "updatedAt": "2026-07-22T14:49:18.904Z",
+  "versionId": "ac898595-1968-4f67-a30d-5e63083ebf8a"
+}
