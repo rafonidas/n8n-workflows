@@ -134,14 +134,13 @@
     {
       "parameters": {
         "content": "name\tteamsId\t\nEduardo Canizales\t7fda7b0e-380b-4a11-84e0-f135a5304cd5\t\nRoberto Marcano\t3ca9aa1d-4bab-40af-9e69-26b28becbdc7\t\nAndrea Ravenna\tf96b6dc9-e548-4910-9a88-12914eadc110\t\nVanessa Rodriguez\t84588ca8-8a08-4972-9558-7453f8b0bbcc\t\nZaida Ruiz\t207edf7b-ab77-46a8-bcc3-70eb47834c4e\t\nBarbosa Agustin\tc507a727-1ce4-4731-b137-56500d39edd2\t",
-        "height": 320,
         "width": 464
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         736,
-        -720
+        -624
       ],
       "id": "7790cc5c-783f-499c-80a8-6097907ca503",
       "name": "Sticky Note"
@@ -314,6 +313,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-19T19:10:13.271Z",
-  "versionId": "1799e6ec-1a55-46a1-8e66-86fb238e5092"
+  "updatedAt": "2026-07-23T16:57:16.324Z",
+  "versionId": "7806e057-5266-4339-8460-02dcad6849c9"
 }
