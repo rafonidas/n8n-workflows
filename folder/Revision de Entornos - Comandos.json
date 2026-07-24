@@ -416,7 +416,7 @@
       "main": [
         [
           {
-            "node": "List Query1",
+            "node": "Code in JavaScript",
             "type": "main",
             "index": 0
           }
@@ -438,6 +438,13 @@
         [
           {
             "node": "Retry Split1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Docs Build2",
             "type": "main",
             "index": 0
           }
@@ -556,6 +563,17 @@
           }
         ]
       ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "List Query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-06-08T19:19:04.275Z",
@@ -573,8 +591,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        368,
-        896
+        352,
+        32
       ],
       "id": "0474d029-d988-4d10-b6b2-f76c13a953e5",
       "name": "Parse Command"
@@ -697,8 +715,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        592,
-        848
+        576,
+        -16
       ],
       "id": "28b0e50f-c811-4578-a1c3-db4c389eb974",
       "name": "Switch Comando"
@@ -714,8 +732,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1488,
-        512
+        1472,
+        -352
       ],
       "id": "8d391ec2-0c69-453b-9626-b6a7516f26b1",
       "name": "List Query",
@@ -734,8 +752,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1712,
-        512
+        1696,
+        -352
       ],
       "id": "3a878004-f132-4eab-8624-251483f7ee4a",
       "name": "List Format"
@@ -751,8 +769,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1488,
-        704
+        1472,
+        -160
       ],
       "id": "b42c43bc-0ffb-4ef9-aefd-556ec0f4decd",
       "name": "Script Query",
@@ -771,8 +789,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1712,
-        704
+        1696,
+        -160
       ],
       "id": "7c07a918-56a2-492b-90e8-ed7674e0c8b4",
       "name": "Script Format"
@@ -784,8 +802,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1712,
-        896
+        1696,
+        32
       ],
       "id": "4f594705-4ee1-4ea8-a335-e7f9da9ca240",
       "name": "Docs Build"
@@ -797,8 +815,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        816,
-        1088
+        800,
+        224
       ],
       "id": "f893e315-dc21-445d-a48d-bf30089301ff",
       "name": "Retry Split"
@@ -814,8 +832,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1040,
-        1088
+        1024,
+        224
       ],
       "id": "a0e1b7b7-8a13-4b81-973b-506945210fbf",
       "name": "Retry Query",
@@ -834,8 +852,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1264,
-        1088
+        1248,
+        224
       ],
       "id": "5bc1353d-e968-443f-86d2-a3ec969b5a59",
       "name": "Retry Mini Audit Start"
@@ -862,8 +880,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1488,
-        1088
+        1472,
+        224
       ],
       "id": "24a3acfb-be71-41c3-a5a9-2af4a00669d1",
       "name": "Retry Exec (call testo)",
@@ -876,8 +894,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1712,
-        1088
+        1696,
+        224
       ],
       "id": "16290c01-7862-4ca5-8ac1-25d10e4d71c0",
       "name": "Retry Format"
@@ -889,8 +907,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1712,
-        1280
+        1696,
+        416
       ],
       "id": "2bdada08-aa66-4ef7-90f8-f0627af76e6b",
       "name": "Default"
@@ -919,8 +937,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        1936,
-        896
+        1920,
+        32
       ],
       "id": "44eb90f8-d301-401a-93bd-742839d43471",
       "name": "Create message",
@@ -945,8 +963,8 @@
       "type": "n8n-nodes-base.microsoftTeamsTrigger",
       "typeVersion": 1,
       "position": [
-        -304,
-        896
+        -320,
+        32
       ],
       "id": "f4981c26-c22d-43f0-b5c4-4ede860a72fa",
       "name": "Microsoft Teams Trigger",
@@ -966,8 +984,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        336,
-        1104
+        320,
+        240
       ],
       "id": "7f997818-eeee-40d2-bae2-911dc4a0d02b",
       "name": "Sticky Note"
@@ -984,8 +1002,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        144,
-        896
+        128,
+        32
       ],
       "id": "d0411575-16b1-4390-b6f1-3d545dc35249",
       "name": "HTTP Request",
@@ -1019,8 +1037,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -304,
-        288
+        -320,
+        -576
       ],
       "id": "667b50fd-8d23-47ad-808d-a83074026f42",
       "name": "Edit Fields"
@@ -1033,8 +1051,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -128,
-        880
+        -144,
+        16
       ],
       "id": "57a25d4d-a383-4693-ad81-2e9427662576",
       "name": "Sticky Note1"
@@ -1046,8 +1064,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        192,
-        880
+        176,
+        16
       ],
       "id": "dfa79a7e-bf49-4a21-9548-a8251e647979",
       "name": "Sticky Note2"
@@ -1072,8 +1090,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -80,
-        896
+        -96,
+        32
       ],
       "id": "2c92d75a-3c1d-4ea2-b13d-9abd1971dde2",
       "name": "Message Data"
@@ -1145,7 +1163,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1408,
+        1616,
         2160
       ],
       "id": "0c7a5ee2-d3b1-4be8-839e-061bfccf47d7",
@@ -1162,7 +1180,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1536,
+        1744,
         2304
       ],
       "id": "8cadbe9d-0156-4c6d-ba61-0b94c84a735a",
@@ -1183,7 +1201,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1696,
+        1904,
         2304
       ],
       "id": "ecdb63ff-5c66-43f9-bbd8-5aec6e0a6825",
@@ -1218,7 +1236,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1856,
+        2064,
         2304
       ],
       "id": "6c891d11-45cd-4c29-876a-aa14a2558bcf",
@@ -1231,7 +1249,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1984,
+        2192,
         2160
       ],
       "id": "6ac85f94-cda1-4119-bd41-5fd0cc697bbd",
@@ -1244,7 +1262,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2432,
+        2640,
         2160
       ],
       "id": "340366c5-2441-40ce-aba2-fc1d435aec09",
@@ -1258,7 +1276,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2656,
+        2864,
         2160
       ],
       "id": "27cca62e-898e-41bd-824e-8fee253e94e6",
@@ -1293,7 +1311,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2880,
+        3088,
         2160
       ],
       "id": "1be779f5-7e0f-422d-abcc-9c27475a4229",
@@ -1306,7 +1324,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3488,
+        3696,
         1856
       ],
       "id": "fc8e8e1c-e5db-4fd3-b287-66ff159e8d75",
@@ -1319,7 +1337,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3472,
+        3680,
         2064
       ],
       "id": "25b97a02-bc94-4c3e-b004-af192ac7cb92",
@@ -1332,8 +1350,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        416,
-        2560
+        272,
+        1520
       ],
       "id": "46534eb5-6ba6-4ca2-88e0-a88e3278bb04",
       "name": "Sticky Context"
@@ -1345,8 +1363,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1184,
-        3328
+        256,
+        1712
       ],
       "id": "3853d235-a611-42bf-80cf-f84523a5ffcd",
       "name": "Sticky Pendientes"
@@ -1358,8 +1376,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2144,
-        2736
+        640,
+        1552
       ],
       "id": "24231b29-73c9-46ba-95fb-ec6674002499",
       "name": "Sticky Secretos"
@@ -1548,6 +1566,31 @@
               },
               "renameOutput": true,
               "outputKey": "retry"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "15dcf11b-6c28-4236-888a-1786887ad608",
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "help",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "help"
             }
           ]
         },
@@ -1567,15 +1610,15 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT query_id, description, type, target_env, application\nFROM revision_queries\nWHERE ($1='ALL' OR upper(country)=upper($1) OR country='ALL')\nORDER BY type, query_id;",
+        "query": "SELECT DISTINCT rq.query_id, rq.description, rq.type, rq.target_env, rq.application\nFROM revision_queries rq\nJOIN revision_query_scopes s ON s.revision_query_id = rq.id   -- confirmame si es id o query_id\nWHERE ($1 = 'ALL' OR s.country = $1 OR s.country = 'ALL')\n  AND ($2 = ''    OR s.target_env = $2 OR s.target_env = 'ALL')\n  AND ($3::text IS NULL OR rq.application = $3)\nORDER BY rq.type, rq.query_id;",
         "options": {
-          "queryReplacement": "={{ ($json.arg || $json.pais_canal || 'ALL').toUpperCase() }}"
+          "queryReplacement": "={{ $json.pais_canal }},{{ $json.entorno_canal }},{{ $json.app_canal }}"
         }
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1264,
+        1472,
         1552
       ],
       "id": "2596b190-9517-49dd-8fd7-b0d11dc44ab4",
@@ -1595,7 +1638,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1488,
+        1696,
         1552
       ],
       "id": "1d62b32d-c1c3-4d15-806f-88f3292fd47e",
@@ -1612,7 +1655,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1264,
+        1472,
         1744
       ],
       "id": "cb0e0f1a-1ddb-44b9-9b5a-8e9376700cfd",
@@ -1632,7 +1675,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1488,
+        1696,
         1744
       ],
       "id": "d2cc84ce-3eb1-4931-9ca6-0c5f9f442053",
@@ -1640,12 +1683,12 @@
     },
     {
       "parameters": {
-        "jsCode": "const id = $json.arg;\nif (!id) return [{ json: { reply: 'Uso: /docs [id]' } }];\nconst url = `https://apg.cloudafm.com:443/default.aspx?accion=editardoc&DocumentoId=${id}&VersionId=1`;\nreturn [{ json: { reply: `<a href=\"${url}\">${url}</a>` } }];"
+        "jsCode": "const id = $json.arg;\nif (!id) return [{ json: { reply: 'Uso: /docs [id]' } }];\nconst url = `https://apg.cloudafm.com:443/default.aspx?accion=editardoc&DocumentoId=${id}&VersionId=1`;\nreturn [{ json: {reply: `<a href=\"${url}\">Link al AFM</a>` } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1488,
+        1696,
         1936
       ],
       "id": "ce9d1c46-7a23-439b-b0e2-2fa033d73163",
@@ -1658,7 +1701,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1248,
+        1456,
         2144
       ],
       "id": "460a52d6-8a83-4064-b30e-3f479dbf493d",
@@ -1675,7 +1718,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        2208,
+        2416,
         2160
       ],
       "id": "28c685bc-4fd0-4d88-bb10-325202e5a016",
@@ -1710,7 +1753,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        3200,
+        3408,
         2048
       ],
       "id": "69a14e7f-5e0b-4cae-89d8-47f23f7a57bf",
@@ -1726,8 +1769,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1200,
-        2768
+        1376,
+        3040
       ],
       "id": "83747079-f22c-4c9d-be36-4f920b71020f",
       "name": "Default1"
@@ -1756,8 +1799,8 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        3952,
-        2784
+        4144,
+        2496
       ],
       "id": "be7d4ddc-ba53-40fc-af47-3881b19be916",
       "name": "Create message1",
@@ -1786,35 +1829,67 @@
     },
     {
       "parameters": {
-        "resource": "channelMessage",
-        "operation": "getAll",
-        "teamId": {
-          "__rl": true,
-          "value": "=2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
-          "mode": "id",
-          "__regex": "^([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})"
-        },
-        "channelId": {
-          "__rl": true,
-          "mode": "list",
-          "value": ""
-        }
+        "jsCode": "const id = $json.arg;\nif (!id) return [{ json: { reply: 'Uso: /docs [id]' } }];\nconst url = `https://apg.cloudafm.com:443/default.aspx?accion=editardoc&DocumentoId=${id}&VersionId=1`;\nreturn [{ json: {reply: `<a href=\"${url}\">Link al AFM</a>` } }];"
       },
-      "type": "n8n-nodes-base.microsoftTeams",
+      "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2608,
-        1616
+        1728,
+        2576
       ],
-      "id": "73f1d3fe-0ca1-48ce-ac29-525c93d49aad",
-      "name": "Get many messages",
-      "webhookId": "5a292ad7-0eae-4ad9-bd05-fc7fdcee9ec4",
+      "id": "3f265cff-d288-4365-a18d-efd1c09ce147",
+      "name": "Docs Build2"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://graph.microsoft.com/v1.0/subscriptions/50be57c6-035f-4f66-aaf9-9ed28421ced0",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        2224
+      ],
+      "id": "2c1c3b2d-3870-488f-8223-5c966975149f",
+      "name": "HTTP Request2",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "DELETE https://graph.microsoft.com/v1.0/subscriptions/33001446-c46d-48eb-a16f-0316a87ec1a0\nDELETE https://graph.microsoft.com/v1.0/subscriptions/50be57c6-035f-4f66-aaf9-9ed28421ced0\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        384,
+        2720
+      ],
+      "id": "6c3ae074-04b4-4658-9f97-aed177af9797",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "jsCode": "const appAliasMap = {\n  comfiar: 'COMFIAR', confiar: 'COMFIAR', comfiar1: 'COMFIAR',\n  comfiar2: 'COMFIAR 2', c2: 'COMFIAR 2',\n  viga: 'VIGA',\n  beelling: 'Beelling', billing: 'Beelling',\n  all: null\n};\n\n// alias 2 letras -> alpha-3, por si alguien tipea \"ar\" en vez de \"arg\" (asumo estos, confirmame)\nconst paisAlias = { AR: 'ARG', CO: 'COL', BO: 'BOL', PE: 'PER', EC: 'ECU', CR: 'CRI' };\n\nconst parts = ($json.arg || '').trim().split(/\\s+/).filter(Boolean);\n\nlet list_pais = (parts[0] || $json.pais_canal || 'ALL').toUpperCase();\nlist_pais = paisAlias[list_pais] || list_pais;\n\nconst list_entorno = (parts[1] || $json.entorno_canal || '').toUpperCase();\n\nconst list_app = parts[2]\n  ? (appAliasMap[parts[2].toLowerCase()] ?? null)   // explícito, incluso \"all\" -> null\n  : ($json.app_canal || 'COMFIAR');                  // default real\n\nreturn [{ json: { ...$json, list_pais, list_entorno, list_app } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        1744
+      ],
+      "id": "755ae388-5562-4ced-b188-76aa1e8b70de",
+      "name": "Code in JavaScript"
     }
   ],
   "pinData": {
@@ -1857,14 +1932,14 @@
     "node:Microsoft Teams Trigger": {},
     "node:Microsoft Teams Trigger1": {
       "subscriptionIds": [
-        "034a25b8-cca7-4f37-ae55-2760ad067cc1",
-        "8a281f17-ff08-4e3b-9c67-239962392c98",
-        "3a4cd428-9528-455f-b1ee-b3b02f006048"
+        "b703dd5f-b045-4e9e-8c51-d31a1e884f98",
+        "65bf99bb-c507-4322-ae8d-fef98ab925fe",
+        "319e8f86-bbdf-4869-8173-5b7f8c8b308d"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-16T23:44:48.790Z",
-  "versionId": "cf5f72ca-abf0-42c6-a712-11c90c37d43f"
+  "updatedAt": "2026-07-23T20:13:19.840Z",
+  "versionId": "40a44d11-5a17-4521-b656-ce9b63b74edf"
 }
