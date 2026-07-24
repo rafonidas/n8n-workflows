@@ -150,20 +150,6 @@
       "id": "0b300ca1-92d1-42ea-92e8-8d64263337be",
       "name": "Webhook",
       "webhookId": "c5fbe9b3-8609-4998-bccd-26904bc6f430"
-    },
-    {
-      "parameters": {
-        "content": "https://www.mercadopago.com.ar/balance/reports/settlement_v2/statements/1be0e0a2-4a3b-4b2a-a1d2-635cf620f18c/download?format=csv\n",
-        "height": 128
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -128,
-        1280
-      ],
-      "id": "abc3b2a9-3fae-40b0-be41-a0df02c781e6",
-      "name": "Sticky Note1"
     }
   ],
   "pinData": {},
@@ -182,6 +168,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-15T13:05:38.336Z",
-  "versionId": "8f573c5d-77ca-43b4-bf54-33b8966e88d4"
+  "updatedAt": "2026-07-23T16:57:33.463Z",
+  "versionId": "5d3abec6-d5d9-4f2a-b700-22790c881dc1"
 }
