@@ -707,7 +707,8 @@
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "saveDataSuccessExecution": "none"
   },
   "shared": [
     {
@@ -740,6 +741,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-07-02T16:54:21.219Z",
-  "versionId": "83227c54-62ed-4af8-a0cf-16106083bd05"
+  "updatedAt": "2026-07-27T13:15:12.565Z",
+  "versionId": "41df57f6-d43b-4283-87b7-1086fd3c8d67"
 }
