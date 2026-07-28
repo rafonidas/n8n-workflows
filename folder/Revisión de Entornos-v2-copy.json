@@ -1,0 +1,1209 @@
+{
+  "active": false,
+  "connections": {
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credentials": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Loop": {
+      "main": [
+        [
+          {
+            "node": "Fan In",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Audit Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Credentials Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Set Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Results": {
+      "main": [
+        [
+          {
+            "node": "Query Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results": {
+      "main": [
+        [
+          {
+            "node": "Prepare Log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set  HTML": {
+      "main": [
+        [
+          {
+            "node": "Message Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fan In": {
+      "main": [
+        [
+          {
+            "node": "Set  HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Random Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hourly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit Start": {
+      "main": [
+        [
+          {
+            "node": "SQL Execute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Four-hourly Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Wait": {
+      "main": [
+        [
+          {
+            "node": "Send Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Error": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Send Results Retry1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results Retry1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Metrics": {
+      "main": [
+        [
+          {
+            "node": "Map Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit End": {
+      "main": [
+        [
+          {
+            "node": "Update Metrics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SQL Execute": {
+      "main": [
+        [
+          {
+            "node": "Audit End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Queries": {
+      "main": [
+        [
+          {
+            "node": "Query Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Loop": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Log": {
+      "main": [
+        [
+          {
+            "node": "Save Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Log": {
+      "main": [
+        [
+          {
+            "node": "Message Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-27T19:12:40.229Z",
+  "id": "2cOXTTtsHY29aQx6",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Revisión de Entornos-v2-copy",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3760,
+        176
+      ],
+      "typeVersion": 1,
+      "id": "c73fdfb7-9f78-402a-8416-ebfd37d83f53",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## chekear \n## notificaciones de error\n## retrys - paths - \n## queries - set credentials\n## credenciales correctas\n##\n##",
+        "height": 320,
+        "width": 448
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -4272,
+        768
+      ],
+      "typeVersion": 1,
+      "id": "ba631fa7-645a-4081-a54a-e4279fb598c6",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "Dashboards de datos especificos de la bbdd?\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -5024,
+        448
+      ],
+      "typeVersion": 1,
+      "id": "9d2544e9-8e2a-425c-9ad0-edcf934948ed",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Backup type -> bug"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -4544,
+        864
+      ],
+      "id": "b1338b10-9cb5-41a1-8c97-5cf7154cd7f3",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 5 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4096,
+        2688
+      ],
+      "id": "d4368723-5b1f-45a5-9807-2c1774dbca16",
+      "name": "Daily Trigger",
+      "alwaysOutputData": true,
+      "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
+    },
+    {
+      "parameters": {
+        "jsCode": "let executionType = 'Daily';\n\nif ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n}  else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = \"Monthly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n} else if ($(\"When Executed by Another Workflow\").isExecuted) {\n  executionType = 'Backup';\n}\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst serverSQL_Cines = {\n  server: \"172.17.0.150\",\n  db_info: [\n    { db: \"COMFIAR_CINES\", entorno: \"CINES\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"}\n  ],\n  port: 1433, \n  user: \"Soporte\",\n  password: \"FaLla:1+\"\n};\n\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\nconst dbsCines = mapDbs(serverSQL_Cines);\n\nlet listaMaestra = [...dbsArg, ...dbsCines, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3872,
+        2512
+      ],
+      "id": "e57901d3-f370-432f-bfae-9083a50ff9d3",
+      "name": "Set Credentials"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Query Loop'].context['done']}}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2992,
+        2384
+      ],
+      "id": "d1348213-0f14-4afa-a987-c65834956c49",
+      "name": "Query Loop"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -3648,
+        2432
+      ],
+      "id": "e5c5938a-b728-4bdd-9dc5-ac72a7de6435",
+      "name": "Credentials Loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "const audit = $('Update Metrics').item.json;\nconst ctx   = $('Query Loop').first().json;\nconst out   = JSON.parse(JSON.stringify(ctx));\n\nlet rows = [], estado;\nif (audit.status === false) {\n  estado = 'ERROR';\n} else {\n  rows = $('SQL Execute').all().map(i => i.json).filter(j => Object.keys(j).length > 0);\n  estado = rows.length ? 'OK' : 'VACIO';\n}\n\nout.result        = rows;\nout._status       = estado;          // OK | VACIO | ERROR\nout._isError      = audit.status === false;\nout._errorMessage = audit.error_message || null;\nout.filas         = audit.filas_encontradas;\nreturn { json: out };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1872,
+        2400
+      ],
+      "id": "3b201e65-b83e-4e5d-bea1-f20f5ebee3bb",
+      "name": "Map Results"
+    },
+    {
+      "parameters": {
+        "resource": "channelMessage",
+        "teamId": {
+          "__rl": true,
+          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "mode": "list",
+          "cachedResultName": "n8n notifications"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "19:66a0a41922ef4004a143795eb59a3a9e@thread.tacv2",
+          "mode": "list",
+          "cachedResultName": "test-interno",
+          "cachedResultUrl": "https://teams.cloud.microsoft/l/channel/19%3A66a0a41922ef4004a143795eb59a3a9e%40thread.tacv2/test-interno?groupId=53f577e2-4094-42b5-8a8b-695b91d0d74f&tenantId=f89f7128-f0c6-4302-9881-8e0697d39336&allowXTenantAccess=False&ngc=True"
+        },
+        "contentType": "html",
+        "message": "={{ $json.htmlContent }}",
+        "options": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.microsoftTeams",
+      "typeVersion": 2,
+      "position": [
+        -1712,
+        1984
+      ],
+      "id": "9866bf21-707e-411d-b0ce-c47adc3dea02",
+      "name": "Send Results",
+      "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "notes": "{{ $(\"Credentials Loop\").first().json.channelId }}"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "months",
+              "triggerAtDayOfMonth": "={{ 1 || 2 }}",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4096,
+        2112
+      ],
+      "id": "69d7ec6a-c5ec-4230-9df0-6e9c067a2cdb",
+      "name": "Monthly Trigger",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// [NODO: Set HTML - modo per-item]\n// Corre 1 vez por resultado (item) que llega desde Fan In.\n// Devuelve como mucho 1 mensaje por item: si el item no tiene\n// datos, no seteamos htmlContent y el If1 lo saltea sin enviar nada.\n\nconst item = $input.item.json;\n\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h3: 'font-size:15px;font-weight:bold;margin:0 0 8px 0;',\n    errorTitle: 'font-size:15px;font-weight:bold;margin:0 0 8px 0;color:#d9534f;',\n    table: 'width:100%;border-collapse:collapse;',\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;'\n};\n\n// CASO ERROR: la query de este item falló en la ejecución.\nif (item._isError === true) {\n    const desc = item.description || 'Sin descripción';\n    const errMsg = (item._errorMessage || 'Error desconocido').toString().slice(0, 300);\n    const html = `<div style=\"${styles.container}\"><h3 style=\"${styles.errorTitle}\">⚠️ Punto ${item.queryId}: ${desc}</h3><p>${errMsg}</p></div>`;\n    return { json: { htmlContent: html, queryId: item.queryId } };\n}\n\n// Validar si el resultado está vacío -> no se envía mensaje para este item.\nconst results = item.result;\nlet isEmpty = false;\nif (!results || (Array.isArray(results) && results.length === 0)) {\n    isEmpty = true;\n} else if (Array.isArray(results) && results.length === 1) {\n    const firstItem = results[0];\n    if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n        isEmpty = true;\n    }\n}\n\nif (isEmpty) {\n    return { json: { queryId: item.queryId } };\n}\n\nconst MAX_ROWS = 150;\nconst MAX_COLS = 10;\nlet data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\nlet fullHeaders = Object.keys(data[0] || {});\nlet headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\nlet html = `<div style=\"${styles.container}\"><h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\nhtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\nfor (const h of headers) html += `<th align=\"left\">${h}</th>`;\nhtml += \"</tr></thead><tbody>\";\n\nfor (const row of data) {\n    html += \"<tr>\";\n    for (const h of headers) {\n        const val = row[h];\n        const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n        html += `<td>${cleanVal}</td>`;\n    }\n    html += \"</tr>\";\n}\nhtml += \"</tbody></table>\";\n\nif (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n    html += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n}\n\nif (String(item.pattern || \"0\").trim() === '2') {\n    const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n    html += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n}\n\nhtml += `</div>`;\n\nreturn { json: { htmlContent: html, queryId: item.queryId } };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2640,
+        1984
+      ],
+      "id": "6f7b73b5-23fe-4636-b0d3-7cbfc5d9a1d1",
+      "name": "Set  HTML",
+      "notes": "Corre 1 vez por item (Run Once for Each Item). Cada item = 1 mensaje de Teams (o ninguno si vino vacío)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: FAN IN - AGREGADOR]\n// MODO: Run Once for All Items\n\nconst groupedItems = new Map();\nconst finalOutput = [];\n\nconst hasData = (sqlResultData) => {\n  if (!sqlResultData || !Array.isArray(sqlResultData) || sqlResultData.length === 0) return false;\n  return sqlResultData.some(row => (row && Object.keys(row).length > 0));\n};\n\nfor (const item of items) {\n  const json = item.json;\n  const parentId = json.parentGroupId;\n\n  // --- CASO 1: ITEM NORMAL ---\n  if (!parentId) {\n    finalOutput.push(item);\n    continue;\n  }\n\n  // --- CASO 2: ITEM PARTICIONADO ---\n  if (hasData(json.result)) {\n    if (!groupedItems.has(parentId)) {\n      const baseItem = JSON.parse(JSON.stringify(item));\n      if (baseItem.json.associatedCorrection) {\n         baseItem.json.correctionQuery = baseItem.json.associatedCorrection;\n      }\n      baseItem.json.revisionQuery = (baseItem.json.revisionQuery || '').trim();\n      baseItem.json.correctionQuery = (baseItem.json.correctionQuery || '').trim();\n      groupedItems.set(parentId, baseItem);\n    } else {\n      const groupItem = groupedItems.get(parentId);\n      const currentJson = json;\n      groupItem.json.result.push(...currentJson.result);\n      \n      if (currentJson.revisionQuery) {\n        groupItem.json.revisionQuery += '\\n\\n' + currentJson.revisionQuery.trim();\n      }\n      const currentCorrection = currentJson.associatedCorrection || currentJson.correctionQuery;\n      if (currentCorrection) {\n        const prevCorrection = groupItem.json.correctionQuery;\n        groupItem.json.correctionQuery = prevCorrection \n          ? prevCorrection + '\\n\\n' + currentCorrection.trim() \n          : currentCorrection.trim();\n      }\n    }\n  }\n}\n\n// Volcamos los grupos al array final\nfor (const groupItem of groupedItems.values()) {\n  const json = groupItem.json;\n  delete json.parentGroupId;\n  delete json.subQueryIndex;\n  delete json.queryType;\n  delete json.associatedCorrection;\n  groupItem.json = json;\n  finalOutput.push(groupItem);\n}\n\n// CORRECCIÓN DE ORDEN: Ordenamos por queryId (ej: 1.2, 1.3, 1.4)\n// Asumimos que queryId es un string como \"1.2\", \"1.3\", \"4.9\". \n// Usamos localeCompare con 'numeric: true' para que ordene bien números (2 vs 10).\nfinalOutput.sort((a, b) => {\n    const idA = String(a.json.queryId || '');\n    const idB = String(b.json.queryId || '');\n    return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });\n});\n\nreturn finalOutput;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2816,
+        1984
+      ],
+      "id": "30030a0d-7971-400e-8eac-6466f2a1a25c",
+      "name": "Fan In",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d074c4b-1844-4125-90f1-002e421f57db",
+              "leftValue": "={{$json.htmlContent}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2080,
+        2000
+      ],
+      "id": "bc29835e-c27f-412c-b952-944cc7201c6a",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "5 9-18/1 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4096,
+        2304
+      ],
+      "id": "25227adc-7298-4c19-b039-e4f384113a5a",
+      "name": "Hourly Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst credentials = $node[\"Credentials Loop\"].json\nfor (const item of items) {\n  // 1. Obtenemos el timezone que definimos en las credenciales\n  const zone = $node[\"Credentials Loop\"].json.timezone; \n\n  // 2. Calculamos la hora fresca\n  // Importante: DateTime es global en n8n\n  item.json.hora_ejecucion_real = DateTime.now()\n    .setZone(zone)\n    .toFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS\");\n    \n  // Timestamp para auditoría (milisegundos)\n  item.json.audit_startTime = new Date().getTime();\n  item.json.timeout = 90000,\n  item.json.user=credentials.user,\n  item.json.password=credentials.password,\n  item.json.database=credentials.database,\n  item.json.port=credentials.port,\n  item.json.server= credentials.server_host\n  item.json.flag = \"comfiar\"\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2768,
+        2400
+      ],
+      "id": "79ce229c-ff36-4a6c-ab59-958686cfb7c5",
+      "name": "Audit Start"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 9 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 13 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "30 17 * * 1-5"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -4096,
+        2496
+      ],
+      "id": "cda1ef45-07e5-4271-bc23-4a3dab1cd19f",
+      "name": "Four-hourly Trigger",
+      "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 30) + 1 }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1872,
+        1984
+      ],
+      "id": "6d953dcb-08ea-4320-9428-7724135f90df",
+      "name": "Random Wait",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{ $item(\"0\").$node[\"Send Results\"].json[\"error\"] }}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        -1424,
+        2352
+      ],
+      "id": "895d4d3e-fb46-413a-bcf3-81c46772e7aa",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09d00dc8-81c3-45a4-8d52-c4e8cd69b1a3",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "No authorization information present on the request.",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1600,
+        2240
+      ],
+      "id": "34a4a6ae-3591-4ac0-9821-ee921374e88f",
+      "name": "Check Error"
+    },
+    {
+      "parameters": {
+        "amount": "=30"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1424,
+        2160
+      ],
+      "id": "f18a5c51-8de4-41f5-9e7e-814c6757daab",
+      "name": "Wait1",
+      "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/beta/teams/2f7e4d78-5cc0-4b00-bb44-372596f96fcf/channels/{{ $(\"Credentials Loop\").first().json.channelId }}/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{  \n  {\n  \"body\": {\n    \"contentType\": \"html\",\n    \"content\": $(\"Send Results\").first().json.htmlContent\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1200,
+        2160
+      ],
+      "id": "725a71e6-8b3f-4467-b696-e4cb1f5833bc",
+      "name": "Send Results Retry1",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -4096,
+        2880
+      ],
+      "id": "1001c716-9d04-4649-97ed-37fdd4c43030",
+      "name": "manual"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "auditoria_queries",
+          "mode": "list",
+          "cachedResultName": "auditoria_queries"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "id": 0,
+            "tiempo": 0,
+            "peso": 0,
+            "filas_encontradas": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frecuencia",
+              "displayName": "frecuencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tiempo",
+              "displayName": "tiempo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "peso",
+              "displayName": "peso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filas_encontradas",
+              "displayName": "filas_encontradas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "aplicacion",
+              "displayName": "aplicacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp_tz",
+              "displayName": "timestamp_tz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora_limpia",
+              "displayName": "hora_limpia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "time",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_real",
+              "displayName": "fecha_real",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "error_message",
+              "displayName": "error_message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2096,
+        2400
+      ],
+      "id": "38d621f5-2720-4eba-8812-3523b3d0d988",
+      "name": "Update Metrics",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const results = $input.all();\nconst errorMsg = typeof results[0]?.json?.error === 'string' ? results[0].json.error : null;\nconst hasError = !!errorMsg;\n\n// Unificamos el objeto de fecha\nconst now = new Date();\nconst start = $('Audit Start').item?.json?.audit_startTime || $('Audit Start').first().json.audit_startTime;\n\nconst e = $('Credentials Loop').item?.json || {};\nconst q = $('Query Loop').item?.json || {};\n\n// Asumimos que estas variables se calculan aquí en base a los resultados si no hay error\nconst realResultsCount = hasError ? 0 : results.length;\nconst sizeInBytes = hasError ? 0 : JSON.stringify(results).length; // Ejemplo de cálculo si no venía definido\n\nreturn [{\n  json: {\n    query:             q.queryId     || 'N/A',\n    pais:              e.country     || 'Desconocido',\n    entorno:           e.entorno     || 'Desconocido',\n    frecuencia:        q.type        || 'N/A',\n    description:       q.description || 'Sin descripción',\n    aplicacion:        q.application || 'N/A',\n    tiempo:            +((now - start) / 1000).toFixed(2), // '+' reemplaza a parseFloat\n    peso:              +((sizeInBytes / 1024).toFixed(2)),\n    filas_encontradas: realResultsCount,\n    timestamp_tz:      now.toISOString().split('.')[0].replace('T', ' ') + '+00',\n    fecha_real:        now.toLocaleDateString(\"en-CA\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    hora_limpia:       now.toLocaleTimeString(\"en-GB\", { timeZone: \"America/Argentina/Buenos_Aires\" }),\n    status:            !hasError,\n    error_message:     errorMsg || null\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2320,
+        2400
+      ],
+      "id": "334280fc-f742-4578-851f-8d2da06a9d77",
+      "name": "Audit End"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "3pr7wL0vbaiWmaGy",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/3pr7wL0vbaiWmaGy",
+          "cachedResultName": "SQL Execute"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -2544,
+        2400
+      ],
+      "id": "c3bd8041-1233-4c9c-a9a7-c533e4f60db8",
+      "name": "SQL Execute",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM fn_revision_queries($1, $2, $3)\n",
+        "options": {
+          "queryReplacement": "={{ $json.type }}, {{ $json.country }}, {{ $json.entorno }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -3360,
+        2416
+      ],
+      "id": "46b439ac-42ad-4c3c-9c48-1cd93d7491da",
+      "name": "Set Queries",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Message Loop'].context['done'] }}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2352,
+        2000
+      ],
+      "id": "1e30d860-b303-4e67-8c53-ef5e2aa4aeb4",
+      "name": "Message Loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "const teamsResponse = $input.first().json;\nconst cred = $('Credentials Loop').first().json;\nconst msgItem = $('Message Loop').first().json;\n\nreturn {\n  json: {\n    message_id: teamsResponse.id || null,\n    query_id: msgItem.queryId,\n    pais: cred.country,\n    entorno: cred.entorno,\n    channel_name: `${cred.country} ${cred.entorno}`,\n    channel_id: cred.channelId,\n    status: true\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        1984
+      ],
+      "id": "35aa6cdf-1dfd-4c0e-aa83-2f14c1916381",
+      "name": "Prepare Log"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "log_mensajes_teams",
+          "mode": "list",
+          "cachedResultName": "log_mensajes_teams"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "message_id": 0,
+            "query_id": 0,
+            "pais": 0,
+            "entorno": 0,
+            "channel_name": 0,
+            "channel_id": 0,
+            "status": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "query_id",
+              "displayName": "query_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channel_name",
+              "displayName": "channel_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channel_id",
+              "displayName": "channel_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sent_at",
+              "displayName": "sent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -752,
+        1984
+      ],
+      "id": "41afb9a5-b941-43a4-96f1-5771e3ce09a3",
+      "name": "Save Log",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "saveExecutionProgress": true,
+    "executionTimeout": 10800,
+    "timeSavedPerExecution": 20,
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-07-27T19:12:40.229Z",
+      "updatedAt": "2026-07-27T19:12:40.229Z",
+      "role": "workflow:owner",
+      "workflowId": "2cOXTTtsHY29aQx6",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Daily Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Four-hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Bi-hourly Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Monthly Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 4,
+  "updatedAt": "2026-07-27T20:12:51.192Z",
+  "versionId": "fb18bc08-0d4d-49e3-923e-07525897be5a"
+}
