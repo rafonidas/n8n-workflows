@@ -86,7 +86,7 @@
       "main": [
         [
           {
-            "node": "Credentials Loop",
+            "node": "Prepare Log",
             "type": "main",
             "index": 0
           }
@@ -108,7 +108,7 @@
       "main": [
         [
           {
-            "node": "If1",
+            "node": "Message Loop",
             "type": "main",
             "index": 0
           }
@@ -119,7 +119,7 @@
       "main": [
         [
           {
-            "node": "Set  HTML",
+            "node": "Tag First Message",
             "type": "main",
             "index": 0
           }
@@ -137,7 +137,7 @@
         ],
         [
           {
-            "node": "Credentials Loop",
+            "node": "Message Loop",
             "type": "main",
             "index": 0
           }
@@ -228,11 +228,6 @@
         ]
       ]
     },
-    "manual": {
-      "main": [
-        []
-      ]
-    },
     "Update Metrics": {
       "main": [
         [
@@ -271,6 +266,57 @@
         [
           {
             "node": "Query Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag First Message": {
+      "main": [
+        [
+          {
+            "node": "Set  HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Loop": {
+      "main": [
+        [
+          {
+            "node": "Credentials Loop",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Log": {
+      "main": [
+        [
+          {
+            "node": "Save Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Log": {
+      "main": [
+        [
+          {
+            "node": "Message Loop",
             "type": "main",
             "index": 0
           }
@@ -395,10 +441,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -864,
-        1120
+        -1008,
+        992
       ],
-      "id": "f632cc38-589c-4ebc-9738-5b9129b86cac",
+      "id": "d64f1d05-21d4-4922-9c67-6aded8ab2eb7",
       "name": "Daily Trigger",
       "alwaysOutputData": true,
       "notes": "De Lunes a Viernes\n7:00 AM\n\n0 0 5 * * 1-5"
@@ -410,10 +456,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -640,
-        944
+        -784,
+        800
       ],
-      "id": "05a2ddcc-fcae-44c0-b4a6-9c9796d6c302",
+      "id": "c32b9df8-caab-4575-aa08-7891bf21cf6c",
       "name": "Set Credentials"
     },
     {
@@ -425,10 +471,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        240,
-        816
+        -32,
+        656
       ],
-      "id": "b5dbb787-96e8-4b3a-8c42-435f805395c8",
+      "id": "969466ca-a895-485a-ab00-fb0416fd150b",
       "name": "Query Loop"
     },
     {
@@ -438,10 +484,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -416,
-        864
+        -560,
+        720
       ],
-      "id": "aea41163-b34e-4046-9cbd-2cd42463d92e",
+      "id": "d623c21f-e73f-47d7-8932-a3a388441d48",
       "name": "Credentials Loop"
     },
     {
@@ -451,10 +497,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1360,
-        896
+        1232,
+        752
       ],
-      "id": "b0320bd3-eb0b-41fa-a13f-86b418efcd94",
+      "id": "7a4f60ad-1338-46d8-a412-fd5f11dd36bd",
       "name": "Map Results"
     },
     {
@@ -480,10 +526,10 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        1360,
-        608
+        1232,
+        464
       ],
-      "id": "f8aa3389-e423-4f7d-9289-5d6138c324f7",
+      "id": "ccc48b7c-94e0-46d6-910f-b22f61a2d5cc",
       "name": "Send Results",
       "webhookId": "bf236dd6-db9a-4836-9e42-fbbb1824f2c8",
       "retryOnFail": true,
@@ -491,7 +537,7 @@
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
+          "name": "APG-Teams"
         }
       },
       "onError": "continueErrorOutput",
@@ -502,10 +548,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2240,
-        864
+        2112,
+        720
       ],
-      "id": "51b1742f-1269-4323-9d2e-78eccaa93751",
+      "id": "32dbf705-af33-4e25-ada7-288af424bfce",
       "name": "Wait",
       "webhookId": "1be973ac-e2e4-495b-b3c2-20b2d7f44c5a"
     },
@@ -524,28 +570,27 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -864,
-        544
+        -1008,
+        400
       ],
-      "id": "e78a8853-682a-47f8-8ed0-c289f645127b",
+      "id": "bb505ebd-ee3c-4406-906a-79fca9a74bbd",
       "name": "Monthly Trigger",
       "alwaysOutputData": true
     },
     {
       "parameters": {
-        "jsCode": "// [NODO: Set HTML - Versión Unificada y Priorizada]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n// Si no hay ítems de entrada, retornar vacío o error básico\nif (allItems.length === 0) {\n    let type = \"General\";\n    try { type = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; } catch(e) {}\n    if (['Bi-hourly', 'Hourly', 'Nightly'].includes(type)) return []; \n    return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\nconst allQueries = allItems.map(item => item.json);\n\n// 1. SEPARAR ÍTEMS: Errores vs Exitosos\nconst errorItems = allQueries.filter(q => q._isError === true);\nconst successItems = allQueries.filter(q => q._isError !== true);\n\n// 2. ESTILOS CENTRALIZADOS\nconst styles = {\n    container: 'font-family:sans-serif;font-size:13px;color:#000;',\n    h1: 'font-size:20px;margin:0;',\n    h2: 'font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;',\n    h3: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;',\n    errorTitle: 'font-size:15px;font-weight:bold;margin:15px 0 5px 0;color:#d9534f;', // Rojo para errores\n    table: 'width:100%;border-collapse:collapse;',\n    pre: 'font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;',\n    notice: 'font-size:11px;font-style:italic;',\n    footer: 'margin-top:15px;font-size:12px;border-top:1px solid #eee;'\n};\n\n// 3. OBTENER METADATOS (Tipo y Frecuencia)\nlet reportType = \"General\";\ntry { reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\"; } catch(e) {}\n\nlet frequency = \"General\";\nif (reportType === \"Daily\") frequency = \"Diaria\";\nelse if (reportType === \"Four-hourly\") frequency = \"cada 4 horas\";\nelse if (reportType === \"Hourly\") frequency = \"cada 1 hora\";\nelse if (reportType === \"Bi-hourly\") frequency = \"cada 2 horas\";\n\n// 4. PROCESAR TABLAS (Solo de los ítems exitosos)\nlet validHtmlParts = []; \nlet hiddenQueriesCount = 0;\n\nfor (const item of successItems) {\n    const results = item.result;\n    \n    // Validar si el resultado exitoso está vacío\n    let isEmpty = false;\n    if (!results || (Array.isArray(results) && results.length === 0)) {\n        isEmpty = true;\n    } else if (Array.isArray(results) && results.length === 1) {\n        const firstItem = results[0];\n        if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n            isEmpty = true;\n        }\n    }\n\n    if (isEmpty) {\n        hiddenQueriesCount++; \n        continue; \n    }\n\n    let itemHtml = `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n    const MAX_ROWS = 150; \n    const MAX_COLS = 10;\n    let data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\n    let fullHeaders = Object.keys(data[0] || {});\n    let headers = fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\n    itemHtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\n    for (const h of headers) itemHtml += `<th align=\"left\">${h}</th>`;\n    itemHtml += \"</tr></thead><tbody>\";\n    \n    for (const row of data) {\n        itemHtml += \"<tr>\";\n        for (const h of headers) {\n            const val = row[h];\n            const cleanVal = (val === null || val === undefined) ? \"\" : String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n            itemHtml += `<td>${cleanVal}</td>`;\n        }\n        itemHtml += \"</tr>\";\n    }\n    itemHtml += \"</tbody></table>\";\n\n    if (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n        itemHtml += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + ' filas ' : ''}${fullHeaders.length > MAX_COLS ? MAX_COLS + ' columnas' : ''})</p>`;\n    }\n\n    if (String(item.pattern || \"0\").trim() === '2') {\n        const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n        itemHtml += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    }\n\n    validHtmlParts.push(itemHtml);\n}\n\n// 5. LÓGICA ANTI-SPAM DEFINITIVA\n// Si no hay tablas para mostrar Y no hay errores, abortar silenciosamente (si aplica la frecuencia)\nif (validHtmlParts.length === 0 && errorItems.length === 0) {\n    if (['Bi-hourly', 'Hourly', 'Nightly'].includes(reportType)) return [];\n}\n\n// 6. ENSAMBLAR EL REPORTE HTML (Errores ARRIBA, Tablas ABAJO)\nlet finalHtml = `<div style=\"${styles.container}\">`;\n\nif (reportType === 'Daily') {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  finalHtml += `<h1 style=\"${styles.h1}\">${dateFormatted}</h1>`;\n}\n\nfinalHtml += `<h2 style=\"${styles.h2}\">Resultados de la Revisión de Entornos ${frequency}</h2>`;\n\n// 6A. SECCIÓN DE ERRORES (Aparece primero)\nif (errorItems.length > 0) {\n    finalHtml += `<h3 style=\"${styles.errorTitle}\">Queries con error</h3><ul>`;\n    for (const e of errorItems) {\n        const desc = e.description || 'Sin descripción';\n        const errMsg = (e._errorMessage || 'Error desconocido').toString().slice(0, 300);\n        finalHtml += `<li><b>⚠️ Punto ${e.queryId}:</b> ${desc} — ${errMsg}</li>`;\n    }\n    finalHtml += `</ul><hr size=\"1\" color=\"#eee\">`;\n}\n\n// 6B. SECCIÓN DE RESULTADOS (Tablas)\nif (validHtmlParts.length === 0) {\n    finalHtml += `<div style=\"${styles.footer}\">✅ Sin novedades operativas.</div>`;\n} else {\n    finalHtml += validHtmlParts.join('<hr size=\"1\" color=\"#eee\">');\n    if (hiddenQueriesCount > 0) {\n        finalHtml += `<div style=\"${styles.footer}\">El resto de los puntos no dieron resultados.</div>`;\n    }\n}\n\nfinalHtml += `</div>`;\n\nreturn { \n    json: { htmlContent: finalHtml },\n    pairedItem: allItems.length > 0 ? allItems[0].pairedItem : undefined\n};"
+        "mode": "runOnceForEachItem",
+        "jsCode": "// [NODO: Set HTML - modo per-item]\n// Corre 1 vez por resultado (item) que llega desde Tag First Message.\n// Devuelve como mucho 1 mensaje por item: si el item no tiene\n// datos, no seteamos htmlContent y el If1 lo saltea sin enviar nada.\n// El item marcado con _isFirstMessage (por 'Tag First Message') lleva\n// además el encabezado de fecha/frecuencia/aplicación, una sola vez\n// por corrida de este entorno.\n\nconst item = $input.item.json;\nconst APP_NAME = \"COMFIAR\";\n\nconst styles = {\n  container: \"font-family:sans-serif;font-size:13px;color:#000;\",\n  h3: \"font-size:15px;font-weight:bold;margin:0 0 8px 0;\",\n  errorTitle: \"font-size:15px;font-weight:bold;margin:0 0 8px 0;color:#d9534f;\",\n  table: \"width:100%;border-collapse:collapse;\",\n  pre: \"font-family:monospace;font-size:11px;background:#f4f4f4;padding:8px;border:1px solid #ccc;\",\n  notice: \"font-size:11px;font-style:italic;\",\n};\n\nlet reportType = \"General\";\ntry {\n  reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\";\n} catch (e) {}\n\nlet frequency = \"General\";\nif (reportType === \"Daily\") frequency = \"Diaria\";\nelse if (reportType === \"Four-hourly\") frequency = \"cada 4 horas\";\nelse if (reportType === \"Hourly\") frequency = \"cada 1 hora\";\nelse if (reportType === \"Bi-hourly\") frequency = \"cada 2 horas\";\nelse if (reportType === \"Monthly\") frequency = \"Mensual\";\n\n// La etiqueta \"Revisión {frecuencia} — COMFIAR\" va SIEMPRE, en los N mensajes,\n// para poder identificar a qué corrida corresponde cada notificación (pueden\n// mezclarse con las de otro trigger en el mismo canal). La fecha (solo Daily)\n// va únicamente en el primer mensaje de cada entorno (_isFirstMessage).\nlet headerHtml = `<div style=\"${styles.container}\">`;\nif (item._isFirstMessage && reportType === \"Daily\") {\n  const now = new Date();\n  const dateStr = now.toLocaleDateString(\"es-ES\", {\n    weekday: \"long\",\n    day: \"numeric\",\n    month: \"long\",\n    year: \"numeric\",\n  });\n  const dateFormatted = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);\n  headerHtml += `<h1 style=\"font-size:20px;margin:0;\">${dateFormatted}</h1>`;\n}\nheaderHtml += `<h2 style=\"font-size:13px;margin:0 0 15px 0;text-transform:uppercase;font-weight:normal;\">Revisión ${frequency} — ${APP_NAME}</h2>`;\nheaderHtml += `</div>`;\n\n// CASO ERROR: la query de este item falló en la ejecución.\nif (item._isError === true) {\n  const desc = item.description || \"Sin descripción\";\n  const errMsg = (item._errorMessage || \"Error desconocido\")\n    .toString()\n    .slice(0, 300);\n  const html = `<div style=\"${styles.container}\"><h3 style=\"${styles.errorTitle}\">⚠️ Punto ${item.queryId}: ${desc}</h3><p>${errMsg}</p></div>`;\n  return { json: { htmlContent: headerHtml + html, queryId: item.queryId } };\n}\n\n// Validar si el resultado está vacío -> no se envía mensaje para este item.\nconst results = item.result;\nlet isEmpty = false;\nif (!results || (Array.isArray(results) && results.length === 0)) {\n  isEmpty = true;\n} else if (Array.isArray(results) && results.length === 1) {\n  const firstItem = results[0];\n  if (\n    firstItem === null ||\n    (typeof firstItem === \"object\" && Object.keys(firstItem).length === 0)\n  ) {\n    isEmpty = true;\n  }\n}\n\nif (isEmpty) {\n  return { json: { queryId: item.queryId } };\n}\n\nconst MAX_ROWS = 150;\nconst MAX_COLS = 10;\nlet data = results.length > MAX_ROWS ? results.slice(0, MAX_ROWS) : results;\nlet fullHeaders = Object.keys(data[0] || {});\nlet headers =\n  fullHeaders.length > MAX_COLS ? fullHeaders.slice(0, MAX_COLS) : fullHeaders;\n\nlet html = `<div style=\"${styles.container}\"><h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\nhtml += `<table border=\"1\" cellpadding=\"4\" cellspacing=\"0\" style=\"${styles.table}\"><thead><tr bgcolor=\"#f2f2f2\">`;\nfor (const h of headers) html += `<th align=\"left\">${h}</th>`;\nhtml += \"</tr></thead><tbody>\";\n\nfor (const row of data) {\n  html += \"<tr>\";\n  for (const h of headers) {\n    const val = row[h];\n    const cleanVal =\n      val === null || val === undefined\n        ? \"\"\n        : String(val).replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\");\n    html += `<td>${cleanVal}</td>`;\n  }\n  html += \"</tr>\";\n}\nhtml += \"</tbody></table>\";\n\nif (results.length > MAX_ROWS || fullHeaders.length > MAX_COLS) {\n  html += `<p style=\"${styles.notice}\">(Vista limitada: ${results.length > MAX_ROWS ? MAX_ROWS + \" filas \" : \"\"}${fullHeaders.length > MAX_COLS ? MAX_COLS + \" columnas\" : \"\"})</p>`;\n}\n\nif (String(item.pattern || \"0\").trim() === \"2\") {\n  const combinedQueryText = `-- SELECT\\n${item.revisionQuery || \"\"}\\n\\n-- UPDATE\\n${item.correctionQuery || \"\"}`;\n  html += `<p><b>Cargar ticket con:</b></p><pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n}\n\nhtml += `</div>`;\n\nreturn { json: { htmlContent: headerHtml + html, queryId: item.queryId } };\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        688,
-        608
+        576,
+        336
       ],
-      "id": "06f197ea-86e0-43d9-a0ba-751d1851a7a3",
+      "id": "31305367-8bb3-4e60-8eca-0e0acff42214",
       "name": "Set  HTML",
-      "executeOnce": true,
-      "alwaysOutputData": true,
-      "notes": "// [NODO: Set HTML]\n// MODO: Run Once for All Items\n\nconst allItems = $input.all();\n\n// Si no llegó nada al nodo, salimos con un mensaje básico.\nif (allItems.length === 0) {\n  return { json: { htmlContent: \"<p>No hay datos que procesar.</p>\" } };\n}\n\n// --- Obtener el tipo de reporte (Daily, Weekly, etc.) ---\nlet reportType = \"General\";\ntry {\n  // Intentamos leer el tipo desde el primer item del Loop de Credenciales\n  reportType = $(\"Credentials Loop\").first().json[\"type\"] || \"General\";\n} catch (error) {\n  // Si falla, usamos el valor por defecto\n}\n\nconst allQueries = allItems.map(item => item.json);\nlet validHtmlParts = []; // Aquí acumularemos solo los reportes que tengan datos\n\n// --- Configuración Visual (Estilos para Teams/Email) ---\nconst MAX_ROWS = 20;\nconst MAX_COLS = 6;\n\nconst styles = {\n  table: 'border-collapse: collapse; margin-bottom: 10px; width: 100%;', \n  th: 'padding: 5px; text-align: left; font-weight: bold; border: 1px solid #ddd;', \n  td: 'padding: 5px; vertical-align: top; border: 1px solid #ddd;',\n  p: 'font-size: 14px; margin: 0 0 10px 0;',\n  p_notice: 'font-size: 12px; font-style: italic; color: #666;',\n  h3: 'margin-bottom: 5px; font-size: 16px; font-weight: bold; color: #000;',\n  pre: 'font-family: monospace; white-space: pre-wrap; word-wrap: break-word; font-size: 11px; margin-top: 0;',\n  hr: 'border: 0; border-top: 1px solid #ccc; margin: 15px 0;',\n  queryLabel: 'font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 0; margin-top: 10px;',\n  mainTitle: 'font-size: 24px; font-weight: bold; color: #000; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;'\n};\n\n// --- Construcción del Título Principal ---\nconst reportTypeFormatted = reportType.charAt(0).toUpperCase() + reportType.slice(1);\nlet combinedHtml = `<h1 style=\"${styles.mainTitle}\">Resultados de revisión ${reportTypeFormatted}</h1>`;\n\n// --- Bucle Principal sobre cada Query ---\nfor (const item of allQueries) {\n  const results = item.result;\n  \n  // 1. FILTRO DE RESULTADOS VACÍOS\n  // Verificamos si results es null, vacío o un array con un objeto vacío.\n  let isEmpty = false;\n  if (!results) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 0) {\n    isEmpty = true;\n  } else if (Array.isArray(results) && results.length === 1) {\n    const firstItem = results[0];\n    if (firstItem === null || (typeof firstItem === 'object' && Object.keys(firstItem).length === 0)) {\n      isEmpty = true;\n    }\n  }\n\n  // REGLA: \"No se muestre nada si el punto no da resultado\"\n  if (isEmpty) {\n    continue; // Saltamos a la siguiente iteración inmediatamente\n  }\n\n  // --- Si llegamos aquí, ES PORQUE HAY DATOS PARA MOSTRAR ---\n  let itemHtml = \"\";\n\n  // Título del Punto\n  itemHtml += `<h3 style=\"${styles.h3}\">Punto ${item.queryId}: ${item.description || \"Sin descripción\"}</h3>`;\n\n  // 2. CONSTRUCCIÓN DE LA TABLA\n  let data = results;\n  let limitedRows = false;\n  let limitedCols = false;\n\n  // Lógica de límites (filas)\n  if (results.length > MAX_ROWS) {\n    data = results.slice(0, MAX_ROWS);\n    limitedRows = true;\n  }\n\n  // Obtener cabeceras\n  let headers = Object.keys(data[0] || {});\n  \n  // Lógica de límites (columnas)\n  if (headers.length > MAX_COLS) {\n    headers = headers.slice(0, MAX_COLS);\n    limitedCols = true;\n  }\n\n  // HTML de la Tabla\n  itemHtml += `<table border=\"1\" style=\"${styles.table}\">`;\n  itemHtml += '<thead><tr>';\n  for (const header of headers) itemHtml += `<th style=\"${styles.th}\">${header}</th>`;\n  itemHtml += \"</tr></thead>\";\n  \n  itemHtml += \"<tbody>\";\n  for (const row of data) {\n    itemHtml += \"<tr>\";\n    for (const header of headers) {\n      // Manejo seguro de null/undefined y escape de caracteres HTML\n      const value = (row[header] === null || typeof row[header] === \"undefined\") \n        ? \"\" \n        : String(row[header]).replace(/</g, '&lt;').replace(/>/g, '&gt;');\n      itemHtml += `<td style=\"${styles.td}\">${value}</td>`;\n    }\n    itemHtml += \"</tr>\";\n  }\n  itemHtml += \"</tbody></table>\";\n\n  // Avisos de recorte de datos\n  let notices = \"\";\n  if (limitedRows) notices += `(Se muestran ${MAX_ROWS} filas de ${results.length}). `;\n  if (limitedCols) notices += `(Se muestran ${MAX_COLS} columnas de ${Object.keys(results[0]).length}).`;\n  if (notices) itemHtml += `<p style=\"${styles.p_notice}\">${notices.trim()}</p>`;\n\n  // 3. LÓGICA DE PATRONES (1, 2, 3)\n  // Convertimos a string por seguridad\n  const pattern = String(item.pattern || \"0\").trim();\n\n  // REGLA: Solo mostramos queries si el patrón es '2'\n  if (pattern === '2') {\n    const selectQuery = item.revisionQuery || \"(No se proporcionó SELECT)\";\n    const correctionQuery = item.correctionQuery || \"(No se proporcionó UPDATE)\";\n    const combinedQueryText = `\n    -- SELECT --\n    ${selectQuery}\n\n    -- UPDATE --\n    ${correctionQuery}\n    `.trim();\n\n    itemHtml += `<div style=\"margin-top: 10px;\">`;\n    itemHtml += `<p style=\"${styles.queryLabel}\">Script:</p>`;\n    // Renderizamos UNA SOLA caja <pre> con todo el contenido\n    itemHtml += `<pre style=\"${styles.pre}\">${combinedQueryText}</pre>`;\n    itemHtml += `</div>`;\n  }\n  // Pattern 1 y 3 (y otros) no muestran nada aquí.\n\n  validHtmlParts.push(itemHtml);\n}\n  \n// --- GENERACIÓN FINAL ---\n\nif (validHtmlParts.length === 0) {\n  // Caso: Se ejecutó el flujo, pero todas las queries vinieron vacías.\n  // Mensaje final indicando que todo está limpio.\n  combinedHtml += `<p style=\"${styles.p}\">No se encontraron novedades ni datos para revisar en este entorno el día de hoy.</p>`;\n} else {\n  // Unimos todas las partes válidas con un separador <hr>\n  combinedHtml += validHtmlParts.join(`<hr style=\"${styles.hr}\">`);\n}\n\n// Retornamos el contenido para el siguiente nodo (Teams/Email)\nconst parentPairedItem = items.length > 0 ? items[0].pairedItem : undefined;\n\nreturn { \n    json: { htmlContent: combinedHtml },\n    pairedItem: parentPairedItem\n};"
+      "notes": "Corre 1 vez por item (Run Once for Each Item). Cada item = 1 mensaje de Teams (o ninguno si vino vacío)."
     },
     {
       "parameters": {
@@ -554,10 +599,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        464,
-        608
+        208,
+        336
       ],
-      "id": "13242505-04d0-400a-af17-ec88fa28d73a",
+      "id": "cde193fa-ebf1-420d-872e-3c8c01b9e72e",
       "name": "Fan In",
       "alwaysOutputData": true
     },
@@ -589,10 +634,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        912,
-        608
+        1008,
+        320
       ],
-      "id": "437dd74b-00b6-4e5a-b310-b64ee17ee69b",
+      "id": "b3c2c906-1608-4b43-b6c5-6b29e603548e",
       "name": "If1"
     },
     {
@@ -609,10 +654,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -864,
-        736
+        -1008,
+        592
       ],
-      "id": "6141fb06-2070-47c4-b87f-dc28e0d94a88",
+      "id": "075cd463-b289-4602-84ef-4b305bbc50b2",
       "name": "Hourly Trigger"
     },
     {
@@ -622,10 +667,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        464,
-        832
+        336,
+        688
       ],
-      "id": "f69437d5-968b-42fe-9919-db235f1287e9",
+      "id": "39c95cfa-cde6-4c7e-b8a1-7377574b3a5e",
       "name": "Audit Start"
     },
     {
@@ -650,10 +695,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -864,
-        928
+        -1008,
+        784
       ],
-      "id": "462f79c6-ae05-4b3c-b33e-2c582488e74b",
+      "id": "8db69279-f2f7-4ad1-969a-08c9fc1f026c",
       "name": "Four-hourly Trigger",
       "notes": "Se ejecuta cada 2 horas, de lunes a viernes, de 7am a 19pm "
     },
@@ -664,10 +709,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1136,
-        608
+        1456,
+        224
       ],
-      "id": "cedc4518-950c-480b-a118-2134a133794d",
+      "id": "968ebac2-ffca-43f5-b141-616235c615d5",
       "name": "Random Wait",
       "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
     },
@@ -678,10 +723,10 @@
       "type": "n8n-nodes-base.stopAndError",
       "typeVersion": 1,
       "position": [
-        1808,
-        784
+        1680,
+        640
       ],
-      "id": "4779b668-4c15-41f4-ae8c-ff7f64b24971",
+      "id": "0d225103-76a2-42d5-b035-7b1c12f091ab",
       "name": "Stop and Error"
     },
     {
@@ -712,10 +757,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1584,
-        688
+        1456,
+        544
       ],
-      "id": "56201b7b-b5ab-4d71-901a-27b6a9d1b8dc",
+      "id": "74a4883a-d0e4-44fb-a590-7d7eb51bc7b1",
       "name": "Check Error"
     },
     {
@@ -725,10 +770,10 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1808,
-        592
+        1680,
+        448
       ],
-      "id": "50378f93-4408-4dfa-b152-fb2f2c59112a",
+      "id": "9906920c-99cd-419e-b580-9d5fd8cbeb7b",
       "name": "Wait1",
       "webhookId": "329833d9-69c2-4be5-b67f-318a207cc620"
     },
@@ -755,15 +800,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2032,
-        592
+        1904,
+        448
       ],
-      "id": "89d33a7d-85e8-4df0-a9f8-46e9cf271159",
+      "id": "493ddeeb-c7a3-4d30-a7ef-5b877d44547a",
       "name": "Send Results Retry1",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
+          "name": "APG-Teams"
         }
       }
     },
@@ -772,10 +817,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -864,
-        1312
+        -1008,
+        1184
       ],
-      "id": "a96abb6f-8253-4c03-b478-19e90826f378",
+      "id": "34130494-ab8b-4c4d-8cbd-5c886f44ca3b",
       "name": "manual"
     },
     {
@@ -950,10 +995,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1136,
-        832
+        1008,
+        688
       ],
-      "id": "ef380cdf-d05a-4572-b4ca-e61cf59e8a0b",
+      "id": "0f30acfe-8e4f-4315-b414-c1e61f53ee04",
       "name": "Update Metrics",
       "retryOnFail": true,
       "waitBetweenTries": 5000,
@@ -971,10 +1016,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        912,
-        832
+        784,
+        688
       ],
-      "id": "f9a8ef22-4dfe-44c5-9b89-59570ca272af",
+      "id": "878b470b-8274-4168-ac9f-e45004e14714",
       "name": "Audit End"
     },
     {
@@ -998,10 +1043,10 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.3,
       "position": [
-        688,
-        832
+        560,
+        688
       ],
-      "id": "aeff5cac-3b2b-479e-b333-3be8ed1aba37",
+      "id": "00c693ed-2f97-4866-af9f-b4ac8482b730",
       "name": "SQL Execute",
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
@@ -1009,7 +1054,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT * FROM fn_revision_queries($1, $2, $3)\n",
+        "query": "SELECT * FROM fn_revision_queries($1, $2, $3)\nlimit 5",
         "options": {
           "queryReplacement": "={{ $json.type }}, {{ $json.country }}, {{ $json.entorno }}"
         }
@@ -1017,13 +1062,187 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -128,
-        848
+        -272,
+        704
       ],
-      "id": "de6b22a4-9820-47c2-ac35-5a0724367448",
+      "id": "368cbe0e-c4b2-4a50-b804-11c35c39049b",
       "name": "Set Queries",
       "retryOnFail": true,
       "maxTries": 2,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// [NODO: Tag First Message]\n// Corre 1 vez para todos los items (post Fan In). Marca cuál va a ser\n// el PRIMER mensaje que realmente se envía a Teams en esta corrida del\n// entorno (el primero con error o con datos, en el mismo orden en que\n// Fan In los dejó). Set  HTML usa esa marca para pegarle el encabezado\n// de fecha/frecuencia/aplicación una sola vez, no en cada mensaje.\n\nconst hasContent = (json) => {\n  if (json._isError === true) return true;\n  const results = json.result;\n  if (!results || (Array.isArray(results) && results.length === 0)) return false;\n  if (Array.isArray(results) && results.length === 1) {\n    const first = results[0];\n    if (first === null || (typeof first === 'object' && Object.keys(first).length === 0)) return false;\n  }\n  return true;\n};\n\nlet tagged = false;\nfor (const entry of items) {\n  if (!tagged && hasContent(entry.json)) {\n    entry.json._isFirstMessage = true;\n    tagged = true;\n  }\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        336
+      ],
+      "id": "d7a8860b-1937-4981-8139-27a0dc1c3873",
+      "name": "Tag First Message",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $node['Message Loop'].context['done'] }}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        784,
+        320
+      ],
+      "id": "83519f05-2342-4f47-a3c8-28e6eacee1c6",
+      "name": "Message Loop"
+    },
+    {
+      "parameters": {
+        "jsCode": "const teamsResponse = $input.first().json;\nconst cred = $('Credentials Loop').first().json;\nconst msgItem = $('Message Loop').first().json;\n\nreturn {\n  json: {\n    message_id: teamsResponse.id || null,\n    query_id: msgItem.queryId,\n    pais: cred.country,\n    entorno: cred.entorno,\n    channel_name: `${cred.country} ${cred.entorno}`,\n    channel_id: cred.channelId,\n    status: true\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2288,
+        720
+      ],
+      "id": "b3526b39-4aa5-460e-9e04-4de62766df0e",
+      "name": "Prepare Log"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "log_mensajes_teams",
+          "mode": "list",
+          "cachedResultName": "log_mensajes_teams"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "message_id": 0,
+            "query_id": 0,
+            "pais": 0,
+            "entorno": 0,
+            "channel_name": 0,
+            "channel_id": 0,
+            "status": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message_id",
+              "displayName": "message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "query_id",
+              "displayName": "query_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pais",
+              "displayName": "pais",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "entorno",
+              "displayName": "entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channel_name",
+              "displayName": "channel_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "channel_id",
+              "displayName": "channel_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sent_at",
+              "displayName": "sent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2464,
+        720
+      ],
+      "id": "4037bb4c-99bf-4b86-aaea-e8141318d9e6",
+      "name": "Save Log",
+      "retryOnFail": true,
       "waitBetweenTries": 5000,
       "credentials": {
         "postgres": {
@@ -1072,6 +1291,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-06-30T17:09:11.324Z",
-  "versionId": "570a27a6-7132-4e49-afe3-8f153419062e"
+  "updatedAt": "2026-07-28T16:22:15.917Z",
+  "versionId": "41d63974-36ed-4cff-a56d-ab051366fd89"
 }
