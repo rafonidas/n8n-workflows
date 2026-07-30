@@ -632,26 +632,29 @@
     },
     {
       "parameters": {
-        "content": "## Contexto de canal\nChannel Context (Postgres -> tabla `canales`) resuelve channelId -> pais + entorno ANTES del Switch.\nNo trae secretos. Si el canal no esta cargado, pais_canal queda null."
+        "content": "## Contexto de canal\nChannel Context (Postgres -> tabla `canales`) resuelve channelId -> pais + entorno ANTES del Switch.\nNo trae secretos. Si el canal no esta cargado, pais_canal queda null.",
+        "width": 288
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        272,
-        1520
+        32,
+        3216
       ],
       "id": "46534eb5-6ba6-4ca2-88e0-a88e3278bb04",
       "name": "Sticky Context"
     },
     {
       "parameters": {
-        "content": "## PENDIENTE\n- /help como rama propia del Switch\n- insert en `mensajes` desde el flujo de revision de entornos (sin eso, Msg Lookup nunca resuelve)\n- migrar revision_queries.country a alpha-3"
+        "content": "## PENDIENTE\n- /help como rama propia del Switch\n",
+        "height": 208,
+        "width": 288
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        256,
-        1712
+        16,
+        3408
       ],
       "id": "3853d235-a611-42bf-80cf-f84523a5ffcd",
       "name": "Sticky Pendientes"
@@ -663,8 +666,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        640,
-        1552
+        384,
+        3472
       ],
       "id": "24231b29-73c9-46ba-95fb-ec6674002499",
       "name": "Sticky Secretos"
@@ -1159,8 +1162,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        384,
-        2720
+        720,
+        3216
       ],
       "id": "6c3ae074-04b4-4658-9f97-aed177af9797",
       "name": "Sticky Note4"
@@ -1198,14 +1201,14 @@
     "node:Microsoft Teams Trigger": {},
     "node:Microsoft Teams Trigger1": {
       "subscriptionIds": [
-        "ca4c4c9e-cb0a-4708-9a94-46c3fe1b8b8f",
-        "ab216e31-70a8-4436-8c30-c96cc389168c",
-        "d5e6dbd2-3651-4da5-9bce-17995094cd57"
+        "e6bc94f0-87f8-41de-8c02-b8ccd706a08f",
+        "ad1c9f44-b0fd-48f4-b2ab-44d3c76232a4",
+        "72d8d360-368c-471a-b33e-c1d0d8799412"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-27T20:05:31.965Z",
-  "versionId": "d63af6db-9447-4bb7-971d-a887b7b28257"
+  "updatedAt": "2026-07-29T20:40:07.192Z",
+  "versionId": "c4f20276-f698-411f-b6b8-1aebeeeadb6e"
 }
