@@ -1054,7 +1054,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT * FROM fn_revision_queries($1, $2, $3)\nlimit 5",
+        "query": "SELECT * FROM fn_revision_queries($1, $2, $3)",
         "options": {
           "queryReplacement": "={{ $json.type }}, {{ $json.country }}, {{ $json.entorno }}"
         }
@@ -1291,6 +1291,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2026-07-28T16:22:15.917Z",
-  "versionId": "41d63974-36ed-4cff-a56d-ab051366fd89"
+  "updatedAt": "2026-07-30T14:05:33.540Z",
+  "versionId": "58205aeb-8b0b-40a1-8d2e-7555dff06ac5"
 }
