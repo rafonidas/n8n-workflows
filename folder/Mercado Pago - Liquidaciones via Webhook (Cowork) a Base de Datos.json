@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Webhook - Recibe CSV de Cowork": {
       "main": [
@@ -132,6 +132,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-22T16:28:09.119Z",
+  "updatedAt": "2026-07-31T15:30:06.962Z",
   "versionId": "dd19af01-cbfd-40ee-856c-8086b81f32cb"
 }
