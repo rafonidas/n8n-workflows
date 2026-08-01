@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
@@ -345,12 +345,12 @@
   "staticData": {
     "node:Microsoft Teams Trigger": {
       "subscriptionIds": [
-        "50c330c5-e026-4b49-985c-daaa910098d4"
+        "a4fe6f09-65ab-4d04-a628-8b158165b481"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-04T15:11:34.527Z",
+  "updatedAt": "2026-07-31T15:30:16.879Z",
   "versionId": "7abc85a6-fd8d-4d43-b1aa-0e895bbe8f64"
 }
