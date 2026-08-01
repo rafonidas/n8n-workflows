@@ -676,9 +676,9 @@
       "parameters": {
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "watchAllChannels": true
       },
@@ -1054,7 +1054,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { reply: 'Comando no reconocido. Comandos: /list [pais] · /script [id] · /docs [id] · /retry [id] [entorno]' } }];"
+        "jsCode": "return [{ json: { reply: 'Comando no reconocido. Comandos: /list [pais] [app] · /script [id] · /docs [id] · /retry [id]' } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1143,8 +1143,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        224,
-        2224
+        256,
+        1936
       ],
       "id": "2c1c3b2d-3870-488f-8223-5c966975149f",
       "name": "HTTP Request2",
@@ -1175,8 +1175,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1248,
-        1744
+        1216,
+        1664
       ],
       "id": "755ae388-5562-4ced-b188-76aa1e8b70de",
       "name": "Code in JavaScript"
@@ -1186,7 +1186,9 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "saveDataSuccessExecution": "none",
+    "errorWorkflow": "h1TswfYCSmmTHJwB"
   },
   "shared": [
     {
@@ -1201,14 +1203,30 @@
     "node:Microsoft Teams Trigger": {},
     "node:Microsoft Teams Trigger1": {
       "subscriptionIds": [
-        "e6bc94f0-87f8-41de-8c02-b8ccd706a08f",
-        "ad1c9f44-b0fd-48f4-b2ab-44d3c76232a4",
-        "72d8d360-368c-471a-b33e-c1d0d8799412"
+        "a42560ba-bf0f-4d7b-9125-d20a02bd24dc",
+        "b82fd035-f1d4-43da-9e3d-bc70485c40c4",
+        "e8cc21a4-07de-4a52-9c8f-49ebcd61ad2d",
+        "90f057c8-1c82-47c4-93bd-44391d1a823f",
+        "1feb77bf-62d1-4a9b-b6d8-4a3394600ed4",
+        "8a2c15e1-63e1-406a-ab7c-05c25bd35e99",
+        "81406316-5043-44f2-a675-1ba31e7c9e73",
+        "c536aa6b-c00e-420e-9491-e4a9fb5ae5aa",
+        "d905e4ce-a2e5-46d6-873c-545b2a9f6837",
+        "bc444b90-fa90-48b3-af5c-b690dbe4ecfd",
+        "8f673984-e54b-4ed8-93f3-cb588f39c955",
+        "1aeee8b7-7957-4058-a7a9-722c2c874b2a",
+        "72753f86-c147-44f1-a7f6-2d505befffe8",
+        "7db23feb-c968-4ffb-8cbd-90b696512216",
+        "61c67eae-8c82-48d2-bbf3-969169fa60a8",
+        "552ada26-bc2f-4236-b9da-5938d27b76fc",
+        "ed61f832-fca0-48fe-b0f3-ce3c77ddc3d3",
+        "ab1a59e4-978e-407c-95cc-8a081ab9e1e8",
+        "80d087fa-ff7e-4886-99f7-d0222826f0a4"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-29T20:40:07.192Z",
-  "versionId": "c4f20276-f698-411f-b6b8-1aebeeeadb6e"
+  "updatedAt": "2026-07-31T19:54:12.643Z",
+  "versionId": "c661dbeb-ffe2-4c29-8f72-cf120ef8b9a3"
 }
