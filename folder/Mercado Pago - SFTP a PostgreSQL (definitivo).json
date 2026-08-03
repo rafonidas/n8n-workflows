@@ -1,17 +1,6 @@
 {
   "active": true,
   "connections": {
-    "Webhook - Recibe notificacion": {
-      "main": [
-        [
-          {
-            "node": "SFTP - Listar archivos",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "SFTP - Listar archivos": {
       "main": [
         [
@@ -66,6 +55,17 @@
           }
         ]
       ]
+    },
+    "Mail Trigger": {
+      "main": [
+        [
+          {
+            "node": "SFTP - Listar archivos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-07-06T14:51:18.018Z",
@@ -76,22 +76,6 @@
   },
   "name": "Mercado Pago - SFTP a PostgreSQL (definitivo)",
   "nodes": [
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "mercado-pago",
-        "options": {}
-      },
-      "id": "6f37fc56-2609-4b55-a230-4a873433bfdd",
-      "name": "Webhook - Recibe notificacion",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        512,
-        -816
-      ],
-      "webhookId": "REEMPLAZAR_AUTOGENERADO"
-    },
     {
       "parameters": {
         "protocol": "sftp",
@@ -193,6 +177,35 @@
           "name": "Supabase - Postgres"
         }
       }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "sender": "info@mercadopago.com"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftOutlookTrigger",
+      "typeVersion": 1,
+      "position": [
+        528,
+        -816
+      ],
+      "id": "2061eaa6-8251-4f51-a48b-0fe47d1b923a",
+      "name": "Mail Trigger",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "iRO7pQXrdJ5UuGRl",
+          "name": "Microsoft Outlook account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -208,9 +221,19 @@
       "projectId": "xeIbd1uqzDdhrEnK"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Microsoft Outlook Trigger": {
+      "lastTimeChecked": "2026-08-02T14:12:38.144-04:00"
+    },
+    "node:Microsoft Outlook Trigger1": {
+      "lastTimeChecked": "2026-08-02T14:12:38.800-04:00"
+    },
+    "node:Mail Trigger": {
+      "lastTimeChecked": "2026-08-02T14:14:58.349-04:00"
+    }
+  },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-08-01T19:05:37.989Z",
-  "versionId": "463538db-e25c-4b98-a2eb-886197889d78"
+  "updatedAt": "2026-08-02T18:14:57.990Z",
+  "versionId": "ebef0c8f-9cfd-48d7-b564-da468a269fd4"
 }
