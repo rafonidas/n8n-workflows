@@ -8,6 +8,21 @@
             "node": "Lista de BD3",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Lista de BD2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lista de BD",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lista de BD1",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -303,7 +318,7 @@
       "main": [
         [
           {
-            "node": "Code in JavaScript2",
+            "node": "Code in JavaScript4",
             "type": "main",
             "index": 0
           }
@@ -357,6 +372,11 @@
             "node": "Loop Over Items3",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
           }
         ]
       ]
@@ -585,8 +605,8 @@
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
       "position": [
-        -1120,
-        80
+        -1168,
+        224
       ],
       "id": "1ca0bfad-f89b-4ddb-8c32-0b7c20af1e42"
     },
@@ -884,8 +904,7 @@
         176
       ],
       "id": "a1b3bdc3-1629-474f-b71f-fc5553f48318",
-      "executeOnce": false,
-      "disabled": true
+      "executeOnce": false
     },
     {
       "parameters": {
@@ -899,8 +918,7 @@
         -208
       ],
       "id": "3e09aa4a-fde9-4438-805d-114e43830459",
-      "executeOnce": false,
-      "disabled": true
+      "executeOnce": false
     },
     {
       "parameters": {
@@ -917,7 +935,7 @@
     },
     {
       "parameters": {
-        "numberInputs": 3
+        "numberInputs": 4
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
@@ -1122,8 +1140,7 @@
         640
       ],
       "id": "d8337d13-5043-4d4c-bbde-44eb4f2e9732",
-      "executeOnce": false,
-      "disabled": true
+      "executeOnce": false
     },
     {
       "parameters": {
@@ -1806,15 +1823,7 @@
       "name": "Normalizacion de datos5"
     }
   ],
-  "pinData": {
-    "Code in JavaScript4": [
-      {
-        "json": {
-          "query": "\n      INSERT INTO ValoresCOMFIAR (pais, entorno, anio, mes, cantidad)\n      VALUES ('AR', 'CINES', 2026, 6, 949668);\n    "
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Bogota",
@@ -2319,12 +2328,91 @@
           "anio": 2026,
           "mes": 5,
           "cantidad": 420702
+        },
+        {
+          "ts": "2026-08-01T20:03:58.992Z",
+          "db": "COMFIAR_CO",
+          "pais": "CO",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 7,
+          "mesTexto": "Julio",
+          "procesados": 187265,
+          "aprobados": 161689,
+          "erroneos": 25576,
+          "porcentajeError": "13,66 %",
+          "cantidad": 0
+        },
+        {
+          "ts": "2026-08-01T20:04:10.525Z",
+          "db": "COMFIAR_CO2",
+          "pais": "CO",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 7,
+          "mesTexto": "Julio",
+          "procesados": 636652,
+          "aprobados": 615470,
+          "erroneos": 21182,
+          "porcentajeError": "3,33 %",
+          "cantidad": 0
+        },
+        {
+          "ts": "2026-08-01T20:04:29.296Z",
+          "db": "COMFIAR_CO3",
+          "pais": "CO",
+          "entorno": "APP3",
+          "anio": 2026,
+          "mes": 7,
+          "mesTexto": "Julio",
+          "procesados": 870013,
+          "aprobados": 720341,
+          "erroneos": 149672,
+          "porcentajeError": "17,20 %",
+          "cantidad": 0
+        },
+        {
+          "ts": "2026-08-01T20:05:20.368Z",
+          "db": "COMFIAR_AR",
+          "pais": "AR",
+          "entorno": "APP",
+          "anio": 2026,
+          "mes": 7,
+          "mesTexto": "Julio",
+          "procesados": 56221,
+          "aprobados": 54647,
+          "erroneos": 1574,
+          "porcentajeError": "2,80 %",
+          "cantidad": 0
+        },
+        {
+          "ts": "2026-08-01T20:05:37.483Z",
+          "db": "COMFIAR_AR2",
+          "pais": "AR",
+          "entorno": "APP2",
+          "anio": 2026,
+          "mes": 7,
+          "mesTexto": "Julio",
+          "procesados": 415360,
+          "aprobados": 314388,
+          "erroneos": 100972,
+          "porcentajeError": "24,31 %",
+          "cantidad": 0
+        },
+        {
+          "ts": "2026-08-02T03:30:46.630Z",
+          "db": "N/A",
+          "pais": "AR",
+          "entorno": "CINES",
+          "anio": 2026,
+          "mes": 7,
+          "cantidad": 1084101
         }
       ]
     }
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-07-06T20:40:22.789Z",
-  "versionId": "41ee2f24-f3b3-4e7c-983d-a48107d6e51b"
+  "updatedAt": "2026-08-03T12:47:49.174Z",
+  "versionId": "f0a52f43-ea5f-450e-a661-e708d4047cf1"
 }
