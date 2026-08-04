@@ -209,7 +209,7 @@
         ],
         [
           {
-            "node": "Script Query1",
+            "node": "Script Split",
             "type": "main",
             "index": 0
           }
@@ -360,6 +360,57 @@
           }
         ]
       ]
+    },
+    "Msg Lookup1": {
+      "main": [
+        [
+          {
+            "node": "Script Query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Script Split": {
+      "main": [
+        [
+          {
+            "node": "IF Script Has Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Script Has Id": {
+      "main": [
+        [
+          {
+            "node": "Script Query1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Msg Lookup1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Docs Build2": {
+      "main": [
+        [
+          {
+            "node": "Create message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-06-08T19:19:04.275Z",
@@ -372,15 +423,70 @@
   "nodes": [
     {
       "parameters": {
+        "content": "DELETE https://graph.microsoft.com/v1.0/subscriptions/33001446-c46d-48eb-a16f-0316a87ec1a0\nDELETE https://graph.microsoft.com/v1.0/subscriptions/50be57c6-035f-4f66-aaf9-9ed28421ced0\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        720,
+        3216
+      ],
+      "id": "6c3ae074-04b4-4658-9f97-aed177af9797",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## SECRETOS\nRetry Creds tiene los passwords hardcodeados (placeholders).\nEs el UNICO nodo a reemplazar cuando pases `credenciales` a Supabase."
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        384,
+        3472
+      ],
+      "id": "24231b29-73c9-46ba-95fb-ec6674002499",
+      "name": "Sticky Secretos"
+    },
+    {
+      "parameters": {
+        "content": "## PENDIENTE\n- /help como rama propia del Switch\n",
+        "height": 208,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        16,
+        3408
+      ],
+      "id": "3853d235-a611-42bf-80cf-f84523a5ffcd",
+      "name": "Sticky Pendientes"
+    },
+    {
+      "parameters": {
+        "content": "## Contexto de canal\nChannel Context (Postgres -> tabla `canales`) resuelve channelId -> pais + entorno ANTES del Switch.\nNo trae secretos. Si el canal no esta cargado, pais_canal queda null.",
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        32,
+        3216
+      ],
+      "id": "46534eb5-6ba6-4ca2-88e0-a88e3278bb04",
+      "name": "Sticky Context"
+    },
+    {
+      "parameters": {
         "jsCode": "let executionType = 'Daily';\n\nif ($(\"Monthly Trigger\").isExecuted) {\n  executionType = 'Monthly';\n} else if ($(\"Daily Trigger\").isExecuted) {\n  executionType = 'Daily';\n}  else if ($(\"Monthly Trigger\").isExecuted) {\n  executionType = \"Monthly\";\n}  else if ($(\"Hourly Trigger\").isExecuted) {\n  executionType = \"Hourly\";\n} else if ($(\"Four-hourly Trigger\").isExecuted) {\n  executionType = \"Four-hourly\";\n} else if ($(\"When Executed by Another Workflow\").isExecuted) {\n  executionType = 'Backup';\n}\nconst timezones = {\n  \"AR\": \"America/Argentina/Buenos_Aires\",\n  \"PE\": \"America/Lima\",\n  \"CO\": \"America/Bogota\",\n  \"CR\": \"America/Costa_Rica\",\n  \"BO\": \"America/La_Paz\",\n  \"EC\": \"America/Guayaquil\"\n};\n\n\nconst serverSQL1 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_ar\", entorno: \"APP\", country: \"AR\", channelId : \"19:KqPHeI2vg9nNHO2de_AHbQGLK2Xh8Ah8iODV2ttJh_k1@thread.tacv2\" },\n    { db: \"comfiar_ar2\", entorno: \"APP2\", country: \"AR\", channelId : \"19:c46ff530842c4dabbd9500e73d0b894d@thread.tacv2\"},\n    { db: \"comfiar_pe\", entorno: \"APP\", country: \"PE\", channelId : \"19:d5b204e433134ff5b1f7a90e51d76982@thread.tacv2\"},\n    { db: \"comfiar_cr\", entorno: \"APP\", country: \"CR\", channelId : \"19:a9547625aaea4e02ae5b373bdc352ae9@thread.tacv2\"},\n    { db: \"comfiar_bo\", entorno: \"APP\", country: \"BO\", channelId : \"19:5e3bf46869f140a39d48f869795379c5@thread.tacv2\"},\n    { db: \"comfiar_ec\", entorno: \"APP\", country: \"EC\", channelId : \"19:9b2cc90d29d3474bade3a60f407f56ca@thread.tacv2\"},\n    { db: \"test.comfiar.com.ar\", entorno: \"Test\", country: \"AR\", channelId : \"19:dc98fb5c02394731b1ad9e1524a962b9@thread.tacv2\"},\n    { db: \"test.comfiar.com.pe\", entorno: \"Test\", country: \"PE\", channelId : \"19:127b6f887e2e4e148b99c08db9d5dc79@thread.tacv2\"},\n    { db: \"test.comfiar.co.cr\", entorno: \"Test\", country: \"CR\", channelId : \"19:01cc7fff83964d3db08a2e35d5213d52@thread.tacv2\"},\n    { db: \"test.comfiar.com.bo\", entorno: \"Test\", country: \"BO\", channelId : \"19:86a3c7f0143a499d8f125b57ed6bce8f@thread.tacv2\"},\n    { db: \"test.comfiar.com.ec\", entorno: \"Test\", country: \"EC\", channelId : \"19:0d1a10b0b2d24f68838020e9061e48f9@thread.tacv2\"}\n\n    \n  ],\n  port: 11434, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL2 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co\", entorno: \"APP\", country: \"CO\", channelId : \"19:af378cf202564cfc87591f580cd70935@thread.tacv2\" },\n    { db: \"comfiar_co2\", entorno: \"APP2\", country: \"CO\", channelId : \"19:d31a59baa80e47aba00f2944e684c4b3@thread.tacv2\"},\n    { db: \"comfiar_co3\", entorno: \"APP3\", country: \"CO\", channelId : \"19:14b2fb9063904bccb047900af9ded2fe@thread.tacv2\"},\n    { db: \"test.comfiar.co\", entorno: \"Test\", country: \"CO\", channelId : \"19:d0982df38f334f3c9785783c3d9f1e5a@thread.tacv2\"}\n  ],\n  port: 11433, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\n\nconst serverSQL4 = {\n  server: \"host.docker.internal\",\n  db_info: [\n    { db: \"comfiar_co4\", entorno: \"APP4\", country: \"CO\", channelId : \"19:812573286f0b41c2bd20aeba77a5e710@thread.tacv2\"}\n  ],\n  port: 11436, \n  user: \"usr_automatico\",\n  password: \"1qaz2wsx3edc\"\n};\n\nconst serverSQL_Cines = {\n  server: \"172.17.0.150\",\n  db_info: [\n    { db: \"COMFIAR_CINES\", entorno: \"CINES\", country: \"AR\", channelId : \"19:b355b1cd3e6a4e4ea7ed85a227744184@thread.tacv2\"}\n  ],\n  port: 1433, \n  user: \"Soporte\",\n  password: \"FaLla:1+\"\n};\n\n\nconst mapDbs = (serverConfig) => {\n    return serverConfig.db_info.map(db => {\n      \n      return {\n        json: {\n          server_host: serverConfig.server,\n          port: serverConfig.port,\n          user: serverConfig.user,\n          password: serverConfig.password,\n          \n          database: db.db,\n          entorno: db.entorno,   \n          channelId: db.channelId,\n          country: db.country,\n          timezone: timezones[db.country] || \"UTC\", \n          type: executionType \n        }\n      };\n    });\n};\n\nconst dbsArg = mapDbs(serverSQL1);\nconst dbsCol = mapDbs(serverSQL2);\nconst dbsCol4 = mapDbs(serverSQL4);\nconst dbsCines = mapDbs(serverSQL_Cines);\n\nlet listaMaestra = [...dbsArg, ...dbsCines, ...dbsCol, ...dbsCol4];\n\nlet inputVigia = [];\ntry {\n  inputVigia = $(\"When Executed by Another Workflow\").all();\n} catch (e) {}\n\nif (inputVigia.length > 0) {\n  const control = inputVigia[0].json;\n\n  // ESCENARIO A: Recuperación Parcial (El Vigía mandó una lista de entornos)\n  if (control.Pais && control.Entorno) {\n    listaMaestra = listaMaestra.filter(m => {\n      return inputVigia.some(v => \n        v.json.Pais === m.json.country && \n        v.json.Entorno === m.json.entorno\n      );\n    });\n  } \n  \n  // ESCENARIO B: Recuperación Total (EJECUTAR_PRINCIPAL)\n  // No filtramos nada, se devuelven los 17 entornos.\n  else if (control.escenario === \"EJECUTAR_PRINCIPAL\") {\n    // Simplemente dejamos la listaMaestra intacta.\n  }\n}\n\nreturn listaMaestra;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -304,
-        1504
+        -240,
+        1280
       ],
-      "id": "89db8825-bc81-4ad7-9f87-fd6f3c4338ad",
+      "id": "b0c8445e-80ef-493e-802e-0ddc8e445b9a",
       "name": "Set Credentials"
     },
     {
@@ -394,10 +500,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        592,
-        2112
+        672,
+        1888
       ],
-      "id": "7a76d210-6f44-4ca3-a494-cb177b46ceaf",
+      "id": "9ae61e7d-3a03-43a1-9d54-e6b33d7aab31",
       "name": "Channel Context",
       "alwaysOutputData": true,
       "credentials": {
@@ -415,10 +521,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        816,
-        2112
+        896,
+        1888
       ],
-      "id": "f460cc3d-f2e8-40bd-86ab-3668dc1ac5f8",
+      "id": "22b60c65-1960-430c-8caf-399603f83a84",
       "name": "Channel Merge"
     },
     {
@@ -450,10 +556,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1616,
-        2160
+        1696,
+        1936
       ],
-      "id": "0c7a5ee2-d3b1-4be8-839e-061bfccf47d7",
+      "id": "4773f2d5-9dc9-4b31-8095-9957137a7b27",
       "name": "IF Retry Has Id"
     },
     {
@@ -467,10 +573,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1744,
-        2304
+        1824,
+        2080
       ],
-      "id": "8cadbe9d-0156-4c6d-ba61-0b94c84a735a",
+      "id": "3680a3fd-bd05-4878-882b-52946b89f342",
       "name": "Msg Lookup",
       "alwaysOutputData": true,
       "credentials": {
@@ -483,15 +589,15 @@
     },
     {
       "parameters": {
-        "jsCode": "// Rama \"no vino id explicito\": deducirlo del mensaje al que se respondio.\nconst ctx  = $('Retry Split1').first().json;\nconst rows = $input.all().map(i => i.json).filter(r => r && r.message_id);\n\nif (!rows.length) {\n  return [{ json: { ...ctx, retry_id: '',\n    reply: 'No pude deducir a que query corresponde este mensaje. Indica el id: <code>/retry [id] [entorno]</code>' }}];\n}\n\nconst msg = rows[0];\nreturn [{ json: { ...ctx,\n  retry_id: String(msg.query_id),\n  _msg_pais: msg.country,\n  _msg_entorno: msg.entorno\n}}];"
+        "jsCode": "// Rama \"no vino id explicito\": deducirlo del mensaje al que se respondio.\nconst ctx  = $('Retry Split1').first().json;\nconst rows = $input.all().map(i => i.json).filter(r => r && r.message_id);\n\nif (!rows.length) {\n  return [{ json: { ...ctx, retry_id: '',\n    reply: 'No pude deducir a que query corresponde este mensaje. Indica el id: <code>/retry [id] [entorno]</code>' }}];\n}\n\nconst msg = rows[0];\nreturn [{ json: { ...ctx,\n  retry_id: String(msg.query_id),\n  _msg_pais: msg.pais,\n  _msg_entorno: msg.entorno\n}}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1904,
-        2304
+        1984,
+        2080
       ],
-      "id": "ecdb63ff-5c66-43f9-bbd8-5aec6e0a6825",
+      "id": "a1a006cb-8c53-4dc7-8e2c-2e9b10153d41",
       "name": "Msg Resolve"
     },
     {
@@ -523,10 +629,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2064,
-        2304
+        2144,
+        2080
       ],
-      "id": "6c891d11-45cd-4c29-876a-aa14a2558bcf",
+      "id": "996c94b6-acff-4efc-8a1e-133a0c4287a3",
       "name": "IF Msg Found"
     },
     {
@@ -536,23 +642,23 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2192,
-        2160
+        2272,
+        1936
       ],
-      "id": "6ac85f94-cda1-4119-bd41-5fd0cc697bbd",
+      "id": "ccf20b8b-6c56-47f3-977e-9e83fc7f9ffe",
       "name": "Retry Target"
     },
     {
       "parameters": {
-        "jsCode": "// ============================================================\n// PLACEHOLDER — credenciales hardcodeadas hasta tener el OK para\n// subirlas a Supabase. La forma de salida (sql_*) es IDENTICA a la\n// que devolveria \"select * from credenciales where country=$1 and entorno=$2\",\n// asi que migrar = reemplazar SOLO este nodo por uno Postgres.\n// ============================================================\nconst CREDS = {\n  // serverSQL1 — host.docker.internal:11434\n  'ARG|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_ar',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ARG|APP2':  { server:'host.docker.internal', port:11434, database:'comfiar_ar2',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'PER|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_pe',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CRI|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_cr',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'BOL|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_bo',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ECU|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_ec',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ARG|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.ar', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'PER|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.pe', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CRI|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.co.cr',  user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'BOL|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.bo', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'ECU|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.ec', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL2 — host.docker.internal:11433\n  'COL|APP':   { server:'host.docker.internal', port:11433, database:'comfiar_co',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'COL|APP2':  { server:'host.docker.internal', port:11433, database:'comfiar_co2',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'COL|APP3':  { server:'host.docker.internal', port:11433, database:'comfiar_co3',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'COL|TEST':  { server:'host.docker.internal', port:11433, database:'test.comfiar.co',     user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL4 — host.docker.internal:11436\n  'COL|APP4':  { server:'host.docker.internal', port:11436, database:'comfiar_co4',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL_Cines — 172.17.0.150:1433\n  'ARG|CINES': { server:'172.17.0.150',         port:1433,  database:'COMFIAR_CINES',       user:'Soporte', password:'FaLla:1+' }\n};\n\nconst t = $('Retry Target').first().json;\nconst q = $json; // fila de revision_queries que viene de Retry Query\n\nconst key = `${t.retry_pais}|${t.retry_entorno}`;\nconst c = CREDS[key];\n\nif (!c) {\n  return [{ json: { _stop: true,\n    reply: `❌ No hay credenciales cargadas para <b>${t.retry_pais} / ${t.retry_entorno}</b>.` }}];\n}\n\nreturn [{ json: { ...q, ...c, sql_timeout: 90000 } }];"
+        "jsCode": "// ============================================================\n// PLACEHOLDER — credenciales hardcodeadas hasta tener el OK para\n// subirlas a Supabase. La forma de salida (sql_*) es IDENTICA a la\n// que devolveria \"select * from credenciales where country=$1 and entorno=$2\",\n// asi que migrar = reemplazar SOLO este nodo por uno Postgres.\n// ============================================================\nconst CREDS = {\n  // serverSQL1 — host.docker.internal:11434\n  'AR|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_ar',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'AR|APP2':  { server:'host.docker.internal', port:11434, database:'comfiar_ar2',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'PE|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_pe',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CR|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_cr',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'BO|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_bo',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'EC|APP':   { server:'host.docker.internal', port:11434, database:'comfiar_ec',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'AR|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.ar', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'PE|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.pe', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CR|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.co.cr',  user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'BO|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.bo', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'EC|TEST':  { server:'host.docker.internal', port:11434, database:'test.comfiar.com.ec', user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL2 — host.docker.internal:11433\n  'CO|APP':   { server:'host.docker.internal', port:11433, database:'comfiar_co',          user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CO|APP2':  { server:'host.docker.internal', port:11433, database:'comfiar_co2',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CO|APP3':  { server:'host.docker.internal', port:11433, database:'comfiar_co3',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  'CO|TEST':  { server:'host.docker.internal', port:11433, database:'test.comfiar.co',     user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL4 — host.docker.internal:11436\n  'CO|APP4':  { server:'host.docker.internal', port:11436, database:'comfiar_co4',         user:'usr_automatico', password:'1qaz2wsx3edc' },\n  // serverSQL_Cines — 172.17.0.150:1433\n  'AR|CINES': { server:'172.17.0.150',         port:1433,  database:'COMFIAR_CINES',       user:'Soporte', password:'FaLla:1+' }\n};\n\nconst t = $('Retry Target').first().json;\nconst q = $json; \n\nconst pais = (t.retry_pais || '').toUpperCase().trim();\nconst entorno = (t.retry_entorno || '').toUpperCase().trim();\n\nconst key = `${pais}|${entorno}`;\nconst c = CREDS[key];\n\nif (!c) {\n  return [{ json: { _stop: true,\n    reply: `❌ No hay credenciales cargadas para la combinación <b>${pais || 'ND'} / ${entorno || 'ND'}</b> (Key intentada: \"${key}\").` }}];\n}\n\nreturn [{ json: { ...q, ...c, sql_timeout: 90000 } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2640,
-        2160
+        2720,
+        1936
       ],
-      "id": "340366c5-2441-40ce-aba2-fc1d435aec09",
+      "id": "3907e74b-e1df-43ff-bacb-91cbc4100861",
       "name": "Retry Creds",
       "notes": "PLACEHOLDER: credenciales hardcodeadas. Reemplazar por nodo Postgres contra 'credenciales' cuando tengas el OK."
     },
@@ -563,10 +669,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2864,
-        2160
+        2944,
+        1936
       ],
-      "id": "27cca62e-898e-41bd-824e-8fee253e94e6",
+      "id": "f2543820-9e02-43fd-a9d4-384c8b08b536",
       "name": "Retry Payload"
     },
     {
@@ -598,10 +704,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3088,
-        2160
+        3168,
+        1936
       ],
-      "id": "1be779f5-7e0f-422d-abcc-9c27475a4229",
+      "id": "97e93bd5-5492-4fb6-8895-6679588d5e8c",
       "name": "IF Payload OK"
     },
     {
@@ -611,10 +717,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3696,
-        1856
+        3776,
+        1632
       ],
-      "id": "fc8e8e1c-e5db-4fd3-b287-66ff159e8d75",
+      "id": "3f23e5fe-257e-4365-8c85-7ef105a53ee7",
       "name": "Retry Success Format"
     },
     {
@@ -624,53 +730,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3680,
-        2064
+        3760,
+        1840
       ],
-      "id": "25b97a02-bc94-4c3e-b004-af192ac7cb92",
+      "id": "fe2280d1-2d1c-4bdc-b829-eccded5d763d",
       "name": "Retry Error Format"
-    },
-    {
-      "parameters": {
-        "content": "## Contexto de canal\nChannel Context (Postgres -> tabla `canales`) resuelve channelId -> pais + entorno ANTES del Switch.\nNo trae secretos. Si el canal no esta cargado, pais_canal queda null.",
-        "width": 288
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        32,
-        3216
-      ],
-      "id": "46534eb5-6ba6-4ca2-88e0-a88e3278bb04",
-      "name": "Sticky Context"
-    },
-    {
-      "parameters": {
-        "content": "## PENDIENTE\n- /help como rama propia del Switch\n",
-        "height": 208,
-        "width": 288
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        16,
-        3408
-      ],
-      "id": "3853d235-a611-42bf-80cf-f84523a5ffcd",
-      "name": "Sticky Pendientes"
-    },
-    {
-      "parameters": {
-        "content": "## SECRETOS\nRetry Creds tiene los passwords hardcodeados (placeholders).\nEs el UNICO nodo a reemplazar cuando pases `credenciales` a Supabase."
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        384,
-        3472
-      ],
-      "id": "24231b29-73c9-46ba-95fb-ec6674002499",
-      "name": "Sticky Secretos"
     },
     {
       "parameters": {
@@ -685,10 +749,10 @@
       "type": "n8n-nodes-base.microsoftTeamsTrigger",
       "typeVersion": 1,
       "position": [
-        -304,
-        2112
+        -240,
+        1888
       ],
-      "id": "89e8fc93-c4e7-48fb-921b-d3a9e9ca32f5",
+      "id": "8f6a42f2-7d9f-4808-be78-4e3fdba0a7ab",
       "name": "Microsoft Teams Trigger1",
       "webhookId": "105dea8c-95ac-41f7-a22d-72e71ababdfd",
       "credentials": {
@@ -705,10 +769,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -80,
-        2112
+        0,
+        1888
       ],
-      "id": "a3a166d4-232d-45cb-a216-fa3d75e4b22b",
+      "id": "f6d3bf7e-fff2-4262-a682-cf1f71da0c77",
       "name": "Message Data1"
     },
     {
@@ -723,10 +787,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        144,
-        2112
+        224,
+        1888
       ],
-      "id": "f2a965ab-f216-40bd-8684-75b407b5bb73",
+      "id": "73afb58e-2325-440d-ae31-fe047cb3aa21",
       "name": "HTTP Request1",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
@@ -742,10 +806,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        368,
-        2112
+        448,
+        1888
       ],
-      "id": "41eb8ea4-aa15-4577-93bc-ddaf5cfb25ed",
+      "id": "385e31e8-2666-453b-a323-5f399095d0f3",
       "name": "Parse Command1"
     },
     {
@@ -891,16 +955,16 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3,
       "position": [
-        1040,
-        2064
+        1120,
+        1840
       ],
-      "id": "793b156f-bec2-4139-96a2-1eab8995a8f4",
+      "id": "72816eaa-b05d-4add-ad55-23273df59f16",
       "name": "Switch Comando1"
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT DISTINCT rq.query_id, rq.description, rq.type, rq.target_env, rq.application\nFROM revision_queries rq\nJOIN revision_query_scopes s ON s.revision_query_id = rq.id   -- confirmame si es id o query_id\nWHERE ($1 = 'ALL' OR s.country = $1 OR s.country = 'ALL')\n  AND ($2 = ''    OR s.target_env = $2 OR s.target_env = 'ALL')\n  AND ($3::text IS NULL OR rq.application = $3)\nORDER BY rq.type, rq.query_id;",
+        "query": "SELECT DISTINCT rq.query_id, rq.description, rq.type, rq.target_env, rq.application\nFROM revision_queries rq\nJOIN revision_query_scopes s ON s.revision_query_id = rq.id\nWHERE ($1 = 'ALL' OR s.country = $1 OR s.country = 'ALL')\n  AND ($2 = ''    OR s.target_env = $2 OR s.target_env = 'ALL')\n  AND ($3::text IS NULL OR rq.application = $3)\nORDER BY rq.type, rq.query_id;",
         "options": {
           "queryReplacement": "={{ $json.list_pais }},{{ $json.list_entorno }},{{ $json.list_app }}"
         }
@@ -908,10 +972,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1472,
-        1552
+        1552,
+        1344
       ],
-      "id": "2596b190-9517-49dd-8fd7-b0d11dc44ab4",
+      "id": "09633c2c-68ed-4a80-b636-ed4bd4b4d1cb",
       "name": "List Query1",
       "alwaysOutputData": true,
       "credentials": {
@@ -928,10 +992,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1696,
-        1552
+        1776,
+        1328
       ],
-      "id": "1d62b32d-c1c3-4d15-806f-88f3292fd47e",
+      "id": "b3ed48ad-fb8e-4eea-98b7-32975315358a",
       "name": "List Format1"
     },
     {
@@ -939,16 +1003,16 @@
         "operation": "executeQuery",
         "query": "SELECT query_id, description, revision_query FROM revision_queries WHERE query_id = $1;",
         "options": {
-          "queryReplacement": "={{ $json.arg }}"
+          "queryReplacement": "={{ $json.query_id || $json.arg }}"
         }
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1472,
-        1744
+        1952,
+        1504
       ],
-      "id": "cb0e0f1a-1ddb-44b9-9b5a-8e9376700cfd",
+      "id": "5df7d8b4-5bd9-4a04-a199-c825406265e4",
       "name": "Script Query1",
       "alwaysOutputData": true,
       "credentials": {
@@ -965,10 +1029,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1696,
-        1744
+        2208,
+        1520
       ],
-      "id": "d2cc84ce-3eb1-4931-9ca6-0c5f9f442053",
+      "id": "89c1339e-2c59-4017-b414-4b917db96da4",
       "name": "Script Format1"
     },
     {
@@ -978,10 +1042,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1696,
-        1936
+        1776,
+        1712
       ],
-      "id": "ce9d1c46-7a23-439b-b0e2-2fa033d73163",
+      "id": "ce97213d-6b8e-4c48-acd5-fc964791d874",
       "name": "Docs Build1"
     },
     {
@@ -991,10 +1055,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1456,
-        2144
+        1536,
+        1920
       ],
-      "id": "460a52d6-8a83-4064-b30e-3f479dbf493d",
+      "id": "29c7ed16-f495-4a29-9bb2-9903ab5bf711",
       "name": "Retry Split1"
     },
     {
@@ -1008,10 +1072,10 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        2416,
-        2160
+        2496,
+        1936
       ],
-      "id": "28c685bc-4fd0-4d88-bb10-325202e5a016",
+      "id": "c39d7f6b-e1e6-469e-9d01-709e7643ba6d",
       "name": "Retry Query1",
       "alwaysOutputData": true,
       "credentials": {
@@ -1043,10 +1107,10 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        3408,
-        2048
+        3488,
+        1824
       ],
-      "id": "69a14e7f-5e0b-4cae-89d8-47f23f7a57bf",
+      "id": "9d26e323-665f-4b6c-abca-f0b52547a42e",
       "name": "Retry Exec (call testo)1",
       "alwaysOutputData": true,
       "onError": "continueErrorOutput",
@@ -1059,10 +1123,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1376,
-        3040
+        1456,
+        2816
       ],
-      "id": "83747079-f22c-4c9d-be36-4f920b71020f",
+      "id": "94592170-14b9-4320-bd1c-862b5c8785b2",
       "name": "Default1"
     },
     {
@@ -1070,9 +1134,9 @@
         "resource": "channelMessage",
         "teamId": {
           "__rl": true,
-          "value": "53f577e2-4094-42b5-8a8b-695b91d0d74f",
+          "value": "2f7e4d78-5cc0-4b00-bb44-372596f96fcf",
           "mode": "list",
-          "cachedResultName": "n8n notifications"
+          "cachedResultName": "Notificaciones Soporte"
         },
         "channelId": {
           "__rl": true,
@@ -1089,16 +1153,16 @@
       "type": "n8n-nodes-base.microsoftTeams",
       "typeVersion": 2,
       "position": [
-        4144,
-        2496
+        4224,
+        2272
       ],
-      "id": "be7d4ddc-ba53-40fc-af47-3881b19be916",
+      "id": "150ab8a5-d6da-4343-ae9c-043ef1586410",
       "name": "Create message1",
       "webhookId": "67c06470-33e8-4bf0-a2e2-f683fd494116",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
-          "id": "Yyblo5OMavkgN1oD",
-          "name": "Teams"
+          "id": "wRTXroRHWhyLiVUq",
+          "name": "APG-Teams"
         }
       }
     },
@@ -1111,29 +1175,28 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        2880,
-        1504
+        2960,
+        1280
       ],
-      "id": "31e1b338-b0ac-48e4-85ac-e9303e565d2c",
+      "id": "0a988dbc-45bc-4581-af66-2791b2f61bc6",
       "name": "Sticky Note3"
     },
     {
       "parameters": {
-        "jsCode": "const id = $json.arg;\nif (!id) return [{ json: { reply: 'Uso: /docs [id]' } }];\nconst url = `https://apg.cloudafm.com:443/default.aspx?accion=editardoc&DocumentoId=${id}&VersionId=1`;\nreturn [{ json: {reply: `<a href=\"${url}\">Link al AFM</a>` } }];"
+        "jsCode": "const helpText = `\n<b>Comandos disponibles</b><br><br>\n\n<b>/list [país] [entorno]</b> — lista queries de revisión. Todos los argumentos son opcionales y van separados por espacio.<br>\n&nbsp;&nbsp;• Sin argumentos: usa el país y entorno del canal donde estás (según la tabla de canales), y aplicación = COMFIAR por defecto.<br>\n&nbsp;&nbsp;• país: 2 letras (AR, CO, PE, BO, EC, CR) o 3 letras (ARG, COL...). \"ALL\" = todos los países.<br>\n&nbsp;&nbsp;• entorno: APP, APP2, APP3, APP4, TEST, CINES (según país). Vacío = sin filtrar por entorno.<br>\n&nbsp;&nbsp;• Ejemplos: <code>/list</code> · <code>/list co test</code> <br><br>\n\n<b>/script [id]</b> (o <b>/query [id]</b>) — muestra el SQL de la query con ese id. Si hay más de una variante cargada con el mismo id, muestra todas.<br><br>\n\n<b>/docs [id]</b> — devuelve el link al documento de la query en AFM.<br><br>\n\n<b>/retry [id] [entorno]</b> — reintenta la ejecución de una query puntual.<br>\n&nbsp;&nbsp;• id: opcional, si no se aclara reintenta el id asociado al mensaje .<br>\n&nbsp;&nbsp;• entorno: opcional, usa el del canal actual si no se aclara.<br>\n&nbsp;&nbsp;• Siempre corre contra el país del canal donde estás — no se puede elegir otro país desde acá.<br>\n&nbsp;&nbsp;• Responde con el resultado en tabla si tuvo éxito, o el detalle del error si falló.<br><br>\n\n<b>/help</b> — este mensaje.\n`;\nreturn [{ json: { reply: helpText } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1728,
-        2576
+        1808,
+        2352
       ],
-      "id": "3f265cff-d288-4365-a18d-efd1c09ce147",
+      "id": "d6429390-b057-4b7f-9388-99aa611d4316",
       "name": "Docs Build2"
     },
     {
       "parameters": {
-        "method": "DELETE",
-        "url": "=https://graph.microsoft.com/v1.0/subscriptions/50be57c6-035f-4f66-aaf9-9ed28421ced0",
+        "url": "=https://graph.microsoft.com/v1.0/subscriptions",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "microsoftTeamsOAuth2Api",
         "options": {
@@ -1143,10 +1206,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        256,
-        1936
+        240,
+        1680
       ],
-      "id": "2c1c3b2d-3870-488f-8223-5c966975149f",
+      "id": "29f35044-e0e7-4921-97fe-ee1048a12d37",
       "name": "HTTP Request2",
       "credentials": {
         "microsoftTeamsOAuth2Api": {
@@ -1157,29 +1220,89 @@
     },
     {
       "parameters": {
-        "content": "DELETE https://graph.microsoft.com/v1.0/subscriptions/33001446-c46d-48eb-a16f-0316a87ec1a0\nDELETE https://graph.microsoft.com/v1.0/subscriptions/50be57c6-035f-4f66-aaf9-9ed28421ced0\n"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        720,
-        3216
-      ],
-      "id": "6c3ae074-04b4-4658-9f97-aed177af9797",
-      "name": "Sticky Note4"
-    },
-    {
-      "parameters": {
         "jsCode": "const appAliasMap = {\n  comfiar: 'COMFIAR', confiar: 'COMFIAR', comfiar1: 'COMFIAR',\n  comfiar2: 'COMFIAR 2', c2: 'COMFIAR 2',\n  viga: 'VIGA',\n  beelling: 'Beelling', billing: 'Beelling',\n  all: null\n};\n\n\nconst paisDown = { ARG: 'AR', COL: 'CO', BOL: 'BO', PER: 'PE', ECU: 'EC', CRI: 'CR' };\n\nconst parts = ($json.arg || '').trim().split(/\\s+/).filter(Boolean);\n\nlet list_pais = (parts[0] || $json.pais_canal || 'ALL').toUpperCase();\nlist_pais = paisDown[list_pais] || list_pais;\n\nconst list_entorno = (parts[1] || $json.entorno_canal || '').toUpperCase();\n\nconst list_app = parts[2]\n  ? (appAliasMap[parts[2].toLowerCase()] ?? null)\n  : ($json.app_canal || 'COMFIAR');\n\nreturn [{ json: { ...$json, list_pais, list_entorno, list_app } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1216,
-        1664
+        1312,
+        1360
       ],
-      "id": "755ae388-5562-4ced-b188-76aa1e8b70de",
+      "id": "059c94da-b935-443b-a268-7cea5e7ad112",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT message_id, query_id, pais, entorno\nFROM log_mensajes_teams\nWHERE message_id = $1\nLIMIT 1;",
+        "options": {
+          "queryReplacement": "={{ $json.rootMessageId }}"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1776,
+        1536
+      ],
+      "id": "6a631264-aca6-4350-bb5b-74b6c3792fe3",
+      "name": "Msg Lookup1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "Fh2O8WF6g31IXgP5",
+          "name": "Supabase - Postgres"
+        }
+      },
+      "notes": "Retry por reply: deduce query_id a partir del mensaje raiz. Depende del insert pendiente en el flujo de revision de entornos."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Arrastra el contexto del canal + separa los args de /script\nconst parts = ($json.arg || '').split(/\\s+/).filter(Boolean);\nreturn [{ json: {\n  ...$json,\n  script_id: parts[0] || '',\n  script_entorno_arg: (parts[1] || '').toUpperCase()\n}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1392,
+        1568
+      ],
+      "id": "48ff8d4e-faca-4bff-9ba2-a86aebfd7011",
+      "name": "Script Split"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "r1",
+              "leftValue": "={{ $json.script_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1552,
+        1520
+      ],
+      "id": "234b2137-12b7-4484-98d6-e226a0995df3",
+      "name": "IF Script Has Id"
     }
   ],
   "pinData": {},
@@ -1187,8 +1310,8 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
-    "saveDataSuccessExecution": "none",
-    "errorWorkflow": "h1TswfYCSmmTHJwB"
+    "errorWorkflow": "h1TswfYCSmmTHJwB",
+    "timezone": "America/Argentina/Buenos_Aires"
   },
   "shared": [
     {
@@ -1203,30 +1326,30 @@
     "node:Microsoft Teams Trigger": {},
     "node:Microsoft Teams Trigger1": {
       "subscriptionIds": [
-        "a42560ba-bf0f-4d7b-9125-d20a02bd24dc",
-        "b82fd035-f1d4-43da-9e3d-bc70485c40c4",
-        "e8cc21a4-07de-4a52-9c8f-49ebcd61ad2d",
-        "90f057c8-1c82-47c4-93bd-44391d1a823f",
-        "1feb77bf-62d1-4a9b-b6d8-4a3394600ed4",
-        "8a2c15e1-63e1-406a-ab7c-05c25bd35e99",
-        "81406316-5043-44f2-a675-1ba31e7c9e73",
-        "c536aa6b-c00e-420e-9491-e4a9fb5ae5aa",
-        "d905e4ce-a2e5-46d6-873c-545b2a9f6837",
-        "bc444b90-fa90-48b3-af5c-b690dbe4ecfd",
-        "8f673984-e54b-4ed8-93f3-cb588f39c955",
-        "1aeee8b7-7957-4058-a7a9-722c2c874b2a",
-        "72753f86-c147-44f1-a7f6-2d505befffe8",
-        "7db23feb-c968-4ffb-8cbd-90b696512216",
-        "61c67eae-8c82-48d2-bbf3-969169fa60a8",
-        "552ada26-bc2f-4236-b9da-5938d27b76fc",
-        "ed61f832-fca0-48fe-b0f3-ce3c77ddc3d3",
-        "ab1a59e4-978e-407c-95cc-8a081ab9e1e8",
-        "80d087fa-ff7e-4886-99f7-d0222826f0a4"
+        "7f2f1ac2-7eca-4d1c-86bf-acfbbfd3127c",
+        "e010128c-79d2-4e8a-b1bc-2a4a98956ac7",
+        "f4992c46-e9e0-46b3-8e6b-88bb0ca3a93d",
+        "bf91b233-2289-4c7f-82bb-f68b74529d58",
+        "a183939e-f524-4c26-8c9d-9b12d8c858ab",
+        "50249994-2e99-41cf-9b7d-93761b03964c",
+        "62a24f6a-1987-4a65-a775-a998495d2c8f",
+        "ab904999-a729-424d-a822-c94cbda52f9d",
+        "9436ff87-712e-4f17-94b7-94f6d8da2cfc",
+        "aa96f3cc-749b-476f-af99-7392325db7ff",
+        "540989ea-7622-40b7-a8f5-f44f064783c7",
+        "fdf13374-e572-406c-9b77-a7136467b269",
+        "5daaf534-625a-4649-9839-9896c7f195e6",
+        "b152d6b8-446a-4974-9190-9c0e52d5421b",
+        "5c6a98f5-4d59-439d-9b8d-a8dec95f34dc",
+        "ca632442-72f6-40fa-a8d8-6ae63a1694d2",
+        "3ef74265-7ae0-4242-8a35-ef85e6c1c3ec",
+        "873c5ac8-483d-4880-af27-f75a8739ee42",
+        "de5bba75-9de6-4ad5-8f0f-c7cbe1acf22a"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-31T19:54:12.643Z",
-  "versionId": "c661dbeb-ffe2-4c29-8f72-cf120ef8b9a3"
+  "updatedAt": "2026-08-03T18:59:29.881Z",
+  "versionId": "dde50205-45df-42a2-8fcd-a7354ad3c2f7"
 }
