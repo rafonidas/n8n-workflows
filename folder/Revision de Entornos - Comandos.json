@@ -1311,7 +1311,8 @@
     "callerPolicy": "workflowsFromSameOwner",
     "availableInMCP": false,
     "errorWorkflow": "h1TswfYCSmmTHJwB",
-    "timezone": "America/Argentina/Buenos_Aires"
+    "timezone": "America/Argentina/Buenos_Aires",
+    "saveDataSuccessExecution": "none"
   },
   "shared": [
     {
@@ -1326,30 +1327,30 @@
     "node:Microsoft Teams Trigger": {},
     "node:Microsoft Teams Trigger1": {
       "subscriptionIds": [
-        "7f2f1ac2-7eca-4d1c-86bf-acfbbfd3127c",
-        "e010128c-79d2-4e8a-b1bc-2a4a98956ac7",
-        "f4992c46-e9e0-46b3-8e6b-88bb0ca3a93d",
-        "bf91b233-2289-4c7f-82bb-f68b74529d58",
-        "a183939e-f524-4c26-8c9d-9b12d8c858ab",
-        "50249994-2e99-41cf-9b7d-93761b03964c",
-        "62a24f6a-1987-4a65-a775-a998495d2c8f",
-        "ab904999-a729-424d-a822-c94cbda52f9d",
-        "9436ff87-712e-4f17-94b7-94f6d8da2cfc",
-        "aa96f3cc-749b-476f-af99-7392325db7ff",
-        "540989ea-7622-40b7-a8f5-f44f064783c7",
-        "fdf13374-e572-406c-9b77-a7136467b269",
-        "5daaf534-625a-4649-9839-9896c7f195e6",
-        "b152d6b8-446a-4974-9190-9c0e52d5421b",
-        "5c6a98f5-4d59-439d-9b8d-a8dec95f34dc",
-        "ca632442-72f6-40fa-a8d8-6ae63a1694d2",
-        "3ef74265-7ae0-4242-8a35-ef85e6c1c3ec",
-        "873c5ac8-483d-4880-af27-f75a8739ee42",
-        "de5bba75-9de6-4ad5-8f0f-c7cbe1acf22a"
+        "cb6b56dc-915e-49cb-b16f-145857ea86d3",
+        "12e8646a-fa8a-4ca5-89c9-db64f8d376bb",
+        "bccb318f-61c3-452c-aca1-034d6b6378a3",
+        "9346f833-eee4-4f51-87d9-d6a3dfe8977d",
+        "fe8fe666-94aa-4bd2-ad06-134e79d71ab5",
+        "b0b63e18-b88f-475a-886a-7875256ea761",
+        "64ab7fa8-9189-4e3d-8605-b3a03b0092fe",
+        "4f0d0707-ea74-4541-8c64-9c7e76593c90",
+        "d0593bb1-4332-4fa7-8b11-6235db21f77b",
+        "65f80df4-2500-4384-b5d5-f247e15fa072",
+        "fe715762-b52a-4816-ba27-536fc6f7650f",
+        "4fe50acd-bb9e-4eae-a38b-fdf12dc4deec",
+        "db26dd29-ae12-4388-bec2-f7fbccb36193",
+        "6aadbf35-2a49-4373-bc73-a103e67ee8a2",
+        "b76a382a-1e52-49c6-9d8d-eec4e2d83801",
+        "3fa5801d-0075-4175-b2e3-cb41a92952d1",
+        "bc666213-fce9-4b8b-8675-fb789b6be816",
+        "70f3545f-9e75-4a7c-8377-53e8323de264",
+        "89a6fa67-e387-4ad5-a58e-4de12eee5b96"
       ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-08-03T18:59:29.881Z",
-  "versionId": "dde50205-45df-42a2-8fcd-a7354ad3c2f7"
+  "updatedAt": "2026-08-04T17:39:49.394Z",
+  "versionId": "6642edd2-ae5d-46c1-8cce-b90fbd79ac82"
 }
