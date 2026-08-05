@@ -82,7 +82,7 @@
       "credentials": {
         "microsoftTeamsOAuth2Api": {
           "id": "wRTXroRHWhyLiVUq",
-          "name": "N8N-TeamsAccount"
+          "name": "APG-Teams"
         }
       },
       "notes": "⚠️ Reemplazar teamId y channelId con los IDs reales de RRHH"
@@ -246,6 +246,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-24T12:56:08.408Z",
-  "versionId": "83d84731-3076-444a-80bf-12ffb013fad9"
+  "updatedAt": "2026-08-04T13:04:54.510Z",
+  "versionId": "beb05f4c-f39c-4411-81a6-8ddd4d601a41"
 }
