@@ -1,0 +1,228 @@
+{
+  "active": false,
+  "connections": {
+    "Cambio de estado?": {
+      "main": [
+        [
+          {
+            "node": "Extraer datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer datos": {
+      "main": [
+        [
+          {
+            "node": "Traer detalle del Work Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-13T17:35:00.470Z",
+  "id": "EP3EejNK0Pv3chUL",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "TFS - Pruebas API (leer / crear / actualizar)",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-state",
+              "leftValue": "={{ $json.body.resource.fields['System.State'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -480,
+        592
+      ],
+      "id": "764634e6-b0eb-4526-9093-1c1701b68252",
+      "name": "Cambio de estado?"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "workItemId",
+              "value": "={{ $json.body.resource.workItemId }}",
+              "type": "number"
+            },
+            {
+              "id": "f2",
+              "name": "estadoAnterior",
+              "value": "={{ $json.body.resource.fields['System.State'].oldValue }}",
+              "type": "string"
+            },
+            {
+              "id": "f3",
+              "name": "estadoNuevo",
+              "value": "={{ $json.body.resource.fields['System.State'].newValue }}",
+              "type": "string"
+            },
+            {
+              "id": "f4",
+              "name": "modificadoPor",
+              "value": "={{ $json.body.resource.revisedBy.displayName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -256,
+        496
+      ],
+      "id": "2b393945-6ac5-4d43-ad67-2b9061ed207a",
+      "name": "Extraer datos"
+    },
+    {
+      "parameters": {
+        "url": "=http://tfs.apg.local/tfs/DefaultCollection/_apis/wit/workitems/{{ $json.workItemId }}?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -32,
+        496
+      ],
+      "id": "0360ca15-6222-4e53-aba2-d42f6cf3ecb3",
+      "name": "Traer detalle del Work Item"
+    },
+    {
+      "parameters": {
+        "url": "http://tfs.apg.local/COMFIAR/_apis/wit/workitems/7851?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        -64
+      ],
+      "id": "328bea86-c9e1-4523-b08d-1d392a3d673e",
+      "name": "LEER work item 7851",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://tfs.apg.local/COMFIAR/Gesti%C3%B3n%20de%20PMO/_apis/wit/workitems/$Tarea?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json-patch+json",
+        "body": "=[{\"op\":\"add\",\"path\":\"/fields/System.Title\",\"value\":\"Prueba creada desde n8n\"}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        144
+      ],
+      "id": "7b6dc94a-0dbe-46bc-9732-b380b19f658e",
+      "name": "CREAR una tarea",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "http://tfs.apg.local/COMFIAR/_apis/wit/workitems/7851?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json-patch+json",
+        "body": "=[{\"op\":\"add\",\"path\":\"/fields/System.State\",\"value\":\"Confirmado\"}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        336
+      ],
+      "id": "8247f847-825e-4c6d-81c0-305d99a3996e",
+      "name": "ACTUALIZAR estado 7851",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-02-13T17:35:00.470Z",
+      "updatedAt": "2026-02-13T17:35:00.470Z",
+      "role": "workflow:owner",
+      "workflowId": "EP3EejNK0Pv3chUL",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2026-02-22T15:41:09.896Z",
+      "updatedAt": "2026-02-22T15:41:09.896Z",
+      "id": "9JTNtucyisgoOCMZ",
+      "name": "Rafa"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2026-08-06T20:51:05.098Z",
+  "versionId": "22ffba46-848f-4055-ae72-2ac66f9d18d4"
+}
