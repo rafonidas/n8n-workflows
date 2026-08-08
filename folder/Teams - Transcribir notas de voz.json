@@ -1,0 +1,442 @@
+{
+  "active": true,
+  "connections": {
+    "Microsoft Outlook Trigger": {
+      "main": [
+        [
+          {
+            "node": "LEER work item 7851",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejecutar manualmente": {
+      "main": [
+        [
+          {
+            "node": "Obtener mensajes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener mensajes": {
+      "main": [
+        [
+          {
+            "node": "Separar mensajes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar mensajes": {
+      "main": [
+        [
+          {
+            "node": "Extraer URL de audio1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Renombrar binario": {
+      "main": [
+        [
+          {
+            "node": "Transcribe a recording",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer URL de audio1": {
+      "main": [
+        [
+          {
+            "node": "Descargar audio1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Descargar audio1": {
+      "main": [
+        [
+          {
+            "node": "Renombrar binario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribe a recording": {
+      "main": [
+        [
+          {
+            "node": "Resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-02-13T17:35:00.470Z",
+  "id": "EP3EejNK0Pv3chUL",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Teams - Transcribir notas de voz",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "http://tfs.apg.local/COMFIAR/_apis/wit/workitems/7851?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -656,
+        176
+      ],
+      "id": "328bea86-c9e1-4523-b08d-1d392a3d673e",
+      "name": "LEER work item 7851",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://tfs.apg.local/COMFIAR/Gesti%C3%B3n%20de%20PMO/_apis/wit/workitems/$Tarea?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json-patch+json",
+        "body": "=[{\"op\":\"add\",\"path\":\"/fields/System.Title\",\"value\":\"Prueba creada desde n8n\"}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -656,
+        384
+      ],
+      "id": "7b6dc94a-0dbe-46bc-9732-b380b19f658e",
+      "name": "CREAR una tarea",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "http://tfs.apg.local/COMFIAR/_apis/wit/workitems/7851?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json-patch+json",
+        "body": "=[{\"op\":\"add\",\"path\":\"/fields/System.State\",\"value\":\"Confirmado\"}]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -656,
+        576
+      ],
+      "id": "8247f847-825e-4c6d-81c0-305d99a3996e",
+      "name": "ACTUALIZAR estado 7851",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "=GET",
+        "url": "http://tfs.apg.local/COMFIAR/_apis/wit/workitems/7851?api-version=5.0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -416,
+        176
+      ],
+      "id": "56b1382b-79ee-46dd-a880-b9dde05fd59f",
+      "name": "LEER work item ",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "8kKBdPYCCZCDyhok",
+          "name": "tfs-test"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.microsoftOutlookTrigger",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        160
+      ],
+      "id": "e1664db5-a517-44dc-8c41-d69a09876d0e",
+      "name": "Microsoft Outlook Trigger",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "iRO7pQXrdJ5UuGRl",
+          "name": "Rafa-Outlook"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        64
+      ],
+      "id": "af8018e5-a003-4ddb-b5fb-c337aaf39dd1",
+      "name": "Ejecutar manualmente"
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/chats/19:3bcfa8fe-c819-4cb1-82cf-5dc8da30ceb2_dc249723-4f57-4995-bdc6-836ab587c0fd@unq.gbl.spaces/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$top",
+              "value": "10"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        64,
+        64
+      ],
+      "id": "c603f396-3abe-4ad6-9abc-67a1e5f2864c",
+      "name": "Obtener mensajes",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "value",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        288,
+        64
+      ],
+      "id": "472b9b98-e2db-4a37-b842-7b3acae33f96",
+      "name": "Separar mensajes"
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n nombra el binario \"$value\" (ultimo segmento de la URL), sin extension.\n// La API de transcripcion valida el formato por el nombre del archivo,\n// asi que hay que renombrarlo antes de enviarlo.\n\nfor (const item of $input.all()) {\n  if (item.binary?.data) {\n    item.binary.data.fileName = 'audio.m4a';\n    item.binary.data.fileExtension = 'm4a';\n    item.binary.data.mimeType = 'audio/mp4';\n  }\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        64
+      ],
+      "id": "7d84a92e-1ef5-4de4-bd6a-7212fe5c9dd0",
+      "name": "Renombrar binario"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1",
+              "name": "messageId",
+              "value": "={{ $('Extraer URL de audio1').item.json.messageId }}",
+              "type": "string"
+            },
+            {
+              "id": "f2",
+              "name": "autor",
+              "value": "={{ $('Extraer URL de audio1').item.json.autor }}",
+              "type": "string"
+            },
+            {
+              "id": "f3",
+              "name": "fecha",
+              "value": "={{ $('Extraer URL de audio1').item.json.fecha }}",
+              "type": "string"
+            },
+            {
+              "id": "f4",
+              "name": "duracion",
+              "value": "={{ $('Extraer URL de audio1').item.json.duracion }}",
+              "type": "string"
+            },
+            {
+              "id": "f5",
+              "name": "transcripcion",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1424,
+        64
+      ],
+      "id": "ba8c4501-8889-405d-86ff-739b7ec5e488",
+      "name": "Resultado"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filtra solo los mensajes con nota de voz y extrae la URL del audio.\n// El campo attachment.content es un JSON escapado como string.\n\nconst salida = [];\n\nfor (const item of $input.all()) {\n  const msg = item.json;\n  const adjuntos = msg.attachments || [];\n\n  for (const a of adjuntos) {\n    if (a.contentType !== 'application/vnd.microsoft.card.audio') continue;\n\n    let card;\n    try {\n      card = JSON.parse(a.content);\n    } catch (e) {\n      continue; // content mal formado, lo salteamos\n    }\n\n    const url = card?.media?.[0]?.url;\n    if (!url) continue;\n\n    salida.push({\n      json: {\n        messageId: msg.id,\n        chatId: msg.chatId,\n        autor: msg.from?.user?.displayName || null,\n        fecha: msg.createdDateTime,\n        duracion: card.duration || null,\n        audioUrl: url\n      }\n    });\n  }\n}\n\nreturn salida;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        64
+      ],
+      "id": "b8234946-c6e6-419c-bbc7-72f4bd2529c7",
+      "name": "Extraer URL de audio1"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.audioUrl }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "microsoftTeamsOAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        64
+      ],
+      "id": "6c219f6c-c455-469c-b193-99be27f0ea13",
+      "name": "Descargar audio1",
+      "credentials": {
+        "microsoftTeamsOAuth2Api": {
+          "id": "Yyblo5OMavkgN1oD",
+          "name": "Teams"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        64
+      ],
+      "id": "c3a3c8e7-b865-447a-a102-abef1ee204b2",
+      "name": "Transcribe a recording",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ZJmgBZh9xCXuMgg4",
+          "name": "Rafa-Gemin"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2026-02-13T17:35:00.470Z",
+      "updatedAt": "2026-02-13T17:35:00.470Z",
+      "role": "workflow:owner",
+      "workflowId": "EP3EejNK0Pv3chUL",
+      "projectId": "xeIbd1uqzDdhrEnK"
+    }
+  ],
+  "staticData": {
+    "node:Microsoft Outlook Trigger": {
+      "lastTimeChecked": "2026-08-07T20:31:26.003-04:00"
+    },
+    "node:Microsoft Teams Trigger": {}
+  },
+  "tags": [
+    {
+      "createdAt": "2026-02-22T15:41:09.896Z",
+      "updatedAt": "2026-02-22T15:41:09.896Z",
+      "id": "9JTNtucyisgoOCMZ",
+      "name": "Rafa"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-08-07T20:52:27.251Z",
+  "versionId": "d24e9deb-2026-4613-a1bd-54a1ba1277d9"
+}
